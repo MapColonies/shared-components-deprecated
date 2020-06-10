@@ -59,14 +59,20 @@ const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
 
   useEffect(() => {
     if (geom) {
-      vectorSource?.addFeature(new Feature(geom));
+      const geojson = new GeoJSON();
+      const geometry = geojson.readGeometry(geom);
+      
+      const feature = new Feature({geometry: geometry});
+      vectorSource?.addFeature(feature);
 
-      return () => vectorSource?.clear();
+      return () => {
+        vectorSource?.clear();
+      };
     }
   }, [geom, vectorSource])
 
   useEffect(() => {
-    const options: DrawOptions = { type: GeometryType.CIRCLE, source: vectorSource, condition: condition.always }
+    const options: DrawOptions = { type: GeometryType.CIRCLE, condition: condition.always }
     switch (drawMode) {
       case DrawModes.none:
         return;
