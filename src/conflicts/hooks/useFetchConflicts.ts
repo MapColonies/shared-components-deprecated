@@ -1,5 +1,5 @@
 import useAxios from 'axios-hooks'
-import { Conflict } from '../models/conflict';
+import { IConflict } from '../models/conflict';
 import { ApiHttpResponse } from '../../common/models/api-response';
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
@@ -7,9 +7,9 @@ import { PaginationResult } from '../../common/models/pagination-result';
 
 const apiUrl = 'http://localhost:8000/conflicts'
 
-function useFetchConflicts(params: Object): [PaginationResult<Conflict[]>, boolean, AxiosError | undefined] {
+function useFetchConflicts(params: Object): [PaginationResult<IConflict[]>, boolean, AxiosError | undefined] {
 
-  const [{ data: apiResponse, loading, error }, refetch] = useAxios<ApiHttpResponse<PaginationResult<Conflict[]>>>(
+  const [{ data: apiResponse, loading, error }, refetch] = useAxios<ApiHttpResponse<PaginationResult<IConflict[]>>>(
     { url: apiUrl, },
     { manual: true }
   );

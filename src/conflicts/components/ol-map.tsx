@@ -48,8 +48,9 @@ const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
         vector
       ],
       view: new View({
-        center: fromLonLat([35, 32]),
-        zoom: 10
+        center: [35, 32],
+        zoom: 10,
+        projection: 'EPSG:4326'
       })
     });
     console.log("creating map");

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Conflict } from '../models/conflict';
+import { IConflict } from '../models/conflict';
 
 interface ConflictItemProps {
-  conflict: Conflict
+  conflict: IConflict
 }
 
 function ConflictItem(props: ConflictItemProps) {
