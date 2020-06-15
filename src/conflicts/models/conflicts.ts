@@ -8,6 +8,7 @@ import IConflictRequestParams from './conflict-request-params';
 
 type conflictResponse = ApiHttpResponse<PaginationResult<IConflict[]>>;
 type conflictAxiosResponse = AxiosResponse<conflictResponse>;
+
 export const ConflictsStore = types.model({
   conflicts: types.array(Conflict),
   state: types.enumeration("State", ["pending", "done", "error"]),
