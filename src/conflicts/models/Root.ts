@@ -4,10 +4,10 @@ import { ConflictsStore } from './conflicts';
 
 
 const rootModel = types.model({
-  conflicts: ConflictsStore
+  conflictsStore: ConflictsStore
 });
 
-export const rootStore = rootModel.create({conflicts:{state: 'done', conflicts: []}});
+export const rootStore = rootModel.create({conflictsStore:{state: 'done', conflicts: [], selectedConflict: null}});
 
 export interface IRootInstance extends Instance<typeof rootModel> {};
 const RootStoreContext = createContext<null | IRootInstance>(null);

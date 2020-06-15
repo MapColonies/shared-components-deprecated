@@ -3,15 +3,16 @@ import './ol-map.css'
 import { Map, View, Feature } from 'ol';
 import { Tile as TileLayer } from 'ol/layer'
 import { OSM } from 'ol/source';
-import { fromLonLat } from 'ol/proj';
 import { Draw } from 'ol/interaction';
 import GeometryType from "ol/geom/GeometryType";
 import { GeoJSON } from 'ol/format'
 import { createBox, DrawEvent, Options as DrawOptions } from 'ol/interaction/Draw';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
-import { GeoJSONGeometry } from 'ol/format/GeoJSON';
 import * as condition from 'ol/events/condition'
+import { observer } from 'mobx-react-lite';
+import { useMst } from '../models/Root';
+import { Geometry } from '@turf/helpers';
 
 export enum DrawModes {
   box,
@@ -20,24 +21,26 @@ export enum DrawModes {
 }
 
 export interface OlMapProps {
-  onPolygonSelected?: (geom: GeoJSONGeometry) => void,
+  onPolygonSelected?: (geom: Geometry) => void,
   drawMode: DrawModes,
-  geom?: GeoJSONGeometry
+  geom?: Geometry
 };
 
-const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
+const OlMap: React.FC<OlMapProps> = observer(({ onPolygonSelected, drawMode, geom }) => {
   const mapElementRef = useRef<HTMLDivElement>(null);
   // const mapRef = useRef<Map>();
   const [map, setMap] = useState<Map>();
-  const [vectorSource, setVectorSource] = useState<VectorSource>();
+  const [selectionVectorSource, setSelectionVectorSource] = useState<VectorSource>();
+  const conflictsVectorSource = useRef<VectorSource>();
+  const { conflictsStore } = useMst();
 
   useEffect(() => {
-    const source = new VectorSource();
-    setVectorSource(source);
+    const selectVectorSource = new VectorSource();
+    setSelectionVectorSource(selectVectorSource);
 
-    const vector = new VectorLayer({
-      source: source
-    });
+    const conflictsSource = new VectorSource();
+    conflictsVectorSource.current = conflictsSource;
+
 
     const map = new Map({
       target: mapElementRef.current as HTMLElement,
@@ -45,7 +48,8 @@ const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
         new TileLayer({
           source: new OSM()
         }),
-        vector
+        new VectorLayer({ source: selectVectorSource }),
+        new VectorLayer({ source: conflictsSource })
       ],
       view: new View({
         center: [35, 32],
@@ -53,24 +57,31 @@ const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
         projection: 'EPSG:4326'
       })
     });
-    console.log("creating map");
 
     setMap(map);
   }, [])
 
   useEffect(() => {
+    const geojson = new GeoJSON();
+    if (conflictsStore.conflictLocations.length > 0) {
+      const featuresToAdd = conflictsStore.conflictLocations.map(location => geojson.readFeature(location));
+      conflictsVectorSource.current?.addFeatures(featuresToAdd)
+    }
+  }, [conflictsStore.conflictLocations])
+
+  useEffect(() => {
     if (geom) {
       const geojson = new GeoJSON();
       const geometry = geojson.readGeometry(geom);
-      
-      const feature = new Feature({geometry: geometry});
-      vectorSource?.addFeature(feature);
+
+      const feature = new Feature({ geometry: geometry });
+      selectionVectorSource?.addFeature(feature);
 
       return () => {
-        vectorSource?.clear();
+        selectionVectorSource?.clear();
       };
     }
-  }, [geom, vectorSource])
+  }, [geom, selectionVectorSource])
 
   useEffect(() => {
     const options: DrawOptions = { type: GeometryType.CIRCLE, condition: condition.always }
@@ -91,7 +102,7 @@ const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
     const onDrawEnd = (e: DrawEvent) => {
       const geoJson = new GeoJSON();
       const geom = geoJson.writeGeometryObject(e.feature.getGeometry())
-      onPolygonSelected?.(geom);
+      onPolygonSelected?.(geom as Geometry);
     };
 
     draw.on('drawend', onDrawEnd);
@@ -103,6 +114,6 @@ const OlMap: React.FC<OlMapProps> = ({ onPolygonSelected, drawMode, geom }) => {
   }, [onPolygonSelected, drawMode, map])
 
   return (<div className="map" ref={mapElementRef}></div>)
-}
+});
 
 export default OlMap;

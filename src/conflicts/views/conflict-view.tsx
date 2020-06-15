@@ -1,13 +1,13 @@
-import React, { Props, useState } from 'react';
+import React, { useState } from 'react';
 import './conflict-view.css'
 import OlMap, { DrawModes } from '../components/ol-map';
 import ConflictsList from '../components/conflicts-list';
-import { GeoJSONGeometry } from 'ol/format/GeoJSON';
 import { Provider, rootStore } from '../models/Root';
+import { Geometry } from '@turf/helpers';
 
-function ConflictView() {
+const ConflictView: React.FC = () => {
   const [drawMode, setDrawMode] = useState(DrawModes.none);
-  const [geom, setGeom] = useState<GeoJSONGeometry>();
+  const [geom, setGeom] = useState<Geometry>();
   return (
     <Provider value={rootStore}>
       <div className="flex-container">
@@ -28,9 +28,9 @@ function ConflictView() {
         </div>
         <div className="map-pane">
           <OlMap geom={geom} drawMode={drawMode} onPolygonSelected={(geom) => {
-            console.log(geom);
             setGeom(geom)
             setDrawMode(DrawModes.none);
+            rootStore.conflictsStore.fetchConflicts({location:geom})
           }} />
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { types, Instance } from "mobx-state-tree";
-import { Location } from './location';
+import { Geometry } from '@turf/helpers';
 
 export const Conflict = types.model({
   id: types.identifier,
@@ -8,7 +8,7 @@ export const Conflict = types.model({
   source_entity: types.frozen(),
   target_entity: types.frozen(),
   description: types.string,
-  location: types.maybeNull(types.frozen<Location>()),
+  location: types.frozen<Geometry>(),
   has_resolved: types.boolean,
   resolved_at: types.maybeNull(types.Date),
   resolution_id: types.maybeNull(types.string),
