@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useMap } from '../map';
 import { Draw } from 'ol/interaction';
 import { createBox, DrawEvent, Options as DrawOptions } from 'ol/interaction/Draw';
@@ -17,7 +17,7 @@ export interface DrawProps {
 }
 
 
-export const DrawInteraction: React.FC<DrawProps> = ({ children, drawType, onPolygonSelected }) => {
+export const DrawInteraction: React.FC<DrawProps> = ({ drawType, onPolygonSelected }) => {
   const map = useMap();
 
   useEffect(() => {

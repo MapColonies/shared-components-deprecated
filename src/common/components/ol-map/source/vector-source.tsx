@@ -23,7 +23,7 @@ export const VectorSource: React.FC = ({children}) => {
 
   useEffect(() => {
     vectorLayer.setSource(vectorSource)
-  }, [])
+  }, [vectorSource, vectorLayer])
 
   return <VectorSourceProvider value={vectorSource}>{children}</VectorSourceProvider>;
 };

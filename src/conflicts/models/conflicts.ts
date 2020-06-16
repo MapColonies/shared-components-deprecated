@@ -4,7 +4,7 @@ import Axios, { AxiosResponse } from 'axios';
 import { ApiHttpResponse } from '../../common/models/api-response';
 import { PaginationResult } from '../../common/models/pagination-result';
 import { feature, Feature, Geometry } from '@turf/helpers';
-import IConflictRequestParams from './conflict-request-params';
+import { ConflictSearchParams } from './conflict-search-params';
 
 type conflictResponse = ApiHttpResponse<PaginationResult<IConflict[]>>;
 type conflictAxiosResponse = AxiosResponse<conflictResponse>;
@@ -12,21 +12,19 @@ type conflictAxiosResponse = AxiosResponse<conflictResponse>;
 export const ConflictsStore = types.model({
   conflicts: types.array(Conflict),
   state: types.enumeration("State", ["pending", "done", "error"]),
-  selectedConflict: types.maybeNull(types.reference(Conflict))
-
+  selectedConflict: types.maybeNull(types.reference(Conflict)),
+  searchParams: ConflictSearchParams
 }).views(self => ({
   get conflictLocations(): Feature<Geometry>[] {
     return self.conflicts.map((conflict) => feature<Geometry>(conflict.location,{}));
   }
 
 })).actions(self => {
-  const fetchConflicts = flow(function* fetchConflicts(params?: IConflictRequestParams): Generator<Promise<conflictAxiosResponse>, void, conflictAxiosResponse> {
+  const fetchConflicts = flow(function* fetchConflicts(): Generator<Promise<conflictAxiosResponse>, void, conflictAxiosResponse> {
     self.conflicts = cast([]);
     self.state = 'pending';
     try {
-      console.log(params);
-      
-      const result = yield Axios.post<conflictResponse>(`${process.env.REACT_APP_API_BASE_URL}/conflicts`, params);
+      const result = yield Axios.post<conflictResponse>(`${process.env.REACT_APP_API_BASE_URL}/conflicts`, self.searchParams);
       const conflicts = result.data.data.data;
 
       self.selectedConflict = null;

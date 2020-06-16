@@ -23,7 +23,7 @@ export const VectorLayer: React.FC = ({children}) => {
   useEffect(() => {
     map.addLayer(vectorLayer)
     return () => {map.removeLayer(vectorLayer);}
-  }, [])
+  }, [map, vectorLayer])
 
   return (
   <VectorLayerProvider value={vectorLayer}>

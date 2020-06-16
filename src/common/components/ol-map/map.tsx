@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo, createContext, useContext, useState } from 'react';
+import React, { useRef, useEffect, createContext, useContext, useState } from 'react';
 import { Map as OlMap, View } from 'ol'
 import './map.css'
 
@@ -17,7 +17,6 @@ export const useMap = () => {
 
 export const Map: React.FC = (props) => {
   const mapElementRef = useRef<HTMLDivElement>(null);
-  // const mapRef = useRef<Map>();
   const [map] = useState(
     new OlMap({
       view: new View({
@@ -31,7 +30,7 @@ export const Map: React.FC = (props) => {
 
   useEffect(() => {
     map.setTarget(mapElementRef.current as HTMLElement)
-  }, [])
+  }, [map])
 
   return (
     <MapProvider value={map}>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
-import { Geometry, feature } from '@turf/helpers';
+import React, { useEffect } from 'react';
+import { Geometry } from '@turf/helpers';
 import { GeoJSON } from 'ol/format'
 import { useVectorSource } from './source/vector-source';
 
@@ -16,7 +16,7 @@ export const GeoJSONFeature: React.FC<FeatureProps> = ({geometry}) => {
     const feature = geoJSON.readFeature(geometry);
     source.addFeature(feature);
     return () => {source.removeFeature(feature)};
-  }, [feature])
+  }, [geometry, source])
 
   return null;
 };

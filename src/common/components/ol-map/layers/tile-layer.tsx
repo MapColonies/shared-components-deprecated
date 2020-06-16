@@ -24,7 +24,7 @@ export const TileLayer: React.FC = ({children}) => {
     map.addLayer(tileLayer)
 
     return () => {map.removeLayer(tileLayer);}
-  }, [])
+  }, [map, tileLayer])
 
   return (
   <TileLayerProvider value={tileLayer}>
