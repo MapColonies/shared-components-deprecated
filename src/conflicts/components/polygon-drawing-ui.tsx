@@ -1,9 +1,9 @@
 import React from 'react';
-import { useMst } from '../models/Root';
+import { useStore } from '../models/rootStore';
 import { DrawType } from '../../common/components/ol-map/interactions/draw';
 
 export const PolygonDrawingUi: React.FC = () => {
-  const root = useMst();
+  const root = useStore();
   return (<div>
     <button onClick={() => {
       root.mapStore.startDraw(DrawType.polygon);

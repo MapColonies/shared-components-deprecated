@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { IConflict } from '../models/conflict';
+import { IConflict } from '../models/conflictStore';
 
 interface ConflictItemProps {
   conflict: IConflict,

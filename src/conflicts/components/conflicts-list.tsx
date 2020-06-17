@@ -1,22 +1,17 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import ConflictItem from './conflict-item';
-import { useMst } from '../models/Root';
+import { useStore } from '../models/rootStore';
 import { observer } from "mobx-react-lite"
-import { IConflict } from '../models/conflict';
+import { IConflict } from '../models/conflictStore';
 
 const ConflictsList: React.FC = observer(() => {
   // const params = useMemo(() => ({}), []);
   // const [apiResponse, loading, error] = useFetchConflicts(params);
-  const { conflictsStore } = useMst(); 
+  const { conflictsStore } = useStore();
 
   const onItemSelected = useCallback((conflict: IConflict) => {
     conflictsStore.selectConflict(conflict);
   }, [conflictsStore])
-  
-  useEffect(() => {
-    conflictsStore.fetchConflicts()
-  }, [conflictsStore])
-
   if (conflictsStore.state === 'pending') {
     return <div>loading...</div>
   } else if (conflictsStore.state === 'error') {

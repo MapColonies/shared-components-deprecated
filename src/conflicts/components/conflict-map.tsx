@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { Map } from '../../common/components/ol-map/map';
-import { useMst } from '../models/Root';
+import { useStore } from '../models/rootStore';
 import { TileLayer } from '../../common/components/ol-map/layers/tile-layer';
 import { TileOsm } from '../../common/components/ol-map/source/osm';
 import { VectorLayer } from '../../common/components/ol-map/layers/vector-layer';
@@ -10,7 +10,7 @@ import { GeoJSONFeature } from '../../common/components/ol-map/feature';
 import { DrawInteraction } from '../../common/components/ol-map/interactions/draw';
 
 const ConflictMap: React.FC = observer(() => {
-  const { conflictsStore, mapStore } = useMst();
+  const { conflictsStore, mapStore } = useStore();
 
   return (
     <Map>

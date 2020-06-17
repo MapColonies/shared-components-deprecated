@@ -1,9 +1,9 @@
 import useAxios from 'axios-hooks'
-import { IConflict } from '../models/conflict';
 import { ApiHttpResponse } from '../../common/models/api-response';
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { PaginationResult } from '../../common/models/pagination-result';
+import { IConflict } from '../models/conflictStore';
 
 const apiUrl = 'http://localhost:8000/conflicts'
 
