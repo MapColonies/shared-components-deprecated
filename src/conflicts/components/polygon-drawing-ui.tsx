@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '../models/rootStore';
-import { DrawType } from '../../common/components/ol-map/interactions/draw';
+import { DrawType } from '../../common/models/enums';
 
 export const PolygonDrawingUi: React.FC = () => {
   const root = useStore();

@@ -5,11 +5,7 @@ import { createBox, DrawEvent, Options as DrawOptions } from 'ol/interaction/Dra
 import GeometryType from 'ol/geom/GeometryType';
 import { GeoJSON } from 'ol/format'
 import { Geometry } from '@turf/helpers';
-
-export enum DrawType {
-  box,
-  polygon
-}
+import { DrawType } from '../../../models/enums';
 
 export interface DrawProps {
   drawType: DrawType,

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  onClick={[Function]}
+>
+  <div>
+    server1
+  </div>
+  <div>
+    server2
+  </div>
+  <div>
+    some desc 1
+  </div>
+  <hr />
+</div>
+`;

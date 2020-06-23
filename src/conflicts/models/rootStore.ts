@@ -3,8 +3,7 @@ import { useContext, createContext } from 'react';
 import { ConflictStore } from './conflictStore';
 import { ConflictMapState } from './mapStore';
 
-
-export const rootStore = types
+export const baseRootStore = types
   .model({
     conflictsStore: types.optional(ConflictStore, { state: 'pending', searchParams: {} }),
     mapStore: types.optional(ConflictMapState, {})
@@ -13,15 +12,16 @@ export const rootStore = types
     get fetch() {
       return getEnv(self).fetch;
     }
-  }))
-  .actions(self => ({
-    afterCreate() {
-      self.conflictsStore.fetchConflicts()
-    }
   }));
 
+export const rootStore = baseRootStore.actions(self => ({
+  afterCreate() {
+    self.conflictsStore.fetchConflicts()
+  }
+}));
+export interface IBaseRootStore extends Instance<typeof baseRootStore> { };
 export interface IRootStore extends Instance<typeof rootStore> { };
-const RootStoreContext = createContext<null | IRootStore>(null);
+const RootStoreContext = createContext<null | IRootStore | IBaseRootStore>(null);
 
 export const StoreProvider = RootStoreContext.Provider;
 export const useStore = () => {

@@ -14,7 +14,6 @@ const conflictFormatter = (conflict: IConflict) => {
   newConflict.updated_at = new Date(conflict.updated_at);
   newConflict.resolved_at = conflict.resolved_at ? new Date(conflict.resolved_at) : null;
   newConflict.deleted_at = conflict.deleted_at ? new Date(conflict.deleted_at) : null
-  newConflict.location = JSON.parse(newConflict.location as unknown as string)
   return newConflict;
 }
 
@@ -63,14 +62,13 @@ export const ConflictStore = types
       self.conflicts = cast([]);
       self.state = 'pending';
       try {
-        const result = yield self.root.fetch(`${process.env.REACT_APP_API_BASE_URL}/conflicts`, self.searchParams);
+        const result = yield self.root.fetch("/conflicts", self.searchParams);
         const conflicts = result.data.data;
         resetSelectedConflict()
         self.conflicts.replace(conflicts.map(conflictFormatter));
         self.state = 'done';
       } catch (error) {
         self.state = 'error';
-        console.log(error);
       }
     })
 

@@ -1,6 +1,6 @@
 import { types, Instance } from "mobx-state-tree";
 import { Geometry } from '@turf/helpers';
-import { DrawType } from '../../common/components/ol-map/interactions/draw';
+import { DrawType } from '../../common/models/enums';
 
 export const ConflictMapState = types
   .model({
