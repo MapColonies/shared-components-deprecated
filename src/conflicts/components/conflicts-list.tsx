@@ -1,20 +1,26 @@
-import React, { useMemo } from 'react';
+import React, { useCallback } from 'react';
 import ConflictItem from './conflict-item';
-import useFetchConflicts from '../hooks/useFetchConflicts';
+import { useStore } from '../models/rootStore';
+import { observer } from "mobx-react-lite"
+import { IConflict } from '../models/conflictStore';
 
-const ConflictsList = () => {
-  const params = useMemo(() => ({}), []);
-  const [apiResponse, loading, error] = useFetchConflicts(params);
-  
-  if (loading) {
+const ConflictsList: React.FC = observer(() => {
+  // const params = useMemo(() => ({}), []);
+  // const [apiResponse, loading, error] = useFetchConflicts(params);
+  const { conflictsStore } = useStore();
+
+  const onItemSelected = useCallback((conflict: IConflict) => {
+    conflictsStore.selectConflict(conflict);
+  }, [conflictsStore])
+  if (conflictsStore.state === 'pending') {
     return <div>loading...</div>
-  } else if (error) {
+  } else if (conflictsStore.state === 'error') {
     return <div>error!</div>
   } else {
     return (<div>
-      {apiResponse?.data?.map((conflict) => (<ConflictItem key={conflict.id} conflict={conflict} />))}
+      {conflictsStore.conflicts.map((conflict) => (<ConflictItem onSelected={onItemSelected} key={conflict.id} conflict={conflict} />))}
     </div>)
   }
-}
+})
 
 export default ConflictsList

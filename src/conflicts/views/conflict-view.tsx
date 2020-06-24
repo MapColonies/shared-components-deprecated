@@ -1,35 +1,18 @@
-import React, { Props, useState } from 'react';
+import React from 'react';
 import './conflict-view.css'
-import OlMap, { DrawModes } from '../components/ol-map';
+import ConflictMap from '../components/conflict-map';
 import ConflictsList from '../components/conflicts-list';
-import { GeoJSONGeometry } from 'ol/format/GeoJSON';
+import { PolygonDrawingUi } from '../components/polygon-drawing-ui';
 
-function ConflictView() {
-  const [drawMode, setDrawMode] = useState(DrawModes.none);
-  const [geom, setGeom] = useState<GeoJSONGeometry>();
+const ConflictView: React.FC = () => {
   return (
     <div className="flex-container">
       <div className="list-pane">
-        <div>
-          <button onClick={() => {
-            setDrawMode(DrawModes.polygon)
-          }}>polygon</button>
-          <button onClick={() => {
-            setDrawMode(DrawModes.box)
-          }}>box</button>
-          <button onClick={() => {
-            setDrawMode(DrawModes.none)
-            setGeom(undefined);
-          }}>cancel</button>
-        </div>
+        <PolygonDrawingUi />
         <ConflictsList />
       </div>
       <div className="map-pane">
-        <OlMap geom={geom} drawMode={drawMode} onPolygonSelected={(geom) => {
-          console.log(geom);
-          setGeom(geom)
-          setDrawMode(DrawModes.none);
-        }} />
+        <ConflictMap></ConflictMap>
       </div>
     </div>
   );
