@@ -1,6 +1,6 @@
 import { ConflictMapState } from './mapStore';
 import { DrawType } from '../../common/models/enums';
-import { Geometry } from '@turf/helpers';
+import { Geometry } from 'geojson';
 
 
 it('start draw action should set the draw state to the correct value', () => {
@@ -12,7 +12,7 @@ it('start draw action should set the draw state to the correct value', () => {
 });
 
 it('save the geometry and reset the draw state on setGeometry', () => {
-  const geometry: Geometry = { type: 'point', coordinates: [] };
+  const geometry: Geometry = { type: 'Point', coordinates: [] };
   const store = ConflictMapState.create({});
 
   store.setGeometry(geometry);

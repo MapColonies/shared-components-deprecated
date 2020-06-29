@@ -1,5 +1,5 @@
 import { types, Instance } from "mobx-state-tree";
-import { Geometry } from '@turf/helpers';
+import { Geometry } from 'geojson';
 import { DrawType } from '../../common/models/enums';
 
 export const ConflictMapState = types
@@ -12,7 +12,7 @@ export const ConflictMapState = types
       self.drawState = type;
     },
 
-    setGeometry: function (geom: Geometry) {
+    setGeometry: function (geom: Geometry | null) {
       self.currentGeometry = geom;
       self.drawState = null
     },

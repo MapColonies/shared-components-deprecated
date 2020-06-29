@@ -13,6 +13,7 @@ export const PolygonDrawingUi: React.FC = () => {
     }}>box</button>
     <button onClick={() => {
       root.mapStore.resetState();
+      root.conflictsStore.searchParams.resetLocation();
     }}>cancel</button>
   </div>)
 };
