@@ -10,7 +10,10 @@ const mockResetState = jest.fn();
 jest.mock('../models/rootStore', () => {
   return {
     useStore: jest.fn().mockImplementation(() => {
-      return { mapStore: { startDraw: mockStartDraw, resetState: mockResetState } };
+      return { 
+        mapStore: { startDraw: mockStartDraw, resetState: mockResetState },
+        conflictsStore: {searchParams:{resetLocation: jest.fn()}}
+     };
     })
   }
 });

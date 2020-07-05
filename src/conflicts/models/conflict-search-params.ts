@@ -7,7 +7,8 @@ export const ConflictSearchParams = types
     geojson: types.maybe(types.frozen<Geometry>()),
     from: types.maybe(types.Date),
     to: types.maybe(types.Date),
-    resolved: types.maybe(types.boolean)
+    resolved: types.maybe(types.boolean),
+    keywords: types.array(types.string)
   })
   .views(self => ({
     get isDateRangeValid(): boolean {
@@ -26,6 +27,10 @@ export const ConflictSearchParams = types
 
     setResolved(isResolved?: boolean): void {
       self.resolved = isResolved;
+    },
+
+    setKeywords(keywords:string[]) {
+      self.keywords.replace(keywords)
     },
 
     resetLocation(): void {
