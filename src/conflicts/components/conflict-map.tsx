@@ -8,9 +8,18 @@ import { VectorLayer } from '../../common/components/ol-map/layers/vector-layer'
 import { VectorSource } from '../../common/components/ol-map/source/vector-source';
 import { GeoJSONFeature } from '../../common/components/ol-map/feature';
 import { DrawInteraction } from '../../common/components/ol-map/interactions/draw';
+import { Geometry } from 'geojson';
+import rewind from '@turf/rewind';
+import { Polygon } from '@turf/helpers';
 
 const ConflictMap: React.FC = observer(() => {
   const { conflictsStore, mapStore } = useStore();
+
+  const onPolygonSelected = (geometry: Geometry) => {
+    const rewindedPolygon = rewind(geometry as Polygon);
+    conflictsStore.searchParams.setLocation(rewindedPolygon);
+    mapStore.setGeometry(rewindedPolygon);
+  };
 
   return (
     <Map>
@@ -26,7 +35,7 @@ const ConflictMap: React.FC = observer(() => {
           <GeoJSONFeature geometry={mapStore.currentGeometry} />
         </VectorSource>
       </VectorLayer>}
-      {mapStore.drawState !== null && <DrawInteraction drawType={mapStore.drawState} onPolygonSelected={mapStore.setGeometry} />}
+      {mapStore.drawState !== null && <DrawInteraction drawType={mapStore.drawState} onPolygonSelected={onPolygonSelected} />}
     </Map >
   );
 });

@@ -1,7 +1,8 @@
-import { types, Instance, flow, cast, getParent } from "mobx-state-tree";
+import { types, Instance, flow, cast, getParent, onSnapshot, getSnapshot } from "mobx-state-tree";
 import { ApiHttpResponse } from '../../common/models/api-response';
 import { PaginationResult } from '../../common/models/pagination-result';
-import { feature, Feature, Geometry } from '@turf/helpers';
+import { feature } from '@turf/helpers';
+import { Feature, Geometry } from 'geojson'
 import { ConflictSearchParams } from './conflict-search-params';
 import { IRootStore } from './rootStore';
 
@@ -61,8 +62,19 @@ export const ConflictStore = types
     const fetchConflicts = flow(function* fetchConflicts(): Generator<Promise<conflictResponse>, void, conflictResponse> {
       self.conflicts = cast([]);
       self.state = 'pending';
+      const snapshot = getSnapshot(self.searchParams);
+      const params: any = {}
+      if (snapshot.from) {
+        params.from = snapshot.from / 1000;
+      }
+      if (snapshot.to) {
+        params.to = snapshot.to / 1000;
+      }
+      params.geojson = snapshot.geojson;
+      params.resolved = snapshot.resolved;
+
       try {
-        const result = yield self.root.fetch("/conflicts", self.searchParams);
+        const result = yield self.root.fetch("/conflicts", params);
         const conflicts = result.data.data;
         resetSelectedConflict()
         self.conflicts.replace(conflicts.map(conflictFormatter));
@@ -72,10 +84,18 @@ export const ConflictStore = types
       }
     })
 
-    return { fetchConflicts, selectConflict, resetSelectedConflict }
+    const afterCreate = () => {
+      onSnapshot(self.searchParams, () => {
+        if (self.searchParams.isDateRangeValid) {
+          // @ts-ignore
+          self.fetchConflicts();
+        }
+      })
+    }
+
+    return { fetchConflicts, selectConflict, resetSelectedConflict, afterCreate }
   })
 
 
-// Axios.post<conflictResponse>(`${process.env.REACT_APP_API_BASE_URL}/conflicts`, self.searchParams);
 export interface IConflict extends Instance<typeof Conflict> { }
 export interface IConflictsStore extends Instance<typeof ConflictStore> { }

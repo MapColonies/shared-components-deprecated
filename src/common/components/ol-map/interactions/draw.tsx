@@ -4,7 +4,7 @@ import { Draw } from 'ol/interaction';
 import { createBox, DrawEvent, Options as DrawOptions } from 'ol/interaction/Draw';
 import GeometryType from 'ol/geom/GeometryType';
 import { GeoJSON } from 'ol/format'
-import { Geometry } from '@turf/helpers';
+import { Geometry } from 'geojson';
 import { DrawType } from '../../../models/enums';
 
 export interface DrawProps {

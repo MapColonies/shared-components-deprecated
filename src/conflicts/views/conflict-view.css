@@ -1,11 +1,7 @@
-.flex-container{
-  display: flex;
-}
-
-.map-pane{
+.map-pane {
   flex-grow: 5;
 }
 
-.list-pane{
+.list-pane {
   flex-grow: 1;
 }
