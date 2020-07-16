@@ -1,140 +1,17 @@
 import React, { useState } from 'react';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
-  Collapse,
-  TableSortLabel,
-  IconButton,
   TablePagination,
   Typography,
 } from '@material-ui/core';
-
-export type Order = 'asc' | 'desc';
-export type ElementFunction<T> = (item: T) => JSX.Element;
-
-export interface CellMetadata<T> {
-  disablePadding: boolean;
-  id: keyof T;
-  label: string;
-  numeric: boolean;
-  transform?: (value: T[keyof T]) => string;
-}
-interface TableHeadProps<T> {
-  headCells: CellMetadata<T>[];
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof T) => void;
-  order: Order;
-  orderBy: keyof T | '';
-  isCollapseable: boolean;
-}
-
-function EnhancedTableHead<T>(props: TableHeadProps<T>) {
-  const { headCells, order, orderBy, onRequestSort, isCollapseable } = props;
-  const createSortHandler = (property: keyof T) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {isCollapseable && <TableCell />}
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id as string}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-interface RowProps<T> {
-  item: T;
-  cellsMetadata: CellMetadata<T>[];
-  isRowSelected: boolean;
-  rowIndex: number;
-  onRowSelected?: (index: number) => void;
-  isCollapseable: boolean;
-  collapsedElement?: ElementFunction<T>;
-}
-
-function Row<T>(props: RowProps<T>) {
-  const {
-    cellsMetadata,
-    isRowSelected,
-    item,
-    onRowSelected,
-    rowIndex,
-    isCollapseable,
-    collapsedElement,
-  } = props;
-  const [open, setOpen] = useState(false);
-  const cellCount = cellsMetadata.length;
-
-  const handleClick = () => {
-    onRowSelected?.(rowIndex);
-  };
-  return (
-    <>
-      <TableRow hover selected={isRowSelected} onClick={handleClick}>
-        {isCollapseable && (
-          <TableCell>
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpen(!open);
-              }}
-            >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-          </TableCell>
-        )}
-        {cellsMetadata.map((cell) => (
-          <TableCell
-            key={(cell.id as string) + rowIndex}
-            align={cell.numeric ? 'right' : 'left'}
-            padding={cell.disablePadding ? 'none' : 'default'}
-          >
-            {cell.transform ? cell.transform(item[cell.id]) : item[cell.id]}
-          </TableCell>
-        ))}
-      </TableRow>
-      {isCollapseable && (
-        <TableRow>
-          <TableCell
-            style={{ paddingBottom: 0, paddingTop: 0 }}
-            colSpan={cellCount + 1}
-          >
-            <Collapse in={open} unmountOnExit timeout="auto">
-              {collapsedElement?.(item)}
-            </Collapse>
-          </TableCell>
-        </TableRow>
-      )}
-    </>
-  );
-}
+import { CellMetadata, ElementFunction, Order } from './smart-table-types';
+import { SmartEnhancedTableHead } from './smart-table-head';
+import { SmartTableRow } from './smart-table-row';
 
 export interface SmartTableProps<T> {
   cellsMetadata: CellMetadata<T>[];
@@ -182,7 +59,7 @@ export function SmartTable<T>(props: SmartTableProps<T>) {
   return (
     <TableContainer component={Paper}>
       <Table size={isDense ? 'small' : 'medium'}>
-        <EnhancedTableHead
+        <SmartEnhancedTableHead
           headCells={cellsMetadata}
           onRequestSort={handleRequestSort}
           order={order}
@@ -191,7 +68,7 @@ export function SmartTable<T>(props: SmartTableProps<T>) {
         />
         <TableBody>
           {items.map((item, index) => (
-            <Row
+            <SmartTableRow
               key={index}
               item={item}
               rowIndex={index}
