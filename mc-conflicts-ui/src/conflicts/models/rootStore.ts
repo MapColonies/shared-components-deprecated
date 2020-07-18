@@ -1,10 +1,11 @@
-import { types, Instance, getEnv } from "mobx-state-tree";
+import { types, Instance, getEnv, onAction } from "mobx-state-tree";
 import { useContext, createContext } from 'react';
 import { ConflictStore } from './conflictStore';
+import { ResponseState } from "../../common/models/responseState";
 
 export const baseRootStore = types
   .model({
-    conflictsStore: types.optional(ConflictStore, { state: 'pending', searchParams: {} }),
+    conflictsStore: types.optional(ConflictStore, { state: ResponseState.pending, searchParams: {} }),
     // mapStore: types.optional(ConflictMapState, {})
   })
   .views(self => ({
@@ -15,7 +16,13 @@ export const baseRootStore = types
 
 export const rootStore = baseRootStore.actions(self => ({
   afterCreate() {
-    self.conflictsStore.fetchConflicts()
+    self.conflictsStore.fetchConflicts();
+    
+      onAction(self, call => {
+        if (call.name === 'setItemsPerPage' || call.name === 'setPage'){
+          self.conflictsStore.fetchConflicts();
+        }
+      }, true)
   }
 }));
 export interface IBaseRootStore extends Instance<typeof baseRootStore> { };

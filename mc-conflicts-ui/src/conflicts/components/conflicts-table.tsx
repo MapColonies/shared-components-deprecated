@@ -4,9 +4,10 @@ import { observer } from "mobx-react-lite";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ConflictItem from "./conflict-item";
-import { IConflict } from "../models/conflictStore";
 import { Typography } from "@material-ui/core";
 import {CellMetadata, SmartTable} from 'mc-react-components'
+import { IConflict } from "../models/conflict";
+import { ResponseState } from "../../common/models/responseState";
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     infoContainer: {
@@ -46,13 +47,13 @@ export const ConflictsTable: React.FC = observer(() => {
   const classes = useStyle();
   const { conflictsStore } = useStore();
 
-  if (conflictsStore.state === "pending") {
+  if (conflictsStore.state === ResponseState.pending) {
     return (
       <div className={classes.infoContainer}>
         <CircularProgress className={classes.infoContent} />
       </div>
     );
-  } else if (conflictsStore.state === "error") {
+  } else if (conflictsStore.state === ResponseState.error) {
     return (
       <div className={classes.infoContainer}>
         <Typography>
@@ -65,11 +66,11 @@ export const ConflictsTable: React.FC = observer(() => {
       <div>
         {
           <SmartTable
-            rowsPerPage={5}
-            handleChangePage={() => {}}
-            handleChangeRowsPerPage={() => {}}
-            page={0}
-            count={50}
+            rowsPerPage={conflictsStore.pagination.itemsPerPage as (5 | 10)}
+            handleChangePage={(e, page) => conflictsStore.pagination.setPage(page)}
+            handleChangeRowsPerPage={(e) => conflictsStore.pagination.setItemsPerPage(+e.target.value)}
+            page={conflictsStore.pagination.page}
+            count={conflictsStore.pagination.totalItemsCount}
             items={conflictsStore.conflicts as IConflict[]}
             isCollapseable={true}
             collapsedElement={(item) => <ConflictItem conflict={item} />}
