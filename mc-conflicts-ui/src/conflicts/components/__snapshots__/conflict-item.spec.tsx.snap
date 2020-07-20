@@ -1,9 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div
-  onClick={[Function]}
->
+<div>
+  <h6
+    className="MuiTypography-root MuiTypography-subtitle1"
+  >
+    #7e73d05b-8159-4e51-a302-78aa6b8fbd97
+  </h6>
   <div>
     server1
   </div>
@@ -13,6 +16,5 @@ exports[`renders correctly 1`] = `
   <div>
     some desc 1
   </div>
-  <hr />
 </div>
 `;
