@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { useStore, rootStore } from './rootStore'
 jest.mock('react', () => {
   return {
@@ -5,7 +6,6 @@ jest.mock('react', () => {
     createContext: jest.fn().mockImplementation(() => ({ provider: {} }))
   }
 });
-import { useContext } from 'react';
 
 const contextMock = useContext as jest.Mock<any>
 
@@ -25,6 +25,7 @@ it('useStore works correctly if store is defined', () => {
 
 it('useStore throws an error if store is undefined', () => {
   contextMock.mockImplementation(() => null);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const action = () => useStore();
 
   expect(action).toThrow();
