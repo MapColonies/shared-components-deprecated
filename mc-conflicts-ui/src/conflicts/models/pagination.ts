@@ -15,6 +15,7 @@ export const pagination = types
     },
     setItemsPerPage(itemsPerPage: number) {
       self.itemsPerPage = itemsPerPage;
+      self.page = 0;
     },
     setTotalItems(count: number) {
       self.totalItemsCount = count;
