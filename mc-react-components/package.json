@@ -33,7 +33,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "rimraf dist && tsc --project tsbuildconfig.json",
-    "test": "react-scripts test -- --transformIgnorePatterns \"../node_modules/(?!(ol)/)\"",
+    "test": "react-scripts test",
+    "test-ol": "react-scripts test -- --transformIgnorePatterns \"../node_modules/(?!(ol)/)\"",
     "eject": "react-scripts eject",
     "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist"
   },

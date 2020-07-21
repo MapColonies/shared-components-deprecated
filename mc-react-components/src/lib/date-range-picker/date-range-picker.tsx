@@ -24,7 +24,7 @@ const useStyle = makeStyles((theme: Theme) =>
 );
 
 interface DateRangePickerProps {
-  onChange?: (dateRange: { from?: Date; to?: Date }) => void;
+  onChange: (dateRange: { from?: Date; to?: Date }) => void;
   from?: Date;
   to?: Date;
 }
@@ -34,7 +34,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
 
-  useEffect(() => {
+  useEffect(() => {    
     setFrom(props.from || null);
   }, [props.from]);
 
@@ -49,7 +49,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   );
 
   const onChange = () => {
-    props.onChange?.({
+    props.onChange({
       from: from && isValid(from) ? from : undefined,
       to: to && isValid(to) ? to : undefined,
     });
