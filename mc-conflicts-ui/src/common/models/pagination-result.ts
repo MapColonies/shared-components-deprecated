@@ -5,7 +5,7 @@ export interface PaginationResult<T> {
 
   offset: number;
 
-  total?: number;
+  total: number;
 
   lastPage?: number;
 

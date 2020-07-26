@@ -11,14 +11,17 @@ import { ApiHttpResponse } from '../../common/models/api-response';
 import { PaginationResult } from '../../common/models/pagination-result';
 import { feature } from '@turf/helpers';
 import { Feature, Geometry } from 'geojson';
+
 import { ConflictSearchParams } from './conflict-search-params';
 import { IRootStore } from './rootStore';
+import { pagination } from './pagination';
+import { Conflict, IConflict } from './conflict';
+import { ResponseState } from '../../common/models/ResponseState';
 
 type conflictResponse = ApiHttpResponse<PaginationResult<IConflict[]>>;
 
 const conflictFormatter = (conflict: IConflict) => {
   const newConflict = { ...conflict };
-
   newConflict.created_at = new Date(conflict.created_at);
   newConflict.updated_at = new Date(conflict.updated_at);
   newConflict.resolved_at = conflict.resolved_at
@@ -30,28 +33,13 @@ const conflictFormatter = (conflict: IConflict) => {
   return newConflict;
 };
 
-const Conflict = types.model({
-  id: types.identifier,
-  source_server: types.string,
-  target_server: types.string,
-  source_entity: types.frozen(),
-  target_entity: types.frozen(),
-  description: types.string,
-  location: types.frozen<Geometry>(),
-  has_resolved: types.boolean,
-  resolved_at: types.maybeNull(types.Date),
-  resolution_id: types.maybeNull(types.string),
-  created_at: types.Date,
-  updated_at: types.Date,
-  deleted_at: types.maybeNull(types.Date),
-});
-
 export const ConflictStore = types
   .model({
     conflicts: types.array(Conflict),
-    state: types.enumeration('State', ['pending', 'done', 'error']),
+    state: types.enumeration<ResponseState>('State', Object.values(ResponseState)),
     selectedConflict: types.safeReference(Conflict),
     searchParams: types.optional(ConflictSearchParams, {}),
+    pagination: types.optional(pagination, {})
   })
   .views((self) => ({
     get conflictLocations(): Feature<Geometry>[] {
@@ -78,7 +66,7 @@ export const ConflictStore = types
       conflictResponse
     > {
       self.conflicts = cast([]);
-      self.state = 'pending';
+      self.state = ResponseState.PENDING;
       const snapshot = getSnapshot(self.searchParams);
       const params: any = {};
       if (snapshot.from) {
@@ -89,15 +77,19 @@ export const ConflictStore = types
       }
       params.geojson = snapshot.geojson;
       params.resolved = snapshot.resolved;
+      params.page = self.pagination.page + 1;
+      params.limit = self.pagination.itemsPerPage;
 
       try {
         const result = yield self.root.fetch('/conflicts', params);
         const conflicts = result.data.data;
         resetSelectedConflict();
         self.conflicts.replace(conflicts.map(conflictFormatter));
-        self.state = 'done';
+        self.pagination.setTotalItems(result.data.total)
+        self.state = ResponseState.DONE;
       } catch (error) {
-        self.state = 'error';
+        console.error(error);
+        self.state = ResponseState.ERROR;
       }
     });
 
@@ -118,5 +110,4 @@ export const ConflictStore = types
     };
   });
 
-export interface IConflict extends Instance<typeof Conflict> {}
 export interface IConflictsStore extends Instance<typeof ConflictStore> {}
