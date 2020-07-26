@@ -8,6 +8,7 @@ import { Typography } from "@material-ui/core";
 import {CellMetadata, SmartTable} from 'mc-react-components'
 import { IConflict } from "../models/conflict";
 import { ResponseState } from "../../common/models/responseState";
+
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     infoContainer: {

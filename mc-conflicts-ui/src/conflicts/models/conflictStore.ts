@@ -67,8 +67,6 @@ export const ConflictStore = types
     > {
       self.conflicts = cast([]);
       self.state = ResponseState.pending;
-
-      // fix this after the backend is fixed.
       const snapshot = getSnapshot(self.searchParams);
       const params: any = {};
       if (snapshot.from) {
@@ -87,7 +85,6 @@ export const ConflictStore = types
         const conflicts = result.data.data;
         resetSelectedConflict();
         self.conflicts.replace(conflicts.map(conflictFormatter));
-
         self.pagination.setTotalItems(result.data.total)
         self.state = ResponseState.done;
       } catch (error) {

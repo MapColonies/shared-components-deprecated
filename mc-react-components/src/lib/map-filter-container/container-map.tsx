@@ -10,6 +10,7 @@ import { TileOsm } from '../ol-map/source/osm';
 import { VectorLayer } from '../ol-map/layers/vector-layer';
 import { DrawInteraction } from '../ol-map/interactions/draw';
 import { DrawType } from '../models/enums';
+import './container-map.css';
 
 interface ContainerMapProps {
   drawType?: DrawType;

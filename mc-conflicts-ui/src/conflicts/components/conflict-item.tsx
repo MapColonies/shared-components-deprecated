@@ -7,7 +7,6 @@ interface ConflictItemProps {
 }
 
 const ConflictItem: React.FC<ConflictItemProps> = ({ conflict }) => {
-
   return (
     <div>
       <Typography variant="subtitle1">{'#' + conflict.id}</Typography>
