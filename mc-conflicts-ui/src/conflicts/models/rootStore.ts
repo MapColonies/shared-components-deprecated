@@ -1,11 +1,11 @@
 import { types, Instance, getEnv, onAction } from "mobx-state-tree";
 import { useContext, createContext } from 'react';
 import { ConflictStore } from './conflictStore';
-import { ResponseState } from "../../common/models/responseState";
+import { ResponseState } from "../../common/models/ResponseState";
 
 export const baseRootStore = types
   .model({
-    conflictsStore: types.optional(ConflictStore, { state: ResponseState.pending, searchParams: {} }),
+    conflictsStore: types.optional(ConflictStore, { state: ResponseState.PENDING, searchParams: {} }),
     // mapStore: types.optional(ConflictMapState, {})
   })
   .views(self => ({

@@ -14,8 +14,8 @@ import { Feature, Geometry } from 'geojson';
 import { ConflictSearchParams } from './conflict-search-params';
 import { IRootStore } from './rootStore';
 import { pagination } from './pagination';
-import { ResponseState } from '../../common/models/responseState';
 import { Conflict, IConflict } from './conflict';
+import { ResponseState } from '../../common/models/ResponseState';
 
 type conflictResponse = ApiHttpResponse<PaginationResult<IConflict[]>>;
 
@@ -66,7 +66,7 @@ export const ConflictStore = types
       conflictResponse
     > {
       self.conflicts = cast([]);
-      self.state = ResponseState.pending;
+      self.state = ResponseState.PENDING;
       const snapshot = getSnapshot(self.searchParams);
       const params: any = {};
       if (snapshot.from) {
@@ -86,10 +86,10 @@ export const ConflictStore = types
         resetSelectedConflict();
         self.conflicts.replace(conflicts.map(conflictFormatter));
         self.pagination.setTotalItems(result.data.total)
-        self.state = ResponseState.done;
+        self.state = ResponseState.DONE;
       } catch (error) {
         console.error(error);
-        self.state = ResponseState.error;
+        self.state = ResponseState.ERROR;
       }
     });
 
