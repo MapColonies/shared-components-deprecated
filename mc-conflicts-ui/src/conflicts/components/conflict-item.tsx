@@ -1,5 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+
 import { IConflict } from '../models/conflict';
 
 interface ConflictItemProps {

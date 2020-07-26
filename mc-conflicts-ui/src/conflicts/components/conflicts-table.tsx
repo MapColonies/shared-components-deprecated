@@ -6,6 +6,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ConflictItem from "./conflict-item";
 import { Typography } from "@material-ui/core";
 import {CellMetadata, SmartTable} from 'mc-react-components'
+
 import { IConflict } from "../models/conflict";
 import { ResponseState } from "../../common/models/ResponseState";
 

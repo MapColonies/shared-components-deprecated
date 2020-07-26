@@ -11,6 +11,7 @@ import { ApiHttpResponse } from '../../common/models/api-response';
 import { PaginationResult } from '../../common/models/pagination-result';
 import { feature } from '@turf/helpers';
 import { Feature, Geometry } from 'geojson';
+
 import { ConflictSearchParams } from './conflict-search-params';
 import { IRootStore } from './rootStore';
 import { pagination } from './pagination';
@@ -21,7 +22,6 @@ type conflictResponse = ApiHttpResponse<PaginationResult<IConflict[]>>;
 
 const conflictFormatter = (conflict: IConflict) => {
   const newConflict = { ...conflict };
-
   newConflict.created_at = new Date(conflict.created_at);
   newConflict.updated_at = new Date(conflict.updated_at);
   newConflict.resolved_at = conflict.resolved_at
