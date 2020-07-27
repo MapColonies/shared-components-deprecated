@@ -23,7 +23,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "typescript": "^3.7.5",
-    "mc-react-components": "0.1.0"
+    "@map-colonies/shared-components": "0.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
