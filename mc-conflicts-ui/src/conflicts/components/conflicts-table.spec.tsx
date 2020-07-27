@@ -1,13 +1,13 @@
 import * as fs from 'fs';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
-import { baseRootStore, StoreProvider } from '../models/rootStore';
 import { when } from 'mobx';
 import { act } from 'react-dom/test-utils';
+import { Typography, CircularProgress } from '@material-ui/core';
+
+import { baseRootStore, StoreProvider } from '../models/rootStore';
 import ConflictItem from './conflict-item';
 import { ConflictsTable } from './conflicts-table';
-import { Typography, CircularProgress } from '@material-ui/core';
 import { ResponseState } from '../../common/models/ResponseState';
 
 console.error = jest.fn();

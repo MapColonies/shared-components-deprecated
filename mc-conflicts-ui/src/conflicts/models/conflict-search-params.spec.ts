@@ -1,5 +1,5 @@
-import { ConflictSearchParams } from './conflict-search-params';
 import { Geometry } from 'geojson';
+import { ConflictSearchParams } from './conflict-search-params';
 
 const geom: Geometry = {
   type: 'Polygon',
