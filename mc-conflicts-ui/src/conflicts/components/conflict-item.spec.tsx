@@ -28,11 +28,3 @@ it('renders correctly', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
-
-it('calls handle select when div is clicked', () => {
-  const onSelectMock = jest.fn();
-  const wrapper = shallow(<ConflictItem conflict={conflict} onSelected={onSelectMock} />);
-  wrapper.find('div').first().simulate('click', { preventDefault: () => { } });
-  expect(onSelectMock).toHaveBeenCalledTimes(1);
-  expect(onSelectMock).toHaveBeenCalledWith(conflict)
-})
