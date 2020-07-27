@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { PolygonSelectionUi } from './polygon-selection-ui';
+import renderer from 'react-test-renderer';
 import { DrawType } from '../models';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 
@@ -16,7 +17,14 @@ afterEach(() => {
 // it('renders correctly', () => {
 //   // const store = rootStore.create({}, { fetch: conflictFetcher })
 //   const tree = renderer
-//     .create(<PolygonSelectionUi />)
+//     .create(
+//       <PolygonSelectionUi
+//         isSelectionEnabled={false}
+//         onCancelDraw={() => {}}
+//         onReset={() => {}}
+//         onStartDraw={() => {}}
+//       />
+//     )
 //     .toJSON();
 //   expect(tree).toMatchSnapshot();
 // });

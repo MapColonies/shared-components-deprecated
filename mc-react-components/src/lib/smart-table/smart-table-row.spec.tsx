@@ -50,21 +50,22 @@ it('opens the collapseable panel when the button is pressed', () => {
 });
 
 it('generates tablecells with the correct properties and runs transform', () => {
+  const rowIndex = 0;
   const wrapper = shallow(
     <SmartTableRow
       cellsMetadata={headCells}
       isCollapseable={false}
       isRowSelected={false}
       item={item}
-      rowIndex={0}
+      rowIndex={rowIndex}
     />
   );
 
   const firstTableCellProps = wrapper
-    .findWhere((n) => n.type() === TableCell && n.key() === headCells[0].id + 0)
+    .findWhere((n) => n.type() === TableCell && n.key() === headCells[0].id + rowIndex)
     .props();
   const secondTableCellProps = wrapper
-    .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id + 0)
+    .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id + rowIndex)
     .props();
 
   expect(firstTableCellProps).toHaveProperty('align','left');
