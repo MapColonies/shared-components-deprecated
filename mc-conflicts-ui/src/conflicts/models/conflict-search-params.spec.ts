@@ -27,18 +27,26 @@ it('isDateRangeValid returns true if only one date is defined', () => {
 });
 
 it('isDateRangeValid returns false if both dates are defined, but from > to', () => {
+  const epochTimestamp = 1595222000;
+  const fromDate = new Date(epochTimestamp);
+  const toDate = new Date(epochTimestamp);
+  toDate.setDate(toDate.getDate() - 5);
   const store = ConflictSearchParams.create({
-    from: new Date(1595222000),
-    to: new Date(1595221000),
+    from: fromDate,
+    to: toDate,
   });
 
   expect(store.isDateRangeValid).toBe(false);
 });
 
 it('isDateRangeValid returns false if both dates are defined, and from is before to', () => {
+  const epochTimestamp = 1595222000;
+  const fromDate = new Date(epochTimestamp);
+  const toDate = new Date(epochTimestamp);
+  toDate.setDate(toDate.getDate() + 5);
   const store = ConflictSearchParams.create({
-    from: new Date(1595222000),
-    to: new Date(1595223000),
+      from: fromDate,
+      to: toDate,
   });
 
   expect(store.isDateRangeValid).toBe(true);
@@ -81,9 +89,9 @@ it('setKeywords replaces the keywords in the store', () => {
 });
 
 it('resetLocation sets geojson to be undefined', () => {
-  const store = ConflictSearchParams.create({geojson: geom})
+  const store = ConflictSearchParams.create({ geojson: geom });
 
   store.resetLocation();
 
   expect(store.geojson).toBeUndefined();
-})
+});
