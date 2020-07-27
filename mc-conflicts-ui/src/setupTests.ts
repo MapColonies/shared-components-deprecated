@@ -8,5 +8,7 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+// Mocked as those are used by openlayers
 global.URL.createObjectURL = jest.fn();
 HTMLCanvasElement.prototype.getContext = jest.fn();
