@@ -83,12 +83,16 @@ it('calls on request sort with the correct order and property when sort is reque
     />
   );
 
-  wrapper.find(SmartEnhancedTableHead).simulate('requestSort', {}, headCells[0].id);
+  wrapper
+    .find(SmartEnhancedTableHead)
+    .simulate('requestSort', {}, headCells[0].id);
 
-  expect(requestSort).toBeCalledWith(headCells[0].id, 'asc')
-  wrapper.update()
+  expect(requestSort).toBeCalledWith(headCells[0].id, 'asc');
+  wrapper.update();
 
-  wrapper.find(SmartEnhancedTableHead).simulate('requestSort', {}, headCells[0].id);
+  wrapper
+    .find(SmartEnhancedTableHead)
+    .simulate('requestSort', {}, headCells[0].id);
 
-  expect(requestSort).toBeCalledWith(headCells[0].id, 'desc')
+  expect(requestSort).toBeCalledWith(headCells[0].id, 'desc');
 });
