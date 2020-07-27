@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import { rootStore } from './rootStore';
 import { when } from 'mobx';
 
+console.error = jest.fn();
+
 const locations = [{
   properties: {},
   type: 'Feature',

@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { IConflict } from '../models/conflict';
 
 interface ConflictItemProps {
-  conflict: IConflict,
+  conflict: IConflict;
 }
 
 const ConflictItem: React.FC<ConflictItemProps> = ({ conflict }) => {
@@ -14,7 +14,8 @@ const ConflictItem: React.FC<ConflictItemProps> = ({ conflict }) => {
       <div>{conflict.source_server}</div>
       <div>{conflict.target_server}</div>
       <div>{conflict.description}</div>
-    </div>)
-}
+    </div>
+  );
+};
 
 export default ConflictItem;

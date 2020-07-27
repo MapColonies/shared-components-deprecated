@@ -55,5 +55,10 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "jest-enzyme": "^7.1.2",
     "react-test-renderer": "^16.13.1"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(ol)/).*/"
+    ]
   }
 }

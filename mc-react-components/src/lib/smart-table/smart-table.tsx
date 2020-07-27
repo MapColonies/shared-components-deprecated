@@ -53,7 +53,7 @@ export function SmartTable<T>(props: SmartTableProps<T>) {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-    onRequestSort(property, order);
+    onRequestSort(property, isAsc ? 'desc' : 'asc');
   };
 
   return (
