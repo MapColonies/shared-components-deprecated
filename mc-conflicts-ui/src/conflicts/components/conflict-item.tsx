@@ -1,13 +1,14 @@
 import React from 'react';
-import { IConflict } from '../models/conflictStore';
 import Typography from '@material-ui/core/Typography';
+
+import { IConflict } from '../models/conflict';
 
 interface ConflictItemProps {
   conflict: IConflict,
   onSelected?: (conflict: IConflict) => void
 }
 
-const ConflictItem: React.FC<ConflictItemProps> = ({ conflict, onSelected }) => {
+const ConflictItem: React.FC<ConflictItemProps> = ({ conflict }) => {
 
   return (
     <div>

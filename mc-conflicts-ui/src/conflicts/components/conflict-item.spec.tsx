@@ -1,8 +1,9 @@
 import React from 'react'
-import ConflictItem from './conflict-item'
 import renderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
-import { IConflict } from '../models/conflictStore';
+import { shallow } from 'enzyme';
+
+import ConflictItem from './conflict-item'
+import { IConflict } from '../models/conflict';
 
 const conflict: IConflict = {
   id: "7e73d05b-8159-4e51-a302-78aa6b8fbd97",
