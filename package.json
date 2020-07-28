@@ -2,8 +2,24 @@
   "name": "mc-react",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/rnd-hub/mc-conflicts-ui.git",
+  "repository": "https://github.com/MapColonies/shared-components.git",
   "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>",
   "private": true,
-  "workspaces": ["mc-conflicts-ui", "mc-react-components"]
+  "workspaces": [
+    "packages/*",
+    "demoapp"
+  ],
+  "scripts": {
+    "del-dist": "lerna exec --parallel -- del-cli dist",
+    "prebuild": "yarn del-dist",
+    "build:react": "lerna exec --scope @map-colonies/react-components -- yarn build",
+    "build:stencil": "lerna exec --scope @map-colonies/ui-components -- yarn build",
+    "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
+    "build": "yarn build:react && yarn build:stencil && build:stencil-react",
+    "start:reactdemo": "cd demoapp && yarn start"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "lerna": "^3.22.1"
+  }
 }

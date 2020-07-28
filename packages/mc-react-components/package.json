@@ -1,5 +1,5 @@
 {
-  "name": "@map-colonies/shared-components",
+  "name": "@map-colonies/react-components",
   "version": "0.1.0",
   "module": "dist/index.js",
   "main": "dist/index.js",
