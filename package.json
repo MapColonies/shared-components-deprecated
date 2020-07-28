@@ -15,7 +15,9 @@
     "build:react": "lerna exec --scope @map-colonies/react-components -- yarn build",
     "build:stencil": "lerna exec --scope @map-colonies/ui-components -- yarn build",
     "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
-    "build": "yarn build:react && yarn build:stencil && build:stencil-react",
+    "build:all": "lerna run build --npm-client=yarn",
+    "publish": "lerna publish --contents dist",
+
     "start:reactdemo": "cd demoapp && yarn start"
   },
   "devDependencies": {
