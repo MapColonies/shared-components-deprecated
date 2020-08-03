@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SmartTable, CellMetadata } from '..';
 import { button } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Smart Table',
@@ -8,21 +9,21 @@ export default {
 };
 
 interface Person {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   age: number;
   birthday: string;
 }
 
 const metadata: CellMetadata<Person>[] = [
   {
-    id: "first_name",
+    id: "firstName",
     label: "First Name",
     disablePadding: false,
     numeric: false,
   },  
   {
-    id: "last_name",
+    id: "lastName",
     label: "Last Name",
     disablePadding: false,
     numeric: false,
@@ -43,26 +44,26 @@ const metadata: CellMetadata<Person>[] = [
 
 const persons:Person[] = [
   {
-    first_name: "Dan",
-    last_name: "Walker",
+    firstName: "Dan",
+    lastName: "Walker",
     age: 24,
     birthday: "8-3-1996"
   },
   {
-    first_name: "Emily",
-    last_name: "Jhonson",
+    firstName: "Emily",
+    lastName: "Jhonson",
     age: 45,
     birthday: "13-5-1975"
   },
   {
-    first_name: "Ron",
-    last_name: "Elen",
+    firstName: "Ron",
+    lastName: "Elen",
     age: 13,
     birthday: "7-7-2007"
   },
   {
-    first_name: "Michael",
-    last_name: "Wall",
+    firstName: "Michael",
+    lastName: "Wall",
     age: 60,
     birthday: "28-9-1960"
   }
@@ -77,7 +78,7 @@ interface TableStroyProps {
 const TableStory: React.FC<TableStroyProps> = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
-  const [items, setItems] = useState([... new Array(props.numberOfItems)].map(getRandomPerson));
+  const [items, setItems] = useState([...new Array(props.numberOfItems)].map(getRandomPerson));
 
   button("ADD ITEM", () => setItems([...items, getRandomPerson()]));
   button("REMOVE ITEM", () => setItems(items.slice(0, -1))); //remove last
@@ -91,9 +92,9 @@ const TableStory: React.FC<TableStroyProps> = (props) => {
     count={items.length}
     items={items}
     isCollapseable={true}
-    onRequestSort={() => null}
+    onRequestSort={action('sort requested')}
     cellsMetadata={metadata}
-    onRowSelected={() => null}
+    onRowSelected={action('row selected')}
     isDense={true}/>
 };
 

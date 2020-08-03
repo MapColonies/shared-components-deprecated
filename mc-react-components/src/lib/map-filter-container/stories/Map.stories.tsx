@@ -1,6 +1,7 @@
 import React from 'react';
 import { ContainerMap } from '../container-map';
 import { MapFilterContainer } from '../map-filter-container';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Map',
@@ -10,13 +11,15 @@ export default {
 const mapDivStyle = {
   "height": "100%",
   "width": "100%",
-  "position": "fixed" as const,
+  "position": "fixed" as const
 };
 export const Basic = () => <div style={mapDivStyle}>
-    <ContainerMap onPolygonSelection={() => null}/>
+    <ContainerMap onPolygonSelection={action('shape selected')}/>
   </div>;
 
-export const withDrawer = () => <MapFilterContainer handlePolygonReset={() => null} handlePolygonSelected={() => null}/>;
+export const withDrawer = () => <MapFilterContainer
+    handlePolygonReset={action('vector source cleared')}
+    handlePolygonSelected={action('shape selected')}/>;
 
 withDrawer.story = {
   name: 'with Drawer',
