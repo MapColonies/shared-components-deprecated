@@ -66,7 +66,10 @@ export class MWCButton{
             classNames.push(`flat${buttonColor[this.color]}`)
          }
      }
-     if(this.dense){
+     if(this.stroked){
+        classNames.push(`stroked${buttonColor[this.color]}`)
+    }
+    if(this.dense){
          classNames.push('dense')
      }
      if(this.fab){
@@ -78,14 +81,14 @@ export class MWCButton{
      return classNames;
   }
   componentDidLoad(){
-      if(this.ripple){
-       const rippleColor = (this.raised && (this.color === 'primary' || this.color === 'secondary')) ? rippleColors.white : rippleColors[this.color]
-      tmripple.attachToSelectors({
+    if(this.ripple){
+        const rippleColor = (this.raised && (this.color === 'primary' || this.color === 'secondary')) ? rippleColors.white : rippleColors[this.color]
+        tmripple.attachToSelectors({
             selectors: this.btnEl,
             color: rippleColor,
             eventListener: 'mousedown'
         });
-      }
+    }
   }
   renderIcon(){
       if(this.icon){
