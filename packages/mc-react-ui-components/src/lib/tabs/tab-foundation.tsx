@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useEffect, useMemo } from 'react';
 import { TabProps, TabApi } from './tab';
-import { useFoundation, useId, emptyClientRect } from '@rmwc/base';
+import { useFoundation, useId, emptyClientRect } from '../base';
 import { MDCTabFoundation } from '@material/tab';
 import { TabIndicatorApi } from './tab-indicator';
 import { TabBarContext } from './tab-bar-context';

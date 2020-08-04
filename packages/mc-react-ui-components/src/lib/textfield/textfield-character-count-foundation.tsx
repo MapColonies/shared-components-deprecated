@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFoundation } from '@rmwc/base';
+import { useFoundation } from '../base';
 import { TextFieldCharacterCountProps, TextFieldCharacterCountApi } from '.';
 import { MDCTextFieldCharacterCounterFoundation } from '@material/textfield';
 

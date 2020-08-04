@@ -1,6 +1,6 @@
 import React from 'react';
-import { useFoundation } from '@rmwc/base';
-import { IconProps } from '@rmwc/icon';
+import { useFoundation } from '../../base';
+import { IconProps } from '../../icon';
 import { EventType, SpecificEventListener } from '@material/base/types';
 import { MDCSelectIconFoundation } from '@material/select';
 import { MDCTextFieldIconFoundation } from '@material/textfield';

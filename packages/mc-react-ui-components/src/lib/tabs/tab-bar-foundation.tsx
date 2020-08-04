@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { TabBarProps } from './tab-bar';
-import { useFoundation } from '@rmwc/base';
+import { useFoundation } from '../base';
 import { MDCTabBarFoundation } from '@material/tab-bar';
 import { TabScrollerApi } from './tab-scroller';
 import { MDCTabInteractionEvent } from '@material/tab';

@@ -1,5 +1,5 @@
 import { TabIndicatorProps, TabIndicatorApi } from './tab-indicator';
-import { useFoundation, emptyClientRect } from '@rmwc/base';
+import { useFoundation, emptyClientRect } from '../base';
 import {
   MDCFadingTabIndicatorFoundation,
   MDCSlidingTabIndicatorFoundation,

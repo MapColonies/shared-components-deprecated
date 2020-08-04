@@ -1,7 +1,15 @@
 import React from 'react';
 // import { Button, Popover } from '@material-ui/core';
-import { Popover } from '@material-ui/core';
-import { MwcButton as Button } from '@map-colonies/ui-components-react/dist';
+
+// import { Popover } from '@material-ui/core';
+import { Popover } from '@map-colonies/react-components';
+
+// Import from react web component wrapper
+// import { MwcButton as Button } from '@map-colonies/ui-components-react/dist';
+
+// Import from react core components
+import { Button } from '@map-colonies/react-core/dist';
+import '@map-colonies/react-core/dist/button/styles';
 
 import { observer } from 'mobx-react-lite';
 import { DateTimeRangePicker } from '@map-colonies/react-components';
@@ -36,8 +44,15 @@ export const DateFilter: React.FC = observer(() => {
       </Button> */}
 
 
-{/* unelevated={true} */}
-      <Button  color="primary" stroked={true} onClick={handleClick}>
+      {/* <Button  color="primary" stroked={true} onClick={handleClick}>
+        {from ? from.toLocaleString() : 'Start of time'} -{' '}
+        {to ? to.toLocaleString() : 'End of time'}
+      </Button> */}
+
+      <Button 
+        raised 
+        onClick={handleClick}
+      > 
         {from ? from.toLocaleString() : 'Start of time'} -{' '}
         {to ? to.toLocaleString() : 'End of time'}
       </Button>

@@ -1,6 +1,13 @@
 import React from 'react';
 // import { Select, MenuItem } from '@material-ui/core';
-import { MwcSelect as Select, MwcMenuItem as MenuItem} from '@map-colonies/ui-components-react/dist';
+
+// Import from react web component wrapper
+// import { MwcSelect as Select, MwcMenuItem as MenuItem} from '@map-colonies/ui-components-react/dist';
+
+// Import from react core components
+import { Select, MenuItem } from '@map-colonies/react-core/dist';
+import '@map-colonies/react-core/dist/select/styles';
+
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../models/rootStore';
 
@@ -23,15 +30,6 @@ export const HasResolvedFilter: React.FC = observer(() => {
     // <FormControl>
     //   <InputLabel id="resolved-label">resolve status</InputLabel>
   
-    <Select
-      onChange={(e:any) => onChange(e.target.value as string)}
-    >
-      {Object.keys(options).map((key) => (
-        <MenuItem key={key}>
-          {key}
-        </MenuItem>
-      ))}
-    </Select>
 
     // <Select
     //   value={Object.keys(options).find(
@@ -46,6 +44,22 @@ export const HasResolvedFilter: React.FC = observer(() => {
     //   ))}
     // </Select>
 
-    // </FormControl>
+    // <Select
+    //   onChange={(e:any) => onChange(e.target.value as string)}
+    // >
+    //   {Object.keys(options).map((key) => (
+    //     <MenuItem key={key}>
+    //       {key}
+    //     </MenuItem>
+    //   ))}
+    // </Select>
+
+    <Select
+      options={Object.keys(options).map((key) => key)}
+      onChange={(e:any) => onChange(e.target.value as string)}
+    >
+    </Select>
+
+// </FormControl>
   );
 });

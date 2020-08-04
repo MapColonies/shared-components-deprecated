@@ -21,7 +21,8 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "rootDir": "src/lib"
+    "rootDir": "src/lib",
+    "downlevelIteration": true
   },
   "include": [
     "src"

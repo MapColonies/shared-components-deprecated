@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { useFoundation, raf } from '@rmwc/base';
+import { useFoundation, raf } from '../../base';
 import {
   MDCSelectFoundation,
   MDCSelectAdapter,
   cssClasses
 } from '@material/select';
-import { FloatingLabelApi } from '@rmwc/floating-label';
-import { MenuApi } from '@rmwc/menu';
+import { FloatingLabelApi } from '../../floating-label';
+import { MenuApi } from '../../menu';
 import { Corner } from '@material/menu-surface';
 import { SelectIconApi } from '../select-icon';
 import { SelectProps } from './';
@@ -105,7 +105,7 @@ export const useSelectFoundation = (
           getSelectedTextAttr: (attr: any) => selectedTextEl.getProp(attr),
           setSelectedTextAttr: (attr: any, value: string) => {
             if (attr === 'tabindex') {
-              // Fixes bug 595 https://github.com/jamesmfriedman/rmwc/issues/595.
+              // Fixes bug 595 https://github.com/jamesmfriedman../../issues/595.
               // Native selects don't need tabIndexes on the root element
               if (isNative()) return;
               attr = 'tabIndex';

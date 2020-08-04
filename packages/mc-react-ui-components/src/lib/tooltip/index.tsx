@@ -1,7 +1,7 @@
 import React from 'react';
-import { classNames } from '@rmwc/base';
+import { classNames } from '../base';
 import ReactTooltip from 'rc-tooltip';
-import { useProviderContext } from '@rmwc/provider';
+import { useProviderContext } from '../provider';
 
 export type TooltipActivationT = 'hover' | 'click' | 'focus';
 

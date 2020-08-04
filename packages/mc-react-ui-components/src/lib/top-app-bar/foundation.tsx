@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { TopAppBarProps } from '.';
-import { useFoundation } from '@rmwc/base';
+import { useFoundation } from '../base';
 
 import {
   MDCTopAppBarFoundation,

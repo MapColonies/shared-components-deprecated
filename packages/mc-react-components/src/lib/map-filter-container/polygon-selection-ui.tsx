@@ -1,7 +1,10 @@
 import React from 'react';
-import { Menu, MenuItem, Button } from '@material-ui/core';
+// import { Menu, MenuItem, Button } from '@material-ui/core';
+// import Tooltip from '@material-ui/core/Tooltip';
+import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core/dist';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+
 import { DrawType } from '../models/enums';
 
 const useStyle = makeStyles((theme: Theme) =>
@@ -36,10 +39,10 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
   
   if (isSelectionEnabled) {
     return (
-      <Tooltip title="Cancel the ongoing draw">
+      <Tooltip content="Cancel the ongoing draw">
         <Button
           className={classes.drawingButton}
-          variant="outlined"
+          raised
           onClick={onCancelDraw}
         >
           Cancel Draw
@@ -49,10 +52,10 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
   } else {
     return (
       <div>
-        <Tooltip title="draw an Area of interest to limit the search">
+        <Tooltip content="draw an Area of interest to limit the search">
           <Button
             className={classes.drawingButton}
-            variant="outlined"
+            raised
             onClick={handleClick}
           >
             Draw AOI
@@ -60,15 +63,15 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
         </Tooltip>
         <Menu
           open={Boolean(anchorEl)}
-          keepMounted
+          // keepMounted
           onClose={handleClose}
-          anchorEl={anchorEl}
-          getContentAnchorEl={null}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
+          // anchorEl={anchorEl}
+          // getContentAnchorEl={null}
+          // anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          // transformOrigin={{
+          //   vertical: 'top',
+          //   horizontal: 'center',
+          // }}
         >
           <MenuItem
             onClick={() => {

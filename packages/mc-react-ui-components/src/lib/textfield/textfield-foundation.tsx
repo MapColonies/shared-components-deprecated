@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useFoundation } from '@rmwc/base';
+import { useFoundation } from '../base';
 import { EventType, SpecificEventListener } from '@material/base/types';
 import { MDCTextFieldFoundation } from '@material/textfield';
 import {
@@ -7,7 +7,7 @@ import {
   TextFieldCharacterCountApi,
   TextFieldIconApi
 } from '.';
-import { FloatingLabelApi } from '@rmwc/floating-label';
+import { FloatingLabelApi } from '../floating-label';
 
 export const useTextFieldFoundation = (props: TextFieldProps) => {
   const [lineRippleActive, setLineRippleActive] = useState(false);
