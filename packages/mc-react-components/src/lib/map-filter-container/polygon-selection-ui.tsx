@@ -6,6 +6,7 @@ import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core/dist';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import { DrawType } from '../models/enums';
+import { Box } from '../box';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +52,7 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
     );
   } else {
     return (
-      <div>
+      <Box position="relative"> 
         <Tooltip content="draw an Area of interest to limit the search">
           <Button
             className={classes.drawingButton}
@@ -98,7 +99,7 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
             Clear
           </MenuItem>
         </Menu>
-      </div>
+      </Box>
     );
   }
 };

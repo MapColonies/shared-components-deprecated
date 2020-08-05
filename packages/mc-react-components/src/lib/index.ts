@@ -4,3 +4,4 @@ export * from './models';
 export * from './ol-map';
 export * from './smart-table';
 export * from './popover';
+export * from './box';

@@ -11,15 +11,28 @@ import '@map-colonies/react-core/dist/select/styles';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../models/rootStore';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 const options: { [key: string]: boolean | undefined } = {
   all: undefined,
   resolved: true,
   open: false,
 };
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 export const HasResolvedFilter: React.FC = observer(() => {
   const { conflictsStore } = useStore();
   const { searchParams } = conflictsStore;
+  const classes = useStyles();
 
   const onChange = (option: string) => {
     const resolveStatus = options[option];
@@ -55,10 +68,15 @@ export const HasResolvedFilter: React.FC = observer(() => {
     // </Select>
 
     <Select
+      enhanced
+      value={Object.keys(options).find(
+            (key) => options[key] === searchParams.resolved
+          )}
       options={Object.keys(options).map((key) => key)}
       onChange={(e:any) => onChange(e.target.value as string)}
-    >
-    </Select>
+      // className={classes.selectEmpty}
+    />
+    
 
 // </FormControl>
   );
