@@ -51,6 +51,21 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 
+
+export const ThemeContext = React.createContext({});
+
+export function useTheme() {
+  const theme = React.useContext(ThemeContext);
+
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React.useDebugValue(theme);
+  }
+
+  return theme;
+}
+
+
 /** A ThemeProvider. This sets theme colors for its child tree. */
 export const ThemeProvider = createComponent<ThemeProviderProps>(
   function ThemeProvider(props, ref) {
@@ -89,7 +104,11 @@ export const ThemeProvider = createComponent<ThemeProviderProps>(
     }
 
     return (
-      <Tag {...rest} style={themeStyles} className={className} ref={ref} />
+      <>
+        <ThemeContext.Provider value={options}>
+          <Tag {...rest} style={themeStyles} className={className} ref={ref} />
+        </ThemeContext.Provider>;
+      </>
     );
   }
 );

@@ -13,6 +13,10 @@ const useStyle = makeStyles((theme: Theme) =>
     drawingButton: {
       width: theme.spacing(18),
     },
+    fullWidth: {
+      width: '100%',
+      marginTop: '36px'
+    }
   })
 );
 
@@ -63,6 +67,7 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
           </Button>
         </Tooltip>
         <Menu
+          className={classes.fullWidth}
           open={Boolean(anchorEl)}
           // keepMounted
           onClose={handleClose}

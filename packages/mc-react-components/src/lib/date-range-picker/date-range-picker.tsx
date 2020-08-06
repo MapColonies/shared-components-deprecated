@@ -6,7 +6,10 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, ThemeProvider, createMuiTheme, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@map-colonies/react-core/dist';
+import { green } from '@material-ui/core/colors';
+import { Box } from '../box';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,8 +34,33 @@ interface DateRangePickerProps {
 
 export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const classes = useStyle();
+  const theme: { [key: string]: string } = useTheme();
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
+
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  console.log('THEME OPTIONS -> ',theme);
+
+  const theme1 = React.useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          type: prefersDarkMode ? 'dark' : 'light', 
+          primary: {
+            main: theme.primary,
+          },
+          secondary: {
+            main: theme.secondary,
+          },
+          background: {
+            paper: theme.background,
+          }
+    
+        },
+      }),
+    [prefersDarkMode, theme]
+  );
+
 
   useEffect(() => {    
     setFrom(props.from || null);
@@ -56,33 +84,35 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   };
 
   return (
-    <div className={classes.container}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDateTimePicker
-          variant="inline"
-          label="from"
-          onChange={(date) => setFrom(date as Date)}
-          value={from}
-          disableFuture={true}
-        />
-        <KeyboardDateTimePicker
-          variant="inline"
-          label="to"
-          className={classes.margin}
-          onChange={(date) => setTo(date as Date)}
-          value={to}
-          disableFuture={true}
-        />
-        <Button
-          className={`${classes.setButton} ${classes.margin}`}
-          variant="outlined"
-          size="large"
-          onClick={onChange}
-          disabled={!isRangeValid}
-        >
-          set
-        </Button>
-      </MuiPickersUtilsProvider>
-    </div>
+    <ThemeProvider theme={theme1}>
+      <Box className={classes.container}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDateTimePicker
+            variant="inline"
+            label="from"
+            onChange={(date) => setFrom(date as Date)}
+            value={from}
+            disableFuture={true}
+          />
+          <KeyboardDateTimePicker
+            variant="inline"
+            label="to"
+            className={classes.margin}
+            onChange={(date) => setTo(date as Date)}
+            value={to}
+            disableFuture={true}
+          />
+          <Button
+            className={`${classes.setButton} ${classes.margin}`}
+            variant="outlined"
+            size="large"
+            onClick={onChange}
+            disabled={!isRangeValid}
+          >
+            set
+          </Button>
+        </MuiPickersUtilsProvider>
+      </Box>
+    </ThemeProvider>
   );
 };
