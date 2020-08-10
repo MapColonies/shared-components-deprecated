@@ -2,6 +2,10 @@ import React from 'react';
 // import { Menu, MenuItem, Button } from '@material-ui/core';
 // import Tooltip from '@material-ui/core/Tooltip';
 import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core/dist';
+import '@map-colonies/react-core/dist/button/styles';
+import '@map-colonies/react-core/dist/tooltip/styles';
+import '@map-colonies/react-core/dist/menu/styles';
+
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
@@ -16,7 +20,7 @@ const useStyle = makeStyles((theme: Theme) =>
     fullWidth: {
       width: '100%',
       marginTop: '36px'
-    }
+    },
   })
 );
 
@@ -44,7 +48,10 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
   
   if (isSelectionEnabled) {
     return (
-      <Tooltip content="Cancel the ongoing draw">
+      <Tooltip 
+        content="Cancel the ongoing draw"
+        align={'bottomLeft'}
+      >
         <Button
           className={classes.drawingButton}
           raised
@@ -57,7 +64,10 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
   } else {
     return (
       <Box position="relative"> 
-        <Tooltip content="draw an Area of interest to limit the search">
+        <Tooltip 
+          content="draw an Area of interest to limit the search" 
+          align={'bottomLeft'}
+        >
           <Button
             className={classes.drawingButton}
             raised

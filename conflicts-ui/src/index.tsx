@@ -8,7 +8,8 @@ import * as serviceWorker from './serviceWorker';
 import { StoreProvider, rootStore } from './conflicts/models/rootStore';
 import { conflictResponse } from './conflicts/models/conflictStore';
 
-import { applyPolyfills, defineCustomElements } from '@map-colonies/ui-components/loader';
+// ***** Usage of WebComponents (Stencil)
+// import { applyPolyfills, defineCustomElements } from '@map-colonies/ui-components/loader';
 
 const store = rootStore.create(
   {},
@@ -32,8 +33,8 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-
-applyPolyfills().then(() => {
-    defineCustomElements();
-});
+// ***** Usage of WebComponents (Stencil)
+// applyPolyfills().then(() => {
+//     defineCustomElements();
+// });
 

@@ -107,8 +107,10 @@ export const ThemeProvider = createComponent<ThemeProviderProps>(
       <>
         <ThemeContext.Provider value={options}>
           <Tag {...rest} style={themeStyles} className={className} ref={ref} />
-        </ThemeContext.Provider>;
+        </ThemeContext.Provider>
       </>
     );
   }
 );
+
+export * from './themes';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CircularProgress } from '@map-colonies/react-core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { CellMetadata, SmartTable } from '@map-colonies/react-components';
@@ -52,7 +52,7 @@ export const ConflictsTable: React.FC = observer(() => {
   if (conflictsStore.state === ResponseState.PENDING) {
     return (
       <div className={classes.infoContainer}>
-        <CircularProgress className={classes.infoContent} />
+        <CircularProgress size="xlarge" className={classes.infoContent} />
       </div>
     );
   } else if (conflictsStore.state === ResponseState.ERROR) {

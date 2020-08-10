@@ -1,5 +1,4 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 
 import { IConflict } from '../models/conflict';
 
@@ -10,7 +9,7 @@ interface ConflictItemProps {
 const ConflictItem: React.FC<ConflictItemProps> = ({ conflict }) => {
   return (
     <div>
-      <Typography variant='subtitle1'>{'#' + conflict.id}</Typography>
+      <h2>{'#' + conflict.id}</h2>
       <div>{conflict.source_server}</div>
       <div>{conflict.target_server}</div>
       <div>{conflict.description}</div>

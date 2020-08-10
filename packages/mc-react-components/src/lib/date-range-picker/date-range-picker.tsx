@@ -6,10 +6,15 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Button, ThemeProvider, createMuiTheme, useMediaQuery } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core';
+
+import { Button } from '@map-colonies/react-core/dist';
+import '@map-colonies/react-core/dist/button/styles';
+import { ThemeProvider as RmwcThemeProvider } from '@map-colonies/react-core';
 import { useTheme } from '@map-colonies/react-core/dist';
 import { green } from '@material-ui/core/colors';
 import { Box } from '../box';
+import { useMappedMuiTheme } from '../theme';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,35 +37,17 @@ interface DateRangePickerProps {
   to?: Date;
 }
 
+
+
+
 export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const classes = useStyle();
   const theme: { [key: string]: string } = useTheme();
+  const themeMui = useMappedMuiTheme(theme);
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
 
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   console.log('THEME OPTIONS -> ',theme);
-
-  const theme1 = React.useMemo(
-    () =>
-      createMuiTheme({
-        palette: {
-          type: prefersDarkMode ? 'dark' : 'light', 
-          primary: {
-            main: theme.primary,
-          },
-          secondary: {
-            main: theme.secondary,
-          },
-          background: {
-            paper: theme.background,
-          }
-    
-        },
-      }),
-    [prefersDarkMode, theme]
-  );
-
 
   useEffect(() => {    
     setFrom(props.from || null);
@@ -84,8 +71,8 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   };
 
   return (
-    <ThemeProvider theme={theme1}>
-      <Box className={classes.container}>
+    <ThemeProvider theme={themeMui}>
+      <Box className={classes.container} display="flex">
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDateTimePicker
             variant="inline"
@@ -102,15 +89,18 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
             value={to}
             disableFuture={true}
           />
-          <Button
-            className={`${classes.setButton} ${classes.margin}`}
-            variant="outlined"
-            size="large"
-            onClick={onChange}
-            disabled={!isRangeValid}
-          >
-            set
-          </Button>
+          <RmwcThemeProvider options={theme}>
+            <Button
+              className={`${classes.setButton} ${classes.margin}`}
+              raised
+              // variant="outlined"
+              // size="large"
+              onClick={onChange}
+              disabled={!isRangeValid}
+            >
+              set
+            </Button>
+          </RmwcThemeProvider>
         </MuiPickersUtilsProvider>
       </Box>
     </ThemeProvider>
