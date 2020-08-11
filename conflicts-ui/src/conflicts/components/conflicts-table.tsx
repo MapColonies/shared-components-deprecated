@@ -1,11 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { CircularProgress } from '@map-colonies/react-core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { CircularProgress, Typography } from '@map-colonies/react-core';
 import { CellMetadata, SmartTable } from '@map-colonies/react-components';
-import { useStore } from '../models/rootStore';
 
+import { useStore } from '../models/rootStore';
 import { IConflict } from '../models/conflict';
 import { ResponseState } from '../../common/models/ResponseState';
 import ConflictItem from './conflict-item';
@@ -58,7 +57,7 @@ export const ConflictsTable: React.FC = observer(() => {
   } else if (conflictsStore.state === ResponseState.ERROR) {
     return (
       <div className={classes.infoContainer}>
-        <Typography>
+        <Typography use="body1">
           Something went horribly wrong, please try again later
         </Typography>
       </div>
