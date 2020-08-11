@@ -21,12 +21,23 @@
     "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
     "build:all": "lerna run build --npm-client=yarn",
     "publish": "lerna publish --contents dist",
-
     "start:reactdemo": "cd demoapp && yarn start",
-    "start:conflicts": "cd conflicts-ui && yarn start"
+    "start:conflicts": "cd conflicts-ui && yarn start",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.0.1",
+    "@storybook/addon-docs": "^6.0.1",
+    "@storybook/addon-knobs": "^6.0.1",
+    "@storybook/addon-links": "^6.0.1",
+    "@storybook/addon-storysource": "^6.0.1",
+    "@storybook/addons": "^6.0.1",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.1",
+    "@storybook/theming": "^6.0.1",
     "del-cli": "^3.0.1",
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "storybook-dark-mode": "^0.6.2-canary.106.2226.0"
   }
 }
