@@ -20,9 +20,9 @@ const store = rootStore.create(
 );
 ReactDOM.render(
   // <React.StrictMode>
-    <StoreProvider value={store}>
-      <App />
-    </StoreProvider>
+  <StoreProvider value={store}>
+    <App />
+  </StoreProvider>
   // </React.StrictMode>
   ,
   document.getElementById('root')

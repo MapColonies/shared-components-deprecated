@@ -13,11 +13,11 @@ export const DateFilter: React.FC = observer(() => {
     null
   );
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
@@ -42,7 +42,7 @@ export const DateFilter: React.FC = observer(() => {
         keepMounted
       >
         <DateTimeRangePicker
-          onChange={({ from, to }) => {
+          onChange={({ from, to }): void => {
             conflictsStore.searchParams.setDateRange(from, to);
             handleClose();
           }}

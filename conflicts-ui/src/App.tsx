@@ -13,7 +13,6 @@ import '@map-colonies/react-core/dist/select/styles';
 import '@map-colonies/react-core/dist/circular-progress/styles';
 import '@map-colonies/react-core/dist/typography/styles';
 
-
 import ConflictsView from './conflicts/views/conflicts-view';
 
 const App: React.FC = () => {

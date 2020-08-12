@@ -39,10 +39,8 @@
     "build": "rimraf dist && tsc --project tsbuildconfig.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
+    "eslint-check": "npx eslint . --ext .ts,.tsx"
   },
   "browserslist": {
     "production": [

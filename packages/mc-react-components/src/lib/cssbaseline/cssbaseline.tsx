@@ -3,7 +3,7 @@ import CssBaseline, { CssBaselineProps } from '@material-ui/core/CssBaseline';
 import ScopedCssBaseline, { ScopedCssBaselineProps } from '@material-ui/core/ScopedCssBaseline';
 
 
-export const McCssBaseline = (props: CssBaselineProps) => 
+export const McCssBaseline: React.FC<CssBaselineProps> = (props: CssBaselineProps) => 
 {
     const {children, ...rest} = props;
     return (
@@ -13,7 +13,7 @@ export const McCssBaseline = (props: CssBaselineProps) =>
     );
 }
 
-export const McScopedCssBaseline = (props: ScopedCssBaselineProps) => 
+export const McScopedCssBaseline: React.FC<ScopedCssBaselineProps> = (props: ScopedCssBaselineProps) => 
 {
     const {children, ...rest} = props;
     return (
