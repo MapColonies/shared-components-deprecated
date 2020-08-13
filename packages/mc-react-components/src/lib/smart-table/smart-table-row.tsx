@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import { CellMetadata, ElementFunction } from "./smart-table-types";
 import React, { useState } from "react";
 import { TableRow, TableCell, IconButton, Collapse } from "@material-ui/core";
@@ -26,7 +27,7 @@ export function SmartTableRow<T>(props: SmartTableRowProps<T>) {
   const [open, setOpen] = useState(false);
   const cellCount = cellsMetadata.length;
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     onRowSelected?.(rowIndex);
   };
   return (
@@ -37,7 +38,7 @@ export function SmartTableRow<T>(props: SmartTableRowProps<T>) {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={(e) => {
+              onClick={(e): void => {
                 e.stopPropagation();
                 setOpen(!open);
               }}
@@ -48,7 +49,7 @@ export function SmartTableRow<T>(props: SmartTableRowProps<T>) {
         )}
         {cellsMetadata.map((cell) => (
           <TableCell
-            key={(cell.id as string) + rowIndex}
+            key={(cell.id as string) + rowIndex.toString()}
             align={cell.numeric ? 'right' : 'left'}
             padding={cell.disablePadding ? 'none' : 'default'}
           >

@@ -19,10 +19,10 @@ export const DrawInteraction: React.FC<DrawProps> = ({ drawType, onPolygonSelect
   useEffect(() => {
     const options: DrawOptions = { type: GeometryType.CIRCLE }
     switch (drawType) {
-      case DrawType.box:
+      case DrawType.BOX:
         options.geometryFunction = createBox();
         break;
-      case DrawType.polygon:
+      case DrawType.POLYGON:
         options.type = GeometryType.POLYGON;
         break;
       default:
@@ -30,19 +30,19 @@ export const DrawInteraction: React.FC<DrawProps> = ({ drawType, onPolygonSelect
     }
 
     const draw = new Draw(options);
-    map?.addInteraction(draw)
+    map.addInteraction(draw);
 
-    const onDrawEnd = (e: DrawEvent) => {
+    const onDrawEnd = (e: DrawEvent): void => {
       const geoJson = new GeoJSON();
       const geom = geoJson.writeGeometryObject(e.feature.getGeometry())
-      onPolygonSelected?.(geom as Geometry);
+      onPolygonSelected?.(geom);
     };
 
     draw.on('drawend', onDrawEnd);
 
-    return (() => {
+    return ((): void => {
       draw.un('drawend', onDrawEnd);
-      map?.removeInteraction(draw);
+      map.removeInteraction(draw);
     });
   }, [onPolygonSelected, drawType, map])
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { PolygonSelectionUi } from './polygon-selection-ui';
-import renderer from 'react-test-renderer';
 import { DrawType } from '../models';
 import { MenuItem, Menu, Button } from '@material-ui/core';
 
@@ -64,7 +63,7 @@ it('Polygon/box drawing menu items call start draw with correct params on click 
     .simulate('click');
 
   expect(wrapper.find(Menu).prop('open')).toBe(false);
-  expect(startDraw).toHaveBeenCalledWith(DrawType.polygon);
+  expect(startDraw).toHaveBeenCalledWith(DrawType.POLYGON);
   expect(startDraw).toHaveBeenCalledTimes(1);
 
   startDraw.mockClear();
@@ -75,7 +74,7 @@ it('Polygon/box drawing menu items call start draw with correct params on click 
     .simulate('click');
 
   expect(wrapper.find(Menu).prop('open')).toBe(false);
-  expect(startDraw).toHaveBeenCalledWith(DrawType.box);
+  expect(startDraw).toHaveBeenCalledWith(DrawType.BOX);
   expect(startDraw).toHaveBeenCalledTimes(1);
 });
 

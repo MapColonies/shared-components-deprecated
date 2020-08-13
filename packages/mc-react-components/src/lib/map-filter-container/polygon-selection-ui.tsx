@@ -12,10 +12,11 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { DrawType } from '../models/enums';
 import { Box } from '../box';
 
+const WIDTH_SPACING_FACTOR = 18;
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     drawingButton: {
-      width: theme.spacing(18),
+      width: theme.spacing(WIDTH_SPACING_FACTOR),
     },
     fullWidth: {
       width: '100%',
@@ -38,11 +39,11 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { isSelectionEnabled, onCancelDraw, onStartDraw, onReset } = props;
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
   
@@ -90,23 +91,23 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
           // }}
         >
           <MenuItem
-            onClick={() => {
-              onStartDraw(DrawType.polygon);
+            onClick={(): void => {
+              onStartDraw(DrawType.POLYGON);
               handleClose();
             }}
           >
             Polygon
           </MenuItem>
           <MenuItem
-            onClick={() => {
-              onStartDraw(DrawType.box);
+            onClick={(): void => {
+              onStartDraw(DrawType.BOX);
               handleClose();
             }}
           >
             Box
           </MenuItem>
           <MenuItem
-            onClick={() => {
+            onClick={(): void => {
               onReset();
               handleClose();
             }}

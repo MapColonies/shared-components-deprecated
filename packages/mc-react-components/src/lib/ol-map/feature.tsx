@@ -15,7 +15,7 @@ export const GeoJSONFeature: React.FC<FeatureProps> = ({ geometry }) => {
     const geoJSON = new GeoJSON();
     const feature = geoJSON.readFeature(geometry);
     source.addFeature(feature);
-    return () => { source.removeFeature(feature) };
+    return (): void => { source.removeFeature(feature) };
   }, [geometry, source])
 
   return null;

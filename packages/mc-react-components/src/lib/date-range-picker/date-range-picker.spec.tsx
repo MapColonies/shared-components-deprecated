@@ -1,15 +1,15 @@
 import React from 'react';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { DateTimeRangePicker } from './date-range-picker';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
-import { Button } from '@material-ui/core';
-import { act } from '@testing-library/react';
-import { Wrapper } from '@material-ui/pickers/wrappers/Wrapper';
+import { Button } from '@map-colonies/react-core';
 
 const date = new Date(1990, 1, 1);
 
 it('set the values of to and from to the props of the date pickers when changed', () => {
-  const wrapper = mount(<DateTimeRangePicker onChange={() => {}} />);
+  const wrapper = mount(<DateTimeRangePicker onChange={() => {
+    // do nothing for linitng
+  }} />);
   wrapper.setProps({ from: date, to: date });
 
   wrapper.update();
@@ -26,30 +26,31 @@ it('calls on change when button is clicked', () => {
   const wrapper = mount(
     <DateTimeRangePicker from={date} to={date} onChange={onChangeMock} />
   );
-  const button = wrapper.find(Button);
 
-  // @ts-ignore
-  wrapper.find(Button).props().onClick?.();
+  // wrapper.find(Button).props().onClick?.();
+  wrapper.find(Button).simulate('click');
 
-  expect(onChangeMock).toBeCalledWith({ from: date, to: date });
+  expect(onChangeMock).toHaveBeenCalledWith({ from: date, to: date });
 
   wrapper.setProps({ to: null });
   wrapper.update();
 
-  // @ts-ignore
-  wrapper.find(Button).props().onClick?.();
-  expect(onChangeMock).toBeCalledWith({ from: date });
+  // wrapper.find(Button).props().onClick?.();
+  wrapper.find(Button).simulate('click');
+  expect(onChangeMock).toHaveBeenCalledWith({ from: date });
 
   wrapper.setProps({ to: date, from: null });
   wrapper.update();
 
-  // @ts-ignore
-  wrapper.find(Button).props().onClick?.();
-  expect(onChangeMock).toBeCalledWith({ to: date });
+  // wrapper.find(Button).props().onClick?.();
+  wrapper.find(Button).simulate('click');
+  expect(onChangeMock).toHaveBeenCalledWith({ to: date });
 });
 
 it('enables and disables the button based on the validity of the dates', () => {
-  const wrapper = shallow(<DateTimeRangePicker onChange={() => {}} />);
+  const wrapper = shallow(<DateTimeRangePicker onChange={() => {
+    // do nothing for linitng
+  }} />);
   const fromPicker = wrapper.find(KeyboardDateTimePicker).first();
   const toPicker = wrapper.find(KeyboardDateTimePicker).at(1);
 

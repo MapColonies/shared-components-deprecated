@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import {
   Table,
@@ -49,7 +50,7 @@ export function SmartTable<T>(props: SmartTableProps<T>) {
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof T
-  ) => {
+  ): void => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);

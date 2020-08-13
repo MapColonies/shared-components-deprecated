@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import React from 'react'
 import TableHead from "@material-ui/core/TableHead";
 import { CellMetadata, Order } from "./smart-table-types";

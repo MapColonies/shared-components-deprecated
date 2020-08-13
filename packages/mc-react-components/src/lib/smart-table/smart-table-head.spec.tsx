@@ -2,14 +2,16 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { SmartEnhancedTableHead } from './smart-table-head';
 import { TableCell, TableSortLabel } from '@material-ui/core';
-import { headCells } from './__mocks__/smartTableMocks';
+import { headCells } from './__mock-data__/smartTableMocks';
 
 it('generates the correct number of table cells', () => {
   const wrapper = shallow(
     <SmartEnhancedTableHead
       headCells={headCells}
       isCollapseable={false}
-      onRequestSort={() => {}}
+      onRequestSort={() => {
+        // do nothing for eslint
+      }}
       order="asc"
       orderBy={''}
     />
@@ -27,15 +29,19 @@ it('sets the correct values for the table cell properties', () => {
     <SmartEnhancedTableHead
       headCells={headCells}
       isCollapseable={false}
-      onRequestSort={() => {}}
+      onRequestSort={() => {
+        // do nothing for eslint
+      }}
       order="asc"
       orderBy={'first'}
     />
   );
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const firstTableCellProps = wrapper
     .findWhere((n) => n.type() === TableCell && n.key() === headCells[0].id)
     .props();
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const secondTableCellProps = wrapper
     .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id)
     .props();
@@ -57,7 +63,9 @@ it('sets the correct values for the sort label properties', () => {
     <SmartEnhancedTableHead
       headCells={headCells}
       isCollapseable={false}
-      onRequestSort={() => {}}
+      onRequestSort={() => {
+        // do nothing for eslint
+      }}
       order="desc"
       orderBy={'first'}
     />
@@ -103,5 +111,5 @@ it('calls onRequestSort with the correct params', () => {
     )
     .simulate('click', {});
 
-  expect(handleRequestSort).toBeCalledWith(expect.anything(), headCells[0].id);
+  expect(handleRequestSort).toHaveBeenCalledWith(expect.anything(), headCells[0].id);
 });

@@ -20,14 +20,15 @@ interface ContainerMapProps {
 
 export const ContainerMap: React.FC<ContainerMapProps> = (props) => {
 
-  const handlePolygonSelected = (geometry: Geometry) => {
+  const handlePolygonSelected = (geometry: Geometry): void => {
     const rewindedPolygon = rewind(geometry as Polygon);
     props.onPolygonSelection(rewindedPolygon);
   };
 
   return (
     <Map>
-      <TileLayer><TileOsm />
+      <TileLayer>
+        <TileOsm />
       </TileLayer>
       {props.selectionPolygon && <VectorLayer>
         <VectorSource>
@@ -35,7 +36,7 @@ export const ContainerMap: React.FC<ContainerMapProps> = (props) => {
         </VectorSource>
       </VectorLayer>}
       {props.children}
-      {props.drawType && <DrawInteraction drawType={props.drawType} onPolygonSelected={handlePolygonSelected} />}
+      {(props.drawType !== undefined) && <DrawInteraction drawType={props.drawType} onPolygonSelected={handlePolygonSelected} />}
     </Map >
   );
 };

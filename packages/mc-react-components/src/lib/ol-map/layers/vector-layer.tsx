@@ -5,7 +5,7 @@ import { useMap } from '../map';
 const vectorLayerContext = createContext<Vector | null>(null)
 const VectorLayerProvider = vectorLayerContext.Provider;
 
-export const useVectorLayer = () => {
+export const useVectorLayer = (): Vector => {
   const layer = useContext(vectorLayerContext);
 
   if (layer === null) {
@@ -22,7 +22,7 @@ export const VectorLayer: React.FC = ({children}) => {
 
   useEffect(() => {
     map.addLayer(vectorLayer)
-    return () => {map.removeLayer(vectorLayer);}
+    return (): void => {map.removeLayer(vectorLayer);}
   }, [map, vectorLayer])
 
   return (

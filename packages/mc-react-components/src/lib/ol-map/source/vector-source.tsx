@@ -6,7 +6,7 @@ import { useVectorLayer } from '../layers/vector-layer';
 const vectorSourceContext = createContext<Vector | null>(null)
 const VectorSourceProvider = vectorSourceContext.Provider;
 
-export const useVectorSource = () => {
+export const useVectorSource = (): Vector => {
   const source = useContext(vectorSourceContext);
 
   if (source === null) {
@@ -21,7 +21,7 @@ export const VectorSource: React.FC = ({children}) => {
   const vectorLayer = useVectorLayer();
   const [vectorSource] = useState(new Vector())
 
-  useEffect(() => {
+  useEffect((): void => {
     vectorLayer.setSource(vectorSource)
   }, [vectorSource, vectorLayer])
 

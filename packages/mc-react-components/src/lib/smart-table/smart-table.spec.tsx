@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { SmartTable } from './smart-table';
-import { headCells, items } from './__mocks__/smartTableMocks';
+import { headCells, items } from './__mock-data__/smartTableMocks';
 import { TableRow } from '@material-ui/core';
 import { SmartTableRow } from './smart-table-row';
 import { SmartEnhancedTableHead } from './smart-table-head';
@@ -20,11 +20,17 @@ it(
       <SmartTable
         cellsMetadata={headCells}
         count={10}
-        handleChangePage={() => {}}
-        handleChangeRowsPerPage={() => {}}
+        handleChangePage={() => {
+          // do nothing for eslint
+        }}
+        handleChangeRowsPerPage={() => {
+          // do nothing for eslint
+        }}
         isCollapseable={false}
         items={[]}
-        onRowSelected={() => {}}
+        onRowSelected={() => {
+          // do nothing for eslint
+        }}
         onRequestSort={requestSort}
         page={0}
         rowsPerPage={10}
@@ -48,11 +54,17 @@ it('Generates a row for each of the items', () => {
     <SmartTable
       cellsMetadata={headCells}
       count={10}
-      handleChangePage={() => {}}
-      handleChangeRowsPerPage={() => {}}
+      handleChangePage={() => {
+        // do nothing for eslint
+      }}
+      handleChangeRowsPerPage={() => {
+        // do nothing for eslint
+      }}
       isCollapseable={false}
       items={items}
-      onRowSelected={() => {}}
+      onRowSelected={() => {
+        // do nothing for eslint
+      }}
       onRequestSort={requestSort}
       page={0}
       rowsPerPage={10}
@@ -72,11 +84,17 @@ it('calls on request sort with the correct order and property when sort is reque
     <SmartTable
       cellsMetadata={headCells}
       count={10}
-      handleChangePage={() => {}}
-      handleChangeRowsPerPage={() => {}}
+      handleChangePage={() => {
+        // do nothing for eslint
+      }}
+      handleChangeRowsPerPage={() => {
+        // do nothing for eslint
+      }}
       isCollapseable={false}
       items={items}
-      onRowSelected={() => {}}
+      onRowSelected={() => {
+        // do nothing for eslint
+      }}
       onRequestSort={requestSort}
       page={0}
       rowsPerPage={10}
@@ -87,12 +105,12 @@ it('calls on request sort with the correct order and property when sort is reque
     .find(SmartEnhancedTableHead)
     .simulate('requestSort', {}, headCells[0].id);
 
-  expect(requestSort).toBeCalledWith(headCells[0].id, 'asc');
+  expect(requestSort).toHaveBeenCalledWith(headCells[0].id, 'asc');
   wrapper.update();
 
   wrapper
     .find(SmartEnhancedTableHead)
     .simulate('requestSort', {}, headCells[0].id);
 
-  expect(requestSort).toBeCalledWith(headCells[0].id, 'desc');
+  expect(requestSort).toHaveBeenCalledWith(headCells[0].id, 'desc');
 });

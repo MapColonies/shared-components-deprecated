@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { SmartTableRow } from './smart-table-row';
-import { items, headCells } from './__mocks__/smartTableMocks';
+import { items, headCells } from './__mock-data__/smartTableMocks';
 import { IconButton, Collapse, TableCell, TableRow } from '@material-ui/core';
 
 const item = items[0];
@@ -61,11 +61,13 @@ it('generates tablecells with the correct properties and runs transform', () => 
     />
   );
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const firstTableCellProps = wrapper
-    .findWhere((n) => n.type() === TableCell && n.key() === headCells[0].id + rowIndex)
+    .findWhere((n) => n.type() === TableCell && n.key() === headCells[0].id + rowIndex.toString())
     .props();
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const secondTableCellProps = wrapper
-    .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id + rowIndex)
+    .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id + rowIndex.toString())
     .props();
 
   expect(firstTableCellProps).toHaveProperty('align','left');
@@ -75,7 +77,7 @@ it('generates tablecells with the correct properties and runs transform', () => 
   expect(secondTableCellProps).toHaveProperty('padding','default');
 
   expect(firstTableCellProps).toHaveProperty('children','42');
-  expect(headCells[0].transform).toBeCalledWith(item.first);
+  expect(headCells[0].transform).toHaveBeenCalledWith(item.first);
   expect(secondTableCellProps).toHaveProperty('children',item.second);
 });
 
@@ -95,5 +97,5 @@ it('calls onRowSelected with the correct index', () => {
 
   wrapper.find(TableRow).simulate('click');
 
-  expect(onRowSelected).toBeCalledWith(0);
+  expect(onRowSelected).toHaveBeenCalledWith(0);
 });

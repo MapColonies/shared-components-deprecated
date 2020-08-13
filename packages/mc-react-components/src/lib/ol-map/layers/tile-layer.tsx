@@ -5,7 +5,7 @@ import { useMap } from '../map';
 const tileLayerContext = createContext<Tile | null>(null)
 const TileLayerProvider = tileLayerContext.Provider;
 
-export const useTileLayer = () => {
+export const useTileLayer = (): Tile => {
   const layer = useContext(tileLayerContext);
 
   if (layer === null) {
@@ -23,7 +23,7 @@ export const TileLayer: React.FC = ({children}) => {
   useEffect(() => {
     map.addLayer(tileLayer)
 
-    return () => {map.removeLayer(tileLayer);}
+    return (): void => {map.removeLayer(tileLayer);}
   }, [map, tileLayer])
 
   return (

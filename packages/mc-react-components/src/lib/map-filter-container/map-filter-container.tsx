@@ -6,6 +6,8 @@ import { PolygonSelectionUi } from './polygon-selection-ui';
 import { DrawType } from '../models/enums';
 import { ContainerMap } from './container-map';
 
+const PLACEMENT_SPACING_FACTOR = 1.5;
+const WIDTH_SPACING_FACTOR = 80;
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     map: {
@@ -16,12 +18,12 @@ const useStyle = makeStyles((theme: Theme) =>
     absolute: {
       position: 'absolute',
       zIndex: 1000,
-      left: theme.spacing(1.5),
-      top: theme.spacing(1.5),
+      left: theme.spacing(PLACEMENT_SPACING_FACTOR),
+      top: theme.spacing(PLACEMENT_SPACING_FACTOR),
     },
     contentContainer: {
-      marginTop: theme.spacing(1.5),
-      width: theme.spacing(80),
+      marginTop: theme.spacing(PLACEMENT_SPACING_FACTOR),
+      width: theme.spacing(WIDTH_SPACING_FACTOR),
     },
     filtersContainer: {
       display: 'flex',
@@ -45,13 +47,13 @@ export const MapFilterContainer: React.FC<MapFilterContainerProps> = (props) => 
   const [selectionPolygon, setSelectionPolygon] = useState<Polygon>();
   const classes = useStyle();
 
-  const onPolygonSelection = (polygon: Polygon) => {
+  const onPolygonSelection = (polygon: Polygon): void => {
     setSelectionPolygon(polygon);
     setDrawType(undefined);
     props.handlePolygonSelected(polygon);
   };
 
-  const onReset = () => {
+  const onReset = (): void => {
     setSelectionPolygon(undefined);
     props.handlePolygonReset();
   };
@@ -61,10 +63,10 @@ export const MapFilterContainer: React.FC<MapFilterContainerProps> = (props) => 
       <div className={`${classes.absolute}`}>
         <Paper className={classes.filtersContainer}>
           <PolygonSelectionUi
-            onCancelDraw={() => setDrawType(undefined)}
+            onCancelDraw={(): void => setDrawType(undefined)}
             onReset={onReset}
             onStartDraw={setDrawType}
-            isSelectionEnabled={!!drawType}
+            isSelectionEnabled={drawType !== undefined}
           />
           {props.filters?.map((filter, index) => (
             <div key={index} className={classes.filtersMargin}>

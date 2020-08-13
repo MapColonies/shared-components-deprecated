@@ -1,14 +1,6 @@
 import React from 'react';
-import { createMuiTheme, Theme } from '@material-ui/core';
-import useMediaQuery , { Options } from '@material-ui/core/useMediaQuery';
-
-// const mcuseMediaQuery = (
-//     query: string | ((theme: Theme) => string),
-//     options?: Options
-//   ): boolean => {
-//     return useMediaQuery(query, options);
-//   };
-  
+import { createMuiTheme } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useMappedMuiTheme = (theme: { [key: string]: string }) => {
     const prefersDarkMode = (theme.type === 'dark');

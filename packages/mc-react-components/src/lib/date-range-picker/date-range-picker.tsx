@@ -12,21 +12,23 @@ import { Button } from '@map-colonies/react-core/dist';
 import '@map-colonies/react-core/dist/button/styles';
 import { ThemeProvider as RmwcThemeProvider } from '@map-colonies/react-core';
 import { useTheme } from '@map-colonies/react-core/dist';
-import { green } from '@material-ui/core/colors';
 import { Box } from '../box';
 import { useMappedMuiTheme } from '../theme';
+
+const CONTAINER_SPACING_FACTOR = 2;
+const MARGIN_LEFT_FACTOR = 0.5;
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(CONTAINER_SPACING_FACTOR),
       alignItems: 'center',
     },
     setButton: {
       marginTop: theme.spacing(1),
     },
     margin: {
-      marginLeft: theme.spacing(0.5),
+      marginLeft: theme.spacing(MARGIN_LEFT_FACTOR),
     },
   })
 );
@@ -50,11 +52,11 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   console.log('THEME OPTIONS -> ',theme);
 
   useEffect(() => {    
-    setFrom(props.from || null);
+    setFrom(props.from ?? null);
   }, [props.from]);
 
   useEffect(() => {
-    setTo(props.to || null);
+    setTo(props.to ?? null);
   }, [props.to]);
 
   const isRangeValid = Boolean(
@@ -63,7 +65,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
       (from && to && isValid(from) && isValid(to) && isBefore(from, to))
   );
 
-  const onChange = () => {
+  const onChange = (): void => {
     props.onChange({
       from: from && isValid(from) ? from : undefined,
       to: to && isValid(to) ? to : undefined,
@@ -77,7 +79,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
           <KeyboardDateTimePicker
             variant="inline"
             label="from"
-            onChange={(date) => setFrom(date as Date)}
+            onChange={(date): void => setFrom(date as Date)}
             value={from}
             disableFuture={true}
           />
@@ -85,7 +87,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
             variant="inline"
             label="to"
             className={classes.margin}
-            onChange={(date) => setTo(date as Date)}
+            onChange={(date): void => setTo(date as Date)}
             value={to}
             disableFuture={true}
           />
