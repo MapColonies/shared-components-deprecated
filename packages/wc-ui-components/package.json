@@ -2,6 +2,7 @@
   "name": "@map-colonies/ui-components",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
+  "private": true,
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -9,7 +10,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/mc-wc-ui-components/mc-wc-ui-components.js",
+  "unpkg": "dist/wc-ui-components/wc-ui-components.js",
   "files": [
     "dist/",
     "loader/"

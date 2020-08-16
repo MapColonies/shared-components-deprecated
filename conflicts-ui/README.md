@@ -13,7 +13,7 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-**Make sure to build all the dependencies before running this command (mc-react-components)**
+**Make sure to build all the dependencies before running this command (react-components)**
 
 Any relative request is proxied to the backend.<br/>
 you can control the host by editing the package.json file.

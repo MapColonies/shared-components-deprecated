@@ -20,7 +20,7 @@
     "jsx": "react"
   },
   "include": [
-    "packages/mc-react-components",
-    "packages/mc-react-ui-components",
+    "packages/react-components",
+    "packages/react-ui-components",
   ]
 }

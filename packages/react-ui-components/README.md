@@ -1,6 +1,8 @@
-# mc-react-components
+# react-ui-components
 
-This is a library contains react components for use by other apps. All the components are written using typescript. The project was bootstrapped using create-react-app, and modified to enable exporting of components.
+This is a library contains CORE react components for use by other apps, based on Material Web Components helpers
+All the components are written using typescript.
+The project was bootstrapped using create-react-app, and modified to enable exporting of components.
 
 ## Using the package
 
