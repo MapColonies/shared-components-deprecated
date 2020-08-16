@@ -220,7 +220,7 @@ function EnhancedMenu(props: EnhancedMenuProps & SelectHTMLProps) {
             ? option.value === value
             : currentIndex - 1 === selectedIndex
         }
-        {...option}
+        // {...option}
         data-value={option.value}
       >
         {label}
