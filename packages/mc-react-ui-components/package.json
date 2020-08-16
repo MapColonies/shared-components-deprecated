@@ -12,6 +12,9 @@
     "type": "git",
     "url": "https://github.com/MapColonies/shared-components.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "dependencies": {
     "cross-env": "7.0.2",
