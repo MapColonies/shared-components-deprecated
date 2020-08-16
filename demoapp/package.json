@@ -1,12 +1,12 @@
 {
   "name": "demoapp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "start": "react-scripts start"
   },
   "dependencies": {
-    "@map-colonies/react-components": "^0.1.1",
+    "@map-colonies/react-components": "^0.1.2",
     "@map-colonies/ui-components": "^0.0.1",
     "@map-colonies/ui-components-react": "^0.0.1",
     "react": "^16.13.1",

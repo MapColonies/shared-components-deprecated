@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@0.1.1...@map-colonies/react-core@0.1.2) (2020-08-16)
+
+
+### Bug Fixes
+
+* **index:** lerna ([1caf8c7](https://github.com/MapColonies/shared-components/commit/1caf8c719c4f07cd14e9e200778d771b7fb16d26))
+
+
+
+
+
+
 ## 0.1.1 (2020-08-16)
 
 

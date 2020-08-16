@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@0.1.1...@map-colonies/react-components@0.1.2) (2020-08-16)
+
+
+### Bug Fixes
+
+* **lerna:** index ([f445ee2](https://github.com/MapColonies/shared-components/commit/f445ee235b012a45e57eed5064a32e622f246d8b))
+
+
+
+
+
+
 ## 0.1.1 (2020-08-16)
 
 
