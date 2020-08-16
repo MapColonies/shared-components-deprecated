@@ -1,16 +1,16 @@
 {
   "name": "demoapp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "start": "react-scripts start"
   },
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "@map-colonies/react-components": "^0.1.0",
+    "@map-colonies/react-components": "^0.1.1",
     "@map-colonies/ui-components": "^0.0.1",
-    "@map-colonies/ui-components-react": "^0.0.1"
+    "@map-colonies/ui-components-react": "^0.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
