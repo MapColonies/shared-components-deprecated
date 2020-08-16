@@ -6,7 +6,8 @@
   "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>",
   "private": true,
   "workspaces": [
-    "packages/*",
+    "packages/mc-react-components",
+    "packages/mc-react-ui-components",
     "demoapp",
     "conflicts-ui"
   ],
@@ -33,7 +34,7 @@
   "scripts": {
     "del-dist": "lerna exec --parallel -- del-cli dist",
     "prebuild": "yarn del-dist",
-    
+
     "build:react-core:build": "lerna exec --scope @map-colonies/react-core -- yarn build",
     "build:react-core:postbuild": "lerna exec --scope @map-colonies/react-core -- yarn postbuild",
     "build:react-core": "yarn build:react-core:build && yarn build:react-core:postbuild",
