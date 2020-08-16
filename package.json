@@ -33,6 +33,7 @@
   "scripts": {
     "del-dist": "lerna exec --parallel -- del-cli dist",
     "prebuild": "yarn del-dist",
+    
     "build:react-core:build": "lerna exec --scope @map-colonies/react-core -- yarn build",
     "build:react-core:postbuild": "lerna exec --scope @map-colonies/react-core -- yarn postbuild",
     "build:react-core": "yarn build:react-core:build && yarn build:react-core:postbuild",
@@ -40,6 +41,7 @@
     "build:stencil": "lerna exec --scope @map-colonies/ui-components -- yarn build",
     "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
     "build:all": "lerna run build --npm-client=yarn",
+    
     "publish": "lerna publish --contents dist",
 
     "eslint-check:react": "lerna exec --scope @map-colonies/react-components -- yarn eslint-check",

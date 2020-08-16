@@ -1,7 +1,8 @@
 {
     "lerna": "2.11.0",
     "packages": [
-      "packages/*"
+      "packages/mc-react-components",
+      "packages/mc-react-ui-components"
     ],
     "version": "independent",
     "npmClient": "yarn",
