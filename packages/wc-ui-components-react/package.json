@@ -1,7 +1,7 @@
 {
   "name": "@map-colonies/ui-components-react",
   "sideEffects": false,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "React specific wrapper for component-library",
   "repository": {
@@ -28,11 +28,11 @@
     "np": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript": "~3.7.2",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "typescript": "~3.7.2"
   },
   "dependencies": {
-    "@map-colonies/ui-components": "^0.0.1"
+    "@map-colonies/ui-components": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^16.13.1",

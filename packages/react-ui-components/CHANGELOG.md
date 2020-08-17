@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@0.1.2...@map-colonies/react-core@1.0.0) (2020-08-17)
+
+
+### Bug Fixes
+
+* **rename:** mc prefix removed ([2b8c936](https://github.com/MapColonies/shared-components/commit/2b8c9363313c9958c800951ef25a319f21427d00))
+
+
+
+
+
+
 ## [0.1.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@0.1.1...@map-colonies/react-core@0.1.2) (2020-08-16)
 
 

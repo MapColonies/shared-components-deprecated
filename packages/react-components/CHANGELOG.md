@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@0.1.2...@map-colonies/react-components@1.0.0) (2020-08-17)
+
+
+### Bug Fixes
+
+* **cleanup:** unneeded storybooks remains ([6113a9b](https://github.com/MapColonies/shared-components/commit/6113a9b3589a43effe38fb5795cc90bed564f6e6))
+* **rename:** mc prefix removed ([2b8c936](https://github.com/MapColonies/shared-components/commit/2b8c9363313c9958c800951ef25a319f21427d00))
+* **storybook:**  unneeded files ([aab448f](https://github.com/MapColonies/shared-components/commit/aab448fec67aa971108e05e14eb109242b89c8f5))
+
+
+
+
+
+
 ## [0.1.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@0.1.1...@map-colonies/react-components@0.1.2) (2020-08-16)
 
 

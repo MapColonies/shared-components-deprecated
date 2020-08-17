@@ -1,7 +1,7 @@
 {
   "proxy": "http://localhost:8000",
   "name": "demoapp-react",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "license": "MIT",
   "husky": {
     "hooks": {
@@ -41,8 +41,8 @@
   "dependencies": {
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
-    "@map-colonies/react-components": "^0.1.2",
-    "@map-colonies/react-core": "^0.1.2",
+    "@map-colonies/react-components": "^1.0.0",
+    "@map-colonies/react-core": "^1.0.0",
     "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
