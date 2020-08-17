@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/MapColonies/shared-components.git",
-  "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>",
+  "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>, alex.lebinson <alexl@rnd-hub.com>",
   "private": true,
   "workspaces": [
     "packages/react-components",
