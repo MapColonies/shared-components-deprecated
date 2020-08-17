@@ -1,5 +1,5 @@
 
-# conflicts-ui
+# demoapp-react
 React app written in typescript to display, filter, and resolve conflicts.<br/>
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

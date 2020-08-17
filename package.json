@@ -10,8 +10,8 @@
     "packages/react-ui-components",
     "packages/wc-ui-components",
     "packages/wc-ui-components-react",
-    "demoapp",
-    "conflicts-ui"
+    "demoapp-stencil",
+    "demoapp-react"
   ],
   "husky": {
     "hooks": {
@@ -50,8 +50,8 @@
     "eslint-check:react": "lerna exec --scope @map-colonies/react-components -- yarn eslint-check",
     "eslint-check:react-core": "lerna exec --scope @map-colonies/react-core -- yarn eslint-check",
 
-    "start:reactdemo": "cd demoapp && yarn start",
-    "start:conflicts": "cd conflicts-ui && yarn start"
+    "start:reactstencildemo": "cd demoapp-stencil && yarn start",
+    "start:reactdemo": "cd demoapp-react && yarn start"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",

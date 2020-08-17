@@ -1,14 +1,7 @@
 {
   "proxy": "http://localhost:8000",
-  "name": "conflicts-ui",
+  "name": "demoapp-react",
   "version": "0.1.2",
-  "bugs": {
-    "url": "https://github.com/MapColonies/conflicts-ui/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MapColonies/conflicts-ui.git"
-  },
   "license": "MIT",
   "husky": {
     "hooks": {
