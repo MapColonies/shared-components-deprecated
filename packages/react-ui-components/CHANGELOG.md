@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@1.0.0...@map-colonies/react-core@1.0.1) (2020-08-17)
+
+
+### Bug Fixes
+
+* **readme:** updated ([bf51776](https://github.com/MapColonies/shared-components/commit/bf5177627a7b61c3ee1b1b5f30106e1996da7924))
+
+
+
+
+
 # [1.0.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@0.1.2...@map-colonies/react-core@1.0.0) (2020-08-17)
 
 
