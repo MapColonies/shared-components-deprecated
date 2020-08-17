@@ -4,6 +4,7 @@ This is a library contains react components for use by other apps.
 All the components are written using typescript. 
 The project was bootstrapped using create-react-app, and modified to enable exporting of components.
 
+
 ## Using the package
 
 * Run `yarn run build`. This will compile the `src/lib` folder, and copy all the other files into the dist folder.
