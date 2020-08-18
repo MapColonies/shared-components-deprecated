@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { PolygonSelectionUi } from './polygon-selection-ui';
 import { DrawType } from '../models';
-import { MenuItem, Menu, Button } from '@material-ui/core';
+import { MenuItem, Menu, Button } from '@map-colonies/react-core';
 
 const startDraw = jest.fn();
 const cancelDraw = jest.fn();

@@ -13,7 +13,7 @@ const useMappedMuiTheme = (theme: { [key: string]: string }) => {
 
 const mapMcToMuiTheme = (mcTheme :{ [key: string]: string }, prefersDarkMode = false) => {
 
-    return  createMuiTheme({
+    return createMuiTheme({
       palette: {
         type: prefersDarkMode ? 'dark' : 'light', 
         primary: {
@@ -33,7 +33,6 @@ const mapMcToMuiTheme = (mcTheme :{ [key: string]: string }, prefersDarkMode = f
           primary: prefersDarkMode ? mcTheme.textPrimaryOnDark : mcTheme.textPrimaryOnLight,
           secondary: prefersDarkMode ? mcTheme.textSecondaryOnDark : mcTheme.textSecondaryOnLight,
         }
-  
       }
     });
   };

@@ -11,6 +11,7 @@ import {
 } from '../base';
 
 import { getAutoColorsForTheme } from './utils';
+import { Themes } from '../theme/themes';
 
 /** A Theme Component. */
 export interface ThemeProps {
@@ -52,7 +53,7 @@ export interface ThemeProviderProps {
 }
 
 
-export const ThemeContext = React.createContext({});
+export const ThemeContext = React.createContext(Themes.lightTheme as {[key: string]: string });
 
 export function useTheme() {
   const theme = React.useContext(ThemeContext);
@@ -104,11 +105,9 @@ export const ThemeProvider = createComponent<ThemeProviderProps>(
     }
 
     return (
-      <>
-        <ThemeContext.Provider value={options}>
-          <Tag {...rest} style={themeStyles} className={className} ref={ref} />
-        </ThemeContext.Provider>
-      </>
+      <ThemeContext.Provider value={options}>
+        <Tag {...rest} style={themeStyles} className={className} ref={ref} />
+      </ThemeContext.Provider>
     );
   }
 );

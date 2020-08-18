@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { TextField, TextFieldHelperText } from './';
-import { wait } from '@rmwc/base/utils/test-utils';
+import { wait } from '../base/utils/test-utils';
 
 describe('TextField', () => {
   it('renders', () => {
