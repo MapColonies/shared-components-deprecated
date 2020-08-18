@@ -8,7 +8,8 @@ The repo uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
 
 
 ## Projects
-* **conflict-ui** - UI app as a demo app.
+* **demoapp-react** - UI app as a demo for using react components.
+* **demoapp-stencil** - UI app as a demo for using stencil componets(not active).
 * **react-components** - Component library for common usage(more suffisitcated components).
 * **react-ui-components** - Core components based on Material Web Components helpers.
 
@@ -39,21 +40,21 @@ The repo uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
 6. start hacking :wink:
 
 ## Build
-1. Be logged in to NPM
-```json
-  npm login
-``` 
-2. Build Core components
+1. Build Core components
 ```json
   yarn run build:react-core:build
 ``` 
-3. Build common components
+2. Build common components
 ```json
   yarn run build:react
 ``` 
 
 ## Publishing
-1. Publish PUBLIC packages 
+1. Be logged in to NPM
+```json
+  npm login
+``` 
+2. Publish PUBLIC packages 
 ```json
   yarn run publish
 ``` 
@@ -61,7 +62,7 @@ or
 ```json
   npx lerna publish --conventional-commits -m "chore(publish): publish %s [ci skip]"
 ``` 
-2. Re-publish currently bumped versions
+3. Re-publish currently bumped versions
 ```json
   npx lerna exec -- npm publish
 ```

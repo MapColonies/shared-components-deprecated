@@ -8,10 +8,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core';
 
-import { Button } from '@map-colonies/react-core/dist';
+import { Button, useTheme } from '@map-colonies/react-core';
 import '@map-colonies/react-core/dist/button/styles';
 import { ThemeProvider as RmwcThemeProvider } from '@map-colonies/react-core';
-import { useTheme } from '@map-colonies/react-core/dist';
 import { Box } from '../box';
 import { useMappedMuiTheme } from '../theme';
 

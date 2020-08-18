@@ -1,7 +1,5 @@
 import React from 'react';
-// import { Menu, MenuItem, Button } from '@material-ui/core';
-// import Tooltip from '@material-ui/core/Tooltip';
-import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core/dist';
+import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core';
 import '@map-colonies/react-core/dist/button/styles';
 import '@map-colonies/react-core/dist/tooltip/styles';
 import '@map-colonies/react-core/dist/menu/styles';
