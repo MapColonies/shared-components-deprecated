@@ -45,9 +45,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
 
-  console.log('THEME OPTIONS -> ', theme);
-
-  useEffect(() => {
+  useEffect(() => {    
     setFrom(props.from ?? null);
   }, [props.from]);
 

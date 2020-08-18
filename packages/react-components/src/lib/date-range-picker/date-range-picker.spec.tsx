@@ -31,23 +31,23 @@ it('calls on change when button is clicked', () => {
     <DateTimeRangePicker from={date} to={date} onChange={onChangeMock} />
   );
 
-  // wrapper.find(Button).props().onClick?.();
-  wrapper.find(Button).simulate('click');
+  // eslint-disable-next-line
+  wrapper.find(Button).props().onClick?.();
 
   expect(onChangeMock).toHaveBeenCalledWith({ from: date, to: date });
 
   wrapper.setProps({ to: null });
   wrapper.update();
 
-  // wrapper.find(Button).props().onClick?.();
-  wrapper.find(Button).simulate('click');
+  // eslint-disable-next-line
+  wrapper.find(Button).props().onClick?.();
   expect(onChangeMock).toHaveBeenCalledWith({ from: date });
 
   wrapper.setProps({ to: date, from: null });
   wrapper.update();
 
-  // wrapper.find(Button).props().onClick?.();
-  wrapper.find(Button).simulate('click');
+  // eslint-disable-next-line
+  wrapper.find(Button).props().onClick?.();
   expect(onChangeMock).toHaveBeenCalledWith({ to: date });
 });
 

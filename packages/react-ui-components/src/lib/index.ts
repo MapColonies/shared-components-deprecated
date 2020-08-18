@@ -26,7 +26,7 @@ export * from './notched-outline';
 export * from './provider';
 export * from './radio';
 export * from './ripple';
-export * from './rmwc';
+// export * from './rmwc';
 export * from './select';
 export * from './slider';
 export * from './snackbar';

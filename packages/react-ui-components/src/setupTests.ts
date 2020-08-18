@@ -1,14 +1,23 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom/extend-expect';
-
-import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import Enzyme from 'enzyme';
+// @ts-ignore
+import rmwcTestPolyfill from './lib/base/test-polyfill';
 
 Enzyme.configure({ adapter: new Adapter() });
+rmwcTestPolyfill();
 
-// Mocked as those are used by openlayers
-global.URL.createObjectURL = jest.fn();
-HTMLCanvasElement.prototype.getContext = jest.fn();
+const consoleError = console.error;
+beforeAll(() => {
+  jest.spyOn(console, 'error').mockImplementation((...args) => {
+    if (
+      !(
+        typeof args[0] === 'string' &&
+        args[0].includes(
+          'Warning: An update to %s inside a test was not wrapped in act'
+        )
+      )
+    ) {
+      consoleError(...args);
+    }
+  });
+});
