@@ -5,7 +5,7 @@ import {
   useFoundation,
   FocusTrap,
   focusTrapFactory,
-  triggerWindowResize
+  triggerWindowResize,
 } from '../base';
 import { DialogProps } from '.';
 import React, { useRef, useEffect, useMemo } from 'react';
@@ -31,7 +31,7 @@ export const useDialogFoundation = (
   const { foundation, ...elements } = useFoundation({
     props,
     elements: {
-      rootEl: true
+      rootEl: true,
     },
     foundation: ({ rootEl, emit, getProps }) => {
       return new MDCDialogFoundation({
@@ -94,9 +94,9 @@ export const useDialogFoundation = (
         getInitialFocusEl: () =>
           document.querySelector(
             `[${MDCDialogFoundation.strings.INITIAL_FOCUS_ATTRIBUTE}]`
-          )
+          ),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;
@@ -144,7 +144,7 @@ export const useDialogFoundation = (
 
     if (surface) {
       focusTrap.current = focusTrapFactory(surface, {
-        initialFocusEl: defaultButton.current || undefined
+        initialFocusEl: defaultButton.current || undefined,
       });
     }
   }, [rootEl.ref]);

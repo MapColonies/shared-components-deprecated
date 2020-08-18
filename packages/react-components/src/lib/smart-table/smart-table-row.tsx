@@ -1,8 +1,12 @@
-/* eslint-disable */ 
-import { CellMetadata, ElementFunction } from "./smart-table-types";
-import React, { useState } from "react";
-import { TableRow, TableCell, IconButton, Collapse } from "@material-ui/core";
-import {KeyboardArrowDown as KeyboardArrowDownIcon, KeyboardArrowUp as KeyboardArrowUpIcon} from '@material-ui/icons'
+/* eslint-disable */
+
+import { CellMetadata, ElementFunction } from './smart-table-types';
+import React, { useState } from 'react';
+import { TableRow, TableCell, IconButton, Collapse } from '@material-ui/core';
+import {
+  KeyboardArrowDown as KeyboardArrowDownIcon,
+  KeyboardArrowUp as KeyboardArrowUpIcon,
+} from '@material-ui/icons';
 
 interface SmartTableRowProps<T> {
   item: T;
@@ -34,7 +38,7 @@ export function SmartTableRow<T>(props: SmartTableRowProps<T>) {
     <>
       <TableRow hover selected={isRowSelected} onClick={handleClick}>
         {isCollapseable && (
-          <TableCell padding='checkbox'>
+          <TableCell padding="checkbox">
             <IconButton
               aria-label="expand row"
               size="small"

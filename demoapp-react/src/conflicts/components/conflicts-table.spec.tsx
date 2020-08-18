@@ -14,7 +14,7 @@ console.error = jest.fn();
 
 const originalWarn = console.warn.bind(console.warn);
 beforeAll(() => {
-  console.warn = (msg:string) =>
+  console.warn = (msg: string) =>
     !msg.toString().includes('observer batching') && originalWarn(msg);
 });
 afterAll(() => {

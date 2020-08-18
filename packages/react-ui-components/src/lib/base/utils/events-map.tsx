@@ -84,5 +84,5 @@ export const eventsMap = {
   beforeinput: 'onBeforeInput',
   compositionend: 'onCompositionEnd',
   compositionstart: 'onCompositionStart',
-  compositionupdate: 'onCompositionUpdate'
+  compositionupdate: 'onCompositionUpdate',
 };

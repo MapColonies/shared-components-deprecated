@@ -52,7 +52,13 @@
     "eslint-check:react-core": "lerna exec --scope @map-colonies/react-core -- yarn eslint-check",
 
     "start:reactstencildemo": "cd demoapp-stencil && yarn start",
-    "start:reactdemo": "cd demoapp-react && yarn start"
+    "start:reactdemo": "cd demoapp-react && yarn start",
+
+    "clean": "lerna clean",
+    "clean:update": "lerna clean && lerna bootstrap",
+
+    "prettier:fix": "prettier --write .",
+    "prettier:check": "prettier --check ."
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.1",
@@ -66,6 +72,10 @@
     "standard-version": "^8.0.2",
 
     "del-cli": "^3.0.1",
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+
+    "prettier": "^2.0.5",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3"
   }
 }

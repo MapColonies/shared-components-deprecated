@@ -22,9 +22,8 @@ ReactDOM.render(
   // <React.StrictMode>
   <StoreProvider value={store}>
     <App />
-  </StoreProvider>
+  </StoreProvider>,
   // </React.StrictMode>
-  ,
   document.getElementById('root')
 );
 
@@ -37,4 +36,3 @@ serviceWorker.unregister();
 // applyPolyfills().then(() => {
 //     defineCustomElements();
 // });
-

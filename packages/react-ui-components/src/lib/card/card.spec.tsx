@@ -9,7 +9,7 @@ import {
   CardActionButtons,
   CardActionIcons,
   CardActionButton,
-  CardActionIcon
+  CardActionIcon,
 } from './';
 
 describe('Card', () => {
@@ -54,7 +54,7 @@ describe('Card', () => {
       CardActions,
       CardActionButton,
       CardActionIcon,
-      CardPrimaryAction
+      CardPrimaryAction,
     ].forEach((Component: any) => {
       const el = mount(<Component className={'my-custom-classname'} />);
       expect(!!~el.html().search('my-custom-classname')).toEqual(true);

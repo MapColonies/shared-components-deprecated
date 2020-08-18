@@ -12,7 +12,7 @@ import {
   MenuItems,
   MenuProps,
   MenuApi,
-  MenuOnSelectEventT
+  MenuOnSelectEventT,
 } from '../../menu';
 import { ListGroup, ListGroupSubheader, ListDivider } from '../../list';
 import { withRipple } from '../../ripple';
@@ -87,7 +87,7 @@ const createSelectOptions = (options: any): FormattedOption[] => {
   if (typeof options === 'object') {
     return Object.keys(options).map((value) => ({
       value,
-      label: options[value]
+      label: options[value],
     }));
   }
 
@@ -120,7 +120,7 @@ function NativeMenu(
   const renderOption = ({
     label,
     option,
-    index
+    index,
   }: {
     label: React.ReactNode;
     option: FormattedOption;
@@ -157,7 +157,7 @@ function NativeMenu(
                     renderOption({
                       label,
                       option: option as FormattedOption,
-                      index
+                      index,
                     })
                   )}
                 </optgroup>
@@ -167,7 +167,7 @@ function NativeMenu(
             return renderOption({
               label,
               option: option as FormattedOption,
-              index
+              index,
             });
           }
         )}
@@ -205,7 +205,7 @@ function EnhancedMenu(props: EnhancedMenuProps & SelectHTMLProps) {
 
   const renderOption = ({
     label,
-    option
+    option,
   }: {
     label: React.ReactNode;
     option: FormattedOption;
@@ -320,7 +320,7 @@ export const Select: RMWC.ComponentType<
     handleKeydown,
     handleMenuClosed,
     handleMenuOpened,
-    handleMenuSelected
+    handleMenuSelected,
   } = useSelectFoundation(props);
 
   const id = useId('select', props);
@@ -332,8 +332,8 @@ export const Select: RMWC.ComponentType<
       'mdc-select--required': !!props.required,
       'mdc-select--invalid': !!invalid,
       'mdc-select--with-leading-icon': !!icon,
-      'mdc-select--no-label': !label
-    }
+      'mdc-select--no-label': !label,
+    },
   ]);
 
   const enhancedMenuProps = typeof enhanced === 'object' ? enhanced : {};
@@ -464,8 +464,8 @@ export const SelectHelperText: RMWC.ComponentType<
     'mdc-select-helper-text',
     {
       'mdc-select-helper-text--persistent': persistent,
-      'mdc-select-helper-text--validation-msg': validationMsg
-    }
+      'mdc-select-helper-text--validation-msg': validationMsg,
+    },
   ]);
 
   return <Tag tag="p" {...rest} className={className} ref={ref} />;

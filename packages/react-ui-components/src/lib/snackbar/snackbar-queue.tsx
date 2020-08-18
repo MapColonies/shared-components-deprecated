@@ -5,7 +5,7 @@ import {
   SnackbarProps,
   SnackbarAction,
   SnackbarActionProps,
-  SnackbarHTMLProps
+  SnackbarHTMLProps,
 } from './snackbar';
 import { IconPropT } from '../types';
 import { ArrayEmitter } from '../base';
@@ -51,7 +51,7 @@ export function SnackbarQueue({
     let timerId: number;
     const doChange = () => {
       if (messages.array[0] !== message) {
-        setIteration(val => val + 1);
+        setIteration((val) => val + 1);
         timerId = window.setTimeout(() => setMessage(messages.array[0]), 150);
       }
     };
@@ -96,7 +96,7 @@ export function SnackbarQueue({
               className="rmwc-snackbar__image"
               style={{
                 margin: '1rem auto',
-                textAlign: 'center'
+                textAlign: 'center',
               }}
             >
               <img
@@ -108,7 +108,7 @@ export function SnackbarQueue({
           )}
         </>
       }
-      onClose={evt => {
+      onClose={(evt) => {
         onClose?.(evt);
         removeMessage(message);
       }}
@@ -133,8 +133,8 @@ export const createSnackbarQueue = (): {
       return {
         close: () => {
           messages.remove(message);
-        }
+        },
       };
-    }
+    },
   };
 };

@@ -13,9 +13,7 @@ import { Feature, Geometry } from 'geojson';
 import { ApiHttpResponse } from '../../common/models/api-response';
 import { PaginationResult } from '../../common/models/pagination-result';
 import { ResponseState } from '../../common/models/ResponseState';
-import {
-  ConflictSearchParams,
-} from './conflict-search-params';
+import { ConflictSearchParams } from './conflict-search-params';
 import { IRootStore } from './rootStore';
 import { pagination } from './pagination';
 import { Conflict, IConflict } from './conflict';
@@ -47,12 +45,12 @@ export const ConflictStore = types
     pagination: types.optional(pagination, {}),
   })
   .views((self) => ({
-    get conflictLocations (): Feature<Geometry>[] {
+    get conflictLocations(): Feature<Geometry>[] {
       return self.conflicts.map((conflict) =>
         feature<Geometry>(conflict.location, {})
       );
     },
-    get root (): IRootStore {
+    get root(): IRootStore {
       return getParent(self);
     },
   }))
@@ -65,10 +63,10 @@ export const ConflictStore = types
       self.selectedConflict = conflict;
     };
 
-    const fetchConflicts = flow(function* fetchConflicts (): Generator<
-    Promise<conflictResponse>,
-    void,
-    conflictResponse
+    const fetchConflicts = flow(function* fetchConflicts(): Generator<
+      Promise<conflictResponse>,
+      void,
+      conflictResponse
     > {
       self.conflicts = cast([]);
       self.state = ResponseState.PENDING;

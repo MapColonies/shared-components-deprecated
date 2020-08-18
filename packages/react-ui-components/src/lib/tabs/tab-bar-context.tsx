@@ -11,5 +11,5 @@ export const TabBarContext = React.createContext<TabBarContextT>({
   onTabInteraction: (evt: any) => {},
   registerTab: (tab: any) => {},
   unregisterTab: (tab: any) => {},
-  indicatorTransition: 'slide'
+  indicatorTransition: 'slide',
 });

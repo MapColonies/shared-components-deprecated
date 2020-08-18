@@ -60,12 +60,12 @@ export function useToggleFoundation<Foundation>(
         className,
         style,
         disabled,
-        ...rootProps
+        ...rootProps,
       };
 
   return {
     id,
     renderToggle,
-    toggleRootProps
+    toggleRootProps,
   };
 }

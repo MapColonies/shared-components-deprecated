@@ -31,7 +31,7 @@ export function TabIndicator(
       tag="span"
       element={rootEl}
       className={classNames('mdc-tab-indicator', {
-        'mdc-tab-indicator--fade': transition === 'fade'
+        'mdc-tab-indicator--fade': transition === 'fade',
       })}
     >
       <Tag

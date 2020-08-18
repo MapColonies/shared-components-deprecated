@@ -6,7 +6,7 @@ import {
   MenuSurface,
   MenuItem,
   SimpleMenu,
-  SimpleMenuSurface
+  SimpleMenuSurface,
 } from './';
 
 describe('Menu', () => {

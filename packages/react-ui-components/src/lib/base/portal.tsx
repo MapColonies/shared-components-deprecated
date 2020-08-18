@@ -13,7 +13,7 @@ export function Portal() {
 
 export function PortalChild({
   children,
-  renderTo
+  renderTo,
 }: {
   children: React.ReactNode;
   renderTo?: PortalPropT;

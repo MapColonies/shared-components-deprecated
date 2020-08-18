@@ -1,6 +1,6 @@
-import deepmerge from 'deepmerge'
-import { Palette } from './types/palette'
-import { TypographyOptions, Typography } from './typography'
+import deepmerge from 'deepmerge';
+import { Palette } from './types/palette';
+import { TypographyOptions, Typography } from './typography';
 
 function round(value) {
   return Math.round(value * 1e5) / 1e5;
@@ -8,22 +8,22 @@ function round(value) {
 
 export default function createTypography(
   palette: Palette,
-  typography: TypographyOptions | ((palette: Palette) => TypographyOptions),
-): Typography{
-    const {
-        fontFamily = '"Roboto", "Helvetica", "Arial", sans-serif',
-        fontSize = 14, // px
-        fontWeightLight = 300,
-        fontWeightRegular = 400,
-        fontWeightMedium = 500,
-        htmlFontSize = 16, // 16px is the default font-size used by browsers on the html element.
-        ...other
-    } = typeof typography === 'function' ? typography(palette) : typography;
+  typography: TypographyOptions | ((palette: Palette) => TypographyOptions)
+): Typography {
+  const {
+    fontFamily = '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize = 14, // px
+    fontWeightLight = 300,
+    fontWeightRegular = 400,
+    fontWeightMedium = 500,
+    htmlFontSize = 16, // 16px is the default font-size used by browsers on the html element.
+    ...other
+  } = typeof typography === 'function' ? typography(palette) : typography;
 
-    function pxToRem(value) {
-        return `${value / htmlFontSize}rem`;
-    }
-    return deepmerge(
+  function pxToRem(value) {
+    return `${value / htmlFontSize}rem`;
+  }
+  return deepmerge(
     {
       pxToRem,
       round,
@@ -118,7 +118,6 @@ export default function createTypography(
     other,
     {
       clone: false, // No need to clone deep
-    },
+    }
   );
-
 }

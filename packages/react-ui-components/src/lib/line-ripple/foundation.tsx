@@ -10,7 +10,7 @@ export const useLineRippleFoundation = (
   const { foundation, ...elements } = useFoundation({
     props,
     elements: {
-      rootEl: true
+      rootEl: true,
     },
     foundation: ({ rootEl }) => {
       return new MDCLineRippleFoundation({
@@ -26,9 +26,9 @@ export const useLineRippleFoundation = (
         deregisterEventHandler: <K extends EventType>(
           evtType: K,
           handler: SpecificEventListener<K>
-        ) => rootEl.removeEventListener(evtType, handler)
+        ) => rootEl.removeEventListener(evtType, handler),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;

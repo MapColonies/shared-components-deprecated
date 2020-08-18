@@ -44,7 +44,7 @@ describe('Select', () => {
           helpText={{
             children: 'selectHelpText',
             validationMsg: true,
-            persistent: true
+            persistent: true,
           }}
           options={{ 1: 'Cookies', 2: 'Pizza', 3: 'Icecream' }}
         />
@@ -92,18 +92,18 @@ describe('Select', () => {
         options={[
           {
             label: 'Cookies',
-            value: '1'
+            value: '1',
           },
           {
             label: 'Pizza',
             value: '2',
             'aria-disabled': true,
-            tabIndex: -1
+            tabIndex: -1,
           },
           {
             label: 'Icecream',
-            value: '3'
-          }
+            value: '3',
+          },
         ]}
       />
     );

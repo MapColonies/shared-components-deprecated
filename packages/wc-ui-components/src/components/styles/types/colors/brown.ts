@@ -1,6 +1,6 @@
-import {Color} from './color'
+import { Color } from './color';
 
-const brown:Color = {
+const brown: Color = {
   50: '#efebe9',
   100: '#d7ccc8',
   200: '#bcaaa4',

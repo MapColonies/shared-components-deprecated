@@ -1,6 +1,6 @@
-import {Color} from './color'
+import { Color } from './color';
 
-const blueGrey:Color = {
+const blueGrey: Color = {
   50: '#eceff1',
   100: '#cfd8dc',
   200: '#b0bec5',

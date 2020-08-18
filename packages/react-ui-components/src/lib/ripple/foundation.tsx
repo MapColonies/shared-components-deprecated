@@ -21,7 +21,7 @@ export const useRippleFoundation = (
     props,
     elements: {
       rootEl: true,
-      surfaceEl: true
+      surfaceEl: true,
     },
     foundation: ({ rootEl, surfaceEl, getProps }) => {
       return new MDCRippleFoundation({
@@ -80,10 +80,10 @@ export const useRippleFoundation = (
           rootEl.ref ? rootEl.ref.getBoundingClientRect() : emptyClientRect,
         getWindowPageOffset: () => ({
           x: window.pageXOffset,
-          y: window.pageYOffset
-        })
+          y: window.pageYOffset,
+        }),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;

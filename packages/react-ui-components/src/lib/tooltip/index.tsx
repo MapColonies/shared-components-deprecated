@@ -53,10 +53,10 @@ export const Tooltip = function Tooltip({
     enterDelay = 0,
     leaveDelay = 0,
     align = 'top',
-    activateOn = ['hover', 'focus'] as TooltipActivationT[]
+    activateOn = ['hover', 'focus'] as TooltipActivationT[],
   } = {
     ...providerContext.tooltip,
-    ...rest
+    ...rest,
   };
 
   return (
@@ -70,7 +70,7 @@ export const Tooltip = function Tooltip({
       mouseLeaveDelay={leaveDelay / 1000}
       overlay={content}
       overlayClassName={classNames(className, {
-        'rmwc-tooltip--show-arrow': showArrow
+        'rmwc-tooltip--show-arrow': showArrow,
       })}
       destroyTooltipOnHide
     >

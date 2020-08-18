@@ -69,7 +69,7 @@ const providerDefaults: RMWCProviderProps = {
     showArrow: false,
     activateOn: ['hover', 'focus'],
     enterDelay: 0,
-    leaveDelay: 0
+    leaveDelay: 0,
   },
   typography: {},
   icon: {
@@ -77,8 +77,8 @@ const providerDefaults: RMWCProviderProps = {
     basename: 'material-icons',
     prefix: '',
     strategy: 'auto',
-    render: undefined
-  }
+    render: undefined,
+  },
 };
 
 export const ProviderContext = React.createContext(providerDefaults);
@@ -91,7 +91,7 @@ export const RMWCProvider = ({ children, ...rest }: RMWCProviderProps) => {
     <ProviderContext.Provider
       value={{
         ...providerDefaults,
-        ...rest
+        ...rest,
       }}
     >
       {children}

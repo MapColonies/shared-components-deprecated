@@ -1,12 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as RMWC from '../types';
 import React from 'react';
-import {
-  getDisplayName,
-  Tag,
-  useClassNames,
-  createComponent
-} from '../base';
+import { getDisplayName, Tag, useClassNames, createComponent } from '../base';
 
 /** A Grid component */
 export interface GridProps {
@@ -26,8 +21,8 @@ export const Grid = createComponent<GridProps>(function Grid(props, ref) {
     'mdc-layout-grid',
     {
       [`mdc-layout-grid--align-${align || ''}`]: props.align !== undefined,
-      'mdc-layout-grid--fixed-column-width': fixedColumnWidth
-    }
+      'mdc-layout-grid--fixed-column-width': fixedColumnWidth,
+    },
   ]);
 
   return (
@@ -69,8 +64,8 @@ export const GridCell = createComponent<GridCellProps>(function GridCell(
       [`mdc-layout-grid__cell--span-${tablet || ''}-tablet`]:
         tablet !== undefined,
       [`mdc-layout-grid__cell--span-${desktop || ''}-desktop`]:
-        props.desktop !== undefined
-    }
+        props.desktop !== undefined,
+    },
   ]);
   return <Tag {...rest} ref={ref} className={className} />;
 });

@@ -1,17 +1,20 @@
-import { Component, Prop, Element, h  } from '@stencil/core';
-import theme from '../util/theme'
-import {setTheme, getTheme} from '../util/mwc-util'
+import { Component, Prop, Element, h } from '@stencil/core';
+import theme from '../util/theme';
+import { setTheme, getTheme } from '../util/mwc-util';
 @Component({
   tag: 'mwc-theme',
   //styleUrl: 'mwc-theme.scss',
-  shadow: false
+  shadow: false,
 })
-export class MWCTheme{
-  @Element() themeEl : HTMLElement;
+export class MWCTheme {
+  @Element() themeEl: HTMLElement;
   @Prop() theme: object = {};
-  @Prop() fonts: Array<string> = [] ;
-  @Prop() icons: Array<string> = [] ;
-  fontsAndIcons: Array<string> = ['https://fonts.googleapis.com/css?family=Roboto:300,400,500','https://fonts.googleapis.com/icon?family=Material+Icons']
+  @Prop() fonts: Array<string> = [];
+  @Prop() icons: Array<string> = [];
+  fontsAndIcons: Array<string> = [
+    'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
+    'https://fonts.googleapis.com/icon?family=Material+Icons',
+  ];
   /*
   {
       "primary" : "#8BC34A",
@@ -23,34 +26,32 @@ export class MWCTheme{
       "background": '#BDBDBD'
   };
    */
-  constructor(){
-    setTheme(theme)
+  constructor() {
+    setTheme(theme);
   }
 
-  setLinkNode(fontUrl){
+  setLinkNode(fontUrl) {
     var linkNode = document.createElement('link');
-       linkNode.type = "text/css";
-       linkNode.rel = "stylesheet";
-       linkNode.href = fontUrl;
-       document.head.appendChild(linkNode);
+    linkNode.type = 'text/css';
+    linkNode.rel = 'stylesheet';
+    linkNode.href = fontUrl;
+    document.head.appendChild(linkNode);
   }
 
-  componentWillLoad(){
-      const urls = [...this.fonts,...this.fontsAndIcons, ...this.icons]
-       urls.forEach((font)=>{
-        this.setLinkNode(font);
-      })
-      //  if(this.theme){
-      //   Object.keys(this.theme).forEach((key)=>{
-      //       this.themeEl.style.setProperty(`--mdc-theme-${key}`,this.theme[key]);
-      //   })
-      //  }
+  componentWillLoad() {
+    const urls = [...this.fonts, ...this.fontsAndIcons, ...this.icons];
+    urls.forEach((font) => {
+      this.setLinkNode(font);
+    });
+    //  if(this.theme){
+    //   Object.keys(this.theme).forEach((key)=>{
+    //       this.themeEl.style.setProperty(`--mdc-theme-${key}`,this.theme[key]);
+    //   })
+    //  }
     //   console.log(getTheme())
   }
 
   render() {
-    return (
-      <slot />
-    )
+    return <slot />;
   }
 }

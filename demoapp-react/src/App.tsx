@@ -2,7 +2,11 @@ import React from 'react';
 import './App.css';
 
 // Import from react core components
-import { ThemeProvider as RMWCThemeProvider, RMWCProvider, Themes } from '@map-colonies/react-core';
+import {
+  ThemeProvider as RMWCThemeProvider,
+  RMWCProvider,
+  Themes,
+} from '@map-colonies/react-core';
 import { CssBaseline } from '@map-colonies/react-components';
 import { useMediaQuery } from '@map-colonies/react-components';
 import '@map-colonies/react-core/dist/theme/styles';
@@ -20,9 +24,9 @@ const App: React.FC = () => {
   const theme = prefersDarkMode ? Themes.darkTheme : Themes.lightTheme;
 
   return (
-    <RMWCProvider 
+    <RMWCProvider
       typography={{
-        body1: 'p'
+        body1: 'p',
       }}
     >
       <RMWCThemeProvider options={theme}>

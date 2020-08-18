@@ -13,12 +13,12 @@ export const useSelectIconFoundation = (
     props,
     elements: { rootEl: true },
     api: ({
-      foundation
+      foundation,
     }: {
       foundation: MDCTextFieldIconFoundation;
     }): SelectIconApi => {
       return {
-        getFoundation: () => foundation
+        getFoundation: () => foundation,
       };
     },
     foundation: ({ rootEl, emit }) => {
@@ -38,9 +38,9 @@ export const useSelectIconFoundation = (
           evtType: K,
           handler: SpecificEventListener<K>
         ) => rootEl.removeEventListener(evtType, handler),
-        notifyIconAction: () => emit('onClick', {}, true)
+        notifyIconAction: () => emit('onClick', {}, true),
       });
-    }
+    },
   });
 
   return { ...elements };

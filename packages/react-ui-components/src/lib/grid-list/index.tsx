@@ -6,7 +6,7 @@ import {
   useClassNames,
   Tag,
   createComponent,
-  createMemoComponent
+  createMemoComponent,
 } from '../base';
 
 /** Grid List Component */
@@ -45,8 +45,8 @@ export const GridList = createComponent<GridListProps>(function GridList(
       'mdc-grid-list--header-caption': headerCaption,
       'mdc-grid-list--twoline-caption': twolineCaption,
       'mdc-grid-list--with-icon-align-start': withIconAlignStart,
-      [`mdc-grid-list--tile-aspect-${tileAspect || ''}`]: tileAspect
-    }
+      [`mdc-grid-list--tile-aspect-${tileAspect || ''}`]: tileAspect,
+    },
   ]);
 
   return (

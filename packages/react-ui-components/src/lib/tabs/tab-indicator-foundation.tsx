@@ -4,7 +4,7 @@ import {
   MDCFadingTabIndicatorFoundation,
   MDCSlidingTabIndicatorFoundation,
   MDCTabIndicatorAdapter,
-  MDCTabIndicatorFoundation
+  MDCTabIndicatorFoundation,
 } from '@material/tab-indicator';
 
 export const useTabIndicatorFoundation = (props: TabIndicatorProps) => {
@@ -25,7 +25,7 @@ export const useTabIndicatorFoundation = (props: TabIndicatorProps) => {
             : emptyClientRect,
         setContentStyleProperty: (prop: string, value: string) => {
           contentEl.setStyle(prop, value);
-        }
+        },
       };
 
       if (props.transition === 'fade') {
@@ -35,7 +35,7 @@ export const useTabIndicatorFoundation = (props: TabIndicatorProps) => {
       return new MDCSlidingTabIndicatorFoundation(adapter);
     },
     api: ({
-      foundation
+      foundation,
     }: {
       foundation: MDCTabIndicatorFoundation;
     }): TabIndicatorApi => {
@@ -48,9 +48,9 @@ export const useTabIndicatorFoundation = (props: TabIndicatorProps) => {
         },
         computeContentClientRect: () => {
           return foundation.computeContentClientRect();
-        }
+        },
       };
-    }
+    },
   });
 
   return { ...elements };

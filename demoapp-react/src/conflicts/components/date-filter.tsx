@@ -26,10 +26,7 @@ export const DateFilter: React.FC = observer(() => {
   const open = Boolean(anchorEl);
   return (
     <>
-      <Button 
-        raised 
-        onClick={handleClick}
-      > 
+      <Button raised onClick={handleClick}>
         {from ? from.toLocaleString() : 'Start of time'} -{' '}
         {to ? to.toLocaleString() : 'End of time'}
       </Button>

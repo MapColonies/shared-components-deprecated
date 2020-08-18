@@ -1,7 +1,8 @@
-/* eslint-disable */ 
-import React from 'react'
-import TableHead from "@material-ui/core/TableHead";
-import { CellMetadata, Order } from "./smart-table-types";
+/* eslint-disable */
+
+import React from 'react';
+import TableHead from '@material-ui/core/TableHead';
+import { CellMetadata, Order } from './smart-table-types';
 import { TableRow, TableCell, TableSortLabel } from '@material-ui/core';
 
 interface SmartTableHeadProps<T> {

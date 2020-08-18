@@ -3,7 +3,7 @@ import { useFoundation, emptyClientRect } from '../base';
 import { matches } from '../base';
 import {
   MDCTabScrollerFoundation,
-  util as scrollerUtil
+  util as scrollerUtil,
 } from '@material/tab-scroller';
 import { TabScrollerApi, TabScrollerProps } from './tab-scroller';
 
@@ -19,7 +19,7 @@ export const useTabScrollerFoundation = (
         incrementScroll: (scrollXIncrement: number) =>
           f.incrementScroll(scrollXIncrement),
         getScrollPosition: () => f.getScrollPosition(),
-        getScrollContentWidth: () => contentEl.ref?.offsetWidth || 0
+        getScrollContentWidth: () => contentEl.ref?.offsetWidth || 0,
       };
     },
     elements: { rootEl: true, areaEl: true, contentEl: true },
@@ -57,9 +57,9 @@ export const useTabScrollerFoundation = (
             ? contentEl.ref.getBoundingClientRect()
             : emptyClientRect,
         computeHorizontalScrollbarHeight: () =>
-          scrollerUtil.computeHorizontalScrollbarHeight(document)
+          scrollerUtil.computeHorizontalScrollbarHeight(document),
       });
-    }
+    },
   });
 
   const { areaEl, contentEl } = elements;

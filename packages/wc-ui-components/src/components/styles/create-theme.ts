@@ -1,4 +1,3 @@
-
 import deepmerge from 'deepmerge';
 import createTypography from './create-typography';
 import createBreakpoints from './create-breakpoints';
@@ -8,9 +7,9 @@ import shadows from './create-shadows';
 import transitions from './create-transitions';
 import zIndex from './create-zindex';
 import spacing from './create-spacing';
-import {ThemeOptions, Theme} from './theme'
+import { ThemeOptions, Theme } from './theme';
 
-function createTheme(options?: any):Theme {
+function createTheme(options?: any): Theme {
   const {
     palette: paletteInput = {},
     breakpoints: breakpointsInput = {},
@@ -20,9 +19,9 @@ function createTheme(options?: any):Theme {
     ...other
   } = options;
 
-  console.log(options)
+  console.log(options);
 
- // let shadows:Shadows = options['shadows']
+  // let shadows:Shadows = options['shadows']
 
   const palette = createPalette(paletteInput);
   const breakpoints = createBreakpoints(breakpointsInput);
@@ -40,7 +39,7 @@ function createTheme(options?: any):Theme {
         spacing,
         zIndex,
       },
-      other,
+      other
     ),
   };
 

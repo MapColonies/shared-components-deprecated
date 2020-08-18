@@ -23,7 +23,7 @@ export const useFormfieldFoundation = (
           handler: SpecificEventListener<K>
         ): void => {},
         activateInputRipple: () => {},
-        deactivateInputRipple: () => {}
-      })
+        deactivateInputRipple: () => {},
+      }),
   });
 };

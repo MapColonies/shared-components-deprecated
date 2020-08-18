@@ -7,7 +7,7 @@ import {
   useClassNames,
   Tag,
   FoundationElement,
-  createComponent
+  createComponent,
 } from '../base';
 import { IconProps, Icon } from '../icon';
 import { withRipple, RippleSurface } from '../ripple';
@@ -65,8 +65,8 @@ const TabRoot = withRipple({ surface: false })(
       'mdc-tab',
       {
         'mdc-tab--stacked': stacked,
-        'mdc-tab--min-width': minWidth
-      }
+        'mdc-tab--min-width': minWidth,
+      },
     ]);
     return <Tag tag="button" {...rest} className={className} ref={ref} />;
   })

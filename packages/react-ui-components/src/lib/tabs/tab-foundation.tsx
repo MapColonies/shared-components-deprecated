@@ -36,10 +36,10 @@ export const useTabFoundation = (props: TabProps & React.HTMLProps<any>) => {
           getOffsetWidth: () => rootEl.ref?.offsetWidth || 0,
           getContentOffsetLeft: () => contentEl.ref?.offsetLeft || 0,
           getContentOffsetWidth: () => contentEl.ref?.offsetWidth || 0,
-          focus: () => rootEl.ref && rootEl.ref.focus && rootEl.ref.focus()
+          focus: () => rootEl.ref && rootEl.ref.focus && rootEl.ref.focus(),
         }
       );
-    }
+    },
   });
 
   const { rootEl } = elements;
@@ -65,7 +65,7 @@ export const useTabFoundation = (props: TabProps & React.HTMLProps<any>) => {
       getIndex: () =>
         rootEl.ref?.parentElement
           ? Array.from(rootEl.ref.parentElement.children).indexOf(rootEl.ref)
-          : -1
+          : -1,
     };
   }, [foundation, rootEl.ref, id]);
 
@@ -84,6 +84,6 @@ export const useTabFoundation = (props: TabProps & React.HTMLProps<any>) => {
 
   return {
     ...elements,
-    setTabIndicatorApi
+    setTabIndicatorApi,
   };
 };

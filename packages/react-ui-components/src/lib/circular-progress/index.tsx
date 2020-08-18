@@ -8,7 +8,7 @@ const SIZE_MAP: { [key: string]: number } = {
   small: 20,
   medium: 24,
   large: 36,
-  xlarge: 48
+  xlarge: 48,
 };
 
 /** A Circular Progress indicator. */
@@ -34,8 +34,8 @@ export const CircularProgress = createComponent<CircularProgressProps>(
           typeof props.size === 'string',
         'rmwc-circular-progress--indeterminate': progress === undefined,
         'rmwc-circular-progress--thickerstroke':
-          !!props.size && (SIZE_MAP[size] || Number(size)) > 36
-      }
+          !!props.size && (SIZE_MAP[size] || Number(size)) > 36,
+      },
     ]);
 
     const style = !SIZE_MAP[size]
@@ -54,7 +54,7 @@ export const CircularProgress = createComponent<CircularProgressProps>(
         ? {
             strokeDasharray: `${
               2 * Math.PI * (size / 2.4) * calculateRatio(progress)
-            }, 666.66%`
+            }, 666.66%`,
           }
         : undefined;
     };

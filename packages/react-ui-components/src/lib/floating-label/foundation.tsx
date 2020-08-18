@@ -3,7 +3,7 @@ import { useFoundation } from '../base';
 import { FloatingLabelProps, FloatingLabelApi } from '.';
 import {
   MDCFloatingLabelFoundation,
-  MDCFloatingLabelAdapter
+  MDCFloatingLabelAdapter,
 } from '@material/floating-label';
 import { EventType, SpecificEventListener } from '@material/base/types';
 import React, { useEffect } from 'react';
@@ -14,17 +14,17 @@ export const useFloatingLabelFoundation = (
   const { foundation, ...elements } = useFoundation({
     props,
     elements: {
-      rootEl: true
+      rootEl: true,
     },
     api: ({
-      foundation
+      foundation,
     }: {
       foundation: MDCFloatingLabelFoundation;
     }): FloatingLabelApi => {
       return {
         getWidth() {
           return foundation.getWidth();
-        }
+        },
       };
     },
     foundation: ({ rootEl }) => {
@@ -39,9 +39,9 @@ export const useFloatingLabelFoundation = (
         deregisterInteractionHandler: <K extends EventType>(
           evtType: K,
           handler: SpecificEventListener<K>
-        ): void => rootEl.removeEventListener(evtType, handler)
+        ): void => rootEl.removeEventListener(evtType, handler),
       } as MDCFloatingLabelAdapter);
-    }
+    },
   });
 
   // Shake

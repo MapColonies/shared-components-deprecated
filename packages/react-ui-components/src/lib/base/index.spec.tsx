@@ -8,7 +8,7 @@ import {
   debounce,
   toCamel,
   toDashCase,
-  closest
+  closest,
 } from './';
 import { FoundationElement } from './foundation-component';
 import { wait } from './utils/test-utils';
@@ -22,7 +22,7 @@ describe('RMWC', () => {
 describe('FoundationElement', () => {
   it('FoundationElement: handles classNames', () => {
     const inst = {
-      root: new FoundationElement(() => {})
+      root: new FoundationElement(() => {}),
     };
 
     inst.root.addClass('foo');
@@ -38,7 +38,7 @@ describe('FoundationElement', () => {
 
   it('FoundationElement: handles ref', () => {
     const inst = {
-      root: new FoundationElement(() => {})
+      root: new FoundationElement(() => {}),
     };
 
     mount(<div ref={inst.root.setRef} />);
@@ -48,7 +48,7 @@ describe('FoundationElement', () => {
 
   it('FoundationElement: handles addEventListener / removeEventListener', () => {
     const inst = {
-      root: new FoundationElement(() => {})
+      root: new FoundationElement(() => {}),
     };
 
     // double up on the adds to check that it doesnt add a second time
@@ -68,7 +68,7 @@ describe('FoundationElement', () => {
 
   it('FoundationElement: handles setStyle', () => {
     const inst = {
-      root: new FoundationElement(() => {})
+      root: new FoundationElement(() => {}),
     };
 
     inst.root.setStyle('color', 'red');
@@ -76,20 +76,20 @@ describe('FoundationElement', () => {
     inst.root.setStyle('--myvar', 'red');
     expect(inst.root.props({}).style).toEqual({
       color: 'red',
-      '--myvar': 'red'
+      '--myvar': 'red',
     });
 
     inst.root.setStyle('color', 'blue');
 
     expect(inst.root.props({}).style).toEqual({
       color: 'blue',
-      '--myvar': 'red'
+      '--myvar': 'red',
     });
   });
 
   it('FoundationElement: handles prop setters / getters', () => {
     const inst = {
-      root: new FoundationElement<any, any>(() => {})
+      root: new FoundationElement<any, any>(() => {}),
     };
 
     inst.root.setProp('title', 'red');
@@ -112,7 +112,7 @@ describe('FoundationElement', () => {
       />
     );
     const inst = {
-      root: new FoundationElement<any, any>(() => {})
+      root: new FoundationElement<any, any>(() => {}),
     };
 
     inst.root.addClass('red');

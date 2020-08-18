@@ -6,7 +6,7 @@ import {
   getDisplayName,
   classNames,
   useClassNames,
-  createComponent
+  createComponent,
 } from '../../base';
 
 import {
@@ -14,7 +14,7 @@ import {
   MenuSurfaceAnchor,
   MenuSurfaceProps,
   MenuSurfaceOnCloseEventT,
-  MenuSurfaceApi
+  MenuSurfaceApi,
 } from '../menu-surface';
 
 import { useMenuFoundation } from './foundation';
@@ -90,7 +90,7 @@ export const Menu: RMWC.ComponentType<
   ).every((val) => val === false);
 
   const menuItemsProps = {
-    apiRef: setListApi
+    apiRef: setListApi,
   };
 
   return (
@@ -108,7 +108,7 @@ export const Menu: RMWC.ComponentType<
           if (isMenuItems(child)) {
             return React.cloneElement(child as React.ReactElement<any>, {
               ...(React.isValidElement(child) ? (child.props as Object) : {}),
-              ...menuItemsProps
+              ...menuItemsProps,
             });
           }
           return child;
@@ -177,7 +177,7 @@ const simpleMenuFactory = <
         if (handle.props.onClick) {
           handle.props.onClick(evt);
         }
-      }
+      },
     });
 
     const wrappedOnClose = (evt: MenuSurfaceOnCloseEventT) => {

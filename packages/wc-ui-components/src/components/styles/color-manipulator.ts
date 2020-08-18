@@ -3,7 +3,7 @@ import warning from 'warning';
 function clamp(value, min, max) {
   warning(
     value >= min && value <= max,
-    `Material-UI: the value provided ${value} is out of range [${min}, ${max}].`,
+    `Material-UI: the value provided ${value} is out of range [${min}, ${max}].`
   );
 
   if (value < min) {
@@ -81,8 +81,8 @@ export function decomposeColor(color: string) {
 
   const marker = color.indexOf('(');
   const type = color.substring(0, marker);
-  let values:any[] = color.substring(marker + 1, color.length - 1).split(',');
-  values = values.map(value => parseFloat(value));
+  let values: any[] = color.substring(marker + 1, color.length - 1).split(',');
+  values = values.map((value) => parseFloat(value));
 
   return { type, values };
 }
@@ -115,12 +115,16 @@ export function getLuminance(color: string) {
   const decomposedColor = decomposeColor(color);
 
   if (decomposedColor.type.indexOf('rgb') > -1) {
-    const rgb = decomposedColor.values.map(val => {
+    const rgb = decomposedColor.values.map((val) => {
       val /= 255; // normalized
-      return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+      return val <= 0.03928
+        ? val / 12.92
+        : Math.pow((val + 0.055) / 1.055, 2.4);
     });
     // Truncate at 3 digits
-    return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
+    return Number(
+      (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3)
+    );
   } else if (decomposedColor.type.indexOf('hsl') > -1) {
     return decomposedColor.values[2] / 100;
   }
@@ -137,7 +141,9 @@ export function getLuminance(color: string) {
  * @returns {string} A CSS color string. Hex input values are returned as rgb
  */
 export function emphasize(color: string, coefficient: number = 0.15) {
-  return getLuminance(color) > 0.5 ? darken(color, coefficient) : lighten(color, coefficient);
+  return getLuminance(color) > 0.5
+    ? darken(color, coefficient)
+    : lighten(color, coefficient);
 }
 
 /**

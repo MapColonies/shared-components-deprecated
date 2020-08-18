@@ -3,7 +3,10 @@ import { useContext, createContext } from 'react';
 import { ResponseState } from '../../common/models/ResponseState';
 import { ConflictStore, conflictResponse } from './conflictStore';
 
-type fetchConflicts = (url:string, params:object) => Promise<conflictResponse>;
+type fetchConflicts = (
+  url: string,
+  params: object
+) => Promise<conflictResponse>;
 
 export const baseRootStore = types
   .model({
@@ -14,13 +17,13 @@ export const baseRootStore = types
     // mapStore: types.optional(ConflictMapState, {})
   })
   .views((self) => ({
-    get fetch (): fetchConflicts {
+    get fetch(): fetchConflicts {
       return getEnv(self).fetch as fetchConflicts;
     },
   }));
 
 export const rootStore = baseRootStore.actions((self) => ({
-  afterCreate (): void {
+  afterCreate(): void {
     self.conflictsStore.fetchConflicts();
 
     onAction(

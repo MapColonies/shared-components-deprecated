@@ -62,7 +62,7 @@ const renderUrl = ({ content, ...rest }: { content: string }) => (
     {...rest}
     style={{
       ...(rest as any).style,
-      backgroundImage: `url(${content})`
+      backgroundImage: `url(${content})`,
     }}
   />
 );
@@ -92,13 +92,13 @@ const iconRenderMap: {
   className: renderClassName,
   url: renderUrl,
   component: renderComponent,
-  auto: undefined
+  auto: undefined,
 };
 
 const buildIconOptions = (icon?: RMWC.IconPropT) => {
   if (React.isValidElement(icon) || (icon && typeof icon !== 'object')) {
     return {
-      icon
+      icon,
     };
   }
   return icon as RMWC.IconOptions;
@@ -128,7 +128,7 @@ export const Icon = createComponent<IconProps, IconHTMLProps>(function (
     size,
     ...optionsRest
   }: RMWC.IconOptions = {
-    ...buildIconOptions(icon)
+    ...buildIconOptions(icon),
   };
 
   // Get provider options
@@ -136,7 +136,7 @@ export const Icon = createComponent<IconProps, IconHTMLProps>(function (
     basename: providerBasename = null,
     prefix: providerPrefix = null,
     strategy: providerStrategy = null,
-    render: providerRender = null
+    render: providerRender = null,
   } = providerContext.icon || {};
 
   const contentToUse = content;
@@ -181,9 +181,9 @@ export const Icon = createComponent<IconProps, IconHTMLProps>(function (
       optionsRest.className,
       iconClassName,
       {
-        [`rmwc-icon--size-${size || ''}`]: !!size
+        [`rmwc-icon--size-${size || ''}`]: !!size,
       }
-    )
+    ),
   });
 
   const childDisplayName = getDisplayName(rendered.props.children);
@@ -201,7 +201,7 @@ export const Icon = createComponent<IconProps, IconHTMLProps>(function (
       className: classNames(
         rendered.props.className,
         rendered.props.children.props.className
-      )
+      ),
     });
   }
 

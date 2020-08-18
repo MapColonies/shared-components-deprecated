@@ -15,11 +15,10 @@ import './container-map.css';
 interface ContainerMapProps {
   drawType?: DrawType;
   selectionPolygon?: Polygon;
-  onPolygonSelection: (polygon: Polygon) => void
+  onPolygonSelection: (polygon: Polygon) => void;
 }
 
 export const ContainerMap: React.FC<ContainerMapProps> = (props) => {
-
   const handlePolygonSelected = (geometry: Geometry): void => {
     const rewindedPolygon = rewind(geometry as Polygon);
     props.onPolygonSelection(rewindedPolygon);
@@ -30,14 +29,20 @@ export const ContainerMap: React.FC<ContainerMapProps> = (props) => {
       <TileLayer>
         <TileOsm />
       </TileLayer>
-      {props.selectionPolygon && <VectorLayer>
-        <VectorSource>
-          <GeoJSONFeature geometry={props.selectionPolygon} />
-        </VectorSource>
-      </VectorLayer>}
+      {props.selectionPolygon && (
+        <VectorLayer>
+          <VectorSource>
+            <GeoJSONFeature geometry={props.selectionPolygon} />
+          </VectorSource>
+        </VectorLayer>
+      )}
       {props.children}
-      {(props.drawType !== undefined) && <DrawInteraction drawType={props.drawType} onPolygonSelected={handlePolygonSelected} />}
-    </Map >
+      {props.drawType !== undefined && (
+        <DrawInteraction
+          drawType={props.drawType}
+          onPolygonSelected={handlePolygonSelected}
+        />
+      )}
+    </Map>
   );
 };
-

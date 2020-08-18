@@ -11,7 +11,7 @@ export const ConflictSearchParams = types
     keywords: types.array(types.string),
   })
   .views((self) => ({
-    get isDateRangeValid (): boolean {
+    get isDateRangeValid(): boolean {
       return (
         !self.from ||
         !self.to ||
@@ -20,24 +20,24 @@ export const ConflictSearchParams = types
     },
   }))
   .actions((self) => ({
-    setLocation: function setLocation (geometry: Geometry): void {
+    setLocation: function setLocation(geometry: Geometry): void {
       self.geojson = geometry;
     },
 
-    setDateRange (from?: Date, to?: Date): void {
+    setDateRange(from?: Date, to?: Date): void {
       self.from = from;
       self.to = to;
     },
 
-    setResolved (isResolved?: boolean): void {
+    setResolved(isResolved?: boolean): void {
       self.resolved = isResolved;
     },
 
-    setKeywords (keywords: string[]): void {
+    setKeywords(keywords: string[]): void {
       self.keywords.replace(keywords);
     },
 
-    resetLocation (): void {
+    resetLocation(): void {
       self.geojson = undefined;
     },
   }));

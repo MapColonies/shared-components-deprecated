@@ -139,7 +139,7 @@ const colorMap: { [key: string]: string } = {
   white: '#ffffff',
   whitesmoke: '#f5f5f5',
   yellow: '#ffff00',
-  yellowgreen: '#9acd32'
+  yellowgreen: '#9acd32',
 };
 
 const nameToHex = (name: string) => colorMap[name] || name;
@@ -153,17 +153,17 @@ const hexToRgb = (hex: string) => {
     ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
+        b: parseInt(result[3], 16),
       }
     : {
         r: 0,
         g: 0,
-        b: 0
+        b: 0,
       };
 };
 
 const luminance = (r: number, g: number, b: number) => {
-  var a = [r, g, b].map(function(v) {
+  var a = [r, g, b].map(function (v) {
     v /= 255;
     return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
   });
@@ -200,20 +200,20 @@ const paletteMap: { [key: string]: Array<[string, number]> } = {
     ['--mdc-theme-text-secondary-on-background', 1],
     ['--mdc-theme-text-hint-on-background', 2],
     ['--mdc-theme-text-disabled-on-background', 2],
-    ['--mdc-theme-text-icon-on-background', 2]
-  ]
+    ['--mdc-theme-text-icon-on-background', 2],
+  ],
 };
 
 const lightTextPalette = [
   'rgba(0, 0, 0, 0.87)',
   'rgba(0, 0, 0, 0.54)',
-  'rgba(0, 0, 0, 0.38)'
+  'rgba(0, 0, 0, 0.38)',
 ];
 
 const darkTextPalette = [
   'rgba(255, 255, 255, 1)',
   'rgba(255, 255, 255, 0.7)',
-  'rgba(255, 255, 255, 0.5)'
+  'rgba(255, 255, 255, 0.5)',
 ];
 
 export const getAutoColorsForTheme = (colors: { [key: string]: string }) => {
@@ -224,7 +224,7 @@ export const getAutoColorsForTheme = (colors: { [key: string]: string }) => {
           ? lightTextPalette
           : darkTextPalette;
 
-        paletteMap[key].forEach(k => {
+        paletteMap[key].forEach((k) => {
           acc[k[0]] = palette[k[1]];
         });
       }
@@ -235,6 +235,6 @@ export const getAutoColorsForTheme = (colors: { [key: string]: string }) => {
 
   return {
     ...autoColors,
-    ...colors
+    ...colors,
   };
 };

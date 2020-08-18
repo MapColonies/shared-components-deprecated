@@ -86,7 +86,7 @@ describe('Icon', () => {
           icon: 'ionic',
           prefix: 'ion-',
           strategy: 'className',
-          basename: 'icon'
+          basename: 'icon',
         }}
       />
     );
@@ -102,7 +102,7 @@ describe('Icon', () => {
         // @ts-ignore
         icon={{
           icon: 'foo',
-          strategy: 'error'
+          strategy: 'error',
         }}
       />
     );
@@ -120,7 +120,7 @@ describe('Icon', () => {
               Customized-
               {props.content}
             </div>
-          )
+          ),
         }}
       />
     );

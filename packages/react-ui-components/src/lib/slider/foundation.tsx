@@ -22,7 +22,7 @@ export const useSliderFoundation = (
     elements: {
       rootEl: true,
       thumbContainerEl: true,
-      sliderPinEl: true
+      sliderPinEl: true,
     },
     foundation: ({ rootEl, thumbContainerEl, sliderPinEl, emit }) => {
       return new MDCSliderFoundation({
@@ -117,9 +117,9 @@ export const useSliderFoundation = (
           );
         },
         isRTL: () =>
-          !!rootEl.ref && getComputedStyle(rootEl.ref).direction === 'rtl'
+          !!rootEl.ref && getComputedStyle(rootEl.ref).direction === 'rtl',
       });
-    }
+    },
   });
 
   // max
@@ -210,6 +210,6 @@ export const useSliderFoundation = (
   return {
     setTrackRef,
     setTrackMarkerContainerRef,
-    ...elements
+    ...elements,
   };
 };

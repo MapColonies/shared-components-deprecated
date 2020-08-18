@@ -7,7 +7,7 @@ import {
   GridTilePrimary,
   GridTilePrimaryContent,
   GridTileSecondary,
-  GridTileTitle
+  GridTileTitle,
 } from './';
 
 describe('GridList', () => {
@@ -57,7 +57,7 @@ describe('GridList', () => {
       GridTileIcon,
       GridTilePrimary,
       GridTileSecondary,
-      GridTileTitle
+      GridTileTitle,
     ].forEach((Component: React.ComponentType<any>) => {
       const el = mount(<Component className={'my-custom-classname'} />);
       expect(!!~el.html().search('my-custom-classname')).toEqual(true);

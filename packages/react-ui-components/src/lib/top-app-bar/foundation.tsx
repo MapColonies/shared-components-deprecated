@@ -6,7 +6,7 @@ import {
   MDCTopAppBarFoundation,
   MDCFixedTopAppBarFoundation,
   MDCShortTopAppBarFoundation,
-  MDCTopAppBarAdapter
+  MDCTopAppBarAdapter,
 } from '@material/top-app-bar';
 
 export const useTopAppBarFoundation = (
@@ -18,7 +18,7 @@ export const useTopAppBarFoundation = (
   const { foundation, ...elements } = useFoundation({
     props,
     elements: {
-      rootEl: true
+      rootEl: true,
     },
     foundation: ({ rootEl, emit }) => {
       const adapter: MDCTopAppBarAdapter = {
@@ -42,7 +42,7 @@ export const useTopAppBarFoundation = (
                 MDCTopAppBarFoundation.strings.ACTION_ITEM_SELECTOR
               ).length
             : 0;
-        }
+        },
       };
 
       let foundation;
@@ -55,7 +55,7 @@ export const useTopAppBarFoundation = (
       }
 
       return foundation;
-    }
+    },
   });
 
   const { rootEl } = elements;

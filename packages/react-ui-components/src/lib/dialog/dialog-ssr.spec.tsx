@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogActions,
   DialogButton,
-  SimpleDialog
+  SimpleDialog,
 } from './';
 
 describe('Dialog', () => {

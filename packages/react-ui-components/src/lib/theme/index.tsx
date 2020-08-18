@@ -7,7 +7,7 @@ import {
   wrapChild,
   createComponent,
   Tag,
-  useClassNames
+  useClassNames,
 } from '../base';
 
 import { getAutoColorsForTheme } from './utils';
@@ -30,7 +30,7 @@ export const Theme = createComponent<ThemeProps>(function Theme(props, ref) {
     return wrapChild({
       ...rest,
       ref,
-      className
+      className,
     });
   }
 
@@ -51,7 +51,6 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 
-
 export const ThemeContext = React.createContext({});
 
 export function useTheme() {
@@ -64,7 +63,6 @@ export function useTheme() {
 
   return theme;
 }
-
 
 /** A ThemeProvider. This sets theme colors for its child tree. */
 export const ThemeProvider = createComponent<ThemeProviderProps>(
@@ -91,12 +89,12 @@ export const ThemeProvider = createComponent<ThemeProviderProps>(
       wrap &&
         typeof rest.children === 'object' &&
         // @ts-ignore
-        rest.children?.props?.className
+        rest.children?.props?.className,
     ]);
 
     const themeStyles = {
       ...style,
-      ...colors
+      ...colors,
     } as React.CSSProperties;
 
     if (wrap && rest.children) {

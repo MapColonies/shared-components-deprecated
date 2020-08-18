@@ -102,7 +102,7 @@ export const Ripple = withDomNode()(function Ripple(
       'mdc-ripple-surface':
         typeof surface === 'boolean' ? surface : surface === undefined,
       'mdc-ripple-surface--primary': primary,
-      'mdc-ripple-surface--accent': accent
+      'mdc-ripple-surface--accent': accent,
     }
   );
 
@@ -124,8 +124,8 @@ export const Ripple = withDomNode()(function Ripple(
       ...rest,
       style: child.props.style,
       ...rippleSurfaceProps,
-      className: finalClassNames
-    })
+      className: finalClassNames,
+    }),
   });
 
   return (
@@ -164,7 +164,7 @@ interface WithRippleOpts {
 export const withRipple = ({
   unbounded: defaultUnbounded,
   accent: defaultAccent,
-  surface: defaultSurface
+  surface: defaultSurface,
 }: WithRippleOpts = {}) => <P extends any, C extends React.ComponentType<P>>(
   Component: C
 ): C => {

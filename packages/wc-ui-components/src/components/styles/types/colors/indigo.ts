@@ -1,5 +1,5 @@
-import {Color} from './color'
-const indigo:Color = {
+import { Color } from './color';
+const indigo: Color = {
   50: '#e8eaf6',
   100: '#c5cae9',
   200: '#9fa8da',

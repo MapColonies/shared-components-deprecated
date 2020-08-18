@@ -8,7 +8,7 @@ import {
   Tag,
   createComponent,
   PortalPropT,
-  PortalChild
+  PortalChild,
 } from '../base';
 import { Button, ButtonProps } from '../button';
 import { useDialogFoundation } from './foundation';
@@ -172,7 +172,7 @@ interface DialogScrimProps {
 }
 
 const DialogScrim = React.memo(function DialogScrim({
-  disableInteraction
+  disableInteraction,
 }: DialogScrimProps) {
   const style: React.CSSProperties = disableInteraction
     ? { pointerEvents: 'none' }

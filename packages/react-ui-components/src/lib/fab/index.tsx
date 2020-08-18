@@ -38,8 +38,8 @@ export const Fab = withRipple({ surface: false })(
       {
         'mdc-fab--mini': mini,
         'mdc-fab--exited': exited,
-        'mdc-fab--extended': label
-      }
+        'mdc-fab--extended': label,
+      },
     ]);
 
     if (trailingIcon && !label) {

@@ -1,4 +1,4 @@
-import {Color} from './color'
+import { Color } from './color';
 const deepPurple: Color = {
   50: '#ede7f6',
   100: '#d1c4e9',

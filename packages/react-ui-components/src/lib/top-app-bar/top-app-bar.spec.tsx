@@ -9,7 +9,7 @@ import {
   TopAppBarActionItem,
   TopAppBarTitle,
   TopAppBarFixedAdjust,
-  SimpleTopAppBar
+  SimpleTopAppBar,
 } from './';
 
 describe('TopAppBar', () => {
@@ -114,35 +114,43 @@ describe('TopAppBarFixedAdjust', () => {
   it('renders', () => {
     const el = mount(<TopAppBarFixedAdjust />);
     const div = el.find('div');
-    const classNames = new Set((div.props().className ?? "").split(" "));
+    const classNames = new Set((div.props().className ?? '').split(' '));
     expect(classNames).toEqual(new Set(['mdc-top-app-bar--fixed-adjust']));
   });
 
   it('can be short', () => {
     const el = mount(<TopAppBarFixedAdjust short />);
     const div = el.find('div');
-    const classNames = new Set((div.props().className ?? "").split(" "));
-    expect(classNames).toEqual(new Set(['mdc-top-app-bar--short-fixed-adjust']));
+    const classNames = new Set((div.props().className ?? '').split(' '));
+    expect(classNames).toEqual(
+      new Set(['mdc-top-app-bar--short-fixed-adjust'])
+    );
   });
 
   it('can be dense', () => {
     const el = mount(<TopAppBarFixedAdjust dense />);
     const div = el.find('div');
-    const classNames = new Set((div.props().className ?? "").split(" "));
-    expect(classNames).toEqual(new Set(['mdc-top-app-bar--dense-fixed-adjust']));
+    const classNames = new Set((div.props().className ?? '').split(' '));
+    expect(classNames).toEqual(
+      new Set(['mdc-top-app-bar--dense-fixed-adjust'])
+    );
   });
 
   it('can be prominent', () => {
     const el = mount(<TopAppBarFixedAdjust prominent />);
     const div = el.find('div');
-    const classNames = new Set((div.props().className ?? "").split(" "));
-    expect(classNames).toEqual(new Set(['mdc-top-app-bar--prominent-fixed-adjust']));
+    const classNames = new Set((div.props().className ?? '').split(' '));
+    expect(classNames).toEqual(
+      new Set(['mdc-top-app-bar--prominent-fixed-adjust'])
+    );
   });
 
   it('can be denseProminent', () => {
     const el = mount(<TopAppBarFixedAdjust denseProminent />);
     const div = el.find('div');
-    const classNames = new Set((div.props().className ?? "").split(" "));
-    expect(classNames).toEqual(new Set(['mdc-top-app-bar--dense-prominent-fixed-adjust']));
+    const classNames = new Set((div.props().className ?? '').split(' '));
+    expect(classNames).toEqual(
+      new Set(['mdc-top-app-bar--dense-prominent-fixed-adjust'])
+    );
   });
 });

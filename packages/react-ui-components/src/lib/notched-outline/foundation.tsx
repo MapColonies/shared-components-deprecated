@@ -10,7 +10,7 @@ export const useNotchedOutlineFoundation = (
     props,
     elements: {
       rootEl: true,
-      notchedEl: true
+      notchedEl: true,
     },
     foundation: ({ rootEl, notchedEl }) => {
       return new MDCNotchedOutlineFoundation({
@@ -18,9 +18,9 @@ export const useNotchedOutlineFoundation = (
         removeClass: (className: string) => rootEl.removeClass(className),
         setNotchWidthProperty: (width: number) =>
           notchedEl.setStyle('width', width + 'px'),
-        removeNotchWidthProperty: () => notchedEl.setStyle('width', '')
+        removeNotchWidthProperty: () => notchedEl.setStyle('width', ''),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;

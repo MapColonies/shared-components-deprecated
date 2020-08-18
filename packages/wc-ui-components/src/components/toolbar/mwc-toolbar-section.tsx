@@ -1,31 +1,36 @@
-import { Component, Prop, Element,  Method, Event, EventEmitter, h } from '@stencil/core';
+import {
+  Component,
+  Prop,
+  Element,
+  Method,
+  Event,
+  EventEmitter,
+  h,
+} from '@stencil/core';
 
 @Component({
   tag: 'mwc-toolbar-section',
-  shadow: false
+  shadow: false,
 })
-export class MWCToolbarSection{
-
-  @Element() toolbarSectionEl : HTMLElement;
+export class MWCToolbarSection {
+  @Element() toolbarSectionEl: HTMLElement;
   @Prop() align: string;
 
-  componentWillLoad(){
-     this.toolbarSectionEl.className = this.getSectionClassName()
+  componentWillLoad() {
+    this.toolbarSectionEl.className = this.getSectionClassName();
   }
-  
-  getSectionClassName(){
-      let className = 'mdc-toolbar__section';
-      if(this.align === "start"){
-         className = `${className} mdc-toolbar__section--align-start`
-      }else if(this.align === "end"){
-         className = `${className} mdc-toolbar__section--align-end`
-      }
-      return className;
+
+  getSectionClassName() {
+    let className = 'mdc-toolbar__section';
+    if (this.align === 'start') {
+      className = `${className} mdc-toolbar__section--align-start`;
+    } else if (this.align === 'end') {
+      className = `${className} mdc-toolbar__section--align-end`;
+    }
+    return className;
   }
 
   render() {
-    return (
-         <slot />
-    )
+    return <slot />;
   }
 }

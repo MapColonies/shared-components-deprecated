@@ -1,14 +1,14 @@
-import {getTheme} from '../util/mwc-util'
-import setupJss from '../styles/setup-jss'
-import deepmerge from 'deepmerge'
+import { getTheme } from '../util/mwc-util';
+import setupJss from '../styles/setup-jss';
+import deepmerge from 'deepmerge';
 
-const typography = getTheme()['typography']
-class TypographyStyle{
+const typography = getTheme()['typography'];
+class TypographyStyle {
   defaultStyle: object = {
     root: {
       display: 'block',
       margin: 0,
-     },
+    },
     display4: typography['display4'],
     display3: typography['display3'],
     display2: typography['display2'],
@@ -24,7 +24,7 @@ class TypographyStyle{
       textAlign: 'left',
     },
     aligncenter: {
-       textAlign: 'center',
+      textAlign: 'center',
     },
     alignright: {
       textAlign: 'right',
@@ -40,15 +40,15 @@ class TypographyStyle{
     gutterbottom: {
       marginBottom: '0.35em',
     },
+  };
+  jss: any;
+  setup(style: object) {
+    const mergedStyles = deepmerge.all([this.defaultStyle, style]);
+    this.jss = new setupJss();
+    this.jss.attachStyleSheet(mergedStyles);
   }
-  jss:any;
-  setup(style:object){
-    const mergedStyles = deepmerge.all([this.defaultStyle,style])
-    this.jss = new setupJss()
-    this.jss.attachStyleSheet(mergedStyles)
-  }
-  getClassName(type:Array<string>):string{
-    return this.jss.getClassName(type)
+  getClassName(type: Array<string>): string {
+    return this.jss.getClassName(type);
   }
 }
-export default TypographyStyle
+export default TypographyStyle;

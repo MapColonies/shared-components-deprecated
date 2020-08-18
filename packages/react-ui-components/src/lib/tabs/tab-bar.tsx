@@ -42,7 +42,7 @@ export const TabBar = createComponent<TabBarProps>(function TabBar(props, ref) {
     handleTabInteraction,
     setTabScrollerApi,
     registerTab,
-    unregisterTab
+    unregisterTab,
   } = useTabBarFoundation(props);
 
   const contextApi = useRef<TabBarContextT>({
@@ -50,7 +50,7 @@ export const TabBar = createComponent<TabBarProps>(function TabBar(props, ref) {
       handleTabInteraction(evt),
     registerTab,
     unregisterTab,
-    indicatorTransition: props.indicatorTransition || 'slide'
+    indicatorTransition: props.indicatorTransition || 'slide',
   });
 
   const className = useClassNames(props, ['mdc-tab-bar']);

@@ -1,4 +1,4 @@
-import { Easing, Duration } from './transition'
+import { Easing, Duration } from './transition';
 
 export const easing: Easing = {
   // This is the most common easing curve.
@@ -28,7 +28,8 @@ export const duration: Duration = {
   leavingScreen: 195,
 };
 
-export const formatMs = (milliseconds: number) => `${Math.round(milliseconds)}ms`;
+export const formatMs = (milliseconds: number) =>
+  `${Math.round(milliseconds)}ms`;
 export const isString = (value: any) => typeof value === 'string';
 export const isNumber = (value: any) => !Number.isNaN(parseFloat(value));
 
@@ -45,7 +46,12 @@ export default {
   duration,
   create(
     props: string | Array<string> = ['all'],
-    options: { prop?: string, duration?: number, easing?: string, delay?: number } = {},
+    options: {
+      prop?: string;
+      duration?: number;
+      easing?: string;
+      delay?: number;
+    } = {}
   ) {
     const {
       duration: durationOption = duration.standard,
@@ -56,8 +62,10 @@ export default {
 
     return (Array.isArray(props) ? props : [props])
       .map(
-        animatedProp =>
-          `${animatedProp} ${formatMs(durationOption)} ${easingOption} ${formatMs(delay)}`,
+        (animatedProp) =>
+          `${animatedProp} ${formatMs(
+            durationOption
+          )} ${easingOption} ${formatMs(delay)}`
       )
       .join(',');
   },

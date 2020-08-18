@@ -25,7 +25,7 @@ export const SelectIcon = function SelectIcon(
     <Icon
       {...rootEl.props({
         ...rest,
-        className
+        className,
       })}
     />
   );

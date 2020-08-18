@@ -3,20 +3,22 @@ import { Component, Prop, h } from '@stencil/core';
 @Component({
   tag: 'mwc-menu-item',
   styleUrl: 'mwc-menu-item.scss',
-  shadow: false
+  shadow: false,
 })
-export class MWCMenuItem{
+export class MWCMenuItem {
   @Prop() disabled: boolean = false;
-  @Prop() role: string = "menuitem";  //option
+  @Prop() role: string = 'menuitem'; //option
 
   render() {
     return (
-        <li class="mdc-list-item"
+      <li
+        class="mdc-list-item"
         role={this.role}
         tabindex={this.disabled ? -1 : 0}
-        aria-disabled={this.disabled}>
-           <slot />
-       </li>
-    )
+        aria-disabled={this.disabled}
+      >
+        <slot />
+      </li>
+    );
   }
 }

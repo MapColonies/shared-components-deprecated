@@ -8,7 +8,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-  DrawerSubtitle
+  DrawerSubtitle,
 } from './';
 
 describe('Drawer SSR', () => {

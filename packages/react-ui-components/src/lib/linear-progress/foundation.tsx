@@ -30,9 +30,9 @@ export const useLinearProgressFoundation = (props: LinearProgressProps) => {
           value: string | null
         ) => {
           (el.style as any)[styleProperty] = value;
-        }
+        },
       });
-    }
+    },
   });
 
   const [determinate, setDeterminate] = useState<boolean | undefined>(

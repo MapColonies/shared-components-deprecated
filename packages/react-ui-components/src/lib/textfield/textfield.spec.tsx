@@ -33,7 +33,7 @@ describe('TextField', () => {
           helpText={{
             children: 'textHelpText',
             validationMsg: true,
-            persistent: true
+            persistent: true,
           }}
         />
       </div>

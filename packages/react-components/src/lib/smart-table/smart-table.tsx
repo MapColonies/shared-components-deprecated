@@ -80,15 +80,25 @@ export function SmartTable<T>(props: SmartTableProps<T>) {
               onRowSelected={onRowSelected}
             />
           ))}
-          {(items.length === 0 || rowsPerPage > items.length) && <TableRow style={{ height: (isDense ? 33 : 53) * (rowsPerPage - items.length) }}>
-            <TableCell
-              colSpan={
-                isCollapseable ? cellsMetadata.length + 1 : cellsMetadata.length
-              }
+          {(items.length === 0 || rowsPerPage > items.length) && (
+            <TableRow
+              style={{
+                height: (isDense ? 33 : 53) * (rowsPerPage - items.length),
+              }}
             >
-              {items.length === 0 && <Typography align='center'>No results :(</Typography>}
-            </TableCell>
-          </TableRow>}
+              <TableCell
+                colSpan={
+                  isCollapseable
+                    ? cellsMetadata.length + 1
+                    : cellsMetadata.length
+                }
+              >
+                {items.length === 0 && (
+                  <Typography align="center">No results :(</Typography>
+                )}
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
       <TablePagination

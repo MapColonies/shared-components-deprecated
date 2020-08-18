@@ -27,7 +27,7 @@ export const NotchedOutline = createComponent<NotchedOutlineProps>(
         <NotchedOutlineLeading />
         <div
           {...notchedEl.props({
-            className: 'mdc-notched-outline__notch'
+            className: 'mdc-notched-outline__notch',
           })}
           ref={notchedEl.setRef}
         >

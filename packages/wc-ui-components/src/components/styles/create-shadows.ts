@@ -1,4 +1,4 @@
-import {Shadows} from './shadows'
+import { Shadows } from './shadows';
 
 const shadowKeyUmbraOpacity = 0.2;
 const shadowKeyPenumbraOpacity = 0.14;
@@ -12,7 +12,7 @@ function createShadow(...px) {
   ].join(',');
 }
 
-const shadows:Shadows = [
+const shadows: Shadows = [
   'none',
   createShadow(0, 1, 3, 0, 0, 1, 1, 0, 0, 2, 1, -1),
   createShadow(0, 1, 5, 0, 0, 2, 2, 0, 0, 3, 1, -2),

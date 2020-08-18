@@ -83,8 +83,8 @@ export const Chip: RMWC.ComponentType<
     const className = useClassNames(props, [
       'mdc-chip',
       {
-        'mdc-chip--selected': selected
-      }
+        'mdc-chip--selected': selected,
+      },
     ]);
 
     return (
@@ -167,8 +167,8 @@ const ChipIcon = React.memo(function ChipIcon(
     {
       'mdc-chip__icon--leading': leading,
       'mdc-chip__icon--leading-hidden': hidden,
-      'mdc-chip__icon--trailing': trailing
-    }
+      'mdc-chip__icon--trailing': trailing,
+    },
   ]);
   const hasInteractionHandler = Object.keys(props).some((p) =>
     p.startsWith('on')
@@ -204,8 +204,8 @@ export const ChipSet = createComponent<ChipSetProps>(function ChipSet(
     'mdc-chip-set',
     {
       'mdc-chip-set--choice': choice,
-      'mdc-chip-set--filter': filter
-    }
+      'mdc-chip-set--filter': filter,
+    },
   ]);
 
   return <Tag {...rest} ref={ref} className={className} />;

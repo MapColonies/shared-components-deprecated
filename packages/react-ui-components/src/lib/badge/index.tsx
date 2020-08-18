@@ -24,15 +24,15 @@ export const Badge = createComponent<BadgeProps>(function Badge(props, ref) {
     `rmwc-badge--align-${align}`,
     {
       'rmwc-badge--no-content': !(label ?? false),
-      'rmwc-badge--exited': exited
-    }
+      'rmwc-badge--exited': exited,
+    },
   ]);
 
   const finalStyle =
     inset !== undefined
       ? {
           ...style,
-          '--rmwc-badge-inset': inset
+          '--rmwc-badge-inset': inset,
         }
       : style;
 

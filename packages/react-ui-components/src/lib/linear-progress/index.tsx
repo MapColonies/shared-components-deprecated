@@ -34,8 +34,8 @@ export const LinearProgress = createComponent<LinearProgressProps>(
       'mdc-linear-progress',
       {
         'mdc-linear-progress--reversed': reversed,
-        'mdc-linear-progress--closed': closed
-      }
+        'mdc-linear-progress--closed': closed,
+      },
     ]);
     const { rootEl } = useLinearProgressFoundation(props);
 

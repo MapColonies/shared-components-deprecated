@@ -19,8 +19,8 @@ export const Card = createComponent<CardProps>(function Card(props, ref) {
   const className = useClassNames(props, [
     'mdc-card',
     {
-      'mdc-card--outlined': outlined
-    }
+      'mdc-card--outlined': outlined,
+    },
   ]);
   return <Tag {...rest} ref={ref} className={className} />;
 });
@@ -43,8 +43,8 @@ export const CardMedia = createComponent<CardMediaProps>(function CardMedia(
     'mdc-card__media',
     {
       'mdc-card__media--square': square,
-      'mdc-card__media--16-9': sixteenByNine
-    }
+      'mdc-card__media--16-9': sixteenByNine,
+    },
   ]);
   return <Tag tag="section" {...rest} ref={ref} className={className} />;
 });
@@ -65,7 +65,7 @@ export interface CardPrimaryActionProps {}
 
 /** The main clickable area for the primary content of the card */
 export const CardPrimaryAction = withRipple({
-  surface: false
+  surface: false,
 })(
   createComponent<CardMediaContentProps>(function CardPrimaryAction(
     props,
@@ -88,7 +88,7 @@ export const CardActions = createComponent<CardActionsProps>(
     const { fullBleed, ...rest } = props;
     const className = useClassNames(props, [
       'mdc-card__actions',
-      { 'mdc-card__actions--full-bleed': fullBleed }
+      { 'mdc-card__actions--full-bleed': fullBleed },
     ]);
     return <Tag tag="section" {...rest} ref={ref} className={className} />;
   }
@@ -124,7 +124,7 @@ export const CardActionIcon = createComponent<CardActionIconProps>(
   function CardActionIcon(props, ref) {
     const className = useClassNames(props, [
       'mdc-card__action',
-      'mdc-card__action--icon'
+      'mdc-card__action--icon',
     ]);
     return <IconButton {...props} ref={ref} className={className} />;
   }
@@ -138,7 +138,7 @@ export const CardActionButton = createComponent<CardActionButtonProps>(
   function CardActionIcon(props, ref) {
     const className = useClassNames(props, [
       'mdc-card__action',
-      'mdc-card__action--button'
+      'mdc-card__action--button',
     ]);
     return <Button {...props} ref={ref} className={className} />;
   }

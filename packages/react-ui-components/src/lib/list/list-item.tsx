@@ -24,8 +24,8 @@ export const ListItem = withRipple({ surface: false })(
       {
         'mdc-list-item--selected': props.selected,
         'mdc-list-item--activated': props.activated,
-        'mdc-list-item--disabled': props.disabled
-      }
+        'mdc-list-item--disabled': props.disabled,
+      },
     ]);
     return (
       <Tag tag="li" tabIndex={0} {...rest} className={className} ref={ref} />
@@ -98,7 +98,7 @@ export const ListItemMeta = createComponent<ListItemMetaProps>(
       return React.cloneElement(props.children, {
         ...rest,
         ...props.children.props,
-        className: classNames(className, props.children.props.className)
+        className: classNames(className, props.children.props.className),
       });
     }
 

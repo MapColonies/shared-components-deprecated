@@ -42,11 +42,11 @@ it('opens the collapseable panel when the button is pressed', () => {
     />
   );
 
-  expect(wrapper.find(Collapse).props()).toHaveProperty('in',false)
+  expect(wrapper.find(Collapse).props()).toHaveProperty('in', false);
 
   wrapper.find(IconButton).simulate('click', { stopPropagation: jest.fn() });
 
-  expect(wrapper.find(Collapse).props()).toHaveProperty('in',true)
+  expect(wrapper.find(Collapse).props()).toHaveProperty('in', true);
 });
 
 it('generates tablecells with the correct properties and runs transform', () => {
@@ -63,22 +63,30 @@ it('generates tablecells with the correct properties and runs transform', () => 
 
   /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const firstTableCellProps = wrapper
-    .findWhere((n) => n.type() === TableCell && n.key() === headCells[0].id + rowIndex.toString())
+    .findWhere(
+      (n) =>
+        n.type() === TableCell &&
+        n.key() === headCells[0].id + rowIndex.toString()
+    )
     .props();
   /* eslint-disable @typescript-eslint/no-unsafe-assignment */
   const secondTableCellProps = wrapper
-    .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id + rowIndex.toString())
+    .findWhere(
+      (n) =>
+        n.type() === TableCell &&
+        n.key() === headCells[1].id + rowIndex.toString()
+    )
     .props();
 
-  expect(firstTableCellProps).toHaveProperty('align','left');
-  expect(secondTableCellProps).toHaveProperty('align','right');
+  expect(firstTableCellProps).toHaveProperty('align', 'left');
+  expect(secondTableCellProps).toHaveProperty('align', 'right');
 
-  expect(firstTableCellProps).toHaveProperty('padding','none');
-  expect(secondTableCellProps).toHaveProperty('padding','default');
+  expect(firstTableCellProps).toHaveProperty('padding', 'none');
+  expect(secondTableCellProps).toHaveProperty('padding', 'default');
 
-  expect(firstTableCellProps).toHaveProperty('children','42');
+  expect(firstTableCellProps).toHaveProperty('children', '42');
   expect(headCells[0].transform).toHaveBeenCalledWith(item.first);
-  expect(secondTableCellProps).toHaveProperty('children',item.second);
+  expect(secondTableCellProps).toHaveProperty('children', item.second);
 });
 
 it('calls onRowSelected with the correct index', () => {

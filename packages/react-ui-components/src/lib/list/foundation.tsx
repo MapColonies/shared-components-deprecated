@@ -18,7 +18,7 @@ export const useListFoundation = (props: ListProps & React.HTMLProps<any>) => {
     props,
     api: ({
       rootEl,
-      foundation
+      foundation,
     }: {
       rootEl: FoundationElement<any, any>;
       foundation: MDCListFoundation;
@@ -32,7 +32,7 @@ export const useListFoundation = (props: ListProps & React.HTMLProps<any>) => {
         removeClassFromElementAtIndex: adapter.removeClassForElementIndex,
         setAttributeForElementIndex: adapter.setAttributeForElementIndex,
         getListItemCount: adapter.getListItemCount,
-        focusItemAtIndex: adapter.focusItemAtIndex
+        focusItemAtIndex: adapter.focusItemAtIndex,
       };
     },
     elements: { rootEl: true },
@@ -142,9 +142,9 @@ export const useListFoundation = (props: ListProps & React.HTMLProps<any>) => {
         isFocusInsideList: () => {
           return !!rootEl.ref?.contains(document.activeElement);
         },
-        isRootFocused: () => document.activeElement === rootEl.ref
+        isRootFocused: () => document.activeElement === rootEl.ref,
       });
-    }
+    },
   });
 
   const { rootEl } = elements;

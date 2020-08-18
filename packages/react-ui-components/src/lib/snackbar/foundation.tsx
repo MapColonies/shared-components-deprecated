@@ -21,7 +21,7 @@ export function useSnackbarFoundation(
     elements: {
       rootEl: true,
       surfaceEl: true,
-      labelEl: true
+      labelEl: true,
     },
     foundation: ({ rootEl, labelEl, emit }) => {
       return new MDCSnackbarFoundation({
@@ -37,9 +37,9 @@ export function useSnackbarFoundation(
           emit('onClose', reason ? { reason } : {});
         },
         notifyClosed: (reason: string) =>
-          emit('onClosed', reason ? { reason } : {})
+          emit('onClosed', reason ? { reason } : {}),
       });
-    }
+    },
   });
 
   const { rootEl, surfaceEl } = elements;

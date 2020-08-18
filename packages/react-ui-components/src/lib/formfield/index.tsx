@@ -24,8 +24,8 @@ export const FormField = createComponent<FormFieldProps>(function FormField(
   const className = useClassNames(props, [
     'mdc-form-field',
     {
-      'mdc-form-field--align-end': props.alignEnd
-    }
+      'mdc-form-field--align-end': props.alignEnd,
+    },
   ]);
   return <Tag {...rest} ref={ref} className={className} />;
 });

@@ -41,8 +41,8 @@ export const Typography = createComponent<TypographyProps, TypographyHTMLProps>(
 
     const className = useClassNames(props, [
       {
-        [`mdc-typography--${props.use}`]: props.use
-      }
+        [`mdc-typography--${props.use}`]: props.use,
+      },
     ]);
 
     return <Tag tag={tag} {...rest} ref={ref} className={className} />;

@@ -21,8 +21,8 @@ export const ImageList = createComponent<ImageListProps>(function ImageList(
     'mdc-image-list',
     {
       'mdc-image-list--masonry': masonry,
-      'mdc-image-list--with-text-protection': withTextProtection
-    }
+      'mdc-image-list--with-text-protection': withTextProtection,
+    },
   ]);
   return <Tag tag="ul" {...rest} ref={ref} className={className} />;
 });
@@ -46,7 +46,7 @@ export const ImageListImageAspectContainer = createComponent<
   ImageListImageAspectContainerProps
 >(function ImageListImageAspectContainer(props, ref) {
   const className = useClassNames(props, [
-    'mdc-image-list__image-aspect-container'
+    'mdc-image-list__image-aspect-container',
   ]);
   return <Tag {...props} ref={ref} className={className} />;
 });

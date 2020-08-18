@@ -1,10 +1,12 @@
 // Sorted ASC by size. That's important.
 // It can't be configured as it's used statically for propTypes.
-import {BreakpointsOptions, Breakpoints, Breakpoint } from './breakpoints'
+import { BreakpointsOptions, Breakpoints, Breakpoint } from './breakpoints';
 
 export const keys: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
-export default function createBreakpoints(breakpoints: BreakpointsOptions): Breakpoints{
+export default function createBreakpoints(
+  breakpoints: BreakpointsOptions
+): Breakpoints {
   const {
     // The breakpoint **start** at this value.
     // For instance with the first breakpoint xs: [xs, sm[.
@@ -34,7 +36,8 @@ export default function createBreakpoints(breakpoints: BreakpointsOptions): Brea
       return up('xs');
     }
 
-    const value = typeof upperbound === 'number' && endIndex > 0 ? upperbound : key;
+    const value =
+      typeof upperbound === 'number' && endIndex > 0 ? upperbound : key;
     return `@media (max-width:${value - step / 100}${unit})`;
   }
 
@@ -68,8 +71,7 @@ export default function createBreakpoints(breakpoints: BreakpointsOptions): Brea
     only,
     width,
     ...other,
+  };
 
-  }
-  
   return bp;
 }

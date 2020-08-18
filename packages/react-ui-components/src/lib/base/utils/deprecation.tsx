@@ -6,7 +6,7 @@ export const deprecationWarning = (message: string) => {
   if (process && process.env && process.env.NODE_ENV !== 'production') {
     console.warn(`RMWC Deprecation Warning: ${message}`);
   }
-}
+};
 
 export const handleDeprecations = (
   props: any,
@@ -30,22 +30,22 @@ export const handleDeprecations = (
       if (newPropName === '') {
         /* istanbul ignore next */
         deprecationWarning(
-          `${displayName ||
-            ''} component prop '${oldPropName}' has been removed from and is no longer a valid prop.`
+          `${
+            displayName || ''
+          } component prop '${oldPropName}' has been removed from and is no longer a valid prop.`
         );
       } else {
         props[newPropName] = transformProp(props[oldPropName]);
         let propTransformMessage = '';
         if (props[newPropName] !== props[oldPropName]) {
-          propTransformMessage = ` The old value has also been converted from '${
-            props[oldPropName]
-          }' to '${props[newPropName]}'`;
+          propTransformMessage = ` The old value has also been converted from '${props[oldPropName]}' to '${props[newPropName]}'`;
         }
 
         /* istanbul ignore next */
         deprecationWarning(
-          `${displayName ||
-            ''} component prop '${oldPropName}' has been replaced with '${newPropName}'. ${propTransformMessage}`
+          `${
+            displayName || ''
+          } component prop '${oldPropName}' has been replaced with '${newPropName}'. ${propTransformMessage}`
         );
       }
 

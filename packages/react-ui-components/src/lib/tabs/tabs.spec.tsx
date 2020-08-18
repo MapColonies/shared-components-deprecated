@@ -36,7 +36,7 @@ describe('Tabs', () => {
   it('Can add and remove tabs dynamically', () => {
     class Comp extends React.Component {
       state = {
-        tabs: ['ONE']
+        tabs: ['ONE'],
       };
       render() {
         return (
@@ -118,31 +118,37 @@ describe('Tabs', () => {
     );
 
     el.find(Tab).first().simulate('click');
-    
+
     window.requestAnimationFrame(() => {
-      expect(el.find(Tab).last().html().includes('mdc-tab--active')).toEqual(true);
+      expect(el.find(Tab).last().html().includes('mdc-tab--active')).toEqual(
+        true
+      );
       el.unmount();
       done();
     });
   });
-  
+
   it('focuses active tab on mount', (done) => {
-    const el = mount(<TabBar>
+    const el = mount(
+      <TabBar>
         <Tab focusOnActivate>Test</Tab>
-      </TabBar>);
-    
+      </TabBar>
+    );
+
     window.requestAnimationFrame(() => {
       expect(document.activeElement).toBe(el.find('button').getDOMNode());
       el.unmount();
       done();
     });
   });
-  
+
   it('does not focus active tab on mount', (done) => {
-    const el = mount(<TabBar>
-      <Tab focusOnActivate={false}>Test</Tab>
-    </TabBar>);
-  
+    const el = mount(
+      <TabBar>
+        <Tab focusOnActivate={false}>Test</Tab>
+      </TabBar>
+    );
+
     window.requestAnimationFrame(() => {
       expect(document.activeElement).not.toBe(el.find('button').getDOMNode());
       el.unmount();

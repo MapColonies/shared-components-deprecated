@@ -17,7 +17,7 @@ export const useCheckboxFoundation = (
     props,
     elements: {
       rootEl: true,
-      checkboxEl: true
+      checkboxEl: true,
     },
     foundation: ({ rootEl, checkboxEl, getProps }) => {
       return new MDCCheckboxFoundation({
@@ -36,9 +36,9 @@ export const useCheckboxFoundation = (
         setNativeControlDisabled: (disabled: boolean) =>
           checkboxEl.setProp('disabled', disabled),
         forceLayout: () => rootEl.ref?.offsetWidth,
-        isAttachedToDOM: () => true
+        isAttachedToDOM: () => true,
       });
-    }
+    },
   });
 
   const { rootEl, checkboxEl } = elements;

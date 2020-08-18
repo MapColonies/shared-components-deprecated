@@ -16,7 +16,7 @@ export const useSwitchFoundation = (props: SwitchProps & SwitchHTMLProps) => {
     props,
     elements: {
       rootEl: true,
-      checkboxEl: true
+      checkboxEl: true,
     },
     foundation: ({ rootEl, checkboxEl }) => {
       return new MDCSwitchFoundation({
@@ -27,9 +27,9 @@ export const useSwitchFoundation = (props: SwitchProps & SwitchHTMLProps) => {
         setNativeControlDisabled: (disabled: boolean) =>
           checkboxEl.setProp('disabled', disabled),
         setNativeControlAttr: (attr: string, value: string) =>
-          rootEl.setProp(attr as any, value)
+          rootEl.setProp(attr as any, value),
       } as MDCSwitchAdapter);
-    }
+    },
   });
 
   const { checkboxEl } = elements;
