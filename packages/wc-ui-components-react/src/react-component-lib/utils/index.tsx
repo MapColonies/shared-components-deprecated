@@ -10,7 +10,7 @@ export type StencilReactExternalProps<PropType, ElementType> = PropType &
 
 // The comma in the type is to trick typescript because it things a single generic in a tsx file is jsx
 export const mergeRefs = <ElementType,>(...refs: React.Ref<ElementType>[]) => (
-  value: ElementType,
+  value: ElementType
 ) =>
   refs.forEach((ref) => {
     if (typeof ref === 'function') {
@@ -23,11 +23,11 @@ export const mergeRefs = <ElementType,>(...refs: React.Ref<ElementType>[]) => (
 
 export const createForwardRef = <PropType, ElementType>(
   ReactComponent: any,
-  displayName: string,
+  displayName: string
 ) => {
   const forwardRef = (
     props: StencilReactExternalProps<PropType, ElementType>,
-    ref: React.Ref<ElementType>,
+    ref: React.Ref<ElementType>
   ) => {
     return <ReactComponent {...props} forwardedRef={ref} />;
   };

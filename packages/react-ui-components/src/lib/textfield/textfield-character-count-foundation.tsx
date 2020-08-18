@@ -11,12 +11,12 @@ export const useTextFieldCharacterCountFoundation = (
   const { foundation, ...elements } = useFoundation({
     props,
     api: ({
-      foundation
+      foundation,
     }: {
       foundation: MDCTextFieldCharacterCounterFoundation;
     }): TextFieldCharacterCountApi => {
       return {
-        getFoundation: () => foundation
+        getFoundation: () => foundation,
       };
     },
     elements: {},
@@ -24,13 +24,13 @@ export const useTextFieldCharacterCountFoundation = (
       return new MDCTextFieldCharacterCounterFoundation({
         setContent: (content: string) => {
           setContent(content);
-        }
+        },
       });
-    }
+    },
   });
 
   return {
     content,
-    ...elements
+    ...elements,
   };
 };

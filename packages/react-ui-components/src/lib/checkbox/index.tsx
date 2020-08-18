@@ -7,7 +7,7 @@ import {
   mergeRefs,
   createComponent,
   DataTableContext,
-  DataTableHeadContext
+  DataTableHeadContext,
 } from '../base';
 import { withRipple } from '../ripple';
 import { ToggleableProps, ToggleHTMLProps } from '../toggleable';
@@ -54,7 +54,7 @@ export const Checkbox: RMWC.ComponentType<
     id,
     toggleRootProps,
     rootEl,
-    checkboxEl
+    checkboxEl,
   } = useCheckboxFoundation(props);
 
   const {
@@ -73,14 +73,14 @@ export const Checkbox: RMWC.ComponentType<
       {...rootEl.props({
         checked: rest.checked,
         indeterminate,
-        ...toggleRootProps
+        ...toggleRootProps,
       })}
       ref={mergeRefs(rootEl.setRef, ref)}
     >
       <input
         {...checkboxEl.props({
           ...rest,
-          className: 'mdc-checkbox__native-control'
+          className: 'mdc-checkbox__native-control',
         })}
         type="checkbox"
         ref={mergeRefs(checkboxEl.setRef, inputRef)}
@@ -100,7 +100,7 @@ export const Checkbox: RMWC.ComponentType<
 
 const CheckboxRoot = withRipple({
   surface: false,
-  unbounded: true
+  unbounded: true,
 })(
   React.forwardRef<any, CheckboxProps & RMWC.HTMLProps>(function CheckboxRoot(
     props,
@@ -115,8 +115,8 @@ const CheckboxRoot = withRipple({
         'mdc-data-table__row-checkbox': isDataTable && !isDataTableHeader,
         'mdc-data-table__header-row-checkbox': isDataTableHeader,
         'mdc-checkbox--disabled': disabled,
-        'mdc-checkbox--selected': checked || indeterminate
-      }
+        'mdc-checkbox--selected': checked || indeterminate,
+      },
     ]);
     return <Tag {...rest} className={className} ref={ref} />;
   })

@@ -7,17 +7,17 @@ export const pagination = types
     totalItemsCount: types.optional(types.number, 0),
   })
   .actions((self) => ({
-    reset () {
+    reset() {
       self.page = 0;
     },
-    setPage (page: number) {
+    setPage(page: number) {
       self.page = page;
     },
-    setItemsPerPage (itemsPerPage: number) {
+    setItemsPerPage(itemsPerPage: number) {
       self.itemsPerPage = itemsPerPage;
       self.page = 0;
     },
-    setTotalItems (count: number) {
+    setTotalItems(count: number) {
       self.totalItemsCount = count;
     },
   }));

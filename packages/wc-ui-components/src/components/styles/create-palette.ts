@@ -5,7 +5,7 @@ import grey from './types/colors/grey';
 import red from './types/colors/red';
 import common from './types/colors/common';
 import { getContrastRatio, darken, lighten } from './color-manipulator';
-import { PaletteOptions } from './types/palette'
+import { PaletteOptions } from './types/palette';
 
 export const light = {
   text: {
@@ -76,7 +76,7 @@ export const dark = {
 };
 
 export default function createPalette(palette: PaletteOptions) {
-   const {
+  const {
     primary = indigo,
     secondary = pink,
     error = red,
@@ -86,7 +86,7 @@ export default function createPalette(palette: PaletteOptions) {
     ...other
   } = palette;
   const contrastThreshold = 3.1;
-   const shades = { dark, light };
+  const shades = { dark, light };
 
   function getContrastText(background) {
     // Use the same logic as
@@ -100,7 +100,7 @@ export default function createPalette(palette: PaletteOptions) {
     return contrastText;
   }
 
-   const paletteOutput = deepmerge(
+  const paletteOutput = deepmerge(
     {
       common,
       type,
@@ -120,7 +120,7 @@ export default function createPalette(palette: PaletteOptions) {
     other,
     {
       clone: false, // No need to clone deep
-    },
+    }
   );
 
   return paletteOutput;

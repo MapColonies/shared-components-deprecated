@@ -1,7 +1,7 @@
-import {ZIndex} from './zindex'
+import { ZIndex } from './zindex';
 // We need to centralize the zIndex definitions as they work
 // like global values in the browser.
-const zIndex:ZIndex = {
+const zIndex: ZIndex = {
   mobileStepper: 1000,
   appBar: 1100,
   drawer: 1200,

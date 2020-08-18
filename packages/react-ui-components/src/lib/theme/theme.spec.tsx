@@ -44,8 +44,8 @@ describe('ThemeProvider', () => {
       options: {
         '--mdc-theme-primary': 'blue',
         secondary: '#fff',
-        surface: '#000000'
-      }
+        surface: '#000000',
+      },
     });
     el.update();
 
@@ -53,8 +53,8 @@ describe('ThemeProvider', () => {
       options: {
         '--mdc-theme-primary': 'green',
         secondary: '#000000',
-        surface: '#000000'
-      }
+        surface: '#000000',
+      },
     });
 
     el.update();

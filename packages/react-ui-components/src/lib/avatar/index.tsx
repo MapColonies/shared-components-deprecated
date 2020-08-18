@@ -6,7 +6,7 @@ import {
   useClassNames,
   Tag,
   createComponent,
-  createMemoComponent
+  createMemoComponent,
 } from '../base';
 
 /** An Avatar component for displaying users in a system. */
@@ -74,8 +74,8 @@ const AvatarRoot = withRipple()(
         'rmwc-avatar--count-overflow': overflow,
         'rmwc-avatar--smaller-text': smallerText,
         'rmwc-avatar--square': square,
-        'rmwc-avatar--has-image': hasImage
-      }
+        'rmwc-avatar--has-image': hasImage,
+      },
     ]);
     return <Icon {...rest} className={className} ref={ref} />;
   })
@@ -96,8 +96,8 @@ export const AvatarGroup = createComponent<AvatarGroupProps>(
     const className = useClassNames(props, [
       'rmwc-avatar-group',
       {
-        'rmwc-avatar-group--dense': dense
-      }
+        'rmwc-avatar-group--dense': dense,
+      },
     ]);
 
     return <Tag {...rest} ref={ref} className={className} />;
@@ -113,7 +113,7 @@ export const Avatar = createComponent<AvatarProps>(function Avatar(
   const avatarStyle = src
     ? {
         backgroundImage: `url(${src})`,
-        backgroundSize: contain ? 'contain' : 'cover'
+        backgroundSize: contain ? 'contain' : 'cover',
       }
     : {};
 
@@ -135,7 +135,7 @@ export const Avatar = createComponent<AvatarProps>(function Avatar(
               <div className="rmwc-avatar__text-inner">{initials}</div>
             </div>
           </>
-        )
+        ),
       }}
     />
   );
@@ -181,7 +181,7 @@ export const AvatarCount = createMemoComponent<AvatarCountProps>(
                 <div className="rmwc-avatar__text-inner">{value}</div>
               </div>
             </>
-          )
+          ),
         }}
       />
     );

@@ -46,16 +46,14 @@ it('sets the correct values for the table cell properties', () => {
     .findWhere((n) => n.type() === TableCell && n.key() === headCells[1].id)
     .props();
 
-  
+  expect(firstTableCellProps).toHaveProperty('align', 'left');
+  expect(secondTableCellProps).toHaveProperty('align', 'right');
 
-  expect(firstTableCellProps).toHaveProperty('align','left');
-  expect(secondTableCellProps).toHaveProperty('align','right');
+  expect(firstTableCellProps).toHaveProperty('padding', 'none');
+  expect(secondTableCellProps).toHaveProperty('padding', 'default');
 
-  expect(firstTableCellProps).toHaveProperty('padding','none');
-  expect(secondTableCellProps).toHaveProperty('padding','default');
-
-  expect(firstTableCellProps).toHaveProperty('sortDirection','asc');
-  expect(secondTableCellProps).toHaveProperty('sortDirection',false);
+  expect(firstTableCellProps).toHaveProperty('sortDirection', 'asc');
+  expect(secondTableCellProps).toHaveProperty('sortDirection', false);
 });
 
 it('sets the correct values for the sort label properties', () => {
@@ -87,7 +85,7 @@ it('sets the correct values for the sort label properties', () => {
   expect(firstSortLabelProps).toHaveProperty('active', true);
   expect(secondSortLabelProps).toHaveProperty('active', false);
 
-  expect(firstSortLabelProps).toHaveProperty('direction','desc');
+  expect(firstSortLabelProps).toHaveProperty('direction', 'desc');
   expect(secondSortLabelProps).toHaveProperty('direction', 'asc');
 });
 
@@ -111,5 +109,8 @@ it('calls onRequestSort with the correct params', () => {
     )
     .simulate('click', {});
 
-  expect(handleRequestSort).toHaveBeenCalledWith(expect.anything(), headCells[0].id);
+  expect(handleRequestSort).toHaveBeenCalledWith(
+    expect.anything(),
+    headCells[0].id
+  );
 });

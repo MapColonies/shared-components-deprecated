@@ -23,7 +23,7 @@ export const Elevation = createComponent<ElevationProps>(function Elevation(
 
   const className = useClassNames(props, [
     `mdc-elevation--z${z}`,
-    { 'mdc-elevation-transition': transition }
+    { 'mdc-elevation-transition': transition },
   ]);
 
   if (wrap) {

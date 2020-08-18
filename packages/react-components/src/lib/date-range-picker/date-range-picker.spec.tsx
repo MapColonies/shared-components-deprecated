@@ -7,9 +7,13 @@ import { Button } from '@map-colonies/react-core';
 const date = new Date(1990, 1, 1);
 
 it('set the values of to and from to the props of the date pickers when changed', () => {
-  const wrapper = mount(<DateTimeRangePicker onChange={() => {
-    // do nothing for linitng
-  }} />);
+  const wrapper = mount(
+    <DateTimeRangePicker
+      onChange={() => {
+        // do nothing for linitng
+      }}
+    />
+  );
   wrapper.setProps({ from: date, to: date });
 
   wrapper.update();
@@ -48,9 +52,13 @@ it('calls on change when button is clicked', () => {
 });
 
 it('enables and disables the button based on the validity of the dates', () => {
-  const wrapper = shallow(<DateTimeRangePicker onChange={() => {
-    // do nothing for linitng
-  }} />);
+  const wrapper = shallow(
+    <DateTimeRangePicker
+      onChange={() => {
+        // do nothing for linitng
+      }}
+    />
+  );
   const fromPicker = wrapper.find(KeyboardDateTimePicker).first();
   const toPicker = wrapper.find(KeyboardDateTimePicker).at(1);
 
@@ -66,7 +74,7 @@ it('enables and disables the button based on the validity of the dates', () => {
 
   expect(wrapper.find(Button).prop('disabled')).toBe(true);
 
-  toPicker.prop('onChange')(new Date(1994,1));
+  toPicker.prop('onChange')(new Date(1994, 1));
   wrapper.update();
 
   expect(wrapper.find(Button).prop('disabled')).toBe(false);

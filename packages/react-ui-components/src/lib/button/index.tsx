@@ -7,7 +7,7 @@ import {
   Tag,
   useClassNames,
   createComponent,
-  createMemoComponent
+  createMemoComponent,
 } from '../base';
 
 /*********************************************************************
@@ -50,7 +50,7 @@ export const Button: RMWC.ComponentType<
   ButtonHTMLProps,
   'button'
 > = withRipple({
-  surface: false
+  surface: false,
 })(
   createComponent<ButtonProps, ButtonHTMLProps>(function Button(props, ref) {
     const {
@@ -72,19 +72,19 @@ export const Button: RMWC.ComponentType<
         'mdc-button--dense': dense,
         'mdc-button--raised': raised,
         'mdc-button--unelevated': unelevated,
-        'mdc-button--outlined': outlined
-      }
+        'mdc-button--outlined': outlined,
+      },
     ]);
 
     if (danger) {
       const existingStyle = rest.style || {};
       const dangerStyle = {
         '--mdc-theme-primary': 'var(--mdc-theme-error)',
-        '--mdc-theme-on-primary': 'var(--mdc-theme-on-error)'
+        '--mdc-theme-on-primary': 'var(--mdc-theme-on-error)',
       };
       rest.style = {
         ...dangerStyle,
-        ...existingStyle
+        ...existingStyle,
       };
     }
 

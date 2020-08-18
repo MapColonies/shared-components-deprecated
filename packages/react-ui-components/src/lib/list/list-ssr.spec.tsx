@@ -10,7 +10,7 @@ import {
   ListItemPrimaryText,
   ListItemGraphic,
   ListItemMeta,
-  SimpleListItem
+  SimpleListItem,
 } from './';
 
 describe('List SSR', () => {

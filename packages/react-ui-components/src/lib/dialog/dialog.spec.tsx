@@ -9,7 +9,7 @@ import {
   DialogButton,
   SimpleDialog,
   createDialogQueue,
-  DialogQueue
+  DialogQueue,
 } from './';
 import { wait, actWait } from '../base/utils/test-utils';
 import { act } from 'react-dom/test-utils';
@@ -192,7 +192,7 @@ describe('DialogQueue', () => {
     expect(el.html().includes('myPrompt')).toBe(true);
 
     (el.find('input').prop('onChange') as any)({
-      currentTarget: { value: 'WORKING' }
+      currentTarget: { value: 'WORKING' },
     });
 
     el.update();

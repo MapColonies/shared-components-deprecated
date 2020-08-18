@@ -3,24 +3,21 @@ import { Component, Prop, Element, h } from '@stencil/core';
 @Component({
   tag: 'mwc-toolbar-icon',
   styleUrl: 'mwc-toolbar-icon.scss',
-  shadow: false
+  shadow: false,
 })
 export class MWCToolbarIcon {
+  @Element() toolbarIconEl: HTMLAnchorElement;
 
-  @Element() toolbarIconEl : HTMLAnchorElement;
-
-  componentWillLoad(){
-      this.toolbarIconEl.className = this.getIconClassName()
+  componentWillLoad() {
+    this.toolbarIconEl.className = this.getIconClassName();
   }
 
-  getIconClassName(){
-      let className = 'mdc-toolbar__menu-icon material-icons mwc-menu-icon';
-      return className;
+  getIconClassName() {
+    let className = 'mdc-toolbar__menu-icon material-icons mwc-menu-icon';
+    return className;
   }
 
   render() {
-    return (
-       <slot />
-    )
+    return <slot />;
   }
 }

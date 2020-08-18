@@ -7,7 +7,7 @@ import {
   Tag,
   createComponent,
   DataTableHeadContext,
-  DataTableContext
+  DataTableContext,
 } from '../base';
 
 interface SharedDataTableCellProps {
@@ -43,8 +43,8 @@ export const DataTable = createComponent<DataTableProps>(function DataTable(
       'rmwc-data-table--sticky-columns': !!stickyColumns,
       'rmwc-data-table--sticky-columns-1': !!stickyColumns,
       'rmwc-data-table--sticky-rows': !!stickyRows,
-      'rmwc-data-table--sticky-rows-1': !!stickyRows
-    }
+      'rmwc-data-table--sticky-rows-1': !!stickyRows,
+    },
   ]);
   return (
     <DataTableContext.Provider value={true}>
@@ -109,8 +109,8 @@ export const DataTableRow = createComponent<DataTableRowProps>(
         'mdc-data-table__header-row': isHeaderRow,
         'mdc-data-table__row': !isHeaderRow,
         'mdc-data-table__row--selected': props.selected || props.activated,
-        'rmwc-data-table__row--activated': props.activated
-      }
+        'rmwc-data-table__row--activated': props.activated,
+      },
     ]);
     return <Tag tag="tr" {...rest} ref={ref} className={className} />;
   }
@@ -170,8 +170,8 @@ export const DataTableHeadCell = createComponent<DataTableHeadCellProps>(
         'mdc-data-table__header-cell--numeric': isNumeric,
         'rmwc-data-table__cell--align-start': alignStart,
         'rmwc-data-table__cell--align-middle': alignMiddle,
-        'rmwc-data-table__cell--align-end': alignEnd
-      }
+        'rmwc-data-table__cell--align-end': alignEnd,
+      },
     ]);
 
     const onClickProp =
@@ -182,7 +182,7 @@ export const DataTableHeadCell = createComponent<DataTableHeadCellProps>(
                 onSortChange(sort === null ? 1 : sort === 1 ? -1 : null);
 
               onClick && onClick(evt);
-            }
+            },
           }
         : {};
 
@@ -225,8 +225,8 @@ export const DataTableCell = createComponent<DataTableCellProps>(
         'mdc-data-table__cell--checkbox': hasFormControl,
         'rmwc-data-table__cell--align-start': props.alignStart,
         'rmwc-data-table__cell--align-middle': props.alignMiddle,
-        'rmwc-data-table__cell--align-end': props.alignEnd
-      }
+        'rmwc-data-table__cell--align-end': props.alignEnd,
+      },
     ]);
     return <Tag tag="td" {...rest} ref={ref} className={className} />;
   }

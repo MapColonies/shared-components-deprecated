@@ -1,5 +1,5 @@
-import {Color} from './color'
-const deepOrange:Color  = {
+import { Color } from './color';
+const deepOrange: Color = {
   50: '#fbe9e7',
   100: '#ffccbc',
   200: '#ffab91',

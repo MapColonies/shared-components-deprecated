@@ -4,7 +4,7 @@ import {
   Snackbar,
   SnackbarAction,
   createSnackbarQueue,
-  SnackbarQueue
+  SnackbarQueue,
 } from './';
 import { wait } from '../base/utils/test-utils';
 
@@ -99,7 +99,7 @@ describe('SnackbarQueue', () => {
       title: 'myNotificationTitle1',
       body: 'myNotificationBody1',
       timeout: 500,
-      onClose: () => {}
+      onClose: () => {},
     });
 
     queue.notify({
@@ -112,15 +112,15 @@ describe('SnackbarQueue', () => {
           // NotificationAction api format
           title: 'Fix It!',
           icon: 'close',
-          action: 'fixit' // action will be available as evt.detail.reason in the onClose event
+          action: 'fixit', // action will be available as evt.detail.reason in the onClose event
         },
         {
           // OR SnackbarActionProps format
           label: 'Continue...',
           icon: 'check',
-          onClick: () => {}
-        }
-      ]
+          onClick: () => {},
+        },
+      ],
     });
 
     await wait(500);

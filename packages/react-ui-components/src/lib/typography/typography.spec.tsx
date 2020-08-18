@@ -46,7 +46,7 @@ describe('Typography', () => {
             <span>
               <b>{children}!!!</b>
             </span>
-          )
+          ),
         }}
       >
         <Typography use="headline6">Rendered default `div`</Typography>

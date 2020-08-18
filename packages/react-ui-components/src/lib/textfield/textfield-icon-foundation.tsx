@@ -13,12 +13,12 @@ export const useTextFieldIconFoundation = (
     props,
     elements: { rootEl: true },
     api: ({
-      foundation
+      foundation,
     }: {
       foundation: MDCTextFieldIconFoundation;
     }): TextFieldIconApi => {
       return {
-        getFoundation: () => foundation
+        getFoundation: () => foundation,
       };
     },
     foundation: ({ rootEl, emit }) => {
@@ -38,11 +38,11 @@ export const useTextFieldIconFoundation = (
           evtType: K,
           handler: SpecificEventListener<K>
         ) => rootEl.removeEventListener(evtType, handler),
-        notifyIconAction: () => emit('onClick', {}, true)
+        notifyIconAction: () => emit('onClick', {}, true),
       });
 
       return f;
-    }
+    },
   });
 
   return { ...elements };

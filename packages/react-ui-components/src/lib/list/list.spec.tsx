@@ -7,7 +7,7 @@ import {
   ListItemGraphic,
   ListItemMeta,
   SimpleListItem,
-  CollapsibleList
+  CollapsibleList,
 } from './';
 
 describe('List', () => {

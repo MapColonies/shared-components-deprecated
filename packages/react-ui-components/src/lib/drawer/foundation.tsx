@@ -1,13 +1,13 @@
 import {
   MDCModalDrawerFoundation,
-  MDCDismissibleDrawerFoundation
+  MDCDismissibleDrawerFoundation,
 } from '@material/drawer';
 import { DrawerProps } from '.';
 import {
   useFoundation,
   FocusTrap,
   focusTrapFactory,
-  triggerWindowResize
+  triggerWindowResize,
 } from '../base';
 import React, { useRef, useEffect, useCallback } from 'react';
 
@@ -23,7 +23,7 @@ const useDrawerFoundationFactory = (
       props,
       elements: {
         rootEl: true,
-        scrimEl: true
+        scrimEl: true,
       },
       foundation: ({ rootEl, emit, getProps }) => {
         let previousFocusEl: HTMLElement;
@@ -69,7 +69,7 @@ const useDrawerFoundationFactory = (
             try {
               focusTrapRef.current?.releaseFocus();
             } catch (err) {}
-          }
+          },
         });
 
         // Fixes a very annoying issue where the menu isn't stateful
@@ -87,7 +87,7 @@ const useDrawerFoundationFactory = (
         f.close = newClose;
 
         return f;
-      }
+      },
     });
 
     const { rootEl, scrimEl } = elements;

@@ -13,7 +13,7 @@ import {
   CardActionButtons,
   CardActionIcons,
   CardActionButton,
-  CardActionIcon
+  CardActionIcon,
 } from './';
 
 describe('Card', () => {

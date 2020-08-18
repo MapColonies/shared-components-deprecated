@@ -80,15 +80,15 @@ const IconButtonToggle = createComponent<IconButtonProps>(
 
 const IconButtonRoot = withRipple({
   surface: false,
-  unbounded: true
+  unbounded: true,
 })(
   createComponent<IconButtonProps>(function IconButtonRoot(props, ref) {
     const { checked, label, foundationRef, ...rest } = props;
     const className = useClassNames(props, [
       'mdc-icon-button',
       {
-        'mdc-icon-button--on': checked
-      }
+        'mdc-icon-button--on': checked,
+      },
     ]);
     return (
       <Icon
@@ -105,15 +105,15 @@ const IconButtonRoot = withRipple({
 
 const IconButtonToggleRoot = withRipple({
   surface: false,
-  unbounded: true
+  unbounded: true,
 })(
   createComponent<IconButtonProps>(function IconButtonToggleRoot(props, ref) {
     const { checked, ...rest } = props;
     const className = useClassNames(props, [
       'mdc-icon-button',
       {
-        'mdc-icon-button--on': checked
-      }
+        'mdc-icon-button--on': checked,
+      },
     ]);
     return (
       <Tag
@@ -139,8 +139,8 @@ const IconButtonIcon = React.memo(function IconButtonIcon(
   const className = useClassNames(props, [
     'mdc-icon-button__icon',
     {
-      'mdc-icon-button__icon--on': props.on
-    }
+      'mdc-icon-button__icon--on': props.on,
+    },
   ]);
   return <Icon {...rest} className={className} />;
 });

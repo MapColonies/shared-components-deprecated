@@ -4,14 +4,14 @@ import {
   closest,
   emptyClientRect,
   FoundationElement,
-  raf
+  raf,
 } from '../../base';
 import {
   MDCMenuSurfaceFoundation,
   util,
   MDCMenuDimensions,
   Corner,
-  MDCMenuDistance
+  MDCMenuDistance,
 } from '@material/menu-surface';
 import { MenuSurfaceProps, MenuSurfaceApi } from '.';
 
@@ -25,7 +25,7 @@ const ANCHOR_CORNER_MAP: {
   topEnd: 'TOP_END',
   topLeft: 'TOP_LEFT',
   topRight: 'TOP_RIGHT',
-  topStart: 'TOP_START'
+  topStart: 'TOP_START',
 };
 
 const getAnchorCornerFromProp = (
@@ -46,7 +46,7 @@ export const useMenuSurfaceFoundation = (
     elements: { rootEl: true },
     api: ({
       foundation,
-      rootEl
+      rootEl,
     }: {
       foundation: MDCMenuSurfaceFoundation;
       rootEl: FoundationElement<any, any>;
@@ -59,7 +59,7 @@ export const useMenuSurfaceFoundation = (
         setAnchorElement: (element: HTMLElement) =>
           (anchorElementRef.current = element),
         setOpen: (open: boolean) => setOpen(open),
-        getSurfaceElement: () => rootEl.ref
+        getSurfaceElement: () => rootEl.ref,
       };
     },
     foundation: ({ rootEl, getProps, emit }) => {
@@ -108,7 +108,7 @@ export const useMenuSurfaceFoundation = (
           focusLastElement: () =>
             !!firstFocusableElementRef.current &&
             firstFocusableElementRef.current.focus &&
-            firstFocusableElementRef.current.focus()
+            firstFocusableElementRef.current.focus(),
         };
       };
 
@@ -117,7 +117,7 @@ export const useMenuSurfaceFoundation = (
           getInnerDimensions: (): MDCMenuDimensions => {
             return {
               width: rootEl.ref ? rootEl.ref.offsetWidth : 0,
-              height: rootEl.ref ? rootEl.ref.offsetHeight : 0
+              height: rootEl.ref ? rootEl.ref.offsetHeight : 0,
             };
           },
           getAnchorDimensions: () => {
@@ -129,13 +129,13 @@ export const useMenuSurfaceFoundation = (
           getWindowDimensions: () => {
             return {
               width: window.innerWidth,
-              height: window.innerHeight
+              height: window.innerHeight,
             };
           },
           getBodyDimensions: () => {
             return {
               width: document.body.clientWidth,
-              height: document.body.clientHeight
+              height: document.body.clientHeight,
             };
           },
           getWindowScroll: () => {
@@ -161,7 +161,7 @@ export const useMenuSurfaceFoundation = (
           },
           setMaxHeight: (height: string) => {
             rootEl.setStyle('maxHeight', height);
-          }
+          },
         };
       };
 
@@ -195,7 +195,7 @@ export const useMenuSurfaceFoundation = (
           );
         },
         ...getFocusAdapterMethods(),
-        ...getDimensionAdapterMethods()
+        ...getDimensionAdapterMethods(),
       });
 
       // Fixes a very annoying issue where the menu isn't stateful
@@ -220,7 +220,7 @@ export const useMenuSurfaceFoundation = (
       };
 
       return f;
-    }
+    },
   });
 
   const { rootEl } = elements;

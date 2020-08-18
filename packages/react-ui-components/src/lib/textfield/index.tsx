@@ -4,7 +4,7 @@ import { IconProps } from '../icon';
 import {
   MDCTextFieldCharacterCounterFoundation,
   MDCTextFieldIconFoundation,
-  MDCTextFieldFoundation
+  MDCTextFieldFoundation,
 } from '@material/textfield';
 
 import { useClassNames, Tag, useId, createComponent } from '../base';
@@ -109,7 +109,7 @@ export const TextField: RMWC.ComponentType<
     setLeadingIcon,
     setTrailingIcon,
     setFloatingLabel,
-    setCharacterCounter
+    setCharacterCounter,
   } = useTextFieldFoundation(props);
 
   const id = useId('textfield', props);
@@ -127,8 +127,8 @@ export const TextField: RMWC.ComponentType<
       'mdc-text-field--with-leading-icon': !!icon,
       'mdc-text-field--with-trailing-icon': !!trailingIcon,
       'mdc-text-field--no-label': !label,
-      'mdc-text-field--end-aligned': align === 'end'
-    }
+      'mdc-text-field--end-aligned': align === 'end',
+    },
   ]);
 
   // handle leading and trailing icons
@@ -277,8 +277,8 @@ export const TextFieldHelperText = createComponent<TextFieldHelperTextProps>(
       'mdc-text-field-helper-text',
       {
         'mdc-text-field-helper-text--persistent': persistent,
-        'mdc-text-field-helper-text--validation-msg': validationMsg
-      }
+        'mdc-text-field-helper-text--validation-msg': validationMsg,
+      },
     ]);
 
     return <Tag tag="p" {...rest} className={className} ref={ref} />;
@@ -309,15 +309,15 @@ const TextFieldIcon = function TextFieldIcon(
     'mdc-text-field__icon',
     {
       'mdc-text-field__icon--trailing': position === 'trailing',
-      'mdc-text-field__icon--leading': position === 'leading'
-    }
+      'mdc-text-field__icon--leading': position === 'leading',
+    },
   ]);
 
   return (
     <Icon
       {...rootEl.props({
         ...rest,
-        className
+        className,
       })}
     />
   );

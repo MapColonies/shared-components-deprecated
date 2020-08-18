@@ -42,7 +42,9 @@ export interface MapFilterContainerProps {
   filters?: React.ReactNode[];
 }
 
-export const MapFilterContainer: React.FC<MapFilterContainerProps> = (props) => {
+export const MapFilterContainer: React.FC<MapFilterContainerProps> = (
+  props
+) => {
   const [drawType, setDrawType] = useState<DrawType>();
   const [selectionPolygon, setSelectionPolygon] = useState<Polygon>();
   const classes = useStyle();

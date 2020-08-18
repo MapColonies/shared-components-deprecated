@@ -71,8 +71,8 @@ const TopAppBarBase = createComponent<TopAppBarProps>(function TopAppBarBase(
       'mdc-top-app-bar--prominent': prominent,
       'mdc-top-app-bar--short': short || shortCollapsed,
       'mdc-top-app-bar--short-collapsed': shortCollapsed,
-      'mdc-top-app-bar--dense': dense
-    }
+      'mdc-top-app-bar--dense': dense,
+    },
   ]);
 
   return (
@@ -171,8 +171,8 @@ export const TopAppBarSection = createComponent<TopAppBarSectionProps>(
       'mdc-top-app-bar__section',
       {
         'mdc-top-app-bar__section--align-start': alignStart,
-        'mdc-top-app-bar__section--align-end': alignEnd
-      }
+        'mdc-top-app-bar__section--align-end': alignEnd,
+      },
     ]);
     return <Tag tag="section" {...rest} ref={ref} className={className} />;
   }
@@ -229,12 +229,16 @@ export const TopAppBarFixedAdjust = createComponent<TopAppBarFixedAdjustProps>(
     const { dense, denseProminent, prominent, short, ...rest } = props;
     const className = useClassNames(props, [
       {
-        'mdc-top-app-bar--fixed-adjust': !props.dense && !props.denseProminent && !props.prominent && !props.short,
+        'mdc-top-app-bar--fixed-adjust':
+          !props.dense &&
+          !props.denseProminent &&
+          !props.prominent &&
+          !props.short,
         'mdc-top-app-bar--dense-fixed-adjust': props.dense,
         'mdc-top-app-bar--prominent-fixed-adjust': props.prominent,
         'mdc-top-app-bar--dense-prominent-fixed-adjust': props.denseProminent,
-        'mdc-top-app-bar--short-fixed-adjust': props.short
-      }
+        'mdc-top-app-bar--short-fixed-adjust': props.short,
+      },
     ]);
     return <Tag {...rest} ref={ref} className={className} />;
   }

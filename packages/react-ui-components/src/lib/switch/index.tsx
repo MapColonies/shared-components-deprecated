@@ -6,7 +6,7 @@ import {
   mergeRefs,
   Tag,
   useClassNames,
-  createComponent
+  createComponent,
 } from '../base';
 import { withRipple } from '../ripple';
 import { ToggleableProps, ToggleHTMLProps } from '../toggleable';
@@ -34,7 +34,7 @@ export const Switch: RMWC.ComponentType<
     id,
     toggleRootProps,
     rootEl,
-    checkboxEl
+    checkboxEl,
   } = useSwitchFoundation(props);
 
   const rootClassName = useClassNames(toggleRootProps, ['mdc-switch']);
@@ -59,7 +59,7 @@ export const Switch: RMWC.ComponentType<
         <input
           {...checkboxEl.props({
             ...rest,
-            className: 'mdc-switch__native-control'
+            className: 'mdc-switch__native-control',
           })}
           type="checkbox"
           id={id}
@@ -93,7 +93,7 @@ const SwitchThumb = React.memo(function SwitchThumb() {
 
 const SwitchThumbUnderlay = withRipple({
   unbounded: true,
-  surface: false
+  surface: false,
 })(function SwitchThumbUnderlay({
   className,
   ...rest

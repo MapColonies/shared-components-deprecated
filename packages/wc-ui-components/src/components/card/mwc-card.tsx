@@ -3,18 +3,17 @@ import { Component, Prop, Element, h } from '@stencil/core';
 @Component({
   tag: 'mwc-card',
   //styleUrl: 'mwc-card.scss',
-  shadow: false
+  shadow: false,
 })
-export class MWCCard{
+export class MWCCard {
+  @Element() cardEl: HTMLElement;
+  @Prop() width: string = 'auto';
+  @Prop() height: string = 'auto';
+  @Prop() raised: boolean = false;
+  @Prop() radius: number = 4;
 
-  @Element() cardEl : HTMLElement;
-  @Prop() width: string = "auto";
-  @Prop() height : string = "auto";
-  @Prop() raised : boolean = false;
-  @Prop() radius : number = 4;
-
-  componentDidLoad(){
-      /* let cardStyles = '';
+  componentDidLoad() {
+    /* let cardStyles = '';
        if(this.width){
            cardStyles = `width:${this.width}; `;
        }
@@ -28,19 +27,20 @@ export class MWCCard{
            eachButton.className = `${eachButton.className} mdc-card__action`;
        }) */
   }
-  getElevation():number{
-      return this.raised ? 8 : 2
+  getElevation(): number {
+    return this.raised ? 8 : 2;
   }
 
   render() {
     return (
-        <mwc-paper
-            width={this.width}
-            height={this.height}
-            elevation={this.getElevation()}
-            radius={this.radius}>
-            <slot />
-        </mwc-paper>
-    )
+      <mwc-paper
+        width={this.width}
+        height={this.height}
+        elevation={this.getElevation()}
+        radius={this.radius}
+      >
+        <slot />
+      </mwc-paper>
+    );
   }
 }

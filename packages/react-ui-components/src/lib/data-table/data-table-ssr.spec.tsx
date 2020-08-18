@@ -13,7 +13,7 @@ import {
   DataTableHeadCell,
   DataTableRow,
   DataTableCell,
-  SimpleDataTable
+  SimpleDataTable,
 } from './';
 
 describe('DataTable', () => {
@@ -61,7 +61,7 @@ describe('SimpleDataTable', () => {
           ['Icecream', 3, '1.43'],
           ['Candy', 72, '$22.45'],
           ['Cakes', 101, '$215.05'],
-          ['Muffins', 3, '$5.97']
+          ['Muffins', 3, '$5.97'],
         ]}
       />
     );

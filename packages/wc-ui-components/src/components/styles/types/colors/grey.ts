@@ -1,5 +1,5 @@
-import {Color} from './color'
-const grey:Color = {
+import { Color } from './color';
+const grey: Color = {
   50: '#fafafa',
   100: '#f5f5f5',
   200: '#eeeeee',

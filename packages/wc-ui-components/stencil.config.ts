@@ -2,7 +2,6 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
-
 export const config: Config = {
   namespace: 'wc-ui-components',
   taskQueue: 'async',
@@ -26,15 +25,9 @@ export const config: Config = {
     },
   ],
 
-
-
-
   plugins: [
     sass({
-      includePaths: [
-        "./node_modules",
-        "../../node_modules"
-      ]
-    })
-  ]
+      includePaths: ['./node_modules', '../../node_modules'],
+    }),
+  ],
 };

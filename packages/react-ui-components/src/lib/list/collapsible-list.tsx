@@ -61,7 +61,7 @@ export class CollapsibleList extends React.Component<
     if (props.open !== undefined && props.open !== state.open) {
       return {
         ...state,
-        open: props.open
+        open: props.open,
       };
     }
 
@@ -75,7 +75,7 @@ export class CollapsibleList extends React.Component<
 
   state: CollapsibleState = {
     open: !!this.props.defaultOpen || !!this.props.open,
-    childrenStyle: {}
+    childrenStyle: {},
   };
 
   constructor(props: any) {
@@ -108,7 +108,7 @@ export class CollapsibleList extends React.Component<
     const childrenStyle = {
       maxHeight: this.childContainer
         ? `${this.childContainer.offsetHeight}px`
-        : '0px'
+        : '0px',
     };
 
     this.setState({ childrenStyle }, () => {
@@ -118,8 +118,8 @@ export class CollapsibleList extends React.Component<
           if (this.state.open) {
             this.setState({
               childrenStyle: {
-                maxHeight: 'none'
-              }
+                maxHeight: 'none',
+              },
             });
           }
         }, 300);
@@ -127,7 +127,7 @@ export class CollapsibleList extends React.Component<
         onClose && onClose();
         this.rafId = window.requestAnimationFrame(() => {
           this.setState({
-            childrenStyle: {}
+            childrenStyle: {},
           });
         });
       }
@@ -229,14 +229,14 @@ export class CollapsibleList extends React.Component<
         onFocus={this.handleFocus}
         ref={(el: HTMLDivElement) => (this.root = el)}
         className={classNames('rmwc-collapsible-list', className, {
-          'rmwc-collapsible-list--open': open
+          'rmwc-collapsible-list--open': open,
         })}
       >
         <div className="rmwc-collapsible-list__handle">
           {React.cloneElement(handle, {
             ...handle.props,
             onClick: this.handleClick,
-            onKeyDown: this.handleKeydown
+            onKeyDown: this.handleKeydown,
           })}
         </div>
         <div className="rmwc-collapsible-list__children" style={childrenStyle}>

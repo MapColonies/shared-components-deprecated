@@ -2,12 +2,12 @@ import * as RMWC from '../types';
 import React from 'react';
 import {
   MDCModalDrawerFoundation,
-  MDCDismissibleDrawerFoundation
+  MDCDismissibleDrawerFoundation,
 } from '@material/drawer';
 import { mergeRefs, Tag, useClassNames, createComponent } from '../base';
 import {
   useDismissableDrawerFoundation,
-  useModalDrawerFoundation
+  useModalDrawerFoundation,
 } from './foundation';
 
 /***************************************************************************************
@@ -89,8 +89,8 @@ const DrawerRoot = createComponent<DrawerProps>(function DrawerRoot(
     'mdc-drawer',
     {
       'mdc-drawer--dismissible': dismissible,
-      'mdc-drawer--modal': modal
-    }
+      'mdc-drawer--modal': modal,
+    },
   ]);
 
   return <Tag tag="aside" {...rest} ref={ref} className={className} />;
@@ -146,7 +146,7 @@ export const DrawerContent = createComponent<DrawerContentProps>(
 
 /** Protects the app's UI from interactions while a modal drawer is open. */
 const DrawerScrim = ({
-  onClick
+  onClick,
 }: {
   onClick: (evt: React.MouseEvent<HTMLDivElement>) => void;
 }) => <div className="mdc-drawer-scrim" onClick={onClick} />;

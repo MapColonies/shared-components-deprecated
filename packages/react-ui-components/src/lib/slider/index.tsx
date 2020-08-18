@@ -86,7 +86,7 @@ export const Slider: RMWC.ComponentType<
     thumbContainerEl,
     sliderPinEl,
     setTrackRef,
-    setTrackMarkerContainerRef
+    setTrackMarkerContainerRef,
   } = useSliderFoundation(props);
 
   const {
@@ -108,8 +108,8 @@ export const Slider: RMWC.ComponentType<
     'mdc-slider',
     {
       'mdc-slider--discrete': discrete,
-      'mdc-slider--display-markers': displayMarkers && discrete
-    }
+      'mdc-slider--display-markers': displayMarkers && discrete,
+    },
   ]);
 
   const dataStep = step ? { 'data-step': step } : {};

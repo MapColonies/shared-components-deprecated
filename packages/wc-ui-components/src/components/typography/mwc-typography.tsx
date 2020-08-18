@@ -1,59 +1,58 @@
-import { Component, Prop, Element, h  } from '@stencil/core';
-import TypographyStyle from './mwc-typography.style'
-import { typographyType, displayType, alignType } from './mwc-typograpy-types'
-import deepmerge from 'deepmerge'
+import { Component, Prop, Element, h } from '@stencil/core';
+import TypographyStyle from './mwc-typography.style';
+import { typographyType, displayType, alignType } from './mwc-typograpy-types';
+import deepmerge from 'deepmerge';
 
 @Component({
   tag: 'mwc-typography',
-  shadow: false
+  shadow: false,
 })
-
 export class MWCTypography {
-  @Element() typographyEl : HTMLElement;
-  @Prop() type: typographyType = "display1"
+  @Element() typographyEl: HTMLElement;
+  @Prop() type: typographyType = 'display1';
   @Prop() color: string;
-  @Prop() display: displayType = 'block'
-  @Prop() align: alignType = 'left'
-  @Prop() nowrap : boolean = false
-  @Prop() gutterbottom : boolean = false
-  @Prop() styles : any
+  @Prop() display: displayType = 'block';
+  @Prop() align: alignType = 'left';
+  @Prop() nowrap: boolean = false;
+  @Prop() gutterbottom: boolean = false;
+  @Prop() styles: any;
 
-  componentWillLoad(){
+  componentWillLoad() {
     const typeStyle = new TypographyStyle();
-    let changeStyle:object = {
-      root:{
-        display : this.display
-      }
+    let changeStyle: object = {
+      root: {
+        display: this.display,
+      },
+    };
+    if (this.color) {
+      changeStyle[this.type] = { color: this.color };
     }
-    if(this.color){
-      changeStyle[this.type] = {'color': this.color};
-    }
-    if(this.styles){
-      if(changeStyle[this.type])
-      {
-       changeStyle[this.type] = deepmerge.all([changeStyle[this.type],this.styles])
-      }else{
-        changeStyle[this.type] = this.styles
+    if (this.styles) {
+      if (changeStyle[this.type]) {
+        changeStyle[this.type] = deepmerge.all([
+          changeStyle[this.type],
+          this.styles,
+        ]);
+      } else {
+        changeStyle[this.type] = this.styles;
       }
     }
 
-    typeStyle.setup(changeStyle)
-    let classNames: Array<string> = []
-    classNames.push('root')
-    classNames.push(this.type)
-    classNames.push(`align${this.align}`)
-    if(this.nowrap){
-      classNames.push('nowrap')
+    typeStyle.setup(changeStyle);
+    let classNames: Array<string> = [];
+    classNames.push('root');
+    classNames.push(this.type);
+    classNames.push(`align${this.align}`);
+    if (this.nowrap) {
+      classNames.push('nowrap');
     }
-    if(this.gutterbottom){
-      classNames.push('gutterbottom')
+    if (this.gutterbottom) {
+      classNames.push('gutterbottom');
     }
-    this.typographyEl.className = typeStyle.getClassName(classNames)
+    this.typographyEl.className = typeStyle.getClassName(classNames);
   }
 
   render() {
-    return (
-      <slot />
-    )
+    return <slot />;
   }
 }

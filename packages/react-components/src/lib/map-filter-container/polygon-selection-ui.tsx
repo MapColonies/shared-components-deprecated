@@ -1,11 +1,8 @@
 import React from 'react';
-// import { Menu, MenuItem, Button } from '@material-ui/core';
-// import Tooltip from '@material-ui/core/Tooltip';
-import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core/dist';
+import { Menu, MenuItem, Button, Tooltip } from '@map-colonies/react-core';
 import '@map-colonies/react-core/dist/button/styles';
 import '@map-colonies/react-core/dist/tooltip/styles';
 import '@map-colonies/react-core/dist/menu/styles';
-
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
@@ -20,7 +17,7 @@ const useStyle = makeStyles((theme: Theme) =>
     },
     fullWidth: {
       width: '100%',
-      marginTop: '36px'
+      marginTop: '36px',
     },
   })
 );
@@ -46,27 +43,20 @@ export const PolygonSelectionUi: React.FC<PolygonSelectionUiProps> = (
   const handleClose = (): void => {
     setAnchorEl(null);
   };
-  
+
   if (isSelectionEnabled) {
     return (
-      <Tooltip 
-        content="Cancel the ongoing draw"
-        align={'bottomLeft'}
-      >
-        <Button
-          className={classes.drawingButton}
-          raised
-          onClick={onCancelDraw}
-        >
+      <Tooltip content="Cancel the ongoing draw" align={'bottomLeft'}>
+        <Button className={classes.drawingButton} raised onClick={onCancelDraw}>
           Cancel Draw
         </Button>
       </Tooltip>
     );
   } else {
     return (
-      <Box position="relative"> 
-        <Tooltip 
-          content="draw an Area of interest to limit the search" 
+      <Box position="relative">
+        <Tooltip
+          content="draw an Area of interest to limit the search"
           align={'bottomLeft'}
         >
           <Button

@@ -3,45 +3,47 @@ import { createMuiTheme } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useMappedMuiTheme = (theme: { [key: string]: string }) => {
-    const prefersDarkMode = (theme.type === 'dark');
+  const prefersDarkMode = theme.type === 'dark';
 
-    return  React.useMemo(
-        () => mapMcToMuiTheme(theme, prefersDarkMode),
-        [prefersDarkMode, theme]
-    );
-}
-
-const mapMcToMuiTheme = (mcTheme :{ [key: string]: string }, prefersDarkMode = false) => {
-
-    return createMuiTheme({
-      palette: {
-        type: prefersDarkMode ? 'dark' : 'light', 
-        primary: {
-          main: mcTheme.primary,
-        },
-        secondary: {
-          main: mcTheme.secondary,
-        },
-        error:{
-          main: mcTheme.error,
-        },
-        background: {
-          default: mcTheme.surface,
-          paper: mcTheme.background,
-        },
-        text:{
-          primary: prefersDarkMode ? mcTheme.textPrimaryOnDark : mcTheme.textPrimaryOnLight,
-          secondary: prefersDarkMode ? mcTheme.textSecondaryOnDark : mcTheme.textSecondaryOnLight,
-        }
-      }
-    });
-  };
-
-export { 
-    useMediaQuery,
-    useMappedMuiTheme,
-    mapMcToMuiTheme
+  return React.useMemo(() => mapMcToMuiTheme(theme, prefersDarkMode), [
+    prefersDarkMode,
+    theme,
+  ]);
 };
+
+const mapMcToMuiTheme = (
+  mcTheme: { [key: string]: string },
+  prefersDarkMode = false
+) => {
+  return createMuiTheme({
+    palette: {
+      type: prefersDarkMode ? 'dark' : 'light',
+      primary: {
+        main: mcTheme.primary,
+      },
+      secondary: {
+        main: mcTheme.secondary,
+      },
+      error: {
+        main: mcTheme.error,
+      },
+      background: {
+        default: mcTheme.surface,
+        paper: mcTheme.background,
+      },
+      text: {
+        primary: prefersDarkMode
+          ? mcTheme.textPrimaryOnDark
+          : mcTheme.textPrimaryOnLight,
+        secondary: prefersDarkMode
+          ? mcTheme.textSecondaryOnDark
+          : mcTheme.textSecondaryOnLight,
+      },
+    },
+  });
+};
+
+export { useMediaQuery, useMappedMuiTheme, mapMcToMuiTheme };
 /* primary: '#24aee9',
 secondary: '#e539ff',
 error: '#b00020',

@@ -5,7 +5,7 @@ import {
   SimpleDialog,
   SimpleDialogProps,
   SimpleDialogHTMLProps,
-  DialogOnCloseEventT
+  DialogOnCloseEventT,
 } from './dialog';
 import { ArrayEmitter, randomId } from '../base';
 import { TextField, TextFieldProps, TextFieldHTMLProps } from '../textfield';
@@ -40,7 +40,7 @@ export function DialogQueue({
   );
 
   useEffect(() => {
-    const forceUpdate = () => setIteration(val => val + 1);
+    const forceUpdate = () => setIteration((val) => val + 1);
     dialogs.on('change', forceUpdate);
     return () => {
       dialogs.off('change', forceUpdate);
@@ -50,7 +50,7 @@ export function DialogQueue({
   const removeDialog = (evt: DialogOnCloseEventT, dialog: DialogQueueSpec) => {
     setClosingDialogs({
       ...closingDialogs,
-      [dialog.id]: true
+      [dialog.id]: true,
     });
 
     dialog.resolve(evt);
@@ -74,7 +74,7 @@ export function DialogQueue({
 
   return (
     <>
-      {dialogs.array.map(dialog => {
+      {dialogs.array.map((dialog) => {
         const { resolve, reject, id, inputProps, ...rest } = dialog;
 
         const rendered = (
@@ -83,7 +83,7 @@ export function DialogQueue({
             {...rest}
             key={id}
             open={!closingDialogs[id] && !foundOpen}
-            onClose={evt => {
+            onClose={(evt) => {
               removeDialog(evt, dialog);
               dialog.onClose && dialog.onClose(evt);
             }}
@@ -121,7 +121,7 @@ const dialogFactory = (
 function PromptBody({
   body,
   inputProps,
-  apiRef
+  apiRef,
 }: {
   body?: React.ReactNode;
   inputProps?: DialogQueueInput['inputProps'];
@@ -141,7 +141,7 @@ function PromptBody({
         autoFocus
         {...inputProps}
         value={value}
-        onChange={evt => {
+        onChange={(evt) => {
           setValue(evt.currentTarget.value);
         }}
       />
@@ -156,7 +156,7 @@ const promptFactory = (dialog: DialogQueueSpec): DialogQueueSpec => {
     <PromptBody
       body={dialog.body}
       inputProps={dialog.inputProps}
-      apiRef={_getValue => (getValue = _getValue)}
+      apiRef={(_getValue) => (getValue = _getValue)}
     />
   );
 
@@ -167,7 +167,7 @@ const promptFactory = (dialog: DialogQueueSpec): DialogQueueSpec => {
     resolve: (evt: DialogOnCloseEventT) => {
       dialog.resolve(evt.detail.action === 'accept' ? getValue() : null);
       getValue = undefined;
-    }
+    },
   };
 };
 
@@ -178,7 +178,7 @@ const alertFactory = (dialog: DialogQueueSpec): DialogQueueSpec => ({
   acceptLabel: 'OK',
   cancelLabel: null,
   ...dialog,
-  resolve: (evt: DialogOnCloseEventT) => dialog.resolve(evt.detail.action)
+  resolve: (evt: DialogOnCloseEventT) => dialog.resolve(evt.detail.action),
 });
 
 /** Confirm */
@@ -189,7 +189,7 @@ const confirmFactory = (dialog: DialogQueueSpec): DialogQueueSpec => ({
   cancelLabel: 'Cancel',
   ...dialog,
   resolve: (evt: DialogOnCloseEventT) =>
-    dialog.resolve(evt.detail.action === 'accept')
+    dialog.resolve(evt.detail.action === 'accept'),
 });
 
 /** Creates a snackbar queue */
@@ -205,6 +205,6 @@ export const createDialogQueue = (): {
     dialogs,
     alert: dialogFactory(alertFactory, dialogs),
     confirm: dialogFactory(confirmFactory, dialogs),
-    prompt: dialogFactory(promptFactory, dialogs)
+    prompt: dialogFactory(promptFactory, dialogs),
   };
 };

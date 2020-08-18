@@ -67,7 +67,7 @@ const RadioRipple = React.memo(function RadioRipple() {
 
 const RadioRoot = withRipple({
   surface: false,
-  unbounded: true
+  unbounded: true,
 })(
   React.forwardRef<any, RadioProps & RMWC.HTMLProps>(function RadioRoot(
     props,
@@ -77,8 +77,8 @@ const RadioRoot = withRipple({
     const className = useClassNames(props, [
       'mdc-radio',
       {
-        'mdc-radio--disabled': disabled
-      }
+        'mdc-radio--disabled': disabled,
+      },
     ]);
     return <Tag {...rest} className={className} ref={ref} />;
   })

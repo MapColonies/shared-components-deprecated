@@ -27,10 +27,10 @@ export const useMenuFoundation = (props: MenuProps & React.HTMLProps<any>) => {
     props: {
       ...props,
       // we don't want to pass the apiRef all the way through
-      apiRef: undefined
+      apiRef: undefined,
     },
     elements: {
-      rootEl: true
+      rootEl: true,
     },
     foundation: ({ emit }) => {
       return new MDCMenuFoundation({
@@ -55,14 +55,14 @@ export const useMenuFoundation = (props: MenuProps & React.HTMLProps<any>) => {
         notifySelected: (evtData: { index: number; item: HTMLElement }) =>
           emit('onSelect', {
             index: evtData.index,
-            item: items()[evtData.index]
+            item: items()[evtData.index],
           }),
         getMenuItemCount: () => listApi.current?.getListItemCount() || 0,
         focusItemAtIndex: (...args) =>
           listApi.current?.focusItemAtIndex(...args),
-        focusListRoot: () => listApi.current?.focusRoot()
+        focusListRoot: () => listApi.current?.focusRoot(),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;

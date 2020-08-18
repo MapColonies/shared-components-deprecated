@@ -1,51 +1,55 @@
 import { Component, Prop, Element, h } from '@stencil/core';
-import {MDCRipple} from '@material/ripple';
+import { MDCRipple } from '@material/ripple';
 
 @Component({
   tag: 'mwc-list-item',
   styleUrl: 'mwc-list-item.scss',
-  shadow: false
+  shadow: false,
 })
-export class MWCListItem{
-
-  @Element() listItemEl : HTMLElement;
+export class MWCListItem {
+  @Element() listItemEl: HTMLElement;
   @Prop() ripple: boolean = true;
   @Prop() interactive: boolean = true;
 
-  listItemRipple:any;
-  listItem:any;
+  listItemRipple: any;
+  listItem: any;
 
-  componentWillLoad(){
-     // if(this.tilewidth){
-       // this.gridListEl.style.setProperty('--mdc-grid-list-tile-width', this.tilewidth);
-     // }
+  componentWillLoad() {
+    // if(this.tilewidth){
+    // this.gridListEl.style.setProperty('--mdc-grid-list-tile-width', this.tilewidth);
+    // }
   }
 
-   componentDidLoad(){
-       if(this.ripple){
-          this.listItemRipple =  MDCRipple.attachTo(this.listItem);
+  componentDidLoad() {
+    if (this.ripple) {
+      this.listItemRipple = MDCRipple.attachTo(this.listItem);
       //  this.listItemRipple.unbounded = true
-       }
+    }
   }
-  componentDidUnload(){
-      if(this.ripple){
-        this.listItemRipple.destroy()
-      }
+  componentDidUnload() {
+    if (this.ripple) {
+      this.listItemRipple.destroy();
+    }
   }
 
-   getListItemClassName(){
-      let className: string = 'mdc-list-item';
-      if(this.interactive){
-          className = ` ${className} mwc-list-item`;
-      }
-      return className;
+  getListItemClassName() {
+    let className: string = 'mdc-list-item';
+    if (this.interactive) {
+      className = ` ${className} mwc-list-item`;
+    }
+    return className;
   }
 
   render() {
     return (
-       <li class={this.getListItemClassName()} ref={(listItem) => { this.listItem = listItem; }}>
-         <slot />
-       </li>
-    )
+      <li
+        class={this.getListItemClassName()}
+        ref={(listItem) => {
+          this.listItem = listItem;
+        }}
+      >
+        <slot />
+      </li>
+    );
   }
 }

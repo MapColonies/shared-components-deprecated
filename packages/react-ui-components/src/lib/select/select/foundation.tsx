@@ -3,7 +3,7 @@ import { useFoundation, raf } from '../../base';
 import {
   MDCSelectFoundation,
   MDCSelectAdapter,
-  cssClasses
+  cssClasses,
 } from '@material/select';
 import { FloatingLabelApi } from '../../floating-label';
 import { MenuApi } from '../../menu';
@@ -143,7 +143,7 @@ export const useSelectFoundation = (
           addClassAtIndex: (...args) =>
             menu.current?.addClassToElementIndex(...args),
           removeClassAtIndex: (...args) =>
-            menu.current?.removeClassFromElementAtIndex(...args)
+            menu.current?.removeClassFromElementAtIndex(...args),
         };
       };
 
@@ -172,12 +172,12 @@ export const useSelectFoundation = (
                 'onChange',
                 {
                   index: selectedIndex.current,
-                  value
+                  value,
                 },
                 true
               );
             }
-          }
+          },
         };
       };
 
@@ -189,7 +189,7 @@ export const useSelectFoundation = (
           },
           closeOutline: () => {
             setNotchWidth(undefined);
-          }
+          },
         };
       };
 
@@ -201,7 +201,7 @@ export const useSelectFoundation = (
           },
           getLabelWidth: () => {
             return floatingLabel.current?.getWidth() || 0;
-          }
+          },
         };
       };
 
@@ -209,7 +209,7 @@ export const useSelectFoundation = (
         return {
           leadingIcon:
             (leadingIcon.current && leadingIcon.current.getFoundation()) ||
-            undefined
+            undefined,
         };
       };
 
@@ -218,7 +218,7 @@ export const useSelectFoundation = (
           ...getSelectAdapterMethods(),
           ...getCommonAdapterMethods(),
           ...getOutlineAdapterMethods(),
-          ...getLabelAdapterMethods()
+          ...getLabelAdapterMethods(),
         },
         getFoundationMap()
       );
@@ -254,7 +254,7 @@ export const useSelectFoundation = (
       Object.defineProperty(f, 'menuItemValues_', {
         get: () => {
           return adapter.getMenuItemValues();
-        }
+        },
       });
 
       // We have to add some logic after the original init function
@@ -274,7 +274,7 @@ export const useSelectFoundation = (
       };
 
       return f;
-    }
+    },
   });
 
   const { selectedTextEl, rootEl } = elements;
@@ -408,6 +408,6 @@ export const useSelectFoundation = (
     handleMenuClosed,
     handleMenuOpened,
     handleMenuSelected,
-    ...elements
+    ...elements,
   };
 };

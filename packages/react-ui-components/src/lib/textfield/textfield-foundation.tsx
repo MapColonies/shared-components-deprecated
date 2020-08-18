@@ -5,7 +5,7 @@ import { MDCTextFieldFoundation } from '@material/textfield';
 import {
   TextFieldProps,
   TextFieldCharacterCountApi,
-  TextFieldIconApi
+  TextFieldIconApi,
 } from '.';
 import { FloatingLabelApi } from '../floating-label';
 
@@ -45,7 +45,7 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
           hasLabel: () => {
             return !!getProps().label;
           },
-          getLabelWidth: () => floatingLabel.current?.getWidth() || 0
+          getLabelWidth: () => floatingLabel.current?.getWidth() || 0,
         };
       };
 
@@ -59,7 +59,7 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
           },
           setLineRippleTransformOrigin: (normalizedX: number) => {
             setLineRippleCenter(normalizedX);
-          }
+          },
         };
       };
 
@@ -73,7 +73,7 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
           },
           hasOutline: () => {
             return !!getProps().outlined;
-          }
+          },
         };
       };
 
@@ -87,7 +87,7 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
             evtType: K,
             handler: SpecificEventListener<K>
           ): void => inputEl.removeEventListener(evtType, handler),
-          getNativeInput: () => inputEl.ref as any
+          getNativeInput: () => inputEl.ref as any,
         };
       };
 
@@ -102,7 +102,7 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
             : undefined,
           trailingIcon: trailingIcon.current
             ? trailingIcon.current.getFoundation()
-            : undefined
+            : undefined,
         };
       };
 
@@ -147,11 +147,11 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
           ...getInputAdapterMethods(),
           ...getLabelAdapterMethods(),
           ...getLineRippleAdapterMethods(),
-          ...getOutlineAdapterMethods()
+          ...getOutlineAdapterMethods(),
         },
         getFoundationMap()
       );
-    }
+    },
   });
 
   // Fixes bug #362
@@ -185,6 +185,6 @@ export const useTextFieldFoundation = (props: TextFieldProps) => {
     setLeadingIcon,
     setTrailingIcon,
     setFloatingLabel,
-    ...elements
+    ...elements,
   };
 };

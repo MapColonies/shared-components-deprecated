@@ -5,7 +5,7 @@ export default () => {
 
     Object.defineProperty((window as any)['HTMLElement'].prototype, 'dataset', {
       writable: true,
-      value: {}
+      value: {},
     });
 
     if (!(window as any)['HTMLCanvasElement']) {
@@ -16,8 +16,8 @@ export default () => {
           writable: true,
           value: () => ({
             font: '',
-            measureText: () => ({ width: 0 })
-          })
+            measureText: () => ({ width: 0 }),
+          }),
         }
       );
     }
@@ -25,7 +25,7 @@ export default () => {
     if (!(window as any).scrollTo) {
       Object.defineProperty(window as any, 'scrollTo', {
         writable: true,
-        value: () => {}
+        value: () => {},
       });
     }
 

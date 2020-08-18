@@ -10,7 +10,7 @@ import {
   ImageListImageAspectContainer,
   ImageListImage,
   ImageListSupporting,
-  ImageListLabel
+  ImageListLabel,
 } from './';
 
 const images = [
@@ -28,7 +28,7 @@ const images = [
   'https://material-components-web.appspot.com/images/photos/2x3/6.jpg',
   'https://material-components-web.appspot.com/images/photos/3x2/15.jpg',
   'https://material-components-web.appspot.com/images/photos/3x2/16.jpg',
-  'https://material-components-web.appspot.com/images/photos/2x3/7.jpg'
+  'https://material-components-web.appspot.com/images/photos/2x3/7.jpg',
 ];
 
 describe('ImageList SSR', () => {

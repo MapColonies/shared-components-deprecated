@@ -9,7 +9,8 @@ import {
 } from './utils';
 import { HTMLStencilElement } from '@stencil/core/internal/stencil-public-runtime';
 
-interface StencilReactInternalProps<ElementType> extends React.HTMLAttributes<ElementType> {
+interface StencilReactInternalProps<ElementType>
+  extends React.HTMLAttributes<ElementType> {
   forwardedRef?: React.RefObject<ElementType>;
   ref?: React.Ref<any>;
 }
@@ -24,12 +25,14 @@ export const createReactComponent = <
   ReactComponentContext?: React.Context<ContextStateType>,
   manipulatePropsFunction: (
     originalProps: StencilReactInternalProps<ElementType>,
-    propsToPass: any,
-  ) => ExpandedPropsTypes = undefined,
+    propsToPass: any
+  ) => ExpandedPropsTypes = undefined
 ) => {
   const displayName = dashToPascalCase(tagName);
 
-  const ReactComponent = class extends React.Component<StencilReactInternalProps<ElementType>> {
+  const ReactComponent = class extends React.Component<
+    StencilReactInternalProps<ElementType>
+  > {
     componentEl: ElementType;
 
     setComponentElRef = (element: ElementType) => {
@@ -49,7 +52,14 @@ export const createReactComponent = <
     }
 
     render() {
-      const { children, forwardedRef, style, className, ref, ...cProps } = this.props;
+      const {
+        children,
+        forwardedRef,
+        style,
+        className,
+        ref,
+        ...cProps
+      } = this.props;
 
       let propsToPass = Object.keys(cProps).reduce((acc, name) => {
         if (name.indexOf('on') === 0 && name[2] === name[2].toUpperCase()) {

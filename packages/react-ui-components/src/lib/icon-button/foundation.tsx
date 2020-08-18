@@ -16,9 +16,9 @@ export const useIconButtonFoundation = (
         hasClass: (className: string) => rootEl.hasClass(className),
         setAttr: (attrName: string, attrValue: string | number | null) =>
           rootEl.setProp(attrName as any, attrValue),
-        notifyChange: (evtData: { isOn: boolean }) => emit('onChange', evtData)
+        notifyChange: (evtData: { isOn: boolean }) => emit('onChange', evtData),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;

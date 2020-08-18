@@ -10,7 +10,7 @@ import {
   TopAppBarSection,
   TopAppBarNavigationIcon,
   TopAppBarActionItem,
-  TopAppBarTitle
+  TopAppBarTitle,
 } from './';
 
 describe('TopAppBar SSR', () => {

@@ -63,8 +63,8 @@ export const List = createComponent<ListProps>(function List(props, ref) {
       'mdc-list--dense': dense,
       'mdc-list--two-line': twoLine,
       'mdc-list--avatar-list': avatarList,
-      'mdc-list--non-interactive': nonInteractive
-    }
+      'mdc-list--non-interactive': nonInteractive,
+    },
   ]);
   return (
     <Tag tag="ul" {...rest} element={rootEl} className={className} ref={ref} />

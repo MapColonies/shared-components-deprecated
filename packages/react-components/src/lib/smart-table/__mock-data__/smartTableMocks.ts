@@ -6,7 +6,13 @@ export interface Item {
 }
 
 export const headCells: CellMetadata<Item>[] = [
-  { disablePadding: true, id: 'first', label: 'first', numeric: false, transform: jest.fn().mockReturnValue('42') },
+  {
+    disablePadding: true,
+    id: 'first',
+    label: 'first',
+    numeric: false,
+    transform: jest.fn().mockReturnValue('42'),
+  },
   { disablePadding: false, id: 'second', label: 'second', numeric: true },
 ];
 

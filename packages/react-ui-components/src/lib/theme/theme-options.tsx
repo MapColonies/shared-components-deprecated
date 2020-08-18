@@ -24,5 +24,5 @@ export const themeOptions: RMWC.ThemeOptionT[] = [
   'textSecondaryOnDark',
   'textHintOnDark',
   'textDisabledOnDark',
-  'textIconOnDark'
+  'textIconOnDark',
 ];

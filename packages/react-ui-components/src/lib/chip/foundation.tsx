@@ -15,7 +15,7 @@ export const useChipFoundation = (props: ChipProps & ChipHTMLProps) => {
     elements: {
       rootEl: true,
       trailingIconEl: true,
-      checkmarkEl: true
+      checkmarkEl: true,
     },
     foundation: ({ rootEl, checkmarkEl, emit, getProps }) =>
       new MDCChipFoundation({
@@ -94,8 +94,8 @@ export const useChipFoundation = (props: ChipProps & ChipHTMLProps) => {
                 .getComputedStyle(rootEl.ref)
                 .getPropertyValue('direction') === 'rtl'
             : false;
-        }
-      } as MDCChipAdapter)
+        },
+      } as MDCChipAdapter),
   });
 
   const { rootEl, trailingIconEl, foundation } = foundationWithElements;

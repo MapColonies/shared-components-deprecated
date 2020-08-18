@@ -83,8 +83,8 @@ export const Snackbar: RMWC.ComponentType<
     'mdc-snackbar',
     {
       'mdc-snackbar--leading': leading,
-      'mdc-snackbar--stacked': stacked
-    }
+      'mdc-snackbar--stacked': stacked,
+    },
   ]);
 
   const actions: SnackbarProps['action'][] = Array.isArray(action)
@@ -109,7 +109,7 @@ export const Snackbar: RMWC.ComponentType<
             style={{
               color: 'rgba(255, 255, 255, 0.87)',
               fill: 'currentColor',
-              marginLeft: '1rem'
+              marginLeft: '1rem',
             }}
             icon={icon}
           />

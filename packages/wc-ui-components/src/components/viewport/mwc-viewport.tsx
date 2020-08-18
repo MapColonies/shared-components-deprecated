@@ -1,28 +1,26 @@
-import { Component, Prop, Element, h  } from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
 @Component({
   tag: 'mwc-viewport',
-  shadow: false
+  shadow: false,
 })
-export class MWCViewport{
-  @Element() viewportEl : HTMLDivElement;
-  @Prop() backgroundcolor: string = "";
+export class MWCViewport {
+  @Element() viewportEl: HTMLDivElement;
+  @Prop() backgroundcolor: string = '';
   mwcTypograpyDiv: any;
-  componentWillLoad(){
-      let viewportStyle = `
+  componentWillLoad() {
+    let viewportStyle = `
         height : 100vh;
         width  : 100vw;
         display : block;
         overflow: hidden;
-      `
-      if(this.backgroundcolor){
-          viewportStyle = `${viewportStyle} background-color : ${this.backgroundcolor}`
-      }
-      this.viewportEl.setAttribute('style',viewportStyle)
+      `;
+    if (this.backgroundcolor) {
+      viewportStyle = `${viewportStyle} background-color : ${this.backgroundcolor}`;
+    }
+    this.viewportEl.setAttribute('style', viewportStyle);
   }
 
   render() {
-    return (
-            <slot />
-    )
+    return <slot />;
   }
 }

@@ -2,24 +2,21 @@ import { Component, Element, h } from '@stencil/core';
 
 @Component({
   tag: 'mwc-content-for-toolbar',
-  shadow: false
+  shadow: false,
 })
-export class MWCContentForToolbar{
+export class MWCContentForToolbar {
+  @Element() contentToolbarEl: HTMLElement; //HTMLMainElement
 
-  @Element() contentToolbarEl : HTMLElement; //HTMLMainElement
-
-  componentWillLoad(){
-      this.contentToolbarEl.className = this.getIconClassName()
+  componentWillLoad() {
+    this.contentToolbarEl.className = this.getIconClassName();
   }
 
-  getIconClassName(){
-      let className = 'mdc-toolbar-fixed-adjust';
-      return className;
+  getIconClassName() {
+    let className = 'mdc-toolbar-fixed-adjust';
+    return className;
   }
 
   render() {
-    return (
-       <slot />
-    )
+    return <slot />;
   }
 }

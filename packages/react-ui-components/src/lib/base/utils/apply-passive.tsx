@@ -41,14 +41,14 @@ export function applyPassive(globalObj?: any, forceRefresh?: any) {
     try {
       globalObj.document.addEventListener(
         'test',
-        function() {
+        function () {
           return undefined;
         },
         {
           get passive() {
             isSupported_1 = true;
             return isSupported_1;
-          }
+          },
         }
       );
     } catch (e) {} // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.

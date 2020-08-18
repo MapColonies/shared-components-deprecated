@@ -6,7 +6,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerSubtitle,
-  DrawerAppContent
+  DrawerAppContent,
 } from './';
 
 describe('Drawer', () => {

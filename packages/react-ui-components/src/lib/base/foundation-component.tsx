@@ -123,7 +123,7 @@ export class FoundationElement<Props extends {}, ElementType = HTMLElement> {
     // handle styles
     const mergedStyles = {
       ...this._style,
-      ...style
+      ...style,
     };
 
     return {
@@ -131,7 +131,7 @@ export class FoundationElement<Props extends {}, ElementType = HTMLElement> {
       ...this._props,
       ...mergedEvents,
       style: mergedStyles,
-      className: mergedClasses
+      className: mergedClasses,
     };
   }
 
@@ -152,7 +152,10 @@ export class FoundationElement<Props extends {}, ElementType = HTMLElement> {
   /**************************************************
    * Events
    **************************************************/
-  addEventListener(evtName: string, callback: any/*SpecificEventListener<any>*/) {
+  addEventListener(
+    evtName: string,
+    callback: any /*SpecificEventListener<any>*/
+  ) {
     const propName = reactPropFromEventName(evtName);
     if (this._events[propName] !== callback) {
       this._events[propName] = callback;
@@ -160,7 +163,10 @@ export class FoundationElement<Props extends {}, ElementType = HTMLElement> {
     }
   }
 
-  removeEventListener(evtName: string, callback: any/*SpecificEventListener<any>*/) {
+  removeEventListener(
+    evtName: string,
+    callback: any /*SpecificEventListener<any>*/
+  ) {
     const propName = reactPropFromEventName(evtName);
     if (this._events[propName]) {
       delete this._events[propName];
@@ -191,7 +197,7 @@ const emitFactory = (props: { [key: string]: any }) => (
 
   evt = new CustomEvent(evtType, {
     detail: evtData,
-    bubbles: shouldBubble
+    bubbles: shouldBubble,
   });
 
   // bugfix for events coming from form elements
@@ -200,12 +206,12 @@ const emitFactory = (props: { [key: string]: any }) => (
   // for Custom Events
   Object.defineProperty(evt, 'target', {
     value: evtData,
-    writable: false
+    writable: false,
   });
 
   Object.defineProperty(evt, 'currentTarget', {
     value: evtData,
-    writable: false
+    writable: false,
   });
 
   // Custom handling for React
@@ -233,7 +239,7 @@ export const useFoundation = <
   foundation: foundationFactory,
   props: inputProps,
   elements: elementsInput,
-  api
+  api,
 }: {
   foundation: (
     elements: {
@@ -277,7 +283,7 @@ export const useFoundation = <
     const f = foundationFactory({
       ...elements,
       getProps: () => props.current,
-      emit: (...args) => emitFactory(props.current)(...args)
+      emit: (...args) => emitFactory(props.current)(...args),
     });
 
     // handle apiRefs

@@ -11,7 +11,7 @@ import {
   GridTilePrimary,
   GridTilePrimaryContent,
   GridTileSecondary,
-  GridTileTitle
+  GridTileTitle,
 } from './';
 
 describe('GridList SSR', () => {

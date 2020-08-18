@@ -39,9 +39,11 @@ export const useTabBarFoundation = (
           window.getComputedStyle(rootEl.ref).getPropertyValue('direction') ===
             'rtl',
         setActiveTab: (index: number) => {
-          if (props.activeTabIndex === index ||
-          props.activeTabIndex === undefined) {
-            setActiveTabIndex(index)
+          if (
+            props.activeTabIndex === index ||
+            props.activeTabIndex === undefined
+          ) {
+            setActiveTabIndex(index);
           } else {
             // ignore clicks when using controlled tabs, but we still need to notify
             // to trigger the callback
@@ -89,9 +91,9 @@ export const useTabBarFoundation = (
         },
         getTabListLength: () => tabListRef.current.length,
         notifyTabActivated: (index: number) =>
-          emit('onActivate', { index }, true)
+          emit('onActivate', { index }, true),
       });
-    }
+    },
   });
 
   const { rootEl } = elements;
@@ -178,6 +180,6 @@ export const useTabBarFoundation = (
     setTabScrollerApi,
     handleTabInteraction,
     registerTab,
-    unregisterTab
+    unregisterTab,
   };
 };

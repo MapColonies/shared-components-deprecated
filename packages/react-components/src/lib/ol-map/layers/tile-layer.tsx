@@ -1,8 +1,8 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
-import {Tile } from 'ol/layer'
+import { Tile } from 'ol/layer';
 import { useMap } from '../map';
 
-const tileLayerContext = createContext<Tile | null>(null)
+const tileLayerContext = createContext<Tile | null>(null);
 const TileLayerProvider = tileLayerContext.Provider;
 
 export const useTileLayer = (): Tile => {
@@ -13,21 +13,19 @@ export const useTileLayer = (): Tile => {
   }
 
   return layer;
-}
+};
 
-export const TileLayer: React.FC = ({children}) => {
+export const TileLayer: React.FC = ({ children }) => {
   const map = useMap();
-  const [tileLayer] = useState(new Tile())
-
+  const [tileLayer] = useState(new Tile());
 
   useEffect(() => {
-    map.addLayer(tileLayer)
+    map.addLayer(tileLayer);
 
-    return (): void => {map.removeLayer(tileLayer);}
-  }, [map, tileLayer])
+    return (): void => {
+      map.removeLayer(tileLayer);
+    };
+  }, [map, tileLayer]);
 
-  return (
-  <TileLayerProvider value={tileLayer}>
-    {children}
-  </TileLayerProvider>)
+  return <TileLayerProvider value={tileLayer}>{children}</TileLayerProvider>;
 };

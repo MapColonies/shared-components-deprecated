@@ -3,7 +3,7 @@ import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Vector } from 'ol/source';
 import { useVectorLayer } from '../layers/vector-layer';
 
-const vectorSourceContext = createContext<Vector | null>(null)
+const vectorSourceContext = createContext<Vector | null>(null);
 const VectorSourceProvider = vectorSourceContext.Provider;
 
 export const useVectorSource = (): Vector => {
@@ -14,16 +14,17 @@ export const useVectorSource = (): Vector => {
   }
 
   return source;
-}
+};
 
-
-export const VectorSource: React.FC = ({children}) => {
+export const VectorSource: React.FC = ({ children }) => {
   const vectorLayer = useVectorLayer();
-  const [vectorSource] = useState(new Vector())
+  const [vectorSource] = useState(new Vector());
 
   useEffect((): void => {
-    vectorLayer.setSource(vectorSource)
-  }, [vectorSource, vectorLayer])
+    vectorLayer.setSource(vectorSource);
+  }, [vectorSource, vectorLayer]);
 
-  return <VectorSourceProvider value={vectorSource}>{children}</VectorSourceProvider>;
+  return (
+    <VectorSourceProvider value={vectorSource}>{children}</VectorSourceProvider>
+  );
 };

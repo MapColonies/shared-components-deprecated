@@ -1,20 +1,17 @@
-import { Component, Prop, Element, h} from '@stencil/core';
+import { Component, Prop, Element, h } from '@stencil/core';
 
 @Component({
   tag: 'mwc-toolbar-title',
-  shadow: false
+  shadow: false,
 })
-export class MWCToolbarTitle{
+export class MWCToolbarTitle {
+  @Element() toolbarTitleEl: HTMLElement;
 
-  @Element() toolbarTitleEl : HTMLElement;
-
-  componentWillLoad(){
-     this.toolbarTitleEl.className = 'mdc-toolbar__title'
+  componentWillLoad() {
+    this.toolbarTitleEl.className = 'mdc-toolbar__title';
   }
 
   render() {
-    return (
-         <slot />
-    )
+    return <slot />;
   }
 }
