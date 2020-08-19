@@ -8,9 +8,6 @@
   "workspaces": [
     "packages/react-components",
     "packages/react-ui-components",
-    "packages/wc-ui-components",
-    "packages/wc-ui-components-react",
-    "demoapp-stencil",
     "demoapp-react"
   ],
   "husky": {
@@ -41,11 +38,9 @@
     "build:react-core:postbuild": "lerna exec --scope @map-colonies/react-core -- yarn postbuild",
     "build:react-core": "yarn build:react-core:build && yarn build:react-core:postbuild",
     "build:react": "lerna exec --scope @map-colonies/react-components -- yarn build",
-    "build:stencil": "lerna exec --scope @map-colonies/ui-components -- yarn build",
-    "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
     "build:all": "lerna run build --npm-client=yarn",
 
-    "publish": "lerna publish --conventional-commits -m \"chore(publish): publish [by user]\"",
+    "publish": "lerna publish --no-private --conventional-commits -m \"chore(publish): publish [by user]\"",
     "publish:current": "lerna exec -- npm publish",
 
     "eslint-check:react": "lerna exec --scope @map-colonies/react-components -- yarn eslint-check",
