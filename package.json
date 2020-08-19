@@ -1,9 +1,85 @@
 {
-  "name": "mc-react",
+  "name": "shared-components",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/rnd-hub/mc-conflicts-ui.git",
-  "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>",
+  "repository": "https://github.com/MapColonies/shared-components.git",
+  "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>, alex.lebinson <alexl@rnd-hub.com>",
   "private": true,
-  "workspaces": ["mc-conflicts-ui", "mc-react-components"]
+  "workspaces": [
+    "packages/react-components",
+    "packages/react-ui-components",
+    "packages/wc-ui-components",
+    "packages/wc-ui-components-react",
+    "demoapp-stencil",
+    "demoapp-react"
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "@map-colonies/eslint-config/react",
+      "@map-colonies/eslint-config/jest",
+      "@map-colonies/eslint-config/ts-base"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
+  },
+  "scripts": {
+    "del-dist": "lerna exec --parallel -- del-cli dist",
+    "prebuild": "yarn del-dist",
+
+    "build:react-core:build": "lerna exec --scope @map-colonies/react-core -- yarn build",
+    "build:react-core:postbuild": "lerna exec --scope @map-colonies/react-core -- yarn postbuild",
+    "build:react-core": "yarn build:react-core:build && yarn build:react-core:postbuild",
+    "build:react": "lerna exec --scope @map-colonies/react-components -- yarn build",
+    "build:stencil": "lerna exec --scope @map-colonies/ui-components -- yarn build",
+    "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
+    "build:all": "lerna run build --npm-client=yarn",
+
+    "publish": "lerna publish --conventional-commits -m \"chore(publish): publish [by user]\"",
+    "publish:current": "lerna exec -- npm publish",
+
+    "eslint-check:react": "lerna exec --scope @map-colonies/react-components -- yarn eslint-check",
+    "eslint-check:react-core": "lerna exec --scope @map-colonies/react-core -- yarn eslint-check",
+
+    "start:reactstencildemo": "cd demoapp-stencil && yarn start",
+    "start:reactdemo": "cd demoapp-react && yarn start",
+
+    "test:react-core": "lerna exec --scope @map-colonies/react-core -- yarn test:nowatch",
+    "test:react": "lerna exec --scope @map-colonies/react-components -- yarn test:nowatch",
+    "test:all": "yarn test:react-core && yarn test:react",
+
+    "clean": "lerna clean",
+    "clean:update": "lerna clean && lerna bootstrap",
+
+    "prettier:fix": "prettier --write .",
+    "prettier:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@map-colonies/eslint-config": "^1.0.3",
+    "commitlint": "^9.1.0",
+    "cz-conventional-changelog": "^3.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "standard-version": "^8.0.2",
+    "jest-html-reporters": "^2.0.2",
+    "del-cli": "^3.0.1",
+    "lerna": "^3.22.1",
+
+    "prettier": "^2.0.5",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3"
+  }
 }
