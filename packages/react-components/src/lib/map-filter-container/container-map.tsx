@@ -25,7 +25,7 @@ export const ContainerMap: React.FC<ContainerMapProps> = (props) => {
   };
 
   return (
-    <Map>
+    <Map allowFullScreen={true} showMousePosition={true}>
       <TileLayer>
         <TileOsm />
       </TileLayer>

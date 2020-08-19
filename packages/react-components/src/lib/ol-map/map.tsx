@@ -8,6 +8,14 @@ import React, {
 import { Map as OlMap, View } from 'ol';
 import './map.css';
 import 'ol/ol.css';
+import { createStringXY } from "ol/coordinate";
+import { defaults as defaultControls, FullScreen } from "ol/control";
+import MousePosition from "ol/control/MousePosition";
+
+export interface MapProps {
+  allowFullScreen?: boolean;
+  showMousePosition?: boolean;
+}
 
 const mapContext = createContext<OlMap | null>(null);
 const MapProvider = mapContext.Provider;
@@ -22,17 +30,37 @@ export const useMap = (): OlMap => {
   return map;
 };
 
-export const Map: React.FC = (props) => {
+export const Map: React.FC<MapProps> = (props) => {
   const CENTER_LAT = 35,
-    CENTER_LON = 32;
+    CENTER_LON = 32,
+    PROJECTION = 'EPSG:4326',
+    DEFAULT_ZOOM = 10,
+    COORDINATES_FRACTION_DIFITS = 5;
   const mapElementRef = useRef<HTMLDivElement>(null);
+  const {allowFullScreen, showMousePosition} = props;
+  const mapControlExtends = [];
+
+  if (allowFullScreen != null && allowFullScreen) {
+    mapControlExtends.push(new FullScreen());
+  }
+  if (showMousePosition != null && showMousePosition) {
+    mapControlExtends.push(
+      new MousePosition({
+        coordinateFormat: createStringXY(COORDINATES_FRACTION_DIFITS),
+        projection: PROJECTION,
+        //target: mouseTrackerTargetOutsideElement,
+        undefinedHTML: '&nbsp;',
+      })
+    );
+  }
   const [map] = useState(
     new OlMap({
       view: new View({
         center: [CENTER_LAT, CENTER_LON],
-        zoom: 10,
-        projection: 'EPSG:4326',
+        zoom: DEFAULT_ZOOM,
+        projection: PROJECTION,
       }),
+      controls: defaultControls().extend(mapControlExtends)
     })
   );
 
