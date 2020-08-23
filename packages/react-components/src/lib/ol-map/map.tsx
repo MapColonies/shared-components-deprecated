@@ -20,6 +20,12 @@ export interface MapProps {
 const mapContext = createContext<OlMap | null>(null);
 const MapProvider = mapContext.Provider;
 
+const CENTER_LAT = 35,
+  CENTER_LON = 32,
+  PROJECTION = 'EPSG:4326',
+  DEFAULT_ZOOM = 10,
+  COORDINATES_FRACTION_DIFITS = 5;
+
 export const useMap = (): OlMap => {
   const map = useContext(mapContext);
 
@@ -31,19 +37,14 @@ export const useMap = (): OlMap => {
 };
 
 export const Map: React.FC<MapProps> = (props) => {
-  const CENTER_LAT = 35,
-    CENTER_LON = 32,
-    PROJECTION = 'EPSG:4326',
-    DEFAULT_ZOOM = 10,
-    COORDINATES_FRACTION_DIFITS = 5;
   const mapElementRef = useRef<HTMLDivElement>(null);
   const {allowFullScreen, showMousePosition} = props;
   const mapControlExtends = [];
 
-  if (allowFullScreen != null && allowFullScreen) {
+  if (allowFullScreen != undefined && allowFullScreen) {
     mapControlExtends.push(new FullScreen());
   }
-  if (showMousePosition != null && showMousePosition) {
+  if (showMousePosition != undefined && showMousePosition) {
     mapControlExtends.push(
       new MousePosition({
         coordinateFormat: createStringXY(COORDINATES_FRACTION_DIFITS),
