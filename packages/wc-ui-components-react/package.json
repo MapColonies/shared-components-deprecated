@@ -1,0 +1,41 @@
+{
+  "name": "@map-colonies/ui-components-react",
+  "sideEffects": false,
+  "version": "1.0.0",
+  "private": true,
+  "description": "React specific wrapper for component-library",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ionic-team/ionic.git"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf dist",
+    "compile": "npm run tsc",
+    "tsc": "tsc -p .",
+    "rollup": "rollup -c"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "devDependencies": {
+    "@testing-library/dom": "^7.17.1",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "np": "^3.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rimraf": "3.0.2",
+    "typescript": "~3.7.2"
+  },
+  "dependencies": {
+    "@map-colonies/ui-components": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "name": "@map-colonies/react-core",
+  "version": "1.0.1",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/MapColonies/shared-components/tree/master/react-ui-components#readme",
+  "bugs": {
+    "url": "https://github.com/MapColonies/shared-components/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MapColonies/shared-components.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/classnames": "^2.2.7",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/rc-tooltip": "3.7.1",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "classnames": "^2.2.6",
+    "copyfiles": "2.3.0",
+    "cross-env": "7.0.2",
+    "material-components-web": "^5.1.0",
+    "rc-tooltip": "3.7.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "rimraf": "3.0.2",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "rimraf dist && tsc --project tsbuildconfig.json",
+    "test": "react-scripts test",
+    "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
+    "eject": "react-scripts eject",
+    "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
+    "storybook": "start-storybook -p 9011 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "eslint-check": "npx eslint . --ext .ts,.tsx"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/react-test-renderer": "^16.9.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest-enzyme": "^7.1.2",
+    "react-test-renderer": "^16.13.1",
+    "hyperform": "^0.11.0",
+    "mutation-observer": "^1.0.3"
+  },
+  "gitHead": "0312325d702838d80fdc728a9c6a221e81b9b318",
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html"
+    ]
+  }
+}
