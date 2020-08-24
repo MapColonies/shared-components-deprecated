@@ -39,21 +39,7 @@ export const useMap = (): OlMap => {
 export const Map: React.FC<MapProps> = (props) => {
   const mapElementRef = useRef<HTMLDivElement>(null);
   const {allowFullScreen, showMousePosition} = props;
-  const mapControlExtends = [];
-
-  if (allowFullScreen != undefined && allowFullScreen) {
-    mapControlExtends.push(new FullScreen());
-  }
-  if (showMousePosition != undefined && showMousePosition) {
-    mapControlExtends.push(
-      new MousePosition({
-        coordinateFormat: createStringXY(COORDINATES_FRACTION_DIFITS),
-        projection: PROJECTION,
-        //target: mouseTrackerTargetOutsideElement,
-        undefinedHTML: '&nbsp;',
-      })
-    );
-  }
+ 
   const [map] = useState(
     new OlMap({
       view: new View({
@@ -61,13 +47,42 @@ export const Map: React.FC<MapProps> = (props) => {
         zoom: DEFAULT_ZOOM,
         projection: PROJECTION,
       }),
-      controls: defaultControls().extend(mapControlExtends)
+      controls: defaultControls()
     })
   );
 
+  const removeControl = (ctrType: any, mapInst: any) => {
+    mapInst.getControls().forEach((control: any) => {
+      if (control instanceof ctrType) {
+        mapInst.removeControl(control);
+      }
+    });
+  };
+
   useEffect(() => {
     map.setTarget(mapElementRef.current as HTMLElement);
-  }, [map]);
+    
+    if (allowFullScreen != undefined && allowFullScreen) {
+      map.addControl(new FullScreen());
+    }
+    else{
+      removeControl(FullScreen, map);
+    }
+
+    if (showMousePosition != undefined && showMousePosition) {
+      map.addControl(
+        new MousePosition({
+          coordinateFormat: createStringXY(COORDINATES_FRACTION_DIFITS),
+          projection: PROJECTION,
+          //target: mouseTrackerTargetOutsideElement,
+          undefinedHTML: '&nbsp;',
+        })
+      );
+    }
+    else{
+      removeControl(MousePosition, map);
+    }
+  }, [map, allowFullScreen, showMousePosition]);
 
   return (
     <MapProvider value={map}>
