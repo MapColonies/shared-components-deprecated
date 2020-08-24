@@ -8,7 +8,7 @@ import React, {
 import { Map as OlMap, View } from 'ol';
 import './map.css';
 import 'ol/ol.css';
-import { createStringXY } from "ol/coordinate";
+import { format } from "ol/coordinate";
 import { defaults as defaultControls, FullScreen } from "ol/control";
 import MousePosition from "ol/control/MousePosition";
 
@@ -72,9 +72,8 @@ export const Map: React.FC<MapProps> = (props) => {
     if (showMousePosition != undefined && showMousePosition) {
       map.addControl(
         new MousePosition({
-          coordinateFormat: createStringXY(COORDINATES_FRACTION_DIFITS),
+          coordinateFormat: (coord:any)  => format(coord, '{y}°N {x}°E', COORDINATES_FRACTION_DIFITS),
           projection: PROJECTION,
-          //target: mouseTrackerTargetOutsideElement,
           undefinedHTML: '&nbsp;',
         })
       );
