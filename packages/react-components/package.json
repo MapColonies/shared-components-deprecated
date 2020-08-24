@@ -50,7 +50,7 @@
     "eject": "react-scripts eject",
     "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
     "storybook": "start-storybook -p 9010 -s public",
-    "build-storybook": "build-storybook -c .storybook -o .out"
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app",

@@ -11,12 +11,15 @@ import '@map-colonies/react-core/dist/tooltip/styles';
 export default {
   title: 'Map',
   component: ContainerMap,
+  parameters: {
+    layout: 'fullscreen'
+  }
 };
 
 const mapDivStyle = {
   "height": "100%",
   "width": "100%",
-  "position": "fixed" as const
+  "position": "absolute" as const
 };
 export const Basic = () => <div style={mapDivStyle}>
     <ContainerMap onPolygonSelection={action('shape selected')}/>

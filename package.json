@@ -36,7 +36,6 @@
   "scripts": {
     "del-dist": "lerna exec --parallel -- del-cli dist",
     "prebuild": "yarn del-dist",
-
     "build:react-core:build": "lerna exec --scope @map-colonies/react-core -- yarn build",
     "build:react-core:postbuild": "lerna exec --scope @map-colonies/react-core -- yarn postbuild",
     "build:react-core": "yarn build:react-core:build && yarn build:react-core:postbuild",
@@ -44,42 +43,35 @@
     "build:stencil": "lerna exec --scope @map-colonies/ui-components -- yarn build",
     "build:stencil-react": "lerna exec --scope @map-colonies/ui-components-react -- yarn build",
     "build:all": "lerna run build --npm-client=yarn",
-
     "storybook:react-core": "lerna exec --scope @map-colonies/react-core -- yarn storybook",
     "storybook:react": "lerna exec --scope @map-colonies/react-components -- yarn storybook",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-
     "publish": "lerna publish --conventional-commits -m \"chore(publish): publish [by user]\"",
     "publish:current": "lerna exec -- npm publish",
-  
     "eslint-check:react": "lerna exec --scope @map-colonies/react-components -- yarn eslint-check",
     "eslint-check:react-core": "lerna exec --scope @map-colonies/react-core -- yarn eslint-check",
-  
     "start:reactstencildemo": "cd demoapp-stencil && yarn start",
     "start:reactdemo": "cd demoapp-react && yarn start",
-  
     "test:react-core": "lerna exec --scope @map-colonies/react-core -- yarn test:nowatch",
     "test:react": "lerna exec --scope @map-colonies/react-components -- yarn test:nowatch",
     "test:all": "yarn test:react-core && yarn test:react",
-  
     "clean": "lerna clean",
     "clean:update": "lerna clean && lerna bootstrap",
-  
     "prettier:fix": "prettier --write .",
     "prettier:check": "prettier --check ."
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.0.1",
-    "@storybook/addon-docs": "^6.0.1",
-    "@storybook/addon-knobs": "^6.0.1",
-    "@storybook/addon-links": "^6.0.1",
-    "@storybook/addon-storysource": "^6.0.1",
-    "@storybook/addons": "^6.0.1",
+    "@storybook/addon-actions": "^6.0.16",
+    "@storybook/addon-docs": "^6.0.16",
+    "@storybook/addon-knobs": "^6.0.16",
+    "@storybook/addon-links": "^6.0.16",
+    "@storybook/addon-storysource": "^6.0.16",
+    "@storybook/addons": "^6.0.16",
     "@storybook/preset-create-react-app": "^3.1.4",
-    "@storybook/react": "^6.0.1",
-    "@storybook/theming": "^6.0.1",
-    "storybook-dark-mode": "^0.6.2-canary.106.2226.0",
+    "@storybook/react": "^6.0.16",
+    "@storybook/theming": "^6.0.16",
+    "storybook-dark-mode": "^1.0.0",
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
     "@map-colonies/eslint-config": "^1.0.3",
