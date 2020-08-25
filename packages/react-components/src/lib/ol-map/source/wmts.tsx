@@ -15,7 +15,7 @@ interface TileWMTSProps {
 }
 
 export interface OptionParams {
-  attributions: string;
+  attributions?: string;
   url: string;
   layer: string;
   projection: string;
