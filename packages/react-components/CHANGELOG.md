@@ -3,6 +3,75 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.0.0 (2020-08-26)
+
+
+### Bug Fixes
+
+* **mousetracker:** format changed ([87da349](https://github.com/MapColonies/shared-components/commit/87da3493d0db10989fccd02e093b222625a35283))
+* **prcomments:** pr comments fix ([dfac39b](https://github.com/MapColonies/shared-components/commit/dfac39befbe7d322f2ecdba51a164a8464eedbc2))
+* **wmtstile:** attribution param not mandatory ([2692cb4](https://github.com/MapColonies/shared-components/commit/2692cb4ea5b41ecc53de4681ebd7bb25f7f23af6))
+
+
+### Features
+
+* **core:** map mouse tracking control ([f2ad16f](https://github.com/MapColonies/shared-components/commit/f2ad16f46f921b411305c6ba1d8263be9522a241))
+* **wmtstilelayer:** implementation + lint errors ([a5e7189](https://github.com/MapColonies/shared-components/commit/a5e718992157d97b1470556e7c57299d8f049f97))
+
+
+### Performance Improvements
+
+* **map:** map control props sensetive to changes ([76ccc8e](https://github.com/MapColonies/shared-components/commit/76ccc8e78ee8acb4cd7d6030a371002aa5d04e6a))
+
+
+* refactor!(monorepo): moved from yarn workspaces to lerna (#26) ([675815a](https://github.com/MapColonies/shared-components/commit/675815a2e23167b47a9e420bbd1c703cb783ff23)), closes [#26](https://github.com/MapColonies/shared-components/issues/26)
+
+
+### BREAKING CHANGES
+
+* lerna, core comps
+
+* fix(storybook):  unneeded files
+
+* fix(rename): demoapps
+
+* fix(cleanup): unneeded storybooks remains
+
+* fix(pkg): script added
+
+* chore(release): version bumped 1.0.0
+
+ - demoapp-react@1.0.0
+ - demoapp-stencil@1.0.0
+ - @map-colonies/react-components@1.0.0
+ - @map-colonies/react-core@1.0.0
+ - @map-colonies/ui-components@1.0.0
+ - @map-colonies/ui-components-react@1.0.0
+
+* fix(readme): updated
+
+* chore(publish): publish [by user]
+
+ - demoapp-react@1.0.1
+ - demoapp-stencil@1.0.1
+ - @map-colonies/react-components@1.0.1
+ - @map-colonies/react-core@1.0.1
+
+* fix(prettier): all code is prettified
+
+* fix(prcomments): fixed
+
+* fix(tests): added tests infrastructure
+
+Co-authored-by: LEBINSON ALEX <ALEXLEB@rf.local>
+Co-authored-by: Ran Elishayev <rannygmx@gmail.com>
+Co-authored-by: Ran Elishayev <42379604+rannyeli@users.noreply.github.com>
+
+
+
+
+
+
 ## [1.0.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@1.0.0...@map-colonies/react-components@1.0.1) (2020-08-17)
 
 
