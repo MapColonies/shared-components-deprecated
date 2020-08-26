@@ -8,9 +8,11 @@ import React, {
 import { Map as OlMap, View } from 'ol';
 import './map.css';
 import 'ol/ol.css';
-import { format } from "ol/coordinate";
+import { format, Coordinate } from "ol/coordinate";
 import { defaults as defaultControls, FullScreen } from "ol/control";
 import MousePosition from "ol/control/MousePosition";
+import Collection from 'ol/Collection';
+import Control from 'ol/control/Control';
 
 export interface MapProps {
   allowFullScreen?: boolean;
@@ -51,8 +53,10 @@ export const Map: React.FC<MapProps> = (props) => {
     })
   );
 
-  const removeControl = (ctrType: any, mapInst: any) => {
-    mapInst.getControls().forEach((control: any) => {
+  // eslint-disable-next-line
+  const removeControl = (ctrType: any, mapInst: OlMap): void => {
+    const controls: Collection<Control> = mapInst.getControls();
+    controls.forEach((control: Control) => {
       if (control instanceof ctrType) {
         mapInst.removeControl(control);
       }
@@ -62,17 +66,17 @@ export const Map: React.FC<MapProps> = (props) => {
   useEffect(() => {
     map.setTarget(mapElementRef.current as HTMLElement);
     
-    if (allowFullScreen != undefined && allowFullScreen) {
+    if (allowFullScreen !== undefined && allowFullScreen) {
       map.addControl(new FullScreen());
     }
     else{
       removeControl(FullScreen, map);
     }
 
-    if (showMousePosition != undefined && showMousePosition) {
+    if (showMousePosition !== undefined && showMousePosition) {
       map.addControl(
         new MousePosition({
-          coordinateFormat: (coord:any)  => format(coord, '{y}°N {x}°E', COORDINATES_FRACTION_DIFITS),
+          coordinateFormat: (coord):string  => format(coord as Coordinate, '{y}°N {x}°E', COORDINATES_FRACTION_DIFITS),
           projection: PROJECTION,
           undefinedHTML: '&nbsp;',
         })
