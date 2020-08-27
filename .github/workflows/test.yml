@@ -27,7 +27,7 @@ jobs:
         run: yarn install
 
       - name: Test
-        run: yarn test:all
+        run: yarn test
 
       - uses: actions/upload-artifact@v2
         with:
