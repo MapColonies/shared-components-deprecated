@@ -2,11 +2,6 @@ import React from 'react';
 import { ContainerMap } from '../container-map';
 import { MapFilterContainer } from '../map-filter-container';
 import { action } from '@storybook/addon-actions';
-import '@map-colonies/react-core/dist/theme/styles';
-import '@map-colonies/react-core/dist/button/styles';
-import '@map-colonies/react-core/dist/select/styles';
-import '@map-colonies/react-core/dist/tooltip/styles';
-
 
 export default {
   title: 'Map',
