@@ -1,10 +1,18 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Checkbox } from './';
 import { useKnob } from '../base/utils/use-knob';
+import { Checkbox } from './';
+import { Radio } from '../radio';
+import { Slider } from '../slider';
+import { Switch } from '../switch';
 
-function CheckboxStory() {
+export default {
+  title: "Inputs and Controls",
+  component: Checkbox,
+  subcomponents: { Radio, Slider, Switch}
+};
+
+export const _CheckBox = () => {
   const [checked, setChecked] = useKnob('boolean', 'checked', false);
   const [indeterminate] = useKnob('boolean', 'indeterminate', false);
   const [disabled] = useKnob('boolean', 'disabled', false);
@@ -28,12 +36,3 @@ function CheckboxStory() {
     />
   );
 }
-
-export default {
-  title: "Inputs and Controls",
-  component: Checkbox,
-};
-
-storiesOf('Inputs and Controls', module).add('Checkbox', () => (
-  <CheckboxStory />
-));

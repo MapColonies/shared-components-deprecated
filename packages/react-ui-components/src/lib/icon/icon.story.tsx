@@ -1,9 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { Icon } from './';
 import { RMWCProvider } from '../provider';
 
-storiesOf('Icons', module).add('Icon', () => (
+export default {
+  title: 'Icons',
+  component: Icon
+};
+
+export const _Icon = () => (
   <ul>
     <li>
       Ligature child: <Icon>favorite</Icon>
@@ -13,13 +17,10 @@ storiesOf('Icons', module).add('Icon', () => (
     </li>
     <li>
       Url child:
-      <Icon>
-        https://www2.le.ac.uk/departments/law/images/twitter-follow-us-icon
-      </Icon>
+      <Icon>https://www2.le.ac.uk/departments/law/images/twitter-follow-us-icon</Icon>
     </li>
     <li>
-      Url use:{' '}
-      <Icon icon="https://www2.le.ac.uk/departments/law/images/twitter-follow-us-icon" />
+      Url use: <Icon icon="https://www2.le.ac.uk/departments/law/images/twitter-follow-us-icon" />
     </li>
     <li>
       Component child:{' '}
@@ -29,38 +30,18 @@ storiesOf('Icons', module).add('Icon', () => (
     </li>
     <li>
       Component Use:
-      <Icon
-        icon={
-          <div
-            style={{ background: 'purple', width: '24px', height: '24px' }}
-          />
-        }
-      />
+      <Icon icon={<div style={{ background: 'purple', width: '24px', height: '24px' }} />} />
     </li>
     <li>
       Nested Icon Child:{' '}
       <Icon>
-        <Icon
-          icon={
-            <div
-              style={{ background: 'blue', width: '24px', height: '24px' }}
-            />
-          }
-        />
+        <Icon icon={<div style={{ background: 'blue', width: '24px', height: '24px' }} />} />
       </Icon>
     </li>
     <li>
       Nested Icon Use:{' '}
       <Icon
-        icon={
-          <Icon
-            icon={
-              <div
-                style={{ background: 'blue', width: '24px', height: '24px' }}
-              />
-            }
-          />
-        }
+        icon={<Icon icon={<div style={{ background: 'blue', width: '24px', height: '24px' }} />} />}
       />
     </li>
     <li>
@@ -70,7 +51,7 @@ storiesOf('Icons', module).add('Icon', () => (
           prefix: 'ion-',
           icon: 'ionic',
           strategy: 'className',
-          basename: 'icon'
+          basename: 'icon',
         }}
       />
     </li>
@@ -80,7 +61,7 @@ storiesOf('Icons', module).add('Icon', () => (
         icon={{
           strategy: 'custom',
           render: (props) => <div>Customized-{props.content}</div>,
-          content: 'CUSTOM'
+          content: 'CUSTOM',
         }}
       />
     </li>
@@ -89,11 +70,11 @@ storiesOf('Icons', module).add('Icon', () => (
       <RMWCProvider
         icon={{
           strategy: 'custom',
-          render: (props) => <div>Custom + {props.content}</div>
+          render: (props) => <div>Custom + {props.content}</div>,
         }}
       >
         <Icon icon="test" />
       </RMWCProvider>
     </li>
   </ul>
-));
+);

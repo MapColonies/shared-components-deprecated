@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { boolean, text, number } from '@storybook/addon-knobs';
 import { TextField } from './';
 
@@ -28,15 +27,13 @@ function TextFieldStory() {
 
 class TextFieldUncontrolledStory extends React.Component {
   state = {
-    counter: 0
+    counter: 0,
   };
   render() {
     return (
       <div>
         <TextField label="Hello" />
-        <button
-          onClick={() => this.setState({ counter: this.state.counter + 1 })}
-        >
+        <button onClick={() => this.setState({ counter: this.state.counter + 1 })}>
           Force Re-render {this.state.counter}
         </button>
       </div>
@@ -44,25 +41,25 @@ class TextFieldUncontrolledStory extends React.Component {
   }
 }
 
-storiesOf('TextField', module)
-  .add('TextField (Controlled)', () => <TextFieldStory />)
-  .add('TextField (Uncontrolled)', () => <TextFieldUncontrolledStory />)
-  .add('autoFocus', () => <TextField label="Hello" autoFocus />)
-  .add('Changing', function () {
-    const [value, setValue] = React.useState('');
+export default {
+  title: 'TextField',
+  component: TextField
+};
 
-    React.useEffect(() => {
-      setInterval(() => {
-        setValue((val) => (val === '' ? 'Hello World' : ''));
-      }, 2000);
-    }, []);
+export const TextFieldControlled = () => <TextFieldStory />;
 
-    return (
-      <TextField
-        label="Controlled"
-        value={value}
-        outlined
-        onChange={() => {}}
-      />
-    );
-  });
+export const TextFieldUncontrolled = () => <TextFieldUncontrolledStory />;
+
+export const AutoFocus = () => <TextField label="Hello" autoFocus />;
+
+export const Changing = function () {
+  const [value, setValue] = React.useState('');
+
+  React.useEffect(() => {
+    setInterval(() => {
+      setValue((val) => (val === '' ? 'Hello World' : ''));
+    }, 2000);
+  }, []);
+
+  return <TextField label="Controlled" value={value} outlined onChange={() => {}} />;
+};

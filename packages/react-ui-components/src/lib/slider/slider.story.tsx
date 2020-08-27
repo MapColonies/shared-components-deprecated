@@ -1,10 +1,15 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Slider } from './';
 import { useKnob } from '../base/utils/use-knob';
 
-function SliderStory() {
+export default {
+  title: 'Inputs and Controls',
+};
+
+export const _Slider = () => <Slider onChange={action('onChange')} onInput={action('onInput')} />;
+
+export const SliderControlled = () => {
   const [value, setValue] = useKnob('number', 'value', 0);
   const [min] = useKnob('number', 'min', 0);
   const [max] = useKnob('number', 'max', 100);
@@ -33,10 +38,4 @@ function SliderStory() {
       }}
     />
   );
-}
-
-storiesOf('Inputs and Controls', module)
-  .add('Slider', () => (
-    <Slider onChange={action('onChange')} onInput={action('onInput')} />
-  ))
-  .add('Slider Controlled', () => <SliderStory />);
+};

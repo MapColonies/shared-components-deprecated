@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
   TopAppBar,
@@ -62,35 +61,51 @@ function NestedTopAppBar() {
   );
 }
 
-storiesOf('TopAppBar', module)
-  .add('standard', () => (
-    <div style={{ margin: '-24px' }}>
-      <TopAppBar>
-        <TopAppBarRow>
-          <TopAppBarSection>
-            <TopAppBarNavigationIcon icon="menu" />
-          </TopAppBarSection>
-        </TopAppBarRow>
-      </TopAppBar>
-      <div style={{ height: '300vh' }} />
-    </div>
-  ))
-  .add('fixed', () => <TopAppBarStory fixed />)
-  .add('dense', () => <TopAppBarStory dense />)
-  .add('short', () => <TopAppBarStory short />)
-  .add('shortCollapsed', () => <TopAppBarStory shortCollapsed />)
-  .add('prominent', () => <TopAppBarStory prominent />)
-  .add('nested', () => <NestedTopAppBar />)
-  .add('SimpleTopAppBar', () => (
-    <div style={{ margin: '-24px' }}>
-      <SimpleTopAppBar
-        title="test"
-        navigationIcon={{ onClick: () => console.log('Navigate') }}
-        actionItems={[
-          { onClick: () => console.log('Do Something'), use: 'file_download' },
-          { onClick: () => console.log('Do Something'), use: 'print' },
-          { onClick: () => console.log('Do Something'), use: 'bookmark' }
-        ]}
-      />
-    </div>
-  ));
+export default {
+  title: 'TopAppBar',
+  component: TopAppBar,
+  subcomponents: {
+    SimpleTopAppBar,
+    TopAppBarSection,
+    TopAppBarNavigationIcon,
+    TopAppBarActionItem,
+  }
+};
+
+export const Standard = () => (
+  <div style={{ margin: '-24px' }}>
+    <TopAppBar>
+      <TopAppBarRow>
+        <TopAppBarSection>
+          <TopAppBarNavigationIcon icon="menu" />
+        </TopAppBarSection>
+      </TopAppBarRow>
+    </TopAppBar>
+    <div style={{ height: '300vh' }} />
+  </div>
+)
+export const Fixed = () => <TopAppBarStory fixed />;
+
+export const Dense = () => <TopAppBarStory dense />;
+
+export const Short = () => <TopAppBarStory short />;
+
+export const ShortCollapsed = () => <TopAppBarStory shortCollapsed />;
+
+export const Prominent = () => <TopAppBarStory prominent />;
+
+export const Nested = () => <NestedTopAppBar />;
+
+export const _SimpleTopAppBar = () => (
+  <div style={{ margin: '-24px' }}>
+    <SimpleTopAppBar
+      title="test"
+      navigationIcon={{ onClick: () => console.log('Navigate') }}
+      actionItems={[
+        { onClick: () => console.log('Do Something'), use: 'file_download' },
+        { onClick: () => console.log('Do Something'), use: 'print' },
+        { onClick: () => console.log('Do Something'), use: 'bookmark' }
+      ]}
+    />
+  </div>
+);

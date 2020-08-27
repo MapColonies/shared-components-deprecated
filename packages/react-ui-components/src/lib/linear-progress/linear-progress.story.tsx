@@ -1,9 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { boolean, number } from '@storybook/addon-knobs';
 import { LinearProgress } from './';
 
-storiesOf('Progress', module).add('LinearProgress', () => (
+export default {
+  title: 'Progress',
+  component: LinearProgress
+};
+
+export const _LinearProgress = () => (
   <LinearProgress
     progress={number('progress', 0.5)}
     buffer={number('buffer', 0)}
@@ -11,4 +15,4 @@ storiesOf('Progress', module).add('LinearProgress', () => (
     closed={boolean('closed', false)}
     foundationRef={console.log}
   />
-));
+);

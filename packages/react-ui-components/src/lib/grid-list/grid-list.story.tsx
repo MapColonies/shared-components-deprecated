@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { boolean, select } from '@storybook/addon-knobs';
 import {
   GridList,
@@ -20,7 +19,15 @@ const tileAspectOptions = {
   '3x4': '3x4'
 };
 
-storiesOf('GridLists', module).add('Grid List', () => {
+export default {
+  title: "GridLists",
+  component: GridList,
+  subcomponents: {
+    GridTileIcon
+  }
+};
+
+export const _GridList = () => {
   return (
     <GridList
       tileGutter1={boolean('tileGutter1', false)}
@@ -44,4 +51,4 @@ storiesOf('GridLists', module).add('Grid List', () => {
         ))}
     </GridList>
   );
-});
+};

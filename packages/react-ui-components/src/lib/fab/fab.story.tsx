@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
 import { Fab } from './';
@@ -8,7 +7,7 @@ export default {
   title: "Buttons",
 };
 
-export const fab = () => (
+export const _Fab = () => (
     <Fab
       mini={boolean('mini', false)}
       ripple={boolean('ripple', true)}

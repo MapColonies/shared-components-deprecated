@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, object, array } from '@storybook/addon-knobs';
 import { Select } from './';
@@ -260,96 +259,122 @@ function EnhancedSelectWithPortal(props: any) {
   );
 }
 
-storiesOf('Select', module)
-  .add('Select with object', () => (
-    <Select
-      label={text('label', 'Foods')}
-      placeholder={text('placeholder', 'Select a Food')}
-      options={object('options', { 1: 'Cookies', 2: 'Pizza', 3: 'Icecream' })}
-    />
-  ))
-  .add('Select with array', () => (
-    <Select
-      label={text('label', 'Foods')}
-      placeholder={text('placeholder', 'Select a Food')}
-      options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
-    />
-  ))
+export default {
+  title: 'Select',
+  component: Select
+};
 
-  .add('Select All', () => <EnhancedSelect />)
-  .add('Select Enhanced', () => (
-    <div>
-      <Select
-        label={'Manual Enhanced'}
-        enhanced={{
-          anchorCorner: 'bottomStart'
-        }}
-        onChange={(evt) => {
-          console.log('onChange', evt.currentTarget.value);
-        }}
-      >
-        <MenuItems twoLine style={{ width: '400px' }}>
-          <MenuItem data-value="cookies">Cookies</MenuItem>
-          <MenuItem data-value="pizza">Pizza</MenuItem>
-          <MenuItem data-value="icecream">Icecream</MenuItem>
-        </MenuItems>
-      </Select>
-    </div>
-  ))
-  .add('Select Enhanced with Portal', () => <EnhancedSelectWithPortal/>)
-  .add('Select without placeholder', () => (
+export const SelectWithObject = () => (
+  <Select
+    label={text('label', 'Foods')}
+    placeholder={text('placeholder', 'Select a Food')}
+    options={object('options', { 1: 'Cookies', 2: 'Pizza', 3: 'Icecream' })}
+  />
+)
+export const SelectWithArray = () => (
+  <Select
+    label={text('label', 'Foods')}
+    placeholder={text('placeholder', 'Select a Food')}
+    options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
+  />
+)
+
+export const SelectAll = () => <EnhancedSelect />;
+
+export const SelectEnhanced = () => (
+  <div>
     <Select
-      label={text('label', 'Foods')}
-      options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
-    />
-  ))
-  .add('Select with initial value', () => (
-    <Select
-      label={text('label', 'Foods')}
-      value={text('value', 'Cookies')}
-      options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
-      onChange={(evt) => action('onChange: ' + evt.currentTarget.value)()}
-    />
-  ))
-  .add('Select with many values', () => (
-    <>
-      <Select options={[...Array(100)].map(() => Math.random().toString(16))} />
-      <Select
-        enhanced
-        options={[...Array(100)].map(() => Math.random().toString(16))}
-      />
-    </>
-  ))
-  .add('Select with children', () => (
-    <Select>
-      <option value="Cookies">Cookies</option>
-      <option value="Pizza">Pizza</option>
-      <option value="Icecream">Icecream</option>
+      label={'Manual Enhanced'}
+      enhanced={{
+        anchorCorner: 'bottomStart'
+      }}
+      onChange={(evt) => {
+        console.log('onChange', evt.currentTarget.value);
+      }}
+    >
+      <MenuItems twoLine style={{ width: '400px' }}>
+        <MenuItem data-value="cookies">Cookies</MenuItem>
+        <MenuItem data-value="pizza">Pizza</MenuItem>
+        <MenuItem data-value="icecream">Icecream</MenuItem>
+      </MenuItems>
     </Select>
-  ))
-  .add('Select with children', () => (
-    <Select>
-      <option value="Cookies">Cookies</option>
-      <option value="Pizza">Pizza</option>
-      <option value="Icecream">Icecream</option>
-    </Select>
-  ))
-  .add('Controlled Select', () => {
-    return <ControlledSelect />;
-  })
-  .add('Mutating Select', () => <MutatingSelect />)
-  .add('autoFocus', () => (
+  </div>
+)
+export const SelectEnhancedWithPortal = () => <EnhancedSelectWithPortal/>;
+
+export const SelectWithoutPlaceholder = () => (
+  <Select
+    label={text('label', 'Foods')}
+    options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
+  />
+);
+
+export const SelectWithInitialValue = () => (
+  <Select
+    label={text('label', 'Foods')}
+    value={text('value', 'Cookies')}
+    options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
+    onChange={(evt) => action('onChange: ' + evt.currentTarget.value)()}
+  />
+);
+
+export const SelectWithManyValues = () => (
+  <>
+    <Select options={[...Array(100)].map(() => Math.random().toString(16))} />
     <Select
-      label="Autofocus"
-      autoFocus
-      value="one"
-      options={['one', 'two', 'three']}
+      enhanced
+      options={[...Array(100)].map(() => Math.random().toString(16))}
     />
-  ))
-  .add('Controlled Single', () => (
+  </>
+);
+
+export const SelectWithChildren = () => (
+  <Select>
+    <option value="Cookies">Cookies</option>
+    <option value="Pizza">Pizza</option>
+    <option value="Icecream">Icecream</option>
+  </Select>
+);
+
+export const _ControlledSelect = () => <ControlledSelect />;
+
+export const _MutatingSelect = () => <MutatingSelect />;
+
+export const AutoFocus  = () => (
+  <Select
+    label="Autofocus"
+    autoFocus
+    value="one"
+    options={['one', 'two', 'three']}
+  />
+);
+
+export const ControlledSingle = () => (
+  <Select
+    label="Controlled"
+    value="one"
+    outlined
+    enhanced
+    options={['one', 'two', 'three']}
+    onChange={(evt) => {
+      console.log('onChange', evt.currentTarget.value);
+    }}
+  />
+);
+
+export const Changing = () => {
+  const [value, setValue] = React.useState('');
+
+  React.useEffect(() => {
+    setInterval(() => {
+      setValue((val) => (val === '' ? 'one' : ''));
+    }, 2000);
+  }, []);
+
+  return (
     <Select
       label="Controlled"
-      value="one"
+      value={value}
       outlined
       enhanced
       options={['one', 'two', 'three']}
@@ -357,26 +382,5 @@ storiesOf('Select', module)
         console.log('onChange', evt.currentTarget.value);
       }}
     />
-  ))
-  .add('Changing', function () {
-    const [value, setValue] = React.useState('');
-
-    React.useEffect(() => {
-      setInterval(() => {
-        setValue((val) => (val === '' ? 'one' : ''));
-      }, 2000);
-    }, []);
-
-    return (
-      <Select
-        label="Controlled"
-        value={value}
-        outlined
-        enhanced
-        options={['one', 'two', 'three']}
-        onChange={(evt) => {
-          console.log('onChange', evt.currentTarget.value);
-        }}
-      />
-    );
-  });
+  );
+};

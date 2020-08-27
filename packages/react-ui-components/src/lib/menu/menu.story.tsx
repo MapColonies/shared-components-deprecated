@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { Menu, MenuItem, MenuSurfaceAnchor, SimpleMenu, MenuSurface } from './';
 import { Button } from '../button';
@@ -143,29 +142,41 @@ function MenuHoist() {
   );
 }
 
-storiesOf('Menus', module)
-  .add('Menu', () => <MenuStory />)
-  .add('MenuSurface', () => <MenuSurfaceStory />)
-  .add('Menu: Always Open', () => {
-    const [open] = useKnob('boolean', 'open', true);
-    return (
-      <Menu open={open}>
-        <MenuItem>Cookies</MenuItem>
-        <MenuItem>Pizza</MenuItem>
-        <MenuItem>Icecream</MenuItem>
-      </Menu>
-    );
-  })
-  .add('Menu: hoistToBody', () => (
-    <>
-      <MenuHoist />
-      <MenuHoist />
-    </>
-  ))
-  .add('SimpleMenu', () => (
-    <SimpleMenu handle={<Button raised>Open Simple Menu</Button>}>
+export default {
+  title: "Menus",
+  component: Menu,
+  subcomponents: {
+    MenuItem,
+    MenuSurface
+  }
+};
+
+export const _Menu = () => <MenuStory />;
+
+export const _MenuSurface = () => <MenuSurfaceStory />;
+
+export const MenuAlwaysOpen = () => {
+  const [open] = useKnob('boolean', 'open', true);
+  return (
+    <Menu open={open}>
       <MenuItem>Cookies</MenuItem>
       <MenuItem>Pizza</MenuItem>
       <MenuItem>Icecream</MenuItem>
-    </SimpleMenu>
-  ));
+    </Menu>
+  );
+};
+
+export const MenuHoistToBody = () => (
+  <>
+    <MenuHoist />
+    <MenuHoist />
+  </>
+);
+
+export const _SimpleMenu = () => (
+  <SimpleMenu handle={<Button raised>Open Simple Menu</Button>}>
+    <MenuItem>Cookies</MenuItem>
+    <MenuItem>Pizza</MenuItem>
+    <MenuItem>Icecream</MenuItem>
+  </SimpleMenu>
+);

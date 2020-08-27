@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, BrowserRouter } from 'react-router-dom';
-import { storiesOf } from '@storybook/react';
 import {
   TextField,
   Button,
@@ -31,10 +30,14 @@ import {
   Radio,
   DialogTitle,
   createSnackbarQueue,
-  SnackbarQueue
+  SnackbarQueue,
 } from '../rmwc';
 
-function Bug538() {
+export default {
+  title: 'Bugs',
+};
+
+export const Bug538 = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <div>
@@ -49,7 +52,7 @@ function Bug538() {
   );
 }
 
-function Bug515() {
+export const Bug515 = () => {
   const [disabled, setDisabled] = React.useState(false);
 
   function switchDisabled() {
@@ -60,43 +63,29 @@ function Bug515() {
     <React.Fragment>
       <Typography use="headline4">RMWC Sandbox</Typography>
       <Typography use="subtitle1" tag="p">
-        Buttons using state for disabled remain focused when enabled. Steps to
-        reproduce:
+        Buttons using state for disabled remain focused when enabled. Steps to reproduce:
       </Typography>
       <Typography use="body1">
         <ul>
           <li>Cick each button.</li>
           <li>Buttons 3 and 4 remain selected when they are enabled.</li>
           <li>Buttons 1 and 2 do not.</li>
-          <li>
-            Only difference is the disabled flag being set by state: disabled.
-          </li>
+          <li>Only difference is the disabled flag being set by state: disabled.</li>
         </ul>
       </Typography>
       <Button label="Button 1" onClick={() => switchDisabled()} />
       <Button label="Button 2" onClick={() => switchDisabled()} />
-      <Button
-        label="Button 3"
-        disabled={disabled}
-        onClick={() => switchDisabled()}
-      />
-      <Button
-        label="Button 4"
-        disabled={disabled}
-        onClick={() => switchDisabled()}
-      />
+      <Button label="Button 3" disabled={disabled} onClick={() => switchDisabled()} />
+      <Button label="Button 4" disabled={disabled} onClick={() => switchDisabled()} />
     </React.Fragment>
   );
 }
 
 const queue = createSnackbarQueue();
-function Bug560() {
+export const Bug560 = () => {
   return (
     <React.Fragment>
-      <Button
-        raised
-        onClick={() => queue.notify({ title: 'Hi there', dismissIcon: true })}
-      >
+      <Button raised onClick={() => queue.notify({ title: 'Hi there', dismissIcon: true })}>
         Notify
       </Button>
       <SnackbarQueue messages={queue.messages} />
@@ -104,7 +93,7 @@ function Bug560() {
   );
 }
 
-function Bug567() {
+export const Bug567 = () => {
   return (
     <React.Fragment>
       <ThemeProvider options={{ primary: 'red' }} theme="primary">
@@ -114,7 +103,7 @@ function Bug567() {
   );
 }
 
-function Bug594() {
+export const Bug594 = () => {
   const [value, setValue] = React.useState('');
 
   return (
@@ -125,8 +114,7 @@ function Bug594() {
   );
 }
 
-function Hz8pr() {
-  return (
+export const Hz8pr = () => (
     <React.Fragment>
       <Typography use="headline4">RMWC Sandbox</Typography>
       <Typography use="subtitle1" tag="p">
@@ -135,12 +123,10 @@ function Hz8pr() {
       <Typography use="body1">
         <ul>
           <li>
-            On the left hand panel, go to dependencies and select exact versions
-            of components and React that you are using.
+            On the left hand panel, go to dependencies and select exact versions of components and
+            React that you are using.
           </li>
-          <li>
-            Please reproduce your issue as clearly and concisely as possible
-          </li>
+          <li>Please reproduce your issue as clearly and concisely as possible</li>
           <li>Leave comments 🤓</li>
         </ul>
       </Typography>
@@ -153,26 +139,18 @@ function Hz8pr() {
         options={[
           {
             label: <b>Cookies</b>,
-            value: 'Cookies'
+            value: 'Cookies',
           },
           {
             label: <i>Span</i>,
-            value: 'Pizza'
+            value: 'Pizza',
           },
           {
             label: <i>Icecream</i>,
-            value: 'Icecream'
-          }
+            value: 'Icecream',
+          },
         ]}
       />
     </React.Fragment>
   );
-}
 
-storiesOf('Bugs', module)
-  .add('#538', Bug538)
-  .add('#515', Bug515)
-  .add('#560', Bug560)
-  .add('#567', Bug567)
-  .add('#594', Bug594)
-  .add('Hz8pr', Hz8pr);

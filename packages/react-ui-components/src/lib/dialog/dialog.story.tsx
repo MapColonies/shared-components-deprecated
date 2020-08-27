@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
   Dialog,
@@ -14,7 +13,19 @@ import {
 import { useKnob } from '../base/utils/use-knob';
 import { Button } from '../button';
 
-const DialogStory = function () {
+const { dialogs, alert, confirm, prompt } = createDialogQueue();
+
+export default {
+  title: "Dialogs",
+  component: Dialog,
+  subcomponents: { 
+    DialogButton,
+    SimpleDialog,
+    DialogQueue
+  }
+};
+
+export const _Dialog = () => {
   let [open, setOpen] = useKnob('boolean', 'open', true);
 
   return (
@@ -38,7 +49,7 @@ const DialogStory = function () {
   );
 };
 
-function SimpleDialogStory() {
+export const _SimpleDialog = () => {
   const [open, setOpen] = useKnob('boolean', 'open', true);
   const [title] = useKnob('text', 'title', 'This is a simple dialog');
   const [body] = useKnob(
@@ -64,43 +75,28 @@ function SimpleDialogStory() {
   );
 }
 
-const { dialogs, alert, confirm, prompt } = createDialogQueue();
-
-export default {
-  title: "Dialogs",
-  component: Dialog,
-  subcomponents: { 
-    DialogButton,
-    SimpleDialog,
-    DialogQueue
-  }
-};
-
-storiesOf('Dialogs', module)
-  .add('Dialog', () => <DialogStory />)
-  .add('SimpleDialog', () => <SimpleDialogStory />)
-  .add('DialogQueue', () => {
-    const fireAlert = () => alert({}).then((res) => console.log(res));
-    const fireConfirm = () => confirm({}).then((res) => console.log(res));
-    const firePrompt = () =>
-      prompt({ inputProps: { outlined: true } }).then((res) =>
-        console.log(res)
-      );
-
-    return (
-      <>
-        <Button label="Alert" onClick={fireAlert} />
-        <Button label="Confirm" onClick={fireConfirm} />
-        <Button label="Prompt" onClick={firePrompt} />
-        <Button
-          label="All"
-          onClick={() => {
-            fireAlert();
-            fireConfirm();
-            firePrompt();
-          }}
-        />
-        <DialogQueue dialogs={dialogs} />
-      </>
+export const _DialogQueue = () => {
+  const fireAlert = () => alert({}).then((res) => console.log(res));
+  const fireConfirm = () => confirm({}).then((res) => console.log(res));
+  const firePrompt = () =>
+    prompt({ inputProps: { outlined: true } }).then((res) =>
+      console.log(res)
     );
-  });
+
+  return (
+    <>
+      <Button label="Alert" onClick={fireAlert} />
+      <Button label="Confirm" onClick={fireConfirm} />
+      <Button label="Prompt" onClick={firePrompt} />
+      <Button
+        label="All"
+        onClick={() => {
+          fireAlert();
+          fireConfirm();
+          firePrompt();
+        }}
+      />
+      <DialogQueue dialogs={dialogs} />
+    </>
+  );
+};

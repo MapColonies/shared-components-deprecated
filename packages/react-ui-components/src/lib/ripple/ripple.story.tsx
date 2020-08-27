@@ -1,18 +1,21 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { boolean } from '@storybook/addon-knobs';
 import { Ripple } from './';
-
 
 const rippleStyle = {
   width: '240px',
   height: '240px',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
 };
 
-storiesOf('Ripples', module).add('Ripple', () => (
+export default {
+  title: 'Ripples',
+  component: Ripple
+};
+
+export const _Ripple = () => (
   <Ripple
     style={rippleStyle}
     primary={boolean('primary', false)}
@@ -22,4 +25,4 @@ storiesOf('Ripples', module).add('Ripple', () => (
   >
     <div style={rippleStyle}>Click Me</div>
   </Ripple>
-));
+);

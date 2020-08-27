@@ -11,7 +11,7 @@ export default {
   subcomponents: { Fab }
 };
 
-export const button = () => (
+export const _Button = () => (
   <Button
     unelevated={boolean('unelevated', false)}
     outlined={boolean('outlined', false)}
