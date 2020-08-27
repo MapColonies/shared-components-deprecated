@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.0.0 (2020-08-26)
+
+
+* refactor!(monorepo): moved from yarn workspaces to lerna (#26) ([675815a](https://github.com/MapColonies/shared-components/commit/675815a2e23167b47a9e420bbd1c703cb783ff23)), closes [#26](https://github.com/MapColonies/shared-components/issues/26)
+
+
+### BREAKING CHANGES
+
+* lerna, core comps
+
+* fix(storybook):  unneeded files
+
+* fix(rename): demoapps
+
+* fix(cleanup): unneeded storybooks remains
+
+* fix(pkg): script added
+
+* chore(release): version bumped 1.0.0
+
+ - demoapp-react@1.0.0
+ - demoapp-stencil@1.0.0
+ - @map-colonies/react-components@1.0.0
+ - @map-colonies/react-core@1.0.0
+ - @map-colonies/ui-components@1.0.0
+ - @map-colonies/ui-components-react@1.0.0
+
+* fix(readme): updated
+
+* chore(publish): publish [by user]
+
+ - demoapp-react@1.0.1
+ - demoapp-stencil@1.0.1
+ - @map-colonies/react-components@1.0.1
+ - @map-colonies/react-core@1.0.1
+
+* fix(prettier): all code is prettified
+
+* fix(prcomments): fixed
+
+* fix(tests): added tests infrastructure
+
+Co-authored-by: LEBINSON ALEX <ALEXLEB@rf.local>
+Co-authored-by: Ran Elishayev <rannygmx@gmail.com>
+Co-authored-by: Ran Elishayev <42379604+rannyeli@users.noreply.github.com>
+
+
+
+
+
+
 ## [1.0.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@1.0.0...@map-colonies/react-core@1.0.1) (2020-08-17)
 
 
