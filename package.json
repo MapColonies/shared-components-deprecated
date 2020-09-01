@@ -49,6 +49,11 @@
     "start:reactstencildemo": "cd demoapp-stencil && yarn start",
     "start:reactdemo": "cd demoapp-react && yarn start",
 
+    "storybook:react-core": "lerna exec --scope @map-colonies/react-core -- yarn storybook",
+    "storybook:react": "lerna exec --scope @map-colonies/react-components -- yarn storybook",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    
     "test:react-core": "lerna exec --scope @map-colonies/react-core -- yarn test:nowatch",
     "test:react": "lerna exec --scope @map-colonies/react-components -- yarn test:nowatch",
     "test:all": "yarn test:react-core && yarn test:react",
@@ -60,6 +65,16 @@
     "prettier:check": "prettier --check ."
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-docs": "^6.0.21",
+    "@storybook/addon-knobs": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/addon-storysource": "^6.0.21",
+    "@storybook/addons": "^6.0.21",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.21",
+    "@storybook/theming": "^6.0.21",
+    "storybook-dark-mode": "^1.0.0",
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
     "@map-colonies/eslint-config": "^1.0.3",

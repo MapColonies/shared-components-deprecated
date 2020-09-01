@@ -13,7 +13,7 @@ const useStyle = makeStyles((theme: Theme) =>
     map: {
       height: '100%',
       width: '100%',
-      position: 'fixed',
+      position: 'absolute',
     },
     absolute: {
       position: 'absolute',

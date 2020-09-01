@@ -104,8 +104,8 @@ export const useChipFoundation = (props: ChipProps & ChipHTMLProps) => {
     (
       evt: React.MouseEvent & React.KeyboardEvent & MouseEvent & KeyboardEvent
     ) => {
-      evt.type === 'click' && props.onClick?.(evt as any);
-      evt.type === 'keydown' && props.onKeyDown?.(evt as any);
+      if (evt.type === 'click') props.onClick?.(evt as any);
+      if (evt.type === 'keydown') props.onKeyDown?.(evt as any);
       return foundation.handleInteraction(evt);
     },
     [foundation, props.onClick, props.onKeyDown]

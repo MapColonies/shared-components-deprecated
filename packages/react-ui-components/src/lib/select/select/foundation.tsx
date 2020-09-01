@@ -386,7 +386,7 @@ export const useSelectFoundation = (
 
   // Set anchor
   useEffect(() => {
-    rootEl.ref && menu.current?.setAnchorElement(rootEl.ref);
+    if (rootEl.ref) menu.current?.setAnchorElement(rootEl.ref);
   }, [rootEl.ref]);
 
   return {

@@ -49,6 +49,8 @@
     "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
     "eject": "react-scripts eject",
     "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
+    "storybook": "start-storybook -p 9010 -s public",
+    "build-storybook": "build-storybook -s public",
     "eslint-check": "npx eslint . --ext .ts,.tsx"
   },
   "browserslist": {
@@ -64,15 +66,6 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-docs": "^5.3.19",
-    "@storybook/addon-knobs": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addon-storysource": "^5.3.19",
-    "@storybook/addons": "^5.3.19",
-    "@storybook/preset-create-react-app": "^3.1.4",
-    "@storybook/react": "^5.3.19",
-    "@storybook/theming": "^5.3.19",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react-test-renderer": "^16.9.2",

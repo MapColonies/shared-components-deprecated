@@ -1,43 +1,41 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
+import { Slider } from './';
+import { useKnob } from '../base/utils/use-knob';
 
-// import { storiesOf } from '@storybook/react';
-// import { action } from '@storybook/addon-actions';
-// import { Slider } from './';
-// import { useKnob } from '@rmwc/base/utils/use-knob';
+export default {
+  title: 'Inputs and Controls',
+};
 
-// function SliderStory() {
-//   const [value, setValue] = useKnob('number', 'value', 0);
-//   const [min] = useKnob('number', 'min', 0);
-//   const [max] = useKnob('number', 'max', 100);
-//   const [step] = useKnob('number', 'step', 0);
-//   const [discrete] = useKnob('boolean', 'discrete', false);
-//   const [displayMarkers] = useKnob('boolean', 'displayMarkers', false);
-//   const [disabled] = useKnob('boolean', 'disabled', false);
+export const _Slider = () => <Slider onChange={action('onChange')} onInput={action('onInput')} />;
 
-//   return (
-//     <Slider
-//       value={value}
-//       min={min}
-//       max={max}
-//       step={step}
-//       foundationRef={console.log}
-//       discrete={discrete}
-//       displayMarkers={displayMarkers}
-//       disabled={disabled}
-//       onChange={(evt) => {
-//         setValue(evt.detail.value);
-//         action('onChange')(evt);
-//       }}
-//       onInput={(evt) => {
-//         setValue(evt.detail.value);
-//         action('onInput')(evt);
-//       }}
-//     />
-//   );
-// }
+export const SliderControlled = () => {
+  const [value, setValue] = useKnob('number', 'value', 0);
+  const [min] = useKnob('number', 'min', 0);
+  const [max] = useKnob('number', 'max', 100);
+  const [step] = useKnob('number', 'step', 0);
+  const [discrete] = useKnob('boolean', 'discrete', false);
+  const [displayMarkers] = useKnob('boolean', 'displayMarkers', false);
+  const [disabled] = useKnob('boolean', 'disabled', false);
 
-// storiesOf('Inputs and Controls', module)
-//   .add('Slider', () => (
-//     <Slider onChange={action('onChange')} onInput={action('onInput')} />
-//   ))
-//   .add('Slider Controlled', () => <SliderStory />);
+  return (
+    <Slider
+      value={value}
+      min={min}
+      max={max}
+      step={step}
+      foundationRef={console.log}
+      discrete={discrete}
+      displayMarkers={displayMarkers}
+      disabled={disabled}
+      onChange={(evt) => {
+        setValue(evt.detail.value);
+        action('onChange')(evt);
+      }}
+      onInput={(evt) => {
+        setValue(evt.detail.value);
+        action('onInput')(evt);
+      }}
+    />
+  );
+};

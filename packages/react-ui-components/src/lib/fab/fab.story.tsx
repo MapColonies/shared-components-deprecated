@@ -1,22 +1,23 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
+import { boolean } from '@storybook/addon-knobs';
+import { Fab } from './';
 
-// import { storiesOf } from '@storybook/react';
-// import { action } from '@storybook/addon-actions';
-// import { boolean } from '@storybook/addon-knobs';
-// import { Fab } from './';
+export default {
+  title: "Buttons",
+};
 
-// storiesOf('Buttons', module)
-//   .add('Fab', () => (
-//     <Fab
-//       mini={boolean('mini', false)}
-//       ripple={boolean('ripple', true)}
-//       onClick={action('onClick')}
-//     >
-//       favorite
-//     </Fab>
-//   ))
-//   .add('cssOnly Fab', () => (
-//     <Fab mini={boolean('mini', false)} onClick={action('onClick')}>
-//       favorite
-//     </Fab>
-//   ));
+export const _Fab = () => (
+    <Fab
+      mini={boolean('mini', false)}
+      ripple={boolean('ripple', true)}
+      onClick={action('onClick')}
+    >
+      favorite
+    </Fab>
+  );
+export const cssOnlyFab = () => (
+    <Fab mini={boolean('mini', false)} onClick={action('onClick')}>
+      favorite
+    </Fab>
+  );
