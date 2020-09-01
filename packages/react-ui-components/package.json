@@ -26,6 +26,7 @@
     "@types/rc-tooltip": "3.7.1",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.5",
     "classnames": "^2.2.6",
     "copyfiles": "2.3.0",
     "cross-env": "7.0.2",
@@ -33,6 +34,7 @@
     "rc-tooltip": "3.7.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "rimraf": "3.0.2",
     "typescript": "~3.7.2"
@@ -44,6 +46,8 @@
     "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
     "eject": "react-scripts eject",
     "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
+    "storybook": "start-storybook -p 9011 -s public",
+    "build-storybook": "build-storybook -s public",
     "eslint-check": "npx eslint . --ext .ts,.tsx"
   },
   "browserslist": {
