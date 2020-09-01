@@ -21,6 +21,6 @@
   },
   "include": [
     "packages/react-components",
-    "packages/react-ui-components"
+    "packages/react-ui-components",
   ]
 }
