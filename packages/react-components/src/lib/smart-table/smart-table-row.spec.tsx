@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { IconButton, Collapse, TableCell, TableRow } from '@material-ui/core';
 import { SmartTableRow } from './smart-table-row';
 import { items, headCells } from './__mock-data__/smartTableMocks';
-import { IconButton, Collapse, TableCell, TableRow } from '@material-ui/core';
 
 const item = items[0];
 

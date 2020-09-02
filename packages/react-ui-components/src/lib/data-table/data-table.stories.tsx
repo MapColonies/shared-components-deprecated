@@ -10,18 +10,18 @@ import {
   DataTableHeadCell,
   DataTableRow,
   DataTableHead,
-  SimpleDataTable
+  SimpleDataTable,
 } from '.';
 
 export default {
-  title: "DataTable",
+  title: 'DataTable',
   component: DataTable,
-  subcomponents: { 
+  subcomponents: {
     DataTableCell,
     DataTableHeadCell,
     DataTableRow,
-    SimpleDataTable 
-  }
+    SimpleDataTable,
+  },
 };
 
 export const SimpleTable = () => (
@@ -30,9 +30,7 @@ export const SimpleTable = () => (
       <DataTableHead>
         <DataTableRow>
           <DataTableHeadCell alignStart>Item</DataTableHeadCell>
-          <DataTableHeadCell alignMiddle>
-            Quantity (Click Me)
-          </DataTableHeadCell>
+          <DataTableHeadCell alignMiddle>Quantity (Click Me)</DataTableHeadCell>
           <DataTableHeadCell alignEnd>Unit price</DataTableHeadCell>
         </DataTableRow>
       </DataTableHead>
@@ -97,7 +95,7 @@ export const ControlledPropMutatingSort = () => {
       </DataTable>
     </>
   );
-}
+};
 
 export const WithFormControls = () => {
   const [checked, setChecked] = React.useState<{ [index: number]: boolean }>(
@@ -148,7 +146,7 @@ export const WithFormControls = () => {
       </DataTableContent>
     </DataTable>
   );
-}
+};
 
 export const SimplifiedUsage = () => (
   <SimpleDataTable
@@ -169,7 +167,7 @@ export const SimplifiedUsage = () => (
       ['Icecream', 3, '1.43'],
       ['Candy', 72, '$22.45'],
       ['Cakes', 101, '$215.05'],
-      ['Muffins', 3, '$5.97']
+      ['Muffins', 3, '$5.97'],
     ]}
   />
 );

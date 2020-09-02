@@ -8,7 +8,7 @@ import {
   TopAppBarActionItem,
   TopAppBarTitle,
   SimpleTopAppBar,
-  TopAppBarProps
+  TopAppBarProps,
 } from './';
 
 const TopAppBarStory = (props: TopAppBarProps) => (
@@ -53,7 +53,7 @@ function NestedTopAppBar() {
         height: '300px',
         boxSizing: 'border-box',
         background: 'red',
-        overflowY: 'auto'
+        overflowY: 'auto',
       }}
     >
       <TopAppBarStory scrollTarget={el} />
@@ -69,7 +69,7 @@ export default {
     TopAppBarSection,
     TopAppBarNavigationIcon,
     TopAppBarActionItem,
-  }
+  },
 };
 
 export const Standard = () => (
@@ -83,7 +83,7 @@ export const Standard = () => (
     </TopAppBar>
     <div style={{ height: '300vh' }} />
   </div>
-)
+);
 export const Fixed = () => <TopAppBarStory fixed />;
 
 export const Dense = () => <TopAppBarStory dense />;
@@ -104,7 +104,7 @@ export const _SimpleTopAppBar = () => (
       actionItems={[
         { onClick: () => console.log('Do Something'), use: 'file_download' },
         { onClick: () => console.log('Do Something'), use: 'print' },
-        { onClick: () => console.log('Do Something'), use: 'bookmark' }
+        { onClick: () => console.log('Do Something'), use: 'bookmark' },
       ]}
     />
   </div>

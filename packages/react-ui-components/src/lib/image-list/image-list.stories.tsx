@@ -29,14 +29,19 @@ const images = [
 
 export default {
   title: 'ImageList',
-  component: ImageList
+  component: ImageList,
 };
 
 export const Default = () => (
   <ImageList withTextProtection={boolean('withTextProtection', false)}>
     {images.map((src) => (
-      <ImageListItem key={src} style={{ margin: '2px', width: 'calc(100% / 5 - 4.2px)' }}>
-        <ImageListImageAspectContainer style={{ paddingBottom: 'calc(100% / 1.5)' }}>
+      <ImageListItem
+        key={src}
+        style={{ margin: '2px', width: 'calc(100% / 5 - 4.2px)' }}
+      >
+        <ImageListImageAspectContainer
+          style={{ paddingBottom: 'calc(100% / 1.5)' }}
+        >
           <ImageListImage src={src} />
         </ImageListImageAspectContainer>
         <ImageListSupporting>

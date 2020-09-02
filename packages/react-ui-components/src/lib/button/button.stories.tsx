@@ -6,9 +6,9 @@ import { Button } from './';
 import { Fab } from '../fab';
 
 export default {
-  title: "Buttons",
+  title: 'Buttons',
   component: Button,
-  subcomponents: { Fab }
+  subcomponents: { Fab },
 };
 
 export const _Button = () => (

@@ -12,7 +12,7 @@ const rippleStyle = {
 
 export default {
   title: 'Ripples',
-  component: Ripple
+  component: Ripple,
 };
 
 export const _Ripple = () => (

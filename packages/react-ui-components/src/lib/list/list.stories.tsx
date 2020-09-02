@@ -16,8 +16,8 @@ export default {
   subcomponents: {
     ListItem,
     ListItemGraphic,
-    ListItemMeta
-  }
+    ListItemMeta,
+  },
 };
 
 export const _List = () => (

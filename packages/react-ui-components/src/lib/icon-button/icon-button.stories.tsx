@@ -3,9 +3,14 @@ import { IconButton } from './';
 
 export default {
   title: 'IconButtons',
-  component: IconButton
+  component: IconButton,
 };
 
 export const _IconButton = () => (
-  <IconButton icon="star" onIcon="favorite_border" label="Rate this!" foundationRef={console.log} />
+  <IconButton
+    icon="star"
+    onIcon="favorite_border"
+    label="Rate this!"
+    foundationRef={console.log}
+  />
 );

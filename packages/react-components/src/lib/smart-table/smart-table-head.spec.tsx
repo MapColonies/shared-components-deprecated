@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SmartEnhancedTableHead } from './smart-table-head';
 import { TableCell, TableSortLabel } from '@material-ui/core';
+import { SmartEnhancedTableHead } from './smart-table-head';
 import { headCells } from './__mock-data__/smartTableMocks';
 
 it('generates the correct number of table cells', () => {

@@ -8,7 +8,7 @@ import {
   DialogButton,
   SimpleDialog,
   createDialogQueue,
-  DialogQueue
+  DialogQueue,
 } from './';
 import { useKnob } from '../base/utils/use-knob';
 import { Button } from '../button';
@@ -16,13 +16,13 @@ import { Button } from '../button';
 const { dialogs, alert, confirm, prompt } = createDialogQueue();
 
 export default {
-  title: "Dialogs",
+  title: 'Dialogs',
   component: Dialog,
-  subcomponents: { 
+  subcomponents: {
     DialogButton,
     SimpleDialog,
-    DialogQueue
-  }
+    DialogQueue,
+  },
 };
 
 export const _Dialog = () => {
@@ -73,15 +73,13 @@ export const _SimpleDialog = () => {
       cancelLabel={cancelLabel}
     />
   );
-}
+};
 
 export const _DialogQueue = () => {
   const fireAlert = () => alert({}).then((res) => console.log(res));
   const fireConfirm = () => confirm({}).then((res) => console.log(res));
   const firePrompt = () =>
-    prompt({ inputProps: { outlined: true } }).then((res) =>
-      console.log(res)
-    );
+    prompt({ inputProps: { outlined: true } }).then((res) => console.log(res));
 
   return (
     <>

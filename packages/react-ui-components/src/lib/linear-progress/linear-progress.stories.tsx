@@ -4,7 +4,7 @@ import { LinearProgress } from './';
 
 export default {
   title: 'Progress',
-  component: LinearProgress
+  component: LinearProgress,
 };
 
 export const _LinearProgress = () => (

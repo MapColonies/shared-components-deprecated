@@ -50,7 +50,7 @@ export const Bug538 = () => {
       </Dialog>
     </div>
   );
-}
+};
 
 export const Bug515 = () => {
   const [disabled, setDisabled] = React.useState(false);
@@ -63,35 +63,49 @@ export const Bug515 = () => {
     <React.Fragment>
       <Typography use="headline4">RMWC Sandbox</Typography>
       <Typography use="subtitle1" tag="p">
-        Buttons using state for disabled remain focused when enabled. Steps to reproduce:
+        Buttons using state for disabled remain focused when enabled. Steps to
+        reproduce:
       </Typography>
       <Typography use="body1">
         <ul>
           <li>Cick each button.</li>
           <li>Buttons 3 and 4 remain selected when they are enabled.</li>
           <li>Buttons 1 and 2 do not.</li>
-          <li>Only difference is the disabled flag being set by state: disabled.</li>
+          <li>
+            Only difference is the disabled flag being set by state: disabled.
+          </li>
         </ul>
       </Typography>
       <Button label="Button 1" onClick={() => switchDisabled()} />
       <Button label="Button 2" onClick={() => switchDisabled()} />
-      <Button label="Button 3" disabled={disabled} onClick={() => switchDisabled()} />
-      <Button label="Button 4" disabled={disabled} onClick={() => switchDisabled()} />
+      <Button
+        label="Button 3"
+        disabled={disabled}
+        onClick={() => switchDisabled()}
+      />
+      <Button
+        label="Button 4"
+        disabled={disabled}
+        onClick={() => switchDisabled()}
+      />
     </React.Fragment>
   );
-}
+};
 
 const queue = createSnackbarQueue();
 export const Bug560 = () => {
   return (
     <React.Fragment>
-      <Button raised onClick={() => queue.notify({ title: 'Hi there', dismissIcon: true })}>
+      <Button
+        raised
+        onClick={() => queue.notify({ title: 'Hi there', dismissIcon: true })}
+      >
         Notify
       </Button>
       <SnackbarQueue messages={queue.messages} />
     </React.Fragment>
   );
-}
+};
 
 export const Bug567 = () => {
   return (
@@ -101,7 +115,7 @@ export const Bug567 = () => {
       </ThemeProvider>
     </React.Fragment>
   );
-}
+};
 
 export const Bug594 = () => {
   const [value, setValue] = React.useState('');
@@ -112,45 +126,46 @@ export const Bug594 = () => {
       <Select options={['A', 'B', 'C']} value={value} />
     </div>
   );
-}
+};
 
 export const Hz8pr = () => (
-    <React.Fragment>
-      <Typography use="headline4">RMWC Sandbox</Typography>
-      <Typography use="subtitle1" tag="p">
-        If you are reproducing an issue...
-      </Typography>
-      <Typography use="body1">
-        <ul>
-          <li>
-            On the left hand panel, go to dependencies and select exact versions of components and
-            React that you are using.
-          </li>
-          <li>Please reproduce your issue as clearly and concisely as possible</li>
-          <li>Leave comments 🤓</li>
-        </ul>
-      </Typography>
-      <Button raised icon="favorite">
-        Button
-      </Button>
-      <Select
-        label="Enhanced"
-        enhanced
-        options={[
-          {
-            label: <b>Cookies</b>,
-            value: 'Cookies',
-          },
-          {
-            label: <i>Span</i>,
-            value: 'Pizza',
-          },
-          {
-            label: <i>Icecream</i>,
-            value: 'Icecream',
-          },
-        ]}
-      />
-    </React.Fragment>
-  );
-
+  <React.Fragment>
+    <Typography use="headline4">RMWC Sandbox</Typography>
+    <Typography use="subtitle1" tag="p">
+      If you are reproducing an issue...
+    </Typography>
+    <Typography use="body1">
+      <ul>
+        <li>
+          On the left hand panel, go to dependencies and select exact versions
+          of components and React that you are using.
+        </li>
+        <li>
+          Please reproduce your issue as clearly and concisely as possible
+        </li>
+        <li>Leave comments 🤓</li>
+      </ul>
+    </Typography>
+    <Button raised icon="favorite">
+      Button
+    </Button>
+    <Select
+      label="Enhanced"
+      enhanced
+      options={[
+        {
+          label: <b>Cookies</b>,
+          value: 'Cookies',
+        },
+        {
+          label: <i>Span</i>,
+          value: 'Pizza',
+        },
+        {
+          label: <i>Icecream</i>,
+          value: 'Icecream',
+        },
+      ]}
+    />
+  </React.Fragment>
+);

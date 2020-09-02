@@ -8,19 +8,19 @@ import {
   CardActionButtons,
   CardActionIcons,
   CardActionIcon,
-  CardActionButton
+  CardActionButton,
 } from './';
 import { Typography } from '../typography';
 import { ListDivider } from '../list';
 import { Icon } from '../icon';
 
 export default {
-  title: "Cards",
+  title: 'Cards',
   component: Card,
-  subcomponents: { 
+  subcomponents: {
     CardMedia,
     CardActions,
-    CardActionButton, 
+    CardActionButton,
     CardActionIcon,
   },
 };
@@ -32,7 +32,7 @@ export const FullFeatured = () => (
         sixteenByNine
         style={{
           backgroundImage:
-            'url(https://material-components-web.appspot.com/images/16-9.jpg)'
+            'url(https://material-components-web.appspot.com/images/16-9.jpg)',
         }}
       />
       <div style={{ padding: '0 1rem 1rem 1rem' }}>
@@ -48,8 +48,8 @@ export const FullFeatured = () => (
           by Kurt Wagner
         </Typography>
         <Typography use="body1" tag="div" theme="textSecondaryOnBackground">
-          Visit ten places on our planet that are undergoing the biggest
-          changes today.
+          Visit ten places on our planet that are undergoing the biggest changes
+          today.
         </Typography>
       </div>
     </CardPrimaryAction>
@@ -113,8 +113,8 @@ export const Article = () => (
           Asia's clean energy ambitions
         </Typography>
         <Typography use="body1" tag="p" theme="textSecondaryOnBackground">
-          China plans to invest billions of dollars for the development of
-          over 300 clean energy projects in Southeast Asia.
+          China plans to invest billions of dollars for the development of over
+          300 clean energy projects in Southeast Asia.
         </Typography>
       </div>
     </CardPrimaryAction>
@@ -136,7 +136,7 @@ export const Mini = () => (
         square
         style={{
           backgroundImage:
-            'url(https://material-components-web.appspot.com/images/1-1.jpg)'
+            'url(https://material-components-web.appspot.com/images/1-1.jpg)',
         }}
       >
         <CardMediaContent>
@@ -151,7 +151,7 @@ export const Mini = () => (
               bottom: '0',
               left: '0',
               right: '0',
-              position: 'absolute'
+              position: 'absolute',
             }}
           >
             Vacation Photos

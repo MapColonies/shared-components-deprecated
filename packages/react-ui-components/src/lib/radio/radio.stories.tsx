@@ -1,31 +1,24 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
+import { Radio } from './';
 import { useKnob } from '../base/utils/use-knob';
-import { Checkbox } from './';
-import { Radio } from '../radio';
-import { Slider } from '../slider';
-import { Switch } from '../switch';
 
 export default {
-  title: "Inputs and Controls",
-  component: Checkbox,
-  subcomponents: { Radio, Slider, Switch}
+  title: 'Inputs and Controls',
 };
 
-export const _CheckBox = () => {
+export const _Radio = () => {
   const [checked, setChecked] = useKnob('boolean', 'checked', false);
-  const [indeterminate] = useKnob('boolean', 'indeterminate', false);
   const [disabled] = useKnob('boolean', 'disabled', false);
   const [value] = useKnob('text', 'value', 'myValue');
   const [label] = useKnob('text', 'label', 'Hello World');
 
   return (
-    <Checkbox
+    <Radio
       disabled={disabled}
       checked={checked}
-      indeterminate={indeterminate}
       value={value}
-      foundationRef={(ref) => console.log(ref)}
+      foundationRef={console.log}
       onChange={(evt) => {
         setChecked(evt.currentTarget.checked);
         action(
@@ -35,4 +28,4 @@ export const _CheckBox = () => {
       label={label}
     />
   );
-}
+};

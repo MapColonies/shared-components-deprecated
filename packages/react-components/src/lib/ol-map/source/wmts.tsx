@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useTileLayer } from '../layers/tile-layer';
 import { WMTS } from 'ol/source';
 import { Options } from 'ol/source/WMTS';
 import { get as getProjection } from 'ol/proj';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
 import { getTopLeft, getWidth } from 'ol/extent';
+import { useTileLayer } from '../layers/tile-layer';
 
 const RESOLUTIONS = 14,
   TILE_GRANULARITY = 256,

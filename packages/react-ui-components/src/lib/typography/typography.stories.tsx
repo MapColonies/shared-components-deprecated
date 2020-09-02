@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from './';
+import { Typography } from '.';
 
 function TypographyRef() {
   const ref1 = React.useRef(null);
@@ -25,7 +25,7 @@ function TypographyRef() {
 
 export default {
   title: 'Typography',
-  component: Typography
+  component: Typography,
 };
 
 export const _Typography = () => (

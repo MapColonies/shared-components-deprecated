@@ -9,7 +9,7 @@ class TabBarStory extends React.Component {
     withScroller: false,
     activeTabIndex: 0,
     tabs: ['Cookies', 'Pizza', 'Icecream'],
-    icons: ['star', 'favorite', 'info']
+    icons: ['star', 'favorite', 'info'],
   };
 
   onToggleWithScroller(evt: any) {
@@ -23,14 +23,14 @@ class TabBarStory extends React.Component {
   }
   onChangeTabNames(evt: any) {
     const state = {
-      tabs: this.state.tabs.map((label, index) => index)
+      tabs: this.state.tabs.map((label, index) => index),
     };
     this.setState(state);
     action('onChangeTabNames: ' + JSON.stringify(state))();
   }
   onAddTab(evt: any) {
     const state = {
-      tabs: [...this.state.tabs, `Dynamic Tab #${this.state.tabs.length + 1}`]
+      tabs: [...this.state.tabs, `Dynamic Tab #${this.state.tabs.length + 1}`],
     };
 
     this.setState(state);
@@ -40,7 +40,7 @@ class TabBarStory extends React.Component {
   onRemoveLastTab(evt: any) {
     const init = this.state.tabs.slice(0, -1);
     const state = {
-      tabs: init
+      tabs: init,
     };
 
     this.setState(state);
@@ -127,9 +127,9 @@ class TabBarStory extends React.Component {
 export default {
   title: 'Tabs',
   component: Tab,
-  subcomponents:{
-    TabBar
-  }
+  subcomponents: {
+    TabBar,
+  },
 };
 
 export const _TabBar = () => <TabBarStory />;
@@ -166,8 +166,8 @@ export const TabBarIconIndicators = () => (
         icon: 'star',
         style: {
           transformOrigin: 'center center',
-          transform: 'translateY(1rem) scale(0.5)'
-        }
+          transform: 'translateY(1rem) scale(0.5)',
+        },
       }}
     />
     <Tab
@@ -176,8 +176,8 @@ export const TabBarIconIndicators = () => (
         icon: 'favorite',
         style: {
           transformOrigin: 'center center',
-          transform: 'translateY(1rem) scale(0.5)'
-        }
+          transform: 'translateY(1rem) scale(0.5)',
+        },
       }}
     />
     <Tab
@@ -186,8 +186,8 @@ export const TabBarIconIndicators = () => (
         icon: 'mood',
         style: {
           transformOrigin: 'center center',
-          transform: 'translateY(1rem) scale(0.5)'
-        }
+          transform: 'translateY(1rem) scale(0.5)',
+        },
       }}
     />
   </TabBar>

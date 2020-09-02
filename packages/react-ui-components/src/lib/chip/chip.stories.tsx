@@ -3,7 +3,7 @@ import { Chip, ChipSet } from '.';
 
 class ChipFiltering extends React.Component {
   state = {
-    selected: new Set()
+    selected: new Set(),
   };
 
   toggle(value: any) {
@@ -45,9 +45,9 @@ class ChipFiltering extends React.Component {
 }
 
 export default {
-  title: "Chips",
+  title: 'Chips',
   component: Chip,
-  subcomponents: { ChipSet }
+  subcomponents: { ChipSet },
 };
 
 export const _Chip = () => (

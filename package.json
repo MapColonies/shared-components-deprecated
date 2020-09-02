@@ -29,7 +29,12 @@
       "project": "./tsconfig.json"
     }
   },
-  "eslintIgnore": ["**/demoapp-react/**", "**/node_modules/**", "packages/react-ui-components/**", "**/dist/**"],
+  "eslintIgnore": [
+    "**/demoapp-react/**",
+    "**/node_modules/**",
+    "packages/react-ui-components/**",
+    "**/dist/**"
+  ],
   "scripts": {
     "del-dist": "npx lerna exec --parallel -- del-cli dist",
     "prebuild": "yarn del-dist",
@@ -45,6 +50,9 @@
     "prettier:check": "prettier --check ."
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@map-colonies/eslint-config": "^1.1.0",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-docs": "^6.0.21",
     "@storybook/addon-knobs": "^6.0.21",
@@ -54,10 +62,6 @@
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.21",
     "@storybook/theming": "^6.0.21",
-    "storybook-dark-mode": "^1.0.0",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@map-colonies/eslint-config": "^1.0.3",
     "commitlint": "^9.1.0",
     "cz-conventional-changelog": "^3.2.0",
     "del-cli": "^3.0.1",
@@ -70,6 +74,7 @@
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
     "prettier": "^2.1.0",
-    "standard-version": "^8.0.2"
+    "standard-version": "^8.0.2",
+    "storybook-dark-mode": "^1.0.0"
   }
 }

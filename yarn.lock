@@ -2513,10 +2513,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@map-colonies/eslint-config@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@map-colonies/eslint-config/-/eslint-config-1.0.3.tgz#5727f23d3df3279988b0d16cc895f0a9194fc272"
-  integrity sha512-R+Io+QB0JLOHUCsgbkgWnl4nIGWwqaGjPz/5O4ja9plYYRuZtxkGuMSjueXS2WvcLbQ8jDK9V7WXHS1bShKYmQ==
+"@map-colonies/eslint-config@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@map-colonies/eslint-config/-/eslint-config-1.1.0.tgz#0878bb0497d0a3807f26de2798d6a8f721d4a73d"
+  integrity sha512-CKKcgyB0lcwzgrV5Q4/OeUiqp/1ouLWoF40pNQ+6C0IqQQUZ4/VWiQd0jU19WhrwDPWHHqcxzcSBoibUNWy8OA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "3.6.1"
     "@typescript-eslint/parser" "3.6.1"

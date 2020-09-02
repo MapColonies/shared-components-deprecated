@@ -6,7 +6,7 @@ import { useKnob } from '../base/utils/use-knob';
 
 class MenuStory extends React.Component {
   state = {
-    open: false
+    open: false,
   };
   render() {
     return (
@@ -36,7 +36,7 @@ class MenuStory extends React.Component {
                 'topEnd',
                 'topLeft',
                 'topRight',
-                'topStart'
+                'topStart',
               ],
               'topStart'
             ) as any
@@ -56,7 +56,7 @@ class MenuStory extends React.Component {
 
 class MenuSurfaceStory extends React.Component {
   state = {
-    open: false
+    open: false,
   };
   render() {
     return (
@@ -84,7 +84,7 @@ class MenuSurfaceStory extends React.Component {
                 'topEnd',
                 'topLeft',
                 'topRight',
-                'topStart'
+                'topStart',
               ],
               'topStart'
             ) as any
@@ -108,7 +108,7 @@ function MenuHoist() {
   const [options] = useKnob('array', 'options', [
     'Cookies',
     'Pizza',
-    'Icecream'
+    'Icecream',
   ]);
 
   return (
@@ -125,14 +125,11 @@ function MenuHoist() {
         <Menu
           open={open}
           renderToPortal={hoisted}
-          onSelect={evt => setSelected(evt.detail.index)}
+          onSelect={(evt) => setSelected(evt.detail.index)}
           onClose={() => setOpen(false)}
         >
           {options.map((o: string, index: number) => (
-            <MenuItem
-              key={o}
-              activated={selected === index}
-            >
+            <MenuItem key={o} activated={selected === index}>
               {o}
             </MenuItem>
           ))}
@@ -143,12 +140,12 @@ function MenuHoist() {
 }
 
 export default {
-  title: "Menus",
+  title: 'Menus',
   component: Menu,
   subcomponents: {
     MenuItem,
-    MenuSurface
-  }
+    MenuSurface,
+  },
 };
 
 export const _Menu = () => <MenuStory />;

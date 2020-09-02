@@ -11,7 +11,7 @@ const cellStyle = {
 export default {
   title: 'Grids',
   component: Grid,
-  subcomponents: { GridCell }
+  subcomponents: { GridCell },
 };
 
 export const _Grid = () => {

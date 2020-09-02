@@ -8,12 +8,12 @@ const elevationStyle = {
   display: 'inline-block',
   width: '96px',
   height: '96px',
-  verticalAlign: 'top'
+  verticalAlign: 'top',
 };
 
 class HoverElevation extends React.Component {
   state = {
-    elevation: 0
+    elevation: 0,
   };
 
   render() {
@@ -32,8 +32,8 @@ class HoverElevation extends React.Component {
 }
 
 export default {
-  title: "Elevation",
-  component: Elevation
+  title: 'Elevation',
+  component: Elevation,
 };
 
 export const _Elevation = () => (

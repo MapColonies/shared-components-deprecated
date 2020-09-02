@@ -7,7 +7,9 @@ export default {
   component: DateTimeRangePicker,
 };
 
-export const DateTime = () => <DateTimeRangePicker onChange={action('date changed')}/>;
+export const DateTime = () => (
+  <DateTimeRangePicker onChange={action('date changed')} />
+);
 
 DateTime.story = {
   name: 'Date time range',

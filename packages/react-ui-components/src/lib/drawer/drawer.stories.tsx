@@ -6,7 +6,7 @@ import {
   DrawerHeader,
   DrawerContent,
   DrawerTitle,
-  DrawerSubtitle
+  DrawerSubtitle,
 } from './';
 import { List, ListItem, ListItemGraphic } from '../list';
 import { useKnob } from '../base/utils/use-knob';
@@ -16,7 +16,7 @@ const menuItems = [
   { displayName: 'Home', icon: 'home' },
   { displayName: 'Profile', icon: 'account_circle' },
   { displayName: 'About', icon: 'info' },
-  { displayName: 'Contact', icon: 'phone' }
+  { displayName: 'Contact', icon: 'phone' },
 ];
 
 const ListItems = (props: any) => (
@@ -31,8 +31,8 @@ const ListItems = (props: any) => (
 );
 
 export default {
-  title: "Drawers",
-  component: Drawer
+  title: 'Drawers',
+  component: Drawer,
 };
 
 export const _Drawer = () => {

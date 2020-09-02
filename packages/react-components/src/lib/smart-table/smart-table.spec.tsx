@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { TableRow } from '@material-ui/core';
 import { SmartTable } from './smart-table';
 import { headCells, items } from './__mock-data__/smartTableMocks';
-import { TableRow } from '@material-ui/core';
 import { SmartTableRow } from './smart-table-row';
 import { SmartEnhancedTableHead } from './smart-table-head';
 

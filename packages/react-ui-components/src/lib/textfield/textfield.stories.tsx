@@ -33,7 +33,9 @@ class TextFieldUncontrolledStory extends React.Component {
     return (
       <div>
         <TextField label="Hello" />
-        <button onClick={() => this.setState({ counter: this.state.counter + 1 })}>
+        <button
+          onClick={() => this.setState({ counter: this.state.counter + 1 })}
+        >
           Force Re-render {this.state.counter}
         </button>
       </div>
@@ -43,7 +45,7 @@ class TextFieldUncontrolledStory extends React.Component {
 
 export default {
   title: 'TextField',
-  component: TextField
+  component: TextField,
 };
 
 export const TextFieldControlled = () => <TextFieldStory />;
@@ -61,5 +63,7 @@ export const Changing = function () {
     }, 2000);
   }, []);
 
-  return <TextField label="Controlled" value={value} outlined onChange={() => {}} />;
+  return (
+    <TextField label="Controlled" value={value} outlined onChange={() => {}} />
+  );
 };

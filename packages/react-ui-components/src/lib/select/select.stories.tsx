@@ -14,7 +14,7 @@ function MutatingSelect(props: any) {
   const [options] = useKnob('array', 'options', [
     'Cookies',
     'Pizza',
-    'Icecream'
+    'Icecream',
   ]);
 
   return (
@@ -82,7 +82,7 @@ function EnhancedSelect() {
         <Select
           label={'Manual Enhanced'}
           enhanced={{
-            anchorCorner: 'bottomStart'
+            anchorCorner: 'bottomStart',
           }}
           onChange={(evt) => {
             console.log('onChange', evt.currentTarget.value);
@@ -140,24 +140,24 @@ function EnhancedSelect() {
             options: [
               {
                 label: 'Pizza',
-                value: '2'
-              }
-            ]
+                value: '2',
+              },
+            ],
           },
           {
             label: 'Dessert',
             options: [
               {
                 label: 'Cookies',
-                value: '1'
+                value: '1',
               },
 
               {
                 label: 'Icecream',
-                value: '3'
-              }
-            ]
-          }
+                value: '3',
+              },
+            ],
+          },
         ]}
       />
     </div>
@@ -169,16 +169,16 @@ function ControlledSelect() {
   const opts = [
     {
       label: 'Cookies',
-      value: '1'
+      value: '1',
     },
     {
       label: 'Pizza',
-      value: '2'
+      value: '2',
     },
     {
       label: 'Icecream',
-      value: '3'
-    }
+      value: '3',
+    },
   ];
 
   const opts2 = ['Cookies', 'Pizza', 'Icecream'];
@@ -233,27 +233,23 @@ function ControlledSelect() {
 }
 
 function EnhancedSelectWithPortal(props: any) {
-  const [value, setValue] = useKnob('text', 'value', "Cookies");
+  const [value, setValue] = useKnob('text', 'value', 'Cookies');
 
   return (
     <>
-      <Portal/>
+      <Portal />
       <Select
         label={'Enhanced with Portal'}
         enhanced={{
-          renderToPortal: true
+          renderToPortal: true,
         }}
         value={value}
         onChange={(evt) => {
           const value = evt.currentTarget.value;
           console.log('onChange', value);
-          setValue(value === undefined ? "undefined" : value);
+          setValue(value === undefined ? 'undefined' : value);
         }}
-        options={[
-          'Cookies',
-          'Pizza',
-          'Icecream'
-        ]}
+        options={['Cookies', 'Pizza', 'Icecream']}
       />
     </>
   );
@@ -261,7 +257,7 @@ function EnhancedSelectWithPortal(props: any) {
 
 export default {
   title: 'Select',
-  component: Select
+  component: Select,
 };
 
 export const SelectWithObject = () => (
@@ -270,14 +266,14 @@ export const SelectWithObject = () => (
     placeholder={text('placeholder', 'Select a Food')}
     options={object('options', { 1: 'Cookies', 2: 'Pizza', 3: 'Icecream' })}
   />
-)
+);
 export const SelectWithArray = () => (
   <Select
     label={text('label', 'Foods')}
     placeholder={text('placeholder', 'Select a Food')}
     options={array('options', ['Cookies', 'Pizza', 'Icecream'])}
   />
-)
+);
 
 export const SelectAll = () => <EnhancedSelect />;
 
@@ -286,7 +282,7 @@ export const SelectEnhanced = () => (
     <Select
       label={'Manual Enhanced'}
       enhanced={{
-        anchorCorner: 'bottomStart'
+        anchorCorner: 'bottomStart',
       }}
       onChange={(evt) => {
         console.log('onChange', evt.currentTarget.value);
@@ -299,8 +295,8 @@ export const SelectEnhanced = () => (
       </MenuItems>
     </Select>
   </div>
-)
-export const SelectEnhancedWithPortal = () => <EnhancedSelectWithPortal/>;
+);
+export const SelectEnhancedWithPortal = () => <EnhancedSelectWithPortal />;
 
 export const SelectWithoutPlaceholder = () => (
   <Select
@@ -340,7 +336,7 @@ export const _ControlledSelect = () => <ControlledSelect />;
 
 export const _MutatingSelect = () => <MutatingSelect />;
 
-export const AutoFocus  = () => (
+export const AutoFocus = () => (
   <Select
     label="Autofocus"
     autoFocus

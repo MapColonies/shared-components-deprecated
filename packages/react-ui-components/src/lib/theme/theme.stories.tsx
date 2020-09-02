@@ -15,7 +15,7 @@ const themeStyle = {
 
 export default {
   title: 'Theme',
-  component: Theme
+  component: Theme,
 };
 
 export const _Theme = () => (

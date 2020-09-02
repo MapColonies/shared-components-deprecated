@@ -4,7 +4,7 @@ import { Avatar } from '../avatar';
 
 export default {
   title: 'Tooltips',
-  component: Tooltip
+  component: Tooltip,
 };
 
 export const _Tooltip = () => (
