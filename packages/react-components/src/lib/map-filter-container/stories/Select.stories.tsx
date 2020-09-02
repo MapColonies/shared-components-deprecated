@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
-import { PolygonSelectionUi } from '../polygon-selection-ui';
 import { action } from '@storybook/addon-actions';
+import { PolygonSelectionUi } from '../polygon-selection-ui';
 import { DrawType } from '../../models';
 
 export default {
-    title: 'Select',
-    component: PolygonSelectionUi,
+  title: 'Select',
+  component: PolygonSelectionUi,
 };
 
-export const PolygonBox = () => {    
-    const [active, setActive] = useState(false); 
-    
-    const handleStartDraw = (type: DrawType) => {
-        setActive(true);
-        action('draw started')(type);
-    };
-    
-    const handleCancelDraw = () => {
-        setActive(false);
-        action('draw canceled')();
-    };
+export const PolygonBox = () => {
+  const [active, setActive] = useState(false);
 
-    return <PolygonSelectionUi 
-    isSelectionEnabled={active} 
-    onStartDraw={handleStartDraw}
-    onCancelDraw={handleCancelDraw}
-    onReset={action('cleared')}/>;
-}
+  const handleStartDraw = (type: DrawType) => {
+    setActive(true);
+    action('draw started')(type);
+  };
+
+  const handleCancelDraw = () => {
+    setActive(false);
+    action('draw canceled')();
+  };
+
+  return (
+    <PolygonSelectionUi
+      isSelectionEnabled={active}
+      onStartDraw={handleStartDraw}
+      onCancelDraw={handleCancelDraw}
+      onReset={action('cleared')}
+    />
+  );
+};
 
 PolygonBox.story = {
-    name: 'Shape',
+  name: 'Shape',
 };

@@ -1,0 +1,32 @@
+name: Test and Upload Reports
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install yarn
+        run: |
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends yarn
+
+      - name: Test
+        run: yarn test
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Test Reporters
+          path: packages/**/jest_html_reporters.html
