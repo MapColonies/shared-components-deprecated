@@ -8,7 +8,6 @@ const TileLayerProvider = tileLayerContext.Provider;
 
 interface TileLayerProps {
   options?: Options;
-  children?: React.ReactNode;
 }
 
 export const useTileLayer = (): Tile => {
@@ -21,9 +20,8 @@ export const useTileLayer = (): Tile => {
   return layer;
 };
 
-export const TileLayer: React.FC<TileLayerProps> = (props: TileLayerProps) => {
+export const TileLayer: React.FC<TileLayerProps> = ({options, children}) => {
   const map = useMap();
-  const {options, children} = props;
   const [tileLayer] = useState(new Tile(options));
 
   useEffect(() => {
