@@ -1,14 +1,11 @@
 import React from 'react';
+import { IconButton } from './';
 
-// import { storiesOf } from '@storybook/react';
+export default {
+  title: 'IconButtons',
+  component: IconButton
+};
 
-// import { IconButton } from './';
-
-// storiesOf('IconButtons', module).add('IconButton', () => (
-//   <IconButton
-//     icon="star"
-//     onIcon="favorite_border"
-//     label="Rate this!"
-//     foundationRef={console.log}
-//   />
-// ));
+export const _IconButton = () => (
+  <IconButton icon="star" onIcon="favorite_border" label="Rate this!" foundationRef={console.log} />
+);

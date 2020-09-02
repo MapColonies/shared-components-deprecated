@@ -1,14 +1,16 @@
 import React from 'react';
+import { ListItem, ListItemGraphic } from '../list';
 
-// import { storiesOf } from '@storybook/react';
-// import { ListItem, ListItemGraphic } from '../list';
+export default {
+  title: 'Base',
+};
 
-// storiesOf('Base', module).add('simpleTag elementRef', () => {
-//   const Link = ({ to, ...rest }: any) => <a href="#" {...rest} />;
-//   return (
-//     <ListItem tag={Link} {...{ to: '/' }}>
-//       <ListItemGraphic icon="home" />
-//       Home
-//     </ListItem>
-//   );
-// });
+export const SimpleTagElementRef = () => {
+  // const Link = ({ to, ...rest }: any) => <a href="#" {...rest} />;
+  return (
+    <ListItem>{/*tag={Link} {...{ to: '/' }}>*/}
+      <ListItemGraphic icon="home" />
+      Home
+    </ListItem>
+  );
+};

@@ -1,27 +1,30 @@
 import React from 'react';
+import { Tooltip } from './';
+import { Avatar } from '../avatar';
 
-// import { storiesOf } from '@storybook/react';
-// import { Tooltip } from './';
-// import { Avatar } from '../avatar';
+export default {
+  title: 'Tooltips',
+  component: Tooltip
+};
 
-// storiesOf('Tooltips', module)
-//   .add('Tooltip', () => (
-//     <Tooltip content="Test Tooltip">
-//       <a href="#" style={{ margin: '4rem', display: 'inline-block' }}>
-//         hover
-//       </a>
-//     </Tooltip>
-//   ))
-//   .add('Tooltip with rich content', () => (
-//     <Tooltip
-//       content={
-//         <div>
-//           <Avatar size="xsmall" name="James Friedman" /> James Friedman
-//         </div>
-//       }
-//     >
-//       <a href="#" style={{ margin: '4rem', display: 'inline-block' }}>
-//         Rich Content
-//       </a>
-//     </Tooltip>
-//   ));
+export const _Tooltip = () => (
+  <Tooltip content="Test Tooltip">
+    <a href="#" style={{ margin: '4rem', display: 'inline-block' }}>
+      hover
+    </a>
+  </Tooltip>
+);
+
+export const TooltipWithRichContent = () => (
+  <Tooltip
+    content={
+      <div>
+        <Avatar size="xsmall" name="James Friedman" /> James Friedman
+      </div>
+    }
+  >
+    <a href="#" style={{ margin: '4rem', display: 'inline-block' }}>
+      Rich Content
+    </a>
+  </Tooltip>
+);
