@@ -14,7 +14,7 @@ interface TileWMTSProps {
   options: Options;
 }
 
-export interface OptionParams {
+export interface WMTSOptionParams {
   attributions?: string;
   url: string;
   layer: string;
@@ -23,7 +23,7 @@ export interface OptionParams {
   wrapX?: boolean;
 }
 
-export const getWMTSOptions = (params: OptionParams): Options=> {
+export const getWMTSOptions = (params: WMTSOptionParams): Options=> {
   const projection = getProjection(params.projection);
   const projectionExtent = projection.getExtent();
   const resolutions = new Array<number>(RESOLUTIONS);

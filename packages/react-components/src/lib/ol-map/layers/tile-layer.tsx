@@ -1,9 +1,15 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Tile } from 'ol/layer';
 import { useMap } from '../map';
+import { Options } from 'ol/layer/Base';
 
 const tileLayerContext = createContext<Tile | null>(null);
 const TileLayerProvider = tileLayerContext.Provider;
+
+interface TileLayerProps {
+  options?: Options;
+  children?: React.ReactNode;
+}
 
 export const useTileLayer = (): Tile => {
   const layer = useContext(tileLayerContext);
@@ -15,9 +21,10 @@ export const useTileLayer = (): Tile => {
   return layer;
 };
 
-export const TileLayer: React.FC = ({ children }) => {
+export const TileLayer: React.FC<TileLayerProps> = (props: TileLayerProps) => {
   const map = useMap();
-  const [tileLayer] = useState(new Tile());
+  const {options, children} = props;
+  const [tileLayer] = useState(new Tile(options));
 
   useEffect(() => {
     map.addLayer(tileLayer);
