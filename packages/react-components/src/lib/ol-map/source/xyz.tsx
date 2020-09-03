@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useTileLayer } from '../layers/tile-layer';
 import OlXYZ, { Options } from 'ol/source/XYZ';
+import { useTileLayer } from '../layers/tile-layer';
 
 interface TileXYZProps {
   options: Options;

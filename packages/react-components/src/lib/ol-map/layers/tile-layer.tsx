@@ -1,7 +1,7 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Tile } from 'ol/layer';
-import { useMap } from '../map';
 import { Options } from 'ol/layer/Base';
+import { useMap } from '../map';
 
 const tileLayerContext = createContext<Tile | null>(null);
 const TileLayerProvider = tileLayerContext.Provider;

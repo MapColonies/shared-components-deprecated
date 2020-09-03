@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useTileLayer } from '../layers/tile-layer';
 import OlTileWMS, { Options } from 'ol/source/TileWMS';
+import { useTileLayer } from '../layers/tile-layer';
 
 interface TileWMSProps {
   options: Options;
