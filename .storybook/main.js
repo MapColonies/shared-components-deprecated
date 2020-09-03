@@ -6,16 +6,16 @@ module.exports = {
     '@storybook/addon-knobs',
     '@storybook/addon-links',
     '@storybook/addon-docs',
-    'storybook-dark-mode'
+    'storybook-dark-mode',
   ],
   refs: {
-    react_components: { 
-      title: "React Components", 
-      url: "http://localhost:9010"
+    react_components: {
+      title: 'React Components',
+      url: 'http://localhost:9010',
     },
-    react_ui_components: { 
-      title: "React UI Components", 
-      url: "http://localhost:9011"
-    }
-  }
+    react_ui_components: {
+      title: 'React UI Components',
+      url: 'http://localhost:9011',
+    },
+  },
 };

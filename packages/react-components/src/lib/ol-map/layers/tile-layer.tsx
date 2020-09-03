@@ -20,7 +20,7 @@ export const useTileLayer = (): Tile => {
   return layer;
 };
 
-export const TileLayer: React.FC<TileLayerProps> = ({options, children}) => {
+export const TileLayer: React.FC<TileLayerProps> = ({ options, children }) => {
   const map = useMap();
   const [tileLayer] = useState(new Tile(options));
 

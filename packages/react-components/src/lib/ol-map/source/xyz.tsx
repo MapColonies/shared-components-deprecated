@@ -11,17 +11,16 @@ export interface XYZOptionParams {
   url: string;
 }
 
-export const getXYZOptions = (optionParams: XYZOptionParams): Options=> {
-  const {attributions, url} = optionParams;
+export const getXYZOptions = (optionParams: XYZOptionParams): Options => {
+  const { attributions, url } = optionParams;
 
-  const xyzOptions={
+  const xyzOptions = {
     attributions,
-    url
+    url,
   };
 
   return xyzOptions;
-
-}
+};
 export const TileXYZ: React.FC<TileXYZProps> = (props) => {
   const tileLayer = useTileLayer();
   const { options } = props;

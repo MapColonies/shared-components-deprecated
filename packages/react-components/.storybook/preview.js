@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { addParameters, addDecorator } from '@storybook/react';
 import { ThemeProvider, Themes } from '@map-colonies/react-core';
 import { themes } from '@storybook/theming';
@@ -14,7 +14,5 @@ addParameters({
 addDecorator((story) => {
   const prefersDarkMode = useDarkMode();
   const theme = prefersDarkMode ? Themes.darkTheme : Themes.lightTheme;
-  return <ThemeProvider options={theme}>
-      {story()}
-    </ThemeProvider>
+  return <ThemeProvider options={theme}>{story()}</ThemeProvider>;
 });

@@ -15,20 +15,19 @@ export interface WMSOptionParams {
   transition: number;
 }
 
-export const getWMSOptions = (optionParams: WMSOptionParams): Options=> {
-  const {attributions, url, params, serverType, transition} = optionParams;
+export const getWMSOptions = (optionParams: WMSOptionParams): Options => {
+  const { attributions, url, params, serverType, transition } = optionParams;
 
   const wmsOptions: Options = {
     attributions,
     url,
     params,
     serverType,
-    transition
+    transition,
   };
 
   return wmsOptions;
-
-}
+};
 export const TileWMS: React.FC<TileWMSProps> = (props) => {
   const tileLayer = useTileLayer();
   const { options } = props;

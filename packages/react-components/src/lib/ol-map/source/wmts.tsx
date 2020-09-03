@@ -23,7 +23,7 @@ export interface WMTSOptionParams {
   wrapX?: boolean;
 }
 
-export const getWMTSOptions = (params: WMTSOptionParams): Options=> {
+export const getWMTSOptions = (params: WMTSOptionParams): Options => {
   const projection = getProjection(params.projection);
   const projectionExtent = projection.getExtent();
   const resolutions = new Array<number>(RESOLUTIONS);
