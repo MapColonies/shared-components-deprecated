@@ -52,8 +52,9 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 
-
-export const ThemeContext = React.createContext(Themes.lightTheme as {[key: string]: string });
+export const ThemeContext = React.createContext(
+  Themes.lightTheme as { [key: string]: string }
+);
 
 export function useTheme() {
   const theme = React.useContext(ThemeContext);

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useMap } from '../map';
 import { Draw } from 'ol/interaction';
 import {
   createBox,
@@ -9,6 +8,7 @@ import {
 import GeometryType from 'ol/geom/GeometryType';
 import { GeoJSON } from 'ol/format';
 import { Geometry } from 'geojson';
+import { useMap } from '../map';
 import { DrawType } from '../../models/enums';
 
 export interface DrawProps {

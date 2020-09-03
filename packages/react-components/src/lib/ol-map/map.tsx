@@ -8,9 +8,9 @@ import React, {
 import { Map as OlMap, View } from 'ol';
 import './map.css';
 import 'ol/ol.css';
-import { format, Coordinate } from "ol/coordinate";
-import { defaults as defaultControls, FullScreen } from "ol/control";
-import MousePosition from "ol/control/MousePosition";
+import { format, Coordinate } from 'ol/coordinate';
+import { defaults as defaultControls, FullScreen } from 'ol/control';
+import MousePosition from 'ol/control/MousePosition';
 import Collection from 'ol/Collection';
 import Control from 'ol/control/Control';
 
@@ -40,8 +40,8 @@ export const useMap = (): OlMap => {
 
 export const Map: React.FC<MapProps> = (props) => {
   const mapElementRef = useRef<HTMLDivElement>(null);
-  const {allowFullScreen, showMousePosition} = props;
- 
+  const { allowFullScreen, showMousePosition } = props;
+
   const [map] = useState(
     new OlMap({
       view: new View({
@@ -49,7 +49,7 @@ export const Map: React.FC<MapProps> = (props) => {
         zoom: DEFAULT_ZOOM,
         projection: PROJECTION,
       }),
-      controls: defaultControls()
+      controls: defaultControls(),
     })
   );
 
@@ -65,24 +65,27 @@ export const Map: React.FC<MapProps> = (props) => {
 
   useEffect(() => {
     map.setTarget(mapElementRef.current as HTMLElement);
-    
+
     if (allowFullScreen !== undefined && allowFullScreen) {
       map.addControl(new FullScreen());
-    }
-    else{
+    } else {
       removeControl(FullScreen, map);
     }
 
     if (showMousePosition !== undefined && showMousePosition) {
       map.addControl(
         new MousePosition({
-          coordinateFormat: (coord):string  => format(coord as Coordinate, '{y}°N {x}°E', COORDINATES_FRACTION_DIFITS),
+          coordinateFormat: (coord): string =>
+            format(
+              coord as Coordinate,
+              '{y}°N {x}°E',
+              COORDINATES_FRACTION_DIFITS
+            ),
           projection: PROJECTION,
           undefinedHTML: '&nbsp;',
         })
       );
-    }
-    else{
+    } else {
       removeControl(MousePosition, map);
     }
   }, [map, allowFullScreen, showMousePosition]);

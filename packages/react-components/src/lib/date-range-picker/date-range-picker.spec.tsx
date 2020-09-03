@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { DateTimeRangePicker } from './date-range-picker';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
 import { Button } from '@map-colonies/react-core';
+import { DateTimeRangePicker } from './date-range-picker';
 
 const date = new Date(1990, 1, 1);
 

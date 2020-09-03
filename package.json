@@ -7,8 +7,7 @@
   "private": true,
   "workspaces": [
     "packages/react-components",
-    "packages/react-ui-components",
-    "demoapp-react"
+    "packages/react-ui-components"
   ],
   "husky": {
     "hooks": {
@@ -30,41 +29,30 @@
       "project": "./tsconfig.json"
     }
   },
+  "eslintIgnore": [
+    "**/demoapp-react/**",
+    "**/node_modules/**",
+    "packages/react-ui-components/**",
+    "**/dist/**"
+  ],
   "scripts": {
-    "del-dist": "lerna exec --parallel -- del-cli dist",
+    "del-dist": "npx lerna exec --parallel -- del-cli dist",
     "prebuild": "yarn del-dist",
-
-    "build:react-core:build": "lerna exec --scope @map-colonies/react-core -- yarn build",
-    "build:react-core:postbuild": "lerna exec --scope @map-colonies/react-core -- yarn postbuild",
-    "build:react-core": "yarn build:react-core:build && yarn build:react-core:postbuild",
-    "build:react": "lerna exec --scope @map-colonies/react-components -- yarn build",
-    "build:all": "lerna run build --npm-client=yarn",
-
-    "publish": "lerna publish --no-private --conventional-commits -m \"chore(publish): publish [by user]\"",
-    "publish:current": "lerna exec -- npm publish",
-
-    "eslint-check:react": "lerna exec --scope @map-colonies/react-components -- yarn eslint-check",
-    "eslint-check:react-core": "lerna exec --scope @map-colonies/react-core -- yarn eslint-check",
-
-    "start:reactstencildemo": "cd demoapp-stencil && yarn start",
-    "start:reactdemo": "cd demoapp-react && yarn start",
-
-    "storybook:react-core": "lerna exec --scope @map-colonies/react-core -- yarn storybook",
-    "storybook:react": "lerna exec --scope @map-colonies/react-components -- yarn storybook",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
-    
-    "test:react-core": "lerna exec --scope @map-colonies/react-core -- yarn test:nowatch",
-    "test:react": "lerna exec --scope @map-colonies/react-components -- yarn test:nowatch",
-    "test:all": "yarn test:react-core && yarn test:react",
-
-    "clean": "lerna clean",
-    "clean:update": "lerna clean && lerna bootstrap",
-
+    "prepublish": "npx lerna run build",
+    "test": "npx lerna bootstrap && npx lerna run test:nowatch",
+    "publish": "npx lerna publish --no-private --conventional-commits -m \"chore(release): publish\"",
+    "publish:current": "npx lerna exec -- npm publish",
+    "clean": "npx lerna clean",
+    "clean:update": "npx lerna clean && npx lerna bootstrap",
+    "storybook": "npx lerna run storybook && npx start-storybook -p 9009 -s public",
+    "build-storybook": "npx lerna run build-storybook && npx build-storybook -s public",
     "prettier:fix": "prettier --write .",
     "prettier:check": "prettier --check ."
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@map-colonies/eslint-config": "^1.1.0",
     "@storybook/addon-actions": "^6.0.21",
     "@storybook/addon-docs": "^6.0.21",
     "@storybook/addon-knobs": "^6.0.21",
@@ -74,22 +62,19 @@
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.21",
     "@storybook/theming": "^6.0.21",
-    "storybook-dark-mode": "^1.0.0",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@map-colonies/eslint-config": "^1.0.3",
     "commitlint": "^9.1.0",
     "cz-conventional-changelog": "^3.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
-    "standard-version": "^8.0.2",
-    "jest-html-reporters": "^2.0.2",
     "del-cli": "^3.0.1",
-    "lerna": "^3.22.1",
-
-    "prettier": "^2.0.5",
+    "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.3"
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "jest-html-reporters": "^2.0.2",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.1.0",
+    "standard-version": "^8.0.2",
+    "storybook-dark-mode": "^1.0.0"
   }
 }

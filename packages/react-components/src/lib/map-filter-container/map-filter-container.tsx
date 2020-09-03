@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import { Polygon } from 'geojson';
-import { PolygonSelectionUi } from './polygon-selection-ui';
 import { DrawType } from '../models/enums';
+import { PolygonSelectionUi } from './polygon-selection-ui';
 import { ContainerMap } from './container-map';
 
 const PLACEMENT_SPACING_FACTOR = 1.5;

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useTileLayer } from '../layers/tile-layer';
 import { WMTS } from 'ol/source';
 import { Options } from 'ol/source/WMTS';
-import {get as getProjection} from 'ol/proj';
+import { get as getProjection } from 'ol/proj';
 import WMTSTileGrid from 'ol/tilegrid/WMTS';
-import {getTopLeft, getWidth} from 'ol/extent';
+import { getTopLeft, getWidth } from 'ol/extent';
+import { useTileLayer } from '../layers/tile-layer';
 
 const RESOLUTIONS = 14,
-      TILE_GRANULARITY=256,
-      WMTS_RESOLUTION_BASIS=2;
+  TILE_GRANULARITY = 256,
+  WMTS_RESOLUTION_BASIS = 2;
 
 interface TileWMTSProps {
   options: Options;
@@ -35,7 +35,7 @@ export const getWMTSOptions = (params: WMTSOptionParams): Options=> {
     matrixIds[z] = z.toString();
   }
 
-  const wmtsOptions={
+  const wmtsOptions = {
     attributions: params.attributions,
     url: params.url,
     layer: params.layer,
@@ -48,12 +48,11 @@ export const getWMTSOptions = (params: WMTSOptionParams): Options=> {
       matrixIds: matrixIds,
     }),
     style: 'default',
-    wrapX: (params.wrapX !== undefined) ? params.wrapX : true,
+    wrapX: params.wrapX !== undefined ? params.wrapX : true,
   };
 
   return wmtsOptions;
-
-}
+};
 export const TileWMTS: React.FC<TileWMTSProps> = (props) => {
   const tileLayer = useTileLayer();
   const { options } = props;
