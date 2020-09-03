@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { addParameters } from '@storybook/react';
 import { themes } from '@storybook/theming';
 

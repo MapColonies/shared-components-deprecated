@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { addParameters, addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import { ThemeProvider, Themes } from '../src/lib/theme';
@@ -26,7 +26,5 @@ addDecorator((story) => (
 addDecorator((story) => {
   const prefersDarkMode = useDarkMode();
   const theme = prefersDarkMode ? Themes.darkTheme : Themes.lightTheme;
-  return <ThemeProvider options={theme}>
-      {story()}
-    </ThemeProvider>
+  return <ThemeProvider options={theme}>{story()}</ThemeProvider>;
 });
