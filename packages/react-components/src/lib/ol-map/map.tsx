@@ -13,10 +13,13 @@ import { defaults as defaultControls, FullScreen } from 'ol/control';
 import MousePosition from 'ol/control/MousePosition';
 import Collection from 'ol/Collection';
 import Control from 'ol/control/Control';
+import { transform } from 'ol/proj';
+import { Proj } from './projections';
 
 export interface MapProps {
   allowFullScreen?: boolean;
   showMousePosition?: boolean;
+  projection?: Proj;
 }
 
 const mapContext = createContext<OlMap | null>(null);
@@ -24,9 +27,8 @@ const MapProvider = mapContext.Provider;
 
 const CENTER_LAT = 35,
   CENTER_LON = 32,
-  PROJECTION = 'EPSG:4326',
   DEFAULT_ZOOM = 10,
-  COORDINATES_FRACTION_DIFITS = 5;
+  COORDINATES_FRACTION_DIGITS = 5;
 
 export const useMap = (): OlMap => {
   const map = useContext(mapContext);
@@ -40,14 +42,17 @@ export const useMap = (): OlMap => {
 
 export const Map: React.FC<MapProps> = (props) => {
   const mapElementRef = useRef<HTMLDivElement>(null);
-  const { allowFullScreen, showMousePosition } = props;
+  const { allowFullScreen, showMousePosition, projection } = props;
 
   const [map] = useState(
     new OlMap({
       view: new View({
-        center: [CENTER_LAT, CENTER_LON],
+        center:
+          projection !== undefined && projection !== Proj.WSG84
+            ? transform([CENTER_LAT, CENTER_LON], Proj.WSG84, projection)
+            : [CENTER_LAT, CENTER_LON],
         zoom: DEFAULT_ZOOM,
-        projection: PROJECTION,
+        projection: projection ?? Proj.WSG84,
       }),
       controls: defaultControls(),
     })
@@ -79,9 +84,9 @@ export const Map: React.FC<MapProps> = (props) => {
             format(
               coord as Coordinate,
               '{y}°N {x}°E',
-              COORDINATES_FRACTION_DIFITS
+              COORDINATES_FRACTION_DIGITS
             ),
-          projection: PROJECTION,
+          projection: Proj.WSG84,
           undefinedHTML: '&nbsp;',
         })
       );
