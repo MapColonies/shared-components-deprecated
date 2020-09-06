@@ -11,7 +11,6 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-
 } as Meta;
 
 const mapDivStyle = {
@@ -23,7 +22,7 @@ const mapDivStyle = {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const Basic: Story = (args: any) => (
   <div style={mapDivStyle}>
-    <Map {...args} >
+    <Map {...args}>
       <TileLayer>
         <TileOsm />
       </TileLayer>
@@ -34,7 +33,6 @@ export const Basic: Story = (args: any) => (
 Basic.argTypes = {
   projection: {
     defaultValue: Proj.WGS84,
-    control: {type:'radio', options: [Proj.WEB_MERCATOR, Proj.WGS84]}
-  }
-}
-
+    control: { type: 'radio', options: [Proj.WEB_MERCATOR, Proj.WGS84] },
+  },
+};
