@@ -106,5 +106,9 @@ const TableStory: React.FC<TableStroyProps> = (props) => {
   );
 };
 
-export const Small: CSFStory<JSX.Element> = () => <TableStory numberOfItems={4} />;
-export const Large: CSFStory<JSX.Element> = () => <TableStory numberOfItems={60} />;
+export const Small: CSFStory<JSX.Element> = () => (
+  <TableStory numberOfItems={4} />
+);
+export const Large: CSFStory<JSX.Element> = () => (
+  <TableStory numberOfItems={60} />
+);

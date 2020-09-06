@@ -8,7 +8,7 @@ import { CSFStory } from '../../../utils/story';
 const wmsOptions = getWMSOptions({
   url: 'https://ahocevar.com/geoserver/wms',
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  params: {'LAYERS': 'ne:NE1_HR_LC_SR_W_DR', 'TILED': true},
+  params: { LAYERS: 'ne:NE1_HR_LC_SR_W_DR', TILED: true },
   serverType: 'geoserver',
   // Countries have transparency, so do not fade tiles:
   transition: 0.5,
@@ -17,7 +17,7 @@ const wmsOptions = getWMSOptions({
 const mapDivStyle = {
   height: '95%',
   width: '95%',
-  position: 'absolute' as const ,
+  position: 'absolute' as const,
 };
 
 export default {
@@ -32,7 +32,7 @@ export const WMS: CSFStory<JSX.Element> = () => (
         <TileOsm />
       </TileLayer>
       <TileLayer>
-        <TileWMS options={wmsOptions}/>
+        <TileWMS options={wmsOptions} />
       </TileLayer>
     </Map>
   </div>
@@ -42,9 +42,10 @@ WMS.argTypes = {
   options: {
     description: `{ Options } from 'ol/source/TileWMS'`,
     table: {
-      type: { 
-          summary: 'OpenLayers type', 
-          detail: 'Go to "https://openlayers.org/en/latest/apidoc/module-ol_source_TileWMS-TileWMS.html"' 
+      type: {
+        summary: 'OpenLayers type',
+        detail:
+          'Go to "https://openlayers.org/en/latest/apidoc/module-ol_source_TileWMS-TileWMS.html"',
       },
     },
     control: {
