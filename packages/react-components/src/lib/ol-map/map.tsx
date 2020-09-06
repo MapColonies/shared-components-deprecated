@@ -31,24 +31,24 @@ const CENTER_LAT = 35,
   COORDINATES_WGS_FRACTION_DIGITS = 5,
   COORDINATES_MERCATOR_FRACTION_DIGITS = 2;
 
-const getCoordinateFormatString = (
-  projection?: Proj
-):CoordinateFormat => {
+const getCoordinateFormatString = (projection?: Proj): CoordinateFormat => {
   switch (projection) {
     case Proj.WEB_MERCATOR:
-      return (coord?: Coordinate):string => format(
-        coord as Coordinate,
-        'Mercator: {y}m, {x}m',
-        COORDINATES_MERCATOR_FRACTION_DIGITS
-      );
+      return (coord?: Coordinate): string =>
+        format(
+          coord as Coordinate,
+          'Mercator: {y}m, {x}m',
+          COORDINATES_MERCATOR_FRACTION_DIGITS
+        );
     case Proj.WGS84:
-      return (coord?: Coordinate):string => format(
-        coord as Coordinate,
-        'WGS84: {y}°N {x}°E',
-        COORDINATES_WGS_FRACTION_DIGITS
-      );
+      return (coord?: Coordinate): string =>
+        format(
+          coord as Coordinate,
+          'WGS84: {y}°N {x}°E',
+          COORDINATES_WGS_FRACTION_DIGITS
+        );
     default:
-      return (coord?: Coordinate):string => '';
+      return (coord?: Coordinate): string => '';
   }
 };
 
