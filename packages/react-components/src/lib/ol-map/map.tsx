@@ -8,7 +8,7 @@ import React, {
 import { Map as OlMap, View } from 'ol';
 import './map.css';
 import 'ol/ol.css';
-import { format, Coordinate } from 'ol/coordinate';
+import { format, Coordinate, CoordinateFormat } from 'ol/coordinate';
 import { defaults as defaultControls, FullScreen } from 'ol/control';
 import MousePosition from 'ol/control/MousePosition';
 import Collection from 'ol/Collection';
@@ -28,7 +28,29 @@ const MapProvider = mapContext.Provider;
 const CENTER_LAT = 35,
   CENTER_LON = 32,
   DEFAULT_ZOOM = 10,
-  COORDINATES_FRACTION_DIGITS = 5;
+  COORDINATES_WGS_FRACTION_DIGITS = 5,
+  COORDINATES_MERCATOR_FRACTION_DIGITS = 2;
+
+const getCoordinateFormatString = (
+  projection?: Proj
+):CoordinateFormat => {
+  switch (projection) {
+    case Proj.WEB_MERCATOR:
+      return (coord?: Coordinate):string => format(
+        coord as Coordinate,
+        'Mercator: {y}m, {x}m',
+        COORDINATES_MERCATOR_FRACTION_DIGITS
+      );
+    case Proj.WGS84:
+      return (coord?: Coordinate):string => format(
+        coord as Coordinate,
+        'WGS84: {y}°N {x}°E',
+        COORDINATES_WGS_FRACTION_DIGITS
+      );
+    default:
+      return (coord?: Coordinate):string => '';
+  }
+};
 
 export const useMap = (): OlMap => {
   const map = useContext(mapContext);
@@ -80,20 +102,15 @@ export const Map: React.FC<MapProps> = (props) => {
     if (showMousePosition !== undefined && showMousePosition) {
       map.addControl(
         new MousePosition({
-          coordinateFormat: (coord): string =>
-            format(
-              coord as Coordinate,
-              '{y}°N {x}°E',
-              COORDINATES_FRACTION_DIGITS
-            ),
-          projection: Proj.WGS84,
+          coordinateFormat: getCoordinateFormatString(projection),
+          projection: projection,
           undefinedHTML: '&nbsp;',
         })
       );
     } else {
       removeControl(MousePosition, map);
     }
-  }, [map, allowFullScreen, showMousePosition]);
+  }, [map, allowFullScreen, projection, showMousePosition]);
 
   return (
     <MapProvider value={map}>
