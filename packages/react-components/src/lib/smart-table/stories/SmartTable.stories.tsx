@@ -3,7 +3,7 @@ import { button } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import { SmartTable, CellMetadata } from '..';
-import { CSFStory } from '../../../utils/story';
+import { CSFStory } from '../../utils/story';
 
 export default {
   title: 'Smart Table',

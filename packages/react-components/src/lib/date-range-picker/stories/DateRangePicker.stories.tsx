@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { DateTimeRangePicker } from '../date-range-picker';
-import { CSFStory } from '../../../utils/story';
+import { CSFStory } from '../../utils/story';
 
 export default {
   title: 'Picker',

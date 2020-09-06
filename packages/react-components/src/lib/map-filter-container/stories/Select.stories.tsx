@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import { PolygonSelectionUi } from '../polygon-selection-ui';
 import { DrawType } from '../../models';
-import { CSFStory } from '../../../utils/story';
+import { CSFStory } from '../../utils/story';
 
 export default {
   title: 'Select',

@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { ContainerMap } from '../container-map';
 import { MapFilterContainer } from '../map-filter-container';
-import { CSFStory } from '../../../utils/story';
+import { CSFStory } from '../../utils/story';
 
 export default {
   title: 'Map',
