@@ -8,4 +8,4 @@ export interface CSFStory<StoryFnReturnType = unknown> {
   };
   argTypes?: ArgTypes;
   (): StoryFnReturnType;
-};
+}
