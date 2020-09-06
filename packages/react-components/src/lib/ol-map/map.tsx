@@ -103,7 +103,7 @@ export const Map: React.FC<MapProps> = (props) => {
       map.addControl(
         new MousePosition({
           coordinateFormat: getCoordinateFormatString(projection),
-          projection: projection,
+          projection: projection ?? Proj.WGS84,
           undefinedHTML: '&nbsp;',
         })
       );
