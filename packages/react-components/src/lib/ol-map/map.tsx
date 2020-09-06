@@ -48,11 +48,11 @@ export const Map: React.FC<MapProps> = (props) => {
     new OlMap({
       view: new View({
         center:
-          projection !== undefined && projection !== Proj.WSG84
-            ? transform([CENTER_LAT, CENTER_LON], Proj.WSG84, projection)
+          projection !== undefined && projection !== Proj.WGS84
+            ? transform([CENTER_LAT, CENTER_LON], Proj.WGS84, projection)
             : [CENTER_LAT, CENTER_LON],
         zoom: DEFAULT_ZOOM,
-        projection: projection ?? Proj.WSG84,
+        projection: projection ?? Proj.WGS84,
       }),
       controls: defaultControls(),
     })
@@ -86,7 +86,7 @@ export const Map: React.FC<MapProps> = (props) => {
               '{y}°N {x}°E',
               COORDINATES_FRACTION_DIGITS
             ),
-          projection: Proj.WSG84,
+          projection: Proj.WGS84,
           undefinedHTML: '&nbsp;',
         })
       );
