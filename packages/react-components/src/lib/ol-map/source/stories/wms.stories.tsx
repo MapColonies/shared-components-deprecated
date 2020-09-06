@@ -3,7 +3,7 @@ import { Map } from '../../map';
 import { getWMSOptions, TileWMS } from '../wms';
 import { TileOsm } from '../osm';
 import { TileLayer } from '../../layers/tile-layer';
-import { CSFStory } from '../../../../utils/story';
+import { CSFStory } from '../../../utils/story';
 
 const wmsOptions = getWMSOptions({
   url: 'https://ahocevar.com/geoserver/wms',
