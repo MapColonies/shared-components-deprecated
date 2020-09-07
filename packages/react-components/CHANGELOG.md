@@ -3,6 +3,134 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2020-09-07)
+
+
+### Bug Fixes
+
+* **code:** functional component typescript ([3ead66e](https://github.com/MapColonies/shared-components/commit/3ead66e0b944dd21241c0e8283f6a23c2cecc907))
+* **doc:** layers stories ([0a31a32](https://github.com/MapColonies/shared-components/commit/0a31a3250686bafaa561f8838483732d9d35c20e))
+* **eslint:** fixing PR lint hook triggering ([30491de](https://github.com/MapColonies/shared-components/commit/30491de0f63e1668361be0447881193aca2c6404))
+* **linting:** storybook linting ([a04e6e9](https://github.com/MapColonies/shared-components/commit/a04e6e9738fef44e1c9d305b03ce253e2651189a))
+* **mousetracker:** format changed ([87da349](https://github.com/MapColonies/shared-components/commit/87da3493d0db10989fccd02e093b222625a35283))
+* **ol-map:** configured default projection ([535776f](https://github.com/MapColonies/shared-components/commit/535776fc3bdd776d08e8627210f957808baf0726))
+* **ol-map:** mouse position projection matches maps ([82f71d0](https://github.com/MapColonies/shared-components/commit/82f71d087b9a74d5e7c970a8e4474476f8ed0f28))
+* **prcomments:** pr comments fix ([dfac39b](https://github.com/MapColonies/shared-components/commit/dfac39befbe7d322f2ecdba51a164a8464eedbc2))
+* **prettier:** git PR hook triggered ([6a4419c](https://github.com/MapColonies/shared-components/commit/6a4419c009c30e1b2dd3a8f586928722a7e043c7))
+* **prettier:** prettier run ([b87a7e6](https://github.com/MapColonies/shared-components/commit/b87a7e6cb7892aabbf684b14a0a1947fe4f9e93b))
+* **projections:** fixed WGS84 name ([df17f31](https://github.com/MapColonies/shared-components/commit/df17f31ac78df58157a401f7535cd5742c39f66e))
+* **refactor:** utils dir moved under lib ([8c8ef5b](https://github.com/MapColonies/shared-components/commit/8c8ef5bff8d43174850d2d92192b2ba070a73d80))
+* **wmtstile:** attribution param not mandatory ([2692cb4](https://github.com/MapColonies/shared-components/commit/2692cb4ea5b41ecc53de4681ebd7bb25f7f23af6))
+
+
+### Code Refactoring
+
+* **catalog:** storybook for each package & composed storybook ([#25](https://github.com/MapColonies/shared-components/issues/25)) ([96f7d2d](https://github.com/MapColonies/shared-components/commit/96f7d2d8563aac316d8b808101628b2a227b8cbc))
+
+
+### Features
+
+* **core:** map mouse tracking control ([f2ad16f](https://github.com/MapColonies/shared-components/commit/f2ad16f46f921b411305c6ba1d8263be9522a241))
+* **maplayers:** added WMS and XYZ layers ([5353825](https://github.com/MapColonies/shared-components/commit/535382590cb0f93d85c1fa9d6095da0468d2791b))
+* **ol-map:** added support for projection selection ([47daac4](https://github.com/MapColonies/shared-components/commit/47daac4a86abd9b7e8e0ab13756a42bdac3c4207))
+* **vector-tiles:** added vector tiles to map ([5b0a125](https://github.com/MapColonies/shared-components/commit/5b0a1250433107a8ebcdd90cd4b22af4139e168c))
+* **wmtstilelayer:** implementation + lint errors ([a5e7189](https://github.com/MapColonies/shared-components/commit/a5e718992157d97b1470556e7c57299d8f049f97))
+
+
+### Performance Improvements
+
+* **map:** map control props sensetive to changes ([76ccc8e](https://github.com/MapColonies/shared-components/commit/76ccc8e78ee8acb4cd7d6030a371002aa5d04e6a))
+
+
+* refactor!(monorepo): moved from yarn workspaces to lerna (#26) ([675815a](https://github.com/MapColonies/shared-components/commit/675815a2e23167b47a9e420bbd1c703cb783ff23)), closes [#26](https://github.com/MapColonies/shared-components/issues/26)
+
+
+### BREAKING CHANGES
+
+* **catalog:** lerna, core comps
+
+* fix(storybook):  unneeded files
+
+* fix(rename): demoapps
+
+* fix(cleanup): unneeded storybooks remains
+
+* fix(pkg): script added
+
+* chore(release): version bumped 1.0.0
+
+ - demoapp-react@1.0.0
+ - demoapp-stencil@1.0.0
+ - @map-colonies/react-components@1.0.0
+ - @map-colonies/react-core@1.0.0
+ - @map-colonies/ui-components@1.0.0
+ - @map-colonies/ui-components-react@1.0.0
+
+* fix(readme): updated
+
+* chore(publish): publish [by user]
+
+ - demoapp-react@1.0.1
+ - demoapp-stencil@1.0.1
+ - @map-colonies/react-components@1.0.1
+ - @map-colonies/react-core@1.0.1
+
+* fix(prettier): all code is prettified
+
+* fix(prcomments): fixed
+
+* fix(tests): added tests infrastructure
+
+* fix(composed storybook): updated storybook
+
+* feat(react-core): added stories
+
+* fix(catalog): fixed react-core docs
+
+Co-authored-by: alebinson <newdarkvirus@gmail.com>
+Co-authored-by: LEBINSON ALEX <ALEXLEB@rf.local>
+* lerna, core comps
+
+* fix(storybook):  unneeded files
+
+* fix(rename): demoapps
+
+* fix(cleanup): unneeded storybooks remains
+
+* fix(pkg): script added
+
+* chore(release): version bumped 1.0.0
+
+ - demoapp-react@1.0.0
+ - demoapp-stencil@1.0.0
+ - @map-colonies/react-components@1.0.0
+ - @map-colonies/react-core@1.0.0
+ - @map-colonies/ui-components@1.0.0
+ - @map-colonies/ui-components-react@1.0.0
+
+* fix(readme): updated
+
+* chore(publish): publish [by user]
+
+ - demoapp-react@1.0.1
+ - demoapp-stencil@1.0.1
+ - @map-colonies/react-components@1.0.1
+ - @map-colonies/react-core@1.0.1
+
+* fix(prettier): all code is prettified
+
+* fix(prcomments): fixed
+
+* fix(tests): added tests infrastructure
+
+Co-authored-by: LEBINSON ALEX <ALEXLEB@rf.local>
+Co-authored-by: Ran Elishayev <rannygmx@gmail.com>
+Co-authored-by: Ran Elishayev <42379604+rannyeli@users.noreply.github.com>
+
+
+
+
+
 # 3.0.0 (2020-09-03)
 
 

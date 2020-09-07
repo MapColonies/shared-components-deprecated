@@ -3,6 +3,108 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2020-09-07)
+
+
+### Bug Fixes
+
+* **prettier:** git PR hook triggered ([6a4419c](https://github.com/MapColonies/shared-components/commit/6a4419c009c30e1b2dd3a8f586928722a7e043c7))
+
+
+### Code Refactoring
+
+* **catalog:** storybook for each package & composed storybook ([#25](https://github.com/MapColonies/shared-components/issues/25)) ([96f7d2d](https://github.com/MapColonies/shared-components/commit/96f7d2d8563aac316d8b808101628b2a227b8cbc))
+
+
+* refactor!(monorepo): moved from yarn workspaces to lerna (#26) ([675815a](https://github.com/MapColonies/shared-components/commit/675815a2e23167b47a9e420bbd1c703cb783ff23)), closes [#26](https://github.com/MapColonies/shared-components/issues/26)
+
+
+### BREAKING CHANGES
+
+* **catalog:** lerna, core comps
+
+* fix(storybook):  unneeded files
+
+* fix(rename): demoapps
+
+* fix(cleanup): unneeded storybooks remains
+
+* fix(pkg): script added
+
+* chore(release): version bumped 1.0.0
+
+ - demoapp-react@1.0.0
+ - demoapp-stencil@1.0.0
+ - @map-colonies/react-components@1.0.0
+ - @map-colonies/react-core@1.0.0
+ - @map-colonies/ui-components@1.0.0
+ - @map-colonies/ui-components-react@1.0.0
+
+* fix(readme): updated
+
+* chore(publish): publish [by user]
+
+ - demoapp-react@1.0.1
+ - demoapp-stencil@1.0.1
+ - @map-colonies/react-components@1.0.1
+ - @map-colonies/react-core@1.0.1
+
+* fix(prettier): all code is prettified
+
+* fix(prcomments): fixed
+
+* fix(tests): added tests infrastructure
+
+* fix(composed storybook): updated storybook
+
+* feat(react-core): added stories
+
+* fix(catalog): fixed react-core docs
+
+Co-authored-by: alebinson <newdarkvirus@gmail.com>
+Co-authored-by: LEBINSON ALEX <ALEXLEB@rf.local>
+* lerna, core comps
+
+* fix(storybook):  unneeded files
+
+* fix(rename): demoapps
+
+* fix(cleanup): unneeded storybooks remains
+
+* fix(pkg): script added
+
+* chore(release): version bumped 1.0.0
+
+ - demoapp-react@1.0.0
+ - demoapp-stencil@1.0.0
+ - @map-colonies/react-components@1.0.0
+ - @map-colonies/react-core@1.0.0
+ - @map-colonies/ui-components@1.0.0
+ - @map-colonies/ui-components-react@1.0.0
+
+* fix(readme): updated
+
+* chore(publish): publish [by user]
+
+ - demoapp-react@1.0.1
+ - demoapp-stencil@1.0.1
+ - @map-colonies/react-components@1.0.1
+ - @map-colonies/react-core@1.0.1
+
+* fix(prettier): all code is prettified
+
+* fix(prcomments): fixed
+
+* fix(tests): added tests infrastructure
+
+Co-authored-by: LEBINSON ALEX <ALEXLEB@rf.local>
+Co-authored-by: Ran Elishayev <rannygmx@gmail.com>
+Co-authored-by: Ran Elishayev <42379604+rannyeli@users.noreply.github.com>
+
+
+
+
+
 # 3.0.0 (2020-09-03)
 
 
