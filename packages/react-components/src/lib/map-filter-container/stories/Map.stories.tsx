@@ -5,7 +5,7 @@ import { MapFilterContainer } from '../map-filter-container';
 import { CSFStory } from '../../utils/story';
 
 export default {
-  title: 'Map',
+  title: 'Container Map',
   component: ContainerMap,
   parameters: {
     layout: 'fullscreen',

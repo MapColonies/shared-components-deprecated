@@ -6,7 +6,7 @@ import { TileLayer } from '../layers';
 import { Proj } from '../projections';
 
 export default {
-  title: 'ol map',
+  title: 'Map',
   component: Map,
   parameters: {
     layout: 'fullscreen',
