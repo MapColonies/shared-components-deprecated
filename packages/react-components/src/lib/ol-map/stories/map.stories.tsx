@@ -19,8 +19,7 @@ const mapDivStyle = {
   position: 'absolute' as const,
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Basic: Story = (args: any) => (
+export const Basic: Story = (args: unknown) => (
   <div style={mapDivStyle}>
     <Map {...args}>
       <TileLayer>

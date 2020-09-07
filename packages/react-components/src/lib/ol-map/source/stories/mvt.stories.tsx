@@ -1,5 +1,4 @@
 import React from 'react';
-import { Meta } from '@storybook/react/types-6-0';
 import { VectorTileLayer } from '../../layers/vector-tile-layer';
 import { Map } from '../../map';
 import { MVTSource, getMVTOptions } from '../mvt';
