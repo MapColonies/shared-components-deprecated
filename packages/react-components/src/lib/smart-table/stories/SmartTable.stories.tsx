@@ -3,6 +3,7 @@ import { button } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import { SmartTable, CellMetadata } from '..';
+import { CSFStory } from '../../utils/story';
 
 export default {
   title: 'Smart Table',
@@ -91,8 +92,8 @@ const TableStory: React.FC<TableStroyProps> = (props) => {
   return (
     <SmartTable
       rowsPerPage={rowsPerPage as 5 | 10}
-      handleChangePage={(e, newPage) => setPage(newPage)}
-      handleChangeRowsPerPage={(e) => setRowsPerPage(+e.target.value)}
+      handleChangePage={(e, newPage): void => setPage(newPage)}
+      handleChangeRowsPerPage={(e): void => setRowsPerPage(+e.target.value)}
       page={page}
       count={items.length}
       items={items}
@@ -105,5 +106,9 @@ const TableStory: React.FC<TableStroyProps> = (props) => {
   );
 };
 
-export const Small = () => <TableStory numberOfItems={4} />;
-export const Large = () => <TableStory numberOfItems={60} />;
+export const Small: CSFStory<JSX.Element> = () => (
+  <TableStory numberOfItems={4} />
+);
+export const Large: CSFStory<JSX.Element> = () => (
+  <TableStory numberOfItems={60} />
+);
