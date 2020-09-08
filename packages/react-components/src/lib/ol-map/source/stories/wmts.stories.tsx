@@ -21,11 +21,11 @@ const mapDivStyle = {
 };
 
 export default {
-  title: 'Map Tiles - WMTS',
+  title: 'Map/Map Tiles/WMTS',
   component: TileWMTS,
 };
 
-export const WMTS: CSFStory<JSX.Element> = () => (
+export const Basic: CSFStory<JSX.Element> = () => (
   <div style={mapDivStyle}>
     <Map allowFullScreen={true} showMousePosition={true}>
       <TileLayer>
@@ -38,7 +38,7 @@ export const WMTS: CSFStory<JSX.Element> = () => (
   </div>
 );
 
-WMTS.argTypes = {
+Basic.argTypes = {
   options: {
     description: `{ Options } from 'ol/source/WMTS'`,
     table: {
