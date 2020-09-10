@@ -19,7 +19,7 @@ const mapDivStyle = {
   position: 'absolute' as const,
 };
 
-export const Basic: Story = (args: unknown) => (
+export const BaseMap: Story = (args: unknown) => (
   <div style={mapDivStyle}>
     <Map {...args}>
       <TileLayer>
@@ -29,7 +29,7 @@ export const Basic: Story = (args: unknown) => (
   </div>
 );
 
-Basic.argTypes = {
+BaseMap.argTypes = {
   projection: {
     defaultValue: Proj.WGS84,
     control: { type: 'radio', options: [Proj.WEB_MERCATOR, Proj.WGS84] },

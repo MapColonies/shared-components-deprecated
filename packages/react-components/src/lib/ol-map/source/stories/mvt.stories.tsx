@@ -7,7 +7,7 @@ import { TileLayer } from '../../layers';
 import { Proj } from '../../projections';
 
 export default {
-  title: 'Map Tiles - MVT',
+  title: 'Map/Map Tiles/MVT',
   component: VectorTileLayer,
   subcomponents: MVTSource,
   parameters: {
