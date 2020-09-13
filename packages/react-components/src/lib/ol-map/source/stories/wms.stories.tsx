@@ -1,7 +1,6 @@
 import React from 'react';
 import { Map } from '../../map';
 import { getWMSOptions, TileWMS } from '../wms';
-import { TileOsm } from '../osm';
 import { TileLayer } from '../../layers/tile-layer';
 import { CSFStory } from '../../../utils/story';
 
@@ -28,9 +27,6 @@ export default {
 export const Basic: CSFStory<JSX.Element> = () => (
   <div style={mapDivStyle}>
     <Map allowFullScreen={true} showMousePosition={true}>
-      <TileLayer>
-        <TileOsm />
-      </TileLayer>
       <TileLayer>
         <TileWMS options={wmsOptions} />
       </TileLayer>
