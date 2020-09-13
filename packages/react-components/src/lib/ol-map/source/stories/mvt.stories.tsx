@@ -1,4 +1,5 @@
 import React from 'react';
+import { Style, Fill, Circle, Stroke } from 'ol/style';
 import { VectorTileLayer } from '../../layers/vector-tile-layer';
 import { Map } from '../../map';
 import { MVTSource, getMVTOptions } from '../mvt';
@@ -28,6 +29,34 @@ export const Basic = (): JSX.Element => (
         <TileOsm />
       </TileLayer>
       <VectorTileLayer>
+        <MVTSource
+          options={getMVTOptions({
+            url: 'http://localhost:9090/maps/osm/{z}/{x}/{y}.pbf',
+          })}
+        />
+      </VectorTileLayer>
+    </Map>
+  </div>
+);
+
+export const Styled = (): JSX.Element => (
+  <div style={mapDivStyle}>
+    <Map projection={Proj.WEB_MERCATOR}>
+      <TileLayer>
+        <TileOsm />
+      </TileLayer>
+      <VectorTileLayer
+        style={
+          new Style({
+            fill: new Fill({ color: 'red' }),
+            image: new Circle({
+              fill: new Fill({ color: 'orange' }),
+              radius: 1,
+            }),
+            stroke: new Stroke({ color: 'blue' }),
+          })
+        }
+      >
         <MVTSource
           options={getMVTOptions({
             url: 'http://localhost:9090/maps/osm/{z}/{x}/{y}.pbf',
