@@ -32,6 +32,10 @@ export const BaseMap: Story = (args: unknown) => (
 BaseMap.argTypes = {
   projection: {
     defaultValue: Proj.WGS84,
-    control: { type: 'radio', options: [Proj.WEB_MERCATOR, Proj.WGS84] },
+    control: {
+      disable: true,
+      type: 'radio',
+      options: [Proj.WEB_MERCATOR, Proj.WGS84],
+    },
   },
 };
