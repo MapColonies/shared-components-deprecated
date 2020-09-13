@@ -29,9 +29,6 @@ export const Basic: CSFStory<JSX.Element> = () => (
   <div style={mapDivStyle}>
     <Map allowFullScreen={true} showMousePosition={true}>
       <TileLayer>
-        <TileOsm />
-      </TileLayer>
-      <TileLayer>
         <TileWMS options={wmsOptions} />
       </TileLayer>
     </Map>
