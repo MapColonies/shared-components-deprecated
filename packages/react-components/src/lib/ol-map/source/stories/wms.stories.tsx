@@ -1,7 +1,6 @@
 import React from 'react';
 import { Map } from '../../map';
 import { getWMSOptions, TileWMS } from '../wms';
-import { TileOsm } from '../osm';
 import { TileLayer } from '../../layers/tile-layer';
 import { CSFStory } from '../../../utils/story';
 

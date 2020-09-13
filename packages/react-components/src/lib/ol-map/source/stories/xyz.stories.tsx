@@ -1,7 +1,6 @@
 import React from 'react';
 import { Map } from '../../map';
 import { getXYZOptions, TileXYZ } from '../xyz';
-import { TileOsm } from '../osm';
 import { TileLayer } from '../../layers/tile-layer';
 import { CSFStory } from '../../../utils/story';
 import { Proj } from '../../projections';
