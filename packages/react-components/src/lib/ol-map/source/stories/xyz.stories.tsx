@@ -4,6 +4,7 @@ import { getXYZOptions, TileXYZ } from '../xyz';
 import { TileOsm } from '../osm';
 import { TileLayer } from '../../layers/tile-layer';
 import { CSFStory } from '../../../utils/story';
+import { Proj } from '../../projections';
 
 const xyzOptions = getXYZOptions({
   url:
@@ -24,10 +25,11 @@ export default {
 
 export const Basic: CSFStory<JSX.Element> = () => (
   <div style={mapDivStyle}>
-    <Map allowFullScreen={true} showMousePosition={true}>
-      <TileLayer>
-        <TileOsm />
-      </TileLayer>
+    <Map
+      allowFullScreen={true}
+      showMousePosition={true}
+      projection={Proj.WEB_MERCATOR}
+    >
       <TileLayer>
         <TileXYZ options={xyzOptions} />
       </TileLayer>
