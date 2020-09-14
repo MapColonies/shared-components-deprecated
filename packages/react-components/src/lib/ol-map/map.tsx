@@ -77,11 +77,6 @@ export const Map: React.FC<MapProps> = (props) => {
   const [map] = useState(
     new OlMap({
       view: new View({
-        // center:
-        //   projection !== undefined && projection !== Proj.WGS84
-        //     ? transform([CENTER_LAT, CENTER_LON], Proj.WGS84, projection)
-        //     : [CENTER_LAT, CENTER_LON],
-        // zoom: DEFAULT_ZOOM,
         projection: projection ?? Proj.WGS84,
       }),
       controls: defaultControls(),
