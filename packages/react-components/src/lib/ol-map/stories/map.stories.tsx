@@ -48,7 +48,7 @@ BaseMap.argTypes = {
   },
 };
 
-export const ConfiguredMap: Story = (args: unknown) => (
+export const ConfiguredMap: Story = () => (
   <div style={mapDivStyle}>
     <Map zoom={3} center={[0, 0]}>
       <TileLayer>
