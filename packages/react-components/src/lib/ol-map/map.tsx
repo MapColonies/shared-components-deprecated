@@ -20,6 +20,8 @@ export interface MapProps {
   allowFullScreen?: boolean;
   showMousePosition?: boolean;
   projection?: Proj;
+  center?: [number, number];
+  zoom?: number;
 }
 
 const mapContext = createContext<OlMap | null>(null);
@@ -30,6 +32,12 @@ const CENTER_LAT = 35,
   DEFAULT_ZOOM = 10,
   COORDINATES_WGS_FRACTION_DIGITS = 5,
   COORDINATES_MERCATOR_FRACTION_DIGITS = 2;
+
+const getDefaultCenter = (projection: string | undefined): Coordinate => {
+  return projection !== undefined && projection !== Proj.WGS84
+    ? transform([CENTER_LAT, CENTER_LON], Proj.WGS84, projection)
+    : [CENTER_LAT, CENTER_LON];
+};
 
 const getCoordinateFormatString = (projection?: Proj): CoordinateFormat => {
   switch (projection) {
@@ -69,16 +77,24 @@ export const Map: React.FC<MapProps> = (props) => {
   const [map] = useState(
     new OlMap({
       view: new View({
-        center:
-          projection !== undefined && projection !== Proj.WGS84
-            ? transform([CENTER_LAT, CENTER_LON], Proj.WGS84, projection)
-            : [CENTER_LAT, CENTER_LON],
-        zoom: DEFAULT_ZOOM,
+        // center:
+        //   projection !== undefined && projection !== Proj.WGS84
+        //     ? transform([CENTER_LAT, CENTER_LON], Proj.WGS84, projection)
+        //     : [CENTER_LAT, CENTER_LON],
+        // zoom: DEFAULT_ZOOM,
         projection: projection ?? Proj.WGS84,
       }),
       controls: defaultControls(),
     })
   );
+
+  useEffect(() => {
+    map.getView().setCenter(props.center ?? getDefaultCenter(props.projection));
+  }, [map, props.center, props.projection]);
+
+  useEffect(() => {
+    map.getView().setZoom(props.zoom ?? DEFAULT_ZOOM);
+  }, [map, props.zoom, props.projection]);
 
   // eslint-disable-next-line
   const removeControl = (ctrType: any, mapInst: OlMap): void => {

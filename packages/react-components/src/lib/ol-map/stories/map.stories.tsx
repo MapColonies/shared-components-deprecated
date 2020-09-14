@@ -38,4 +38,24 @@ BaseMap.argTypes = {
       options: [Proj.WEB_MERCATOR, Proj.WGS84],
     },
   },
+  zoom: {
+    defaultValue: 3,
+    control: {
+      type: 'range',
+      min: 0,
+      max: 20,
+    },
+  },
 };
+
+export const ConfiguredMap: Story = (args: unknown) => (
+  <div style={mapDivStyle}>
+    <Map zoom={3} center={[0, 0]}>
+      <TileLayer>
+        <TileOsm />
+      </TileLayer>
+    </Map>
+  </div>
+);
+
+ConfiguredMap.storyName = 'with zoom and center';
