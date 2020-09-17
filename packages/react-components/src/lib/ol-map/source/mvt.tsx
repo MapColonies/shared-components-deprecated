@@ -3,13 +3,15 @@ import VectorTileSource, { Options } from 'ol/source/VectorTile';
 import { MVT } from 'ol/format';
 import { useVectorTileLayer } from '../layers/vector-tile-layer';
 
-const vectorSourceContext = createContext<VectorTileSource | null>(null);
+const vectorTileSourceContext = createContext<VectorTileSource | null>(null);
 
-export const useVectorSource = (): VectorTileSource => {
-  const source = useContext(vectorSourceContext);
+export const useVectorTileSource = (): VectorTileSource => {
+  const source = useContext(vectorTileSourceContext);
 
   if (source === null) {
-    throw new Error('vector source context is null, please check the provider');
+    throw new Error(
+      'vector tile source context is null, please check the provider'
+    );
   }
 
   return source;
