@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.1.0...@map-colonies/react-components@3.1.1) (2020-09-17)
+
+
+### Bug Fixes
+
+* **ol-map:** added missing exports ([323e84b](https://github.com/MapColonies/shared-components/commit/323e84bba47d83b8c6ef0a9aa07aa1701ca47508))
+
+
+### Features
+
+* **map:** zoom and center properties ([#57](https://github.com/MapColonies/shared-components/issues/57)) ([8e4d419](https://github.com/MapColonies/shared-components/commit/8e4d4193b2ea0209fea8f7c721573b3a2fb0e252))
+
+
+
+
+
 # 3.1.0 (2020-09-07)
 
 
