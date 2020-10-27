@@ -72,3 +72,12 @@ or
 ```json
   npx lerna exec -- npm publish
 ```
+## Storybook
+1. Run all packages storybooks
+```json
+  yarn run storybook:all
+``` 
+1. Run single composed storybook which containing all storybooks
+```json
+  yarn run storybook-composition
+``` 
