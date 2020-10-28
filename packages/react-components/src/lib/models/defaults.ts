@@ -6,7 +6,9 @@ const DEFAULTS = {
       setText: 'set',
       startPlaceHolderText: 'Start of time',
       endPlaceHolderText: 'End of time',
-    }
+    },
+    renderAsButton: true,
+    offset: 0,
   }
 }
 

@@ -12,7 +12,10 @@ interface DateRangePickerProps {
   from?: Date;
   to?: Date;
   dateFormat?: string;
+  renderAsButton?: boolean;
+  width?: string | number;
   controlsLayout?: 'column' | 'row';
+  offset?: number;
   local?:{
     setText?: string,
     startPlaceHolderText?: string,
@@ -28,7 +31,10 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
     setAnchorEl(event.currentTarget);
   };
   const handleClickInput = (event: React.MouseEvent<HTMLInputElement>): void => {
-    setAnchorEl(event.currentTarget as HTMLButtonElement);
+    if(event.currentTarget.tagName === 'I')
+      setAnchorEl(event.currentTarget.previousElementSibling as HTMLButtonElement);
+    else
+      setAnchorEl(event.currentTarget as HTMLButtonElement);
   };
   const handleClose = (): void => {
     setAnchorEl(null);
@@ -50,24 +56,31 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
 
   const startPlaceHolderText = props.local?.startPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
   const endPlaceHolderText = props.local?.endPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
+  const renderAsButton = props.renderAsButton === undefined ? DEFAULTS.DATE_PICKER.renderAsButton : props.renderAsButton;
+  const offset = props.offset === undefined ? DEFAULTS.DATE_PICKER.offset : props.offset;
 
   return (
     <>
-      {/* <Button
-        raised
-        onClick={handleClick}
-      >
-        {`${from ? formatDateFns(from, dateFormat) : startPlaceHolderText} - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`}
-      </Button> */}
-
-      <TextField
-        value = {`${from ? formatDateFns(from, dateFormat) : startPlaceHolderText} - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`}
-        onClick={handleClickInput}
-        trailingIcon={{
-          icon: 'close',
-          tabIndex: 0,
-        }}
-      />
+      {renderAsButton ? 
+        <Button
+          style={{width:props.width}}
+          raised
+          onClick={handleClick}
+        >
+          {`${from ? formatDateFns(from, dateFormat) : startPlaceHolderText} - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`}
+        </Button> 
+        :
+        <TextField
+          style={{width:props.width}}
+          value = {`${from ? formatDateFns(from, dateFormat) : startPlaceHolderText} - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`}
+          onClick={handleClickInput}
+          trailingIcon={{
+            icon: 'date_range',
+            tabIndex: 0,
+            onClick: handleClickInput
+          }}
+        />
+      }
 
       <Popover
         open={open}
@@ -78,7 +91,7 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
       >
         <DateTimeRangePicker
           controlsLayout={controlsLayout}
-          contentWidth = {(anchorEl?.clientWidth ?? 0) - 32}
+          contentWidth = {(anchorEl?.clientWidth ?? 0) - offset}
           dateFormat={dateFormat}
           local={props.local}
           from={from ?? undefined}

@@ -41,7 +41,13 @@ DateTimeFormControl.argTypes = {
     control: {
       type: 'object',
     },
-  }
+  },
+  offset: {
+    defaultValue: 32,
+    control: {
+      type: 'number',
+    },
+  },
 };
 
 
@@ -56,15 +62,16 @@ export const DateTimeLocalizedFormControl: Story = (args: unknown) => {
       local={local}
       from={new Date(1990, 1, 1)}
       to={new Date(1990, 1, 1)} 
+      width={360}
       {...args} 
       onChange={action('date changed')} 
     />
   );
 };
 
-DateTimeFormControl.storyName = 'Date time range localized form control';
+DateTimeLocalizedFormControl.storyName = 'Date time range localized form control';
 
-DateTimeFormControl.argTypes = {
+DateTimeLocalizedFormControl.argTypes = {
   controlsLayout: {
     defaultValue: 'column',
     control: {
@@ -76,5 +83,52 @@ DateTimeFormControl.argTypes = {
     control: {
       type: 'object',
     },
-  }
+  },
+  offset: {
+    defaultValue: 32,
+    control: {
+      type: 'number',
+    },
+  },
 };
+
+export const DateTimeLocalizedAsFormControl: Story = (args: unknown) => {
+  const local ={
+    setText: 'MySet',
+    startPlaceHolderText: 'MyStart',
+    endPlaceHolderText: 'MyEnd',
+  }
+  return (
+    <DateTimeRangePickerFormControl
+      local={local}
+      renderAsButton={false}
+      width={360}
+      {...args} 
+      onChange={action('date changed')} 
+    />
+  );
+};
+
+DateTimeLocalizedAsFormControl.storyName = 'Date time range looks like input';
+
+DateTimeLocalizedAsFormControl.argTypes = {
+  controlsLayout: {
+    defaultValue: 'column',
+    control: {
+      type: 'select',
+      options: ['row', 'column'],
+    },
+  },
+  local: {
+    control: {
+      type: 'object',
+    },
+  },
+  offset: {
+    defaultValue: 32,
+    control: {
+      type: 'number',
+    },
+  },
+};
+
