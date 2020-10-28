@@ -12,7 +12,7 @@ The repo uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
 * **react-ui-components** - Core components based on Material Web Components helpers.
 
 ## Install workspace packages dependecies
-```json
+```sh
   yarn
 ```
 
@@ -47,28 +47,37 @@ The repo uses [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
 
 ## Build
 1. Build Core components
-```json
+```sh
   yarn run build:react-core:build
 ``` 
 2. Build common components
-```json
+```sh
   yarn run build:react
 ``` 
 
 ## Publishing
 1. Be logged in to NPM
-```json
+```sh
   npm login
 ``` 
 2. Publish PUBLIC packages 
-```json
+```sh
   yarn run publish
 ``` 
 or
-```json
+```sh
   npx lerna publish --conventional-commits -m "chore(publish): publish %s [ci skip]"
 ``` 
 3. Re-publish currently bumped versions
-```json
+```sh
   npx lerna exec -- npm publish
 ```
+## Storybook
+1. Run all packages storybooks, each package storybook tab will open and the terminal will be captured to the servers.
+```sh
+  yarn run storybook:all
+```
+2. While the storybooks are running, you can run, in a different terminal, a single composed storybook which containing all of these storybooks.
+```sh
+  yarn run storybook-composition
+``` 
