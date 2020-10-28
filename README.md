@@ -72,3 +72,15 @@ or
 ```json
   npx lerna exec -- npm publish
 ```
+## Storybook
+In order to run storybook for specific package - run it from appropriate package location
+1. react-components
+```
+  cd packages/react-components
+  yarn run storybook
+```
+2. react-ui-components
+```
+  cd packages/react-ui-components
+  yarn run storybook
+```
