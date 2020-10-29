@@ -1,4 +1,5 @@
 const DEFAULTS = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   DATE_PICKER: {
     dateFormat: 'dd/MM/yyyy HH:mm',
     controlsLayout: 'row',

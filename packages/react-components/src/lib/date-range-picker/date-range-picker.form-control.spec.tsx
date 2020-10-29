@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
 import { Button } from '@map-colonies/react-core';
 import { DateTimeRangePickerFormControl } from './date-range-picker.form-control';

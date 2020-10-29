@@ -1,0 +1,4 @@
+body[dir='rtl'] .drpOpener .mdc-text-field
+{
+  direction: ltr;
+}

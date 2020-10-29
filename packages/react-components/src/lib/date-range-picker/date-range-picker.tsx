@@ -14,6 +14,7 @@ import { ThemeProvider as RmwcThemeProvider } from '@map-colonies/react-core';
 import DEFAULTS from '../models/defaults';
 import { Box } from '../box';
 import { useMappedMuiTheme } from '../theme';
+import './date-range-picker.css';
 
 const CONTAINER_SPACING_FACTOR = 2;
 const MARGIN_LEFT_FACTOR = 0.5;
@@ -88,7 +89,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
 
   return (
     <ThemeProvider theme={themeMui}>
-      <Box className={classes.container} display="flex" flexDirection={flexDirection} width={flexDirection === 'column' ? props.contentWidth : 'unset'}>
+      <Box className={`${classes.container} drpContainer`} display="flex" flexDirection={flexDirection} width={flexDirection === 'column' ? props.contentWidth : 'unset'}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDateTimePicker
             variant="inline"
