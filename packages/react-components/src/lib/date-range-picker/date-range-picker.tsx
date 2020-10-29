@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isValid, isBefore } from 'date-fns';
+import { he, enUS } from 'date-fns/locale';
 import {
   MuiPickersUtilsProvider,
   KeyboardDateTimePicker,
@@ -11,6 +12,7 @@ import { ThemeProvider } from '@material-ui/core';
 import { Button, useTheme } from '@map-colonies/react-core';
 import '@map-colonies/react-core/dist/button/styles';
 import { ThemeProvider as RmwcThemeProvider } from '@map-colonies/react-core';
+import { SupportedLocales } from '../models/enums';
 import DEFAULTS from '../models/defaults';
 import { Box } from '../box';
 import { useMappedMuiTheme } from '../theme';
@@ -45,6 +47,7 @@ interface DateRangePickerProps {
     setText?: string,
     startPlaceHolderText?: string,
     endPlaceHolderText?: string,
+    calendarLocale?: SupportedLocales;
   }
 }
 
@@ -60,7 +63,9 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const startPlaceHolderText = props.local?.startPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
   const endPlaceHolderText = props.local?.endPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
   const setText = props.local?.setText ?? DEFAULTS.DATE_PICKER.local.setText;
+  const calendarLocale = props.local?.calendarLocale ?? DEFAULTS.DATE_PICKER.local.calendarLocale;
 
+  const locale = (calendarLocale === SupportedLocales.HE) ? he : enUS;
 
   useEffect(() => {
     setFrom(props.from ?? null);
@@ -90,7 +95,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   return (
     <ThemeProvider theme={themeMui}>
       <Box className={`${classes.container} drpContainer`} display="flex" flexDirection={flexDirection} width={flexDirection === 'column' ? props.contentWidth : 'unset'}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
           <KeyboardDateTimePicker
             variant="inline"
             label={startPlaceHolderText}

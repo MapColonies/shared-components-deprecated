@@ -3,6 +3,7 @@ import { format as formatDateFns } from 'date-fns';
 import { Button, TextField } from '@map-colonies/react-core';
 import '@map-colonies/react-core/dist/textfield/styles';
 
+import { SupportedLocales } from '../models/enums';
 import DEFAULTS from '../models/defaults';
 import { Popover } from '../popover';
 import { DateTimeRangePicker } from './date-range-picker';
@@ -21,6 +22,7 @@ interface DateRangePickerProps {
     setText?: string,
     startPlaceHolderText?: string,
     endPlaceHolderText?: string,
+    calendarLocale?: SupportedLocales,
   }
 }
 export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (props) => {

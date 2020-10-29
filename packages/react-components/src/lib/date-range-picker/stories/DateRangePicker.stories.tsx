@@ -1,9 +1,10 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react/types-6-0';
+import { CSFStory } from '../../utils/story';
+import { SupportedLocales } from '../../models/enums';
 import { DateTimeRangePicker  } from '../date-range-picker';
 import { DateTimeRangePickerFormControl  } from '../date-range-picker.form-control';
-import { CSFStory } from '../../utils/story';
 
 export default {
   title: 'Picker',
@@ -131,4 +132,46 @@ DateTimeLocalizedAsFormControl.argTypes = {
     },
   },
 };
+
+export const DateTimeHebrewLocalizedAsFormControl: Story = (args: unknown) => {
+  const local ={
+    setText: 'MySet',
+    startPlaceHolderText: 'MyStart',
+    endPlaceHolderText: 'MyEnd',
+    calendarLocale: SupportedLocales.HE,
+  }
+  return (
+    <DateTimeRangePickerFormControl
+      local={local}
+      renderAsButton={false}
+      width={360}
+      {...args} 
+      onChange={action('date changed')} 
+    />
+  );
+};
+
+DateTimeHebrewLocalizedAsFormControl.storyName = 'Date time range looks like input with Hebrew calendar';
+
+DateTimeHebrewLocalizedAsFormControl.argTypes = {
+  controlsLayout: {
+    defaultValue: 'column',
+    control: {
+      type: 'select',
+      options: ['row', 'column'],
+    },
+  },
+  local: {
+    control: {
+      type: 'object',
+    },
+  },
+  offset: {
+    defaultValue: 32,
+    control: {
+      type: 'number',
+    },
+  },
+};
+
 
