@@ -30,13 +30,21 @@ DateNoFutureLimitTime.story = {
   name: 'Date time range no future limit',
 };
 
-export const DateMinMaxLimitTime: CSFStory<JSX.Element> = () => (
-  <DateTimeRangePicker
-    onChange={action('date changed')}
-    minDate={new Date('09/01/2020')}
-    maxDate={new Date('11/01/2020')}
-  />
-);
+export const DateMinMaxLimitTime: CSFStory<JSX.Element> = () => {
+  const minDate = new Date();
+  const maxDate = new Date();
+  const deltaInDays = 6;
+  minDate.setDate(maxDate.getDate() - deltaInDays); 
+  maxDate.setDate(maxDate.getDate() + deltaInDays); 
+  return (
+    <DateTimeRangePicker
+      onChange={action('date changed')}
+      disableFuture={false}
+      minDate={minDate}
+      maxDate={maxDate}
+    />
+  );
+};
 
 DateMinMaxLimitTime.story = {
   name: 'Date time range with minDate & maxDate ',
