@@ -14,7 +14,7 @@ const DEFAULTS = {
     renderAsButton: true,
     offset: 0,
     disableFuture: true,
-  }
-}
+  },
+};
 
 export default DEFAULTS;
