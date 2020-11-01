@@ -1,4 +1,4 @@
-import { SupportedLocales } from "./enums";
+import { SupportedLocales } from './enums';
 
 const DEFAULTS = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
