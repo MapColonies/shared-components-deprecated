@@ -19,28 +19,37 @@ interface DateRangePickerProps {
   controlsLayout?: 'column' | 'row';
   offset?: number;
   disableFuture?: boolean;
-  maxDate?: string | number | Date | null | undefined,
-  minDate?: string | number | Date | null | undefined,
+  maxDate?: string | number | Date | null | undefined;
+  minDate?: string | number | Date | null | undefined;
   local?: {
-    setText?: string,
-    startPlaceHolderText?: string,
-    endPlaceHolderText?: string,
-    calendarLocale?: SupportedLocales,
-  }
+    setText?: string;
+    startPlaceHolderText?: string;
+    endPlaceHolderText?: string;
+    calendarLocale?: SupportedLocales;
+  };
 }
-export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (props) => {
+export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (
+  props
+) => {
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
-  const [dateFormat, setDateFormat] = useState<string>(DEFAULTS.DATE_PICKER.dateFormat);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [dateFormat, setDateFormat] = useState<string>(
+    DEFAULTS.DATE_PICKER.dateFormat
+  );
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClickInput = (event: React.MouseEvent<HTMLInputElement>): void => {
+  const handleClickInput = (
+    event: React.MouseEvent<HTMLInputElement>
+  ): void => {
     if (event.currentTarget.tagName === 'I')
-      setAnchorEl(event.currentTarget.previousElementSibling as HTMLButtonElement);
-    else
-      setAnchorEl(event.currentTarget as HTMLButtonElement);
+      setAnchorEl(
+        event.currentTarget.previousElementSibling as HTMLButtonElement
+      );
+    else setAnchorEl(event.currentTarget as HTMLButtonElement);
   };
   const handleClose = (): void => {
     setAnchorEl(null);
@@ -60,21 +69,32 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
     setDateFormat(props.dateFormat ?? DEFAULTS.DATE_PICKER.dateFormat);
   }, [props.dateFormat]);
 
-  const startPlaceHolderText = props.local?.startPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
-  const endPlaceHolderText = props.local?.endPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
-  const renderAsButton = props.renderAsButton === undefined ? DEFAULTS.DATE_PICKER.renderAsButton : props.renderAsButton;
-  const offset = props.offset === undefined ? DEFAULTS.DATE_PICKER.offset : props.offset;
-  const disableFuture = props.disableFuture === undefined ? DEFAULTS.DATE_PICKER.disableFuture : props.disableFuture;
-  
+  const startPlaceHolderText =
+    props.local?.startPlaceHolderText ??
+    DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
+  const endPlaceHolderText =
+    props.local?.endPlaceHolderText ??
+    DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
+  const renderAsButton =
+    props.renderAsButton === undefined
+      ? DEFAULTS.DATE_PICKER.renderAsButton
+      : props.renderAsButton;
+  const offset =
+    props.offset === undefined ? DEFAULTS.DATE_PICKER.offset : props.offset;
+  const disableFuture =
+    props.disableFuture === undefined
+      ? DEFAULTS.DATE_PICKER.disableFuture
+      : props.disableFuture;
+
   const controlText = useMemo(() => {
-      return `${from ? formatDateFns(from, dateFormat) : startPlaceHolderText} - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`;
-    },
-    [from, to, dateFormat, startPlaceHolderText, endPlaceHolderText]
-  );
+    return `${
+      from ? formatDateFns(from, dateFormat) : startPlaceHolderText
+    } - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`;
+  }, [from, to, dateFormat, startPlaceHolderText, endPlaceHolderText]);
 
   return (
     <>
-      {renderAsButton ?
+      {renderAsButton ? (
         <Button
           style={{ width: props.width }}
           raised
@@ -83,7 +103,7 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
         >
           {controlText}
         </Button>
-        :
+      ) : (
         <TextField
           className="drpOpener"
           readOnly
@@ -93,10 +113,10 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
           trailingIcon={{
             icon: 'date_range',
             tabIndex: 0,
-            onClick: handleClickInput
+            onClick: handleClickInput,
           }}
         />
-      }
+      )}
 
       <Popover
         open={open}

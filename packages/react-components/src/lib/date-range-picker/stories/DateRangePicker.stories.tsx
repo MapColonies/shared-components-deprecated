@@ -3,8 +3,8 @@ import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react/types-6-0';
 import { CSFStory } from '../../utils/story';
 import { SupportedLocales } from '../../models/enums';
-import { DateTimeRangePicker  } from '../date-range-picker';
-import { DateTimeRangePickerFormControl  } from '../date-range-picker.form-control';
+import { DateTimeRangePicker } from '../date-range-picker';
+import { DateTimeRangePickerFormControl } from '../date-range-picker.form-control';
 
 export default {
   title: 'Picker',
@@ -20,7 +20,10 @@ DateTime.story = {
 };
 
 export const DateNoFutureLimitTime: CSFStory<JSX.Element> = () => (
-  <DateTimeRangePicker disableFuture={false} onChange={action('date changed')} />
+  <DateTimeRangePicker
+    disableFuture={false}
+    onChange={action('date changed')}
+  />
 );
 
 DateNoFutureLimitTime.story = {
@@ -28,8 +31,8 @@ DateNoFutureLimitTime.story = {
 };
 
 export const DateMinMaxLimitTime: CSFStory<JSX.Element> = () => (
-  <DateTimeRangePicker 
-    onChange={action('date changed')} 
+  <DateTimeRangePicker
+    onChange={action('date changed')}
     minDate={new Date('09/01/2020')}
     maxDate={new Date('11/01/2020')}
   />
@@ -41,9 +44,9 @@ DateMinMaxLimitTime.story = {
 
 export const DateTimeFormControl: Story = (args: unknown) => {
   return (
-    <DateTimeRangePickerFormControl 
-      {...args} 
-      onChange={action('date changed')} 
+    <DateTimeRangePickerFormControl
+      {...args}
+      onChange={action('date changed')}
     />
   );
 };
@@ -71,26 +74,26 @@ DateTimeFormControl.argTypes = {
   },
 };
 
-
 export const DateTimeLocalizedFormControl: Story = (args: unknown) => {
-  const local ={
+  const local = {
     setText: 'MySet',
     startPlaceHolderText: 'MyStart',
     endPlaceHolderText: 'MyEnd',
-  }
+  };
   return (
     <DateTimeRangePickerFormControl
       local={local}
       from={new Date(1990, 1, 1)}
-      to={new Date(1990, 1, 1)} 
+      to={new Date(1990, 1, 1)}
       width={360}
-      {...args} 
-      onChange={action('date changed')} 
+      {...args}
+      onChange={action('date changed')}
     />
   );
 };
 
-DateTimeLocalizedFormControl.storyName = 'Date time range localized form control';
+DateTimeLocalizedFormControl.storyName =
+  'Date time range localized form control';
 
 DateTimeLocalizedFormControl.argTypes = {
   controlsLayout: {
@@ -114,18 +117,18 @@ DateTimeLocalizedFormControl.argTypes = {
 };
 
 export const DateTimeLocalizedAsFormControl: Story = (args: unknown) => {
-  const local ={
+  const local = {
     setText: 'MySet',
     startPlaceHolderText: 'MyStart',
     endPlaceHolderText: 'MyEnd',
-  }
+  };
   return (
     <DateTimeRangePickerFormControl
       local={local}
       renderAsButton={false}
       width={360}
-      {...args} 
-      onChange={action('date changed')} 
+      {...args}
+      onChange={action('date changed')}
     />
   );
 };
@@ -154,24 +157,25 @@ DateTimeLocalizedAsFormControl.argTypes = {
 };
 
 export const DateTimeHebrewLocalizedAsFormControl: Story = (args: unknown) => {
-  const local ={
+  const local = {
     setText: 'MySet',
     startPlaceHolderText: 'MyStart',
     endPlaceHolderText: 'MyEnd',
     calendarLocale: SupportedLocales.HE,
-  }
+  };
   return (
     <DateTimeRangePickerFormControl
       local={local}
       renderAsButton={false}
       width={360}
-      {...args} 
-      onChange={action('date changed')} 
+      {...args}
+      onChange={action('date changed')}
     />
   );
 };
 
-DateTimeHebrewLocalizedAsFormControl.storyName = 'Date time range looks like input with Hebrew calendar';
+DateTimeHebrewLocalizedAsFormControl.storyName =
+  'Date time range looks like input with Hebrew calendar';
 
 DateTimeHebrewLocalizedAsFormControl.argTypes = {
   controlsLayout: {
@@ -193,5 +197,3 @@ DateTimeHebrewLocalizedAsFormControl.argTypes = {
     },
   },
 };
-
-

@@ -16,7 +16,7 @@ it('set the values of to and from to the props of the date pickers when changed'
   );
   wrapper.setProps({ from: date, to: date });
   // eslint-disable-next-line
-  wrapper.find(Button).first().simulate('click', { currentTarget: { } });
+  wrapper.find(Button).first().simulate('click', { currentTarget: {} });
 
   wrapper.update();
   const pickers = wrapper.find(KeyboardDateTimePicker);
@@ -30,7 +30,11 @@ it('set the values of to and from to the props of the date pickers when changed'
 it('calls on change with right argumnets when inner set button is clicked', () => {
   const onChangeMock = jest.fn();
   const wrapper = mount(
-    <DateTimeRangePickerFormControl from={date} to={date} onChange={onChangeMock} />
+    <DateTimeRangePickerFormControl
+      from={date}
+      to={date}
+      onChange={onChangeMock}
+    />
   );
 
   // eslint-disable-next-line
