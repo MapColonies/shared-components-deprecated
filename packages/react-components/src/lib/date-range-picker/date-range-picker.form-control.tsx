@@ -111,7 +111,6 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
             setFrom(from ?? null);
             setTo(to ?? null);
             props.onChange({ from, to });
-            // conflictsStore.searchParams.setDateRange(from, to);
             handleClose();
           }}
         />
