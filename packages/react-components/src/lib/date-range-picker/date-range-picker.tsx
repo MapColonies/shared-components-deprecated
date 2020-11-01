@@ -43,6 +43,9 @@ interface DateRangePickerProps {
   dateFormat?: string;
   controlsLayout?: string;
   contentWidth?: number;
+  disableFuture?: boolean;
+  maxDate?: string | number | Date | null | undefined,
+  minDate?: string | number | Date | null | undefined,
   local?:{
     setText?: string,
     startPlaceHolderText?: string,
@@ -60,11 +63,12 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const [dateFormat, setDateFormat] = useState<string>(DEFAULTS.DATE_PICKER.dateFormat);
 
   const flexDirection = props.controlsLayout ?? DEFAULTS.DATE_PICKER.controlsLayout;
+  const disableFuture = props.disableFuture ?? DEFAULTS.DATE_PICKER.disableFuture;
   const startPlaceHolderText = props.local?.startPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
   const endPlaceHolderText = props.local?.endPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
   const setText = props.local?.setText ?? DEFAULTS.DATE_PICKER.local.setText;
   const calendarLocale = props.local?.calendarLocale ?? DEFAULTS.DATE_PICKER.local.calendarLocale;
-
+    
   const locale = (calendarLocale === SupportedLocales.HE) ? he : enUS;
 
   useEffect(() => {
@@ -101,8 +105,10 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
             label={startPlaceHolderText}
             onChange={(date): void => setFrom(date as Date)}
             value={from}
-            disableFuture={true}
+            disableFuture={disableFuture}
             format={dateFormat}
+            maxDate={props.maxDate}
+            minDate={props.minDate}
           />
           <KeyboardDateTimePicker
             variant="inline"
@@ -110,8 +116,10 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
             className={classes.margin}
             onChange={(date): void => setTo(date as Date)}
             value={to}
-            disableFuture={true}
+            disableFuture={disableFuture}
             format={dateFormat}
+            maxDate={props.maxDate}
+            minDate={props.minDate}
           />
           <RmwcThemeProvider options={theme}>
             <Button

@@ -85,12 +85,12 @@ or
 
 In order to run storybook for specific package - run it from appropriate package location
 1. react-components
-```
+```sh
   cd packages/react-components
   yarn run storybook
 ```
 2. react-ui-components
-```
+```sh
   cd packages/react-ui-components
   yarn run storybook
 ```

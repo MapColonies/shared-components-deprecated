@@ -18,6 +18,9 @@ interface DateRangePickerProps {
   width?: string | number;
   controlsLayout?: 'column' | 'row';
   offset?: number;
+  disableFuture?: boolean;
+  maxDate?: string | number | Date | null | undefined,
+  minDate?: string | number | Date | null | undefined,
   local?: {
     setText?: string,
     startPlaceHolderText?: string,
@@ -61,6 +64,8 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
   const endPlaceHolderText = props.local?.endPlaceHolderText ?? DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
   const renderAsButton = props.renderAsButton === undefined ? DEFAULTS.DATE_PICKER.renderAsButton : props.renderAsButton;
   const offset = props.offset === undefined ? DEFAULTS.DATE_PICKER.offset : props.offset;
+  const disableFuture = props.disableFuture === undefined ? DEFAULTS.DATE_PICKER.disableFuture : props.disableFuture;
+  
   const controlText = useMemo(() => {
       return `${from ? formatDateFns(from, dateFormat) : startPlaceHolderText} - ${to ? formatDateFns(to, dateFormat) : endPlaceHolderText}`;
     },
@@ -104,6 +109,9 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (p
           controlsLayout={controlsLayout}
           contentWidth={(anchorEl?.clientWidth ?? 0) - offset}
           dateFormat={dateFormat}
+          disableFuture={disableFuture}
+          minDate={props.minDate}
+          maxDate={props.maxDate}
           local={props.local}
           from={from ?? undefined}
           to={to ?? undefined}
