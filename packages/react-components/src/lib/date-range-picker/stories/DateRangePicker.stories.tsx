@@ -34,8 +34,8 @@ export const DateMinMaxLimitTime: CSFStory<JSX.Element> = () => {
   const minDate = new Date();
   const maxDate = new Date();
   const deltaInDays = 6;
-  minDate.setDate(maxDate.getDate() - deltaInDays); 
-  maxDate.setDate(maxDate.getDate() + deltaInDays); 
+  minDate.setDate(maxDate.getDate() - deltaInDays);
+  maxDate.setDate(maxDate.getDate() + deltaInDays);
   return (
     <DateTimeRangePicker
       onChange={action('date changed')}
