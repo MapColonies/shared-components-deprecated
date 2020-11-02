@@ -72,6 +72,7 @@ or
 ```sh
   npx lerna exec -- npm publish
 ```
+
 ## Storybook
 1. Run all packages storybooks, each package storybook tab will open and the terminal will be captured to the servers.
 ```sh
@@ -81,3 +82,15 @@ or
 ```sh
   yarn run storybook-composition
 ``` 
+
+In order to run storybook for specific package - run it from appropriate package location
+1. react-components
+```sh
+  cd packages/react-components
+  yarn run storybook
+```
+2. react-ui-components
+```sh
+  cd packages/react-ui-components
+  yarn run storybook
+```
