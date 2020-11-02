@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.1.1...@map-colonies/react-components@3.1.2) (2020-11-02)
+
+
+### Bug Fixes
+
+* **code:** cleanup ([d68b327](https://github.com/MapColonies/shared-components/commit/d68b3273a011f5e8c34b58f54ba502fbc20760d0))
+* **prcomment:** delta in days added ([fc452b6](https://github.com/MapColonies/shared-components/commit/fc452b6fdc4bede432673c7bad493f93923ecc98))
+* **prcomments:** pr comments fix ([b64bfaa](https://github.com/MapColonies/shared-components/commit/b64bfaaa5d83a3067f28905f8f231fb33592fb01))
+* **prettier:** fix ([73fe162](https://github.com/MapColonies/shared-components/commit/73fe162e323130f1438a18fa4a3c24ed1ed56a6e))
+* **prettier:** fix ([e0eb8ef](https://github.com/MapColonies/shared-components/commit/e0eb8ef0e79f96dd568979b10e4ba9f26a21b3b1))
+* **prettier:** fix ([9e8f123](https://github.com/MapColonies/shared-components/commit/9e8f1235a6b80529aa259947450edea6a750066e))
+* **prettier:** fix ([2b0c845](https://github.com/MapColonies/shared-components/commit/2b0c8451b66056687a3f37b5454c4f77f7bc688b))
+
+
+### Features
+
+* **daterangepicker:** new props added ([0d3d0b6](https://github.com/MapColonies/shared-components/commit/0d3d0b699b896bc0a0816f65323698806d33f17c))
+* **daterangepicker:** rtl layout + lint ([905e3b9](https://github.com/MapColonies/shared-components/commit/905e3b976b174ad8dd67c8bb7c5f7ccb24eba6b2))
+* **datetimerange:** calendar localization param ([08ec3be](https://github.com/MapColonies/shared-components/commit/08ec3beabef09535b915a7cdba79af4ff827eca5))
+* **datetimerangepicker:** form control ([455b5c2](https://github.com/MapColonies/shared-components/commit/455b5c26a55e0c23eb23947ee50e0060bf433436))
+
+
+
+
+
+
 ## [3.1.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.1.0...@map-colonies/react-components@3.1.1) (2020-09-17)
 
 
