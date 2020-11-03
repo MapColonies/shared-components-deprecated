@@ -111,7 +111,7 @@ export const Map: React.FC<MapProps> = (props) => {
     }
   }, [map, allowFullScreen]);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (showMousePosition !== undefined && showMousePosition) {
       removeControl(MousePosition, map);
       map.addControl(
@@ -124,7 +124,7 @@ export const Map: React.FC<MapProps> = (props) => {
     } else {
       removeControl(MousePosition, map);
     }
-  },[map, showMousePosition, projection])
+  }, [map, showMousePosition, projection]);
 
   return (
     <MapProvider value={map}>
