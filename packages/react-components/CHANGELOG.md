@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.1.2...@map-colonies/react-components@3.2.0) (2020-11-15)
+
+
+### Features
+
+* make mouse position indicator background white ([05dc827](https://github.com/MapColonies/shared-components/commit/05dc8277f85b9a1468f20156cdc20807812d2f25))
+
+
+
+
+
 ## [3.1.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.1.1...@map-colonies/react-components@3.1.2) (2020-11-02)
 
 
