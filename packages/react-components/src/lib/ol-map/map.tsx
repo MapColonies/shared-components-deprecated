@@ -109,8 +109,11 @@ export const Map: React.FC<MapProps> = (props) => {
     } else {
       removeControl(FullScreen, map);
     }
+  }, [map, allowFullScreen]);
 
+  useEffect(() => {
     if (showMousePosition !== undefined && showMousePosition) {
+      removeControl(MousePosition, map);
       map.addControl(
         new MousePosition({
           coordinateFormat: getCoordinateFormatString(projection ?? Proj.WGS84),
@@ -121,7 +124,7 @@ export const Map: React.FC<MapProps> = (props) => {
     } else {
       removeControl(MousePosition, map);
     }
-  }, [map, allowFullScreen, projection, showMousePosition]);
+  }, [map, showMousePosition, projection]);
 
   return (
     <MapProvider value={map}>
