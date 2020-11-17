@@ -1,13 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { Map } from './map';
-// import { TileOsm } from '../source';
-// import { TileLayer } from '../layers';
-// import { Proj } from '../projections';
+import { CesiumMap } from './map';
 
 export default {
   title: 'Cesium Map',
-  component: Map,
+  component: CesiumMap,
   parameters: {
     layout: 'fullscreen',
   },
@@ -21,11 +18,9 @@ const mapDivStyle = {
 
 export const BaseMap: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <Map {...args}>
-      {/* <TileLayer>
-        <TileOsm />
-      </TileLayer> */}
-    </Map>
+    <CesiumMap {...args}>
+
+    </CesiumMap>
   </div>
 );
 
@@ -47,15 +42,3 @@ BaseMap.argTypes = {
     },
   },
 };
-
-export const ConfiguredMap: Story = () => (
-  <div style={mapDivStyle}>
-    <Map zoom={3} center={[0, 0]}>
-      {/* <TileLayer>
-        <TileOsm />
-      </TileLayer> */}
-    </Map>
-  </div>
-);
-
-ConfiguredMap.storyName = 'with zoom and center';

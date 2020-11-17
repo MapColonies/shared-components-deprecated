@@ -53,8 +53,8 @@
     "eject": "react-scripts eject",
     "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
     "copyassets:all": "yarn run copyassets:cesium",
-    "copyassets:cesium": "copyfiles -u 5 \"../../node_modules/cesium/Build/Cesium/**/*\" public",
-    "storybook": "yarn run copyassets:all && start-storybook -p 9010 -s public",
+    "copyassets:cesium": "copyfiles -u 5 \"../../node_modules/cesium/Build/Cesium/**/*\" \"storybook-static\"",
+    "storybook": "yarn run copyassets:all && start-storybook -p 9010 -s public,\"storybook-static\"",
     "build-storybook": "build-storybook -s public",
     "eslint-check": "npx eslint . --ext .ts,.tsx"
   },

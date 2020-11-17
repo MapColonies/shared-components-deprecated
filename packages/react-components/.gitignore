@@ -22,5 +22,4 @@ yarn-debug.log*
 yarn-error.log*
 
 #storybook
-/storybook-static
-/public/cesium
+/storybook-static/cesium
