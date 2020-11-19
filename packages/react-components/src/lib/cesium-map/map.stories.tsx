@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { CesiumMap } from './map';
+import { CesiumMap, MapProps } from './map';
 
 export default {
   title: 'Cesium Map',
@@ -16,7 +16,7 @@ const mapDivStyle = {
   position: 'absolute' as const,
 };
 
-export const BaseMap: Story = (args: unknown) => (
+export const BaseMap: Story = (args: MapProps) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}>
 
@@ -24,7 +24,15 @@ export const BaseMap: Story = (args: unknown) => (
   </div>
 );
 
-BaseMap.argTypes = {
+export const ZommedMap: Story = (args: MapProps) => (
+  <div style={mapDivStyle}>
+    <CesiumMap {...args}>
+
+    </CesiumMap>
+  </div>
+);
+
+ZommedMap.argTypes = {
   // projection: {
   //   defaultValue: Proj.WGS84,
   //   control: {
@@ -33,6 +41,9 @@ BaseMap.argTypes = {
   //     options: [Proj.WEB_MERCATOR, Proj.WGS84],
   //   },
   // },
+  center: {
+    defaultValue:[34.9578094, 32.8178637]
+  },
   zoom: {
     defaultValue: 3,
     control: {

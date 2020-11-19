@@ -43,7 +43,7 @@ const optionsWMTS2 = {
 
 export const MapWithWMTSLayers: Story = () => (
   <div style={mapDivStyle}>
-    <CesiumMap zoom={3} center={[0, 0]}>
+    <CesiumMap>
       <CesiumWMTSLayer
         options= {optionsWMTS}
       />

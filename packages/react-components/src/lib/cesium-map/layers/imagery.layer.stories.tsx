@@ -20,7 +20,7 @@ const mapDivStyle = {
 
 export const MapWithImageryLayers: Story = () => (
   <div style={mapDivStyle}>
-    <CesiumMap zoom={3} center={[0, 0]}>
+    <CesiumMap>
       <CesiumImageryLayer
         imageryProvider={
           new ArcGisMapServerImageryProvider({

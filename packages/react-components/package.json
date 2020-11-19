@@ -37,6 +37,7 @@
     "copyfiles": "2.3.0",
     "cross-env": "7.0.2",
     "date-fns": "^2.14.0",
+    "lodash": "^4.17.20",
     "ol": "^6.4.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -73,6 +74,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/lodash": "^4.14.165",
     "@types/react-test-renderer": "^16.9.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",

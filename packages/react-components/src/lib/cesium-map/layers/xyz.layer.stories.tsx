@@ -28,7 +28,7 @@ const optionsXYZ2 = {
 
 export const MapWithXYZLayers: Story = () => (
   <div style={mapDivStyle}>
-    <CesiumMap zoom={3} center={[0, 0]}>
+    <CesiumMap>
       <CesiumXYZLayer
         options= {optionsXYZ}
       />

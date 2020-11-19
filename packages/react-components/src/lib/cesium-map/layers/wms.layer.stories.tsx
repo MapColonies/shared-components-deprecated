@@ -30,7 +30,7 @@ const optionsWMS2 = {
 
 export const MapWithWMSLayers: Story = () => (
   <div style={mapDivStyle}>
-    <CesiumMap zoom={3} center={[0, 0]}>
+    <CesiumMap>
       <CesiumWMSLayer
         options= {optionsWMS}
       />
