@@ -1,16 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Viewer, Math as CesiumMath, Cartesian2, EllipsoidGeodesic } from 'cesium';
+import { Viewer, Math as CesiumMath, Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
 import { isNumber } from 'lodash'; 
 import { useMap } from '../map';
 
 import './scale-tracker.tool.css';
 
-export interface RScaleTrackerToolProps {}
+export interface RScaleTrackerToolProps {};
+
+interface IScaleData {
+  barWidth?: number,
+  distanceLabel?: string,
+  lastLegendUpdate: number,
+}
 
 export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
   const mapViewer: Viewer = useMap();
-  const ref = useRef<HTMLDivElement>(null);
-  const [scaleData, setScaleData] = useState();
+  const [scaleData, setScaleData] = useState<IScaleData>({
+    barWidth: undefined,
+    distanceLabel: undefined,
+    lastLegendUpdate: -1,
+
+  });
 
   const distances = [
     1, 2, 3, 5,
@@ -23,111 +33,114 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
     10000000, 20000000, 30000000, 50000000];
 
   const updateDistanceLegendCesium = () => {
-    const viewModel = {
+    const scale: IScaleData = {
       barWidth: undefined,
-      distanceLabel: undefined
+      distanceLabel: undefined,
+      lastLegendUpdate: scaleData.lastLegendUpdate,
     }
     const geodesic = new EllipsoidGeodesic();
-    // if (!viewModel.enableDistanceLegend) {
-    //   viewModel.barWidth = undefined;
-    //   viewModel.distanceLabel = undefined;
-    //   return;
-    // }
-    // var now = getTimestamp();
-    // if (now < viewModel._lastLegendUpdate + 250) {
-    //   return;
-    // }
-
-    // viewModel._lastLegendUpdate = now;
-
-    // Find the distance between two pixels at the bottom center of the screen.
-    var width = mapViewer.scene.canvas.clientWidth;
-    var height = mapViewer.scene.canvas.clientHeight;
-
-    var left = mapViewer.scene.camera.getPickRay(
-      new Cartesian2((width / 2) | 0, height - 1)
-    );
-    var right = mapViewer.scene.camera.getPickRay(
-      new Cartesian2((1 + width / 2) | 0, height - 1)
-    );
-
-    var globe = mapViewer.scene.globe;
-    var leftPosition = globe.pick(left, mapViewer.scene);
-    var rightPosition = globe.pick(right, mapViewer.scene);
-
-    if (!leftPosition || !rightPosition) {
-      viewModel.barWidth = undefined;
-      viewModel.distanceLabel = undefined;
+    
+    const now = new Date().getTime();
+    if (now < scale.lastLegendUpdate + 250) {
       return;
     }
 
-    var leftCartographic = globe.ellipsoid.cartesianToCartographic(
+    scale.lastLegendUpdate = now;
+
+    // Find the distance between two pixels at the bottom center of the screen.
+    const width = mapViewer.scene.canvas.clientWidth;
+    const height = mapViewer.scene.canvas.clientHeight;
+
+    const left = mapViewer.scene.camera.getPickRay(
+      new Cartesian2((width / 2) | 0, height - 1)
+    );
+    const right = mapViewer.scene.camera.getPickRay(
+      new Cartesian2((1 + width / 2) | 0, height - 1)
+    );
+
+    const globe = mapViewer.scene.globe;
+    const leftPosition = globe.pick(left, mapViewer.scene);
+    const rightPosition = globe.pick(right, mapViewer.scene);
+
+    if (!leftPosition || !rightPosition) {
+      return;
+    }
+
+    const leftCartographic = globe.ellipsoid.cartesianToCartographic(
       leftPosition
     );
-    var rightCartographic = globe.ellipsoid.cartesianToCartographic(
+    const rightCartographic = globe.ellipsoid.cartesianToCartographic(
       rightPosition
     );
 
     geodesic.setEndPoints(leftCartographic, rightCartographic);
-    var pixelDistance = geodesic.surfaceDistance;
+    const pixelDistance = geodesic.surfaceDistance;
 
     // Find the first distance that makes the scale bar less than 100 pixels.
-    var maxBarWidth = 100;
-    var distance;
-    for (var i = distances.length - 1; !isNumber(distance) && i >= 0; --i) {
+    const maxBarWidth = 100;
+    let distance;
+    for (let i = distances.length - 1; !isNumber(distance) && i >= 0; --i) {
       if (distances[i] / pixelDistance < maxBarWidth) {
         distance = distances[i];
       }
     }
 
     if (isNumber(distance)) {
-      var label;
+      let label = '';
       if (distance >= 1000) {
         label = (distance / 1000).toString() + ' km';
       } else {
         label = distance.toString() + ' m';
       }
 
-      viewModel.barWidth = (distance / pixelDistance) | 0;
-      viewModel.distanceLabel = label;
-    } else {
-      viewModel.barWidth = undefined;
-      viewModel.distanceLabel = undefined;
+      scale.barWidth = (distance / pixelDistance) | 0;
+      scale.distanceLabel = label;
     }
 
-    setScaleData(viewModel);
-    console.log('viewModel-->', viewModel);
+    setScaleData(scale);
   };
 
   useEffect(() => {
     const setFromEvent = (e: MouseEvent): void => {
       updateDistanceLegendCesium();
-      const heading = Math.round(
-        CesiumMath.toDegrees(mapViewer.camera.heading)
-      );
-      console.log('Heading:', heading);
-
-      const pitch = Math.round(CesiumMath.toDegrees(mapViewer.camera.pitch));
-      console.log('Pitch:', pitch);
     };
+
+    const helper = new EventHelper();
+    const tileLoadHandler = (event: number) => {
+      // console.log("Tiles to load: " + event, mapViewer.scene.globe.tilesLoaded);
+      if (mapViewer.scene.globe.tilesLoaded ) {
+        setFromEvent(new MouseEvent('mouse'));
+        helper.removeAll();
+      }
+    }
+    // Register tiles loader handler for initial load because globe.pick returning undefined
+    // see here https://community.cesium.com/t/globe-pick-returning-undefined/6616
+    helper.add(mapViewer.scene.globe.tileLoadProgressEvent, tileLoadHandler);
+    
     mapViewer.camera.moveEnd.addEventListener(setFromEvent);
     // mapViewer.camera.changed.addEventListener(setFromEvent);
 
     return (): void => {
-      // mapViewer.camera.changed.removeEventListener(setFromEvent);
-      mapViewer.camera.moveEnd.removeEventListener(setFromEvent);
+      try{
+        mapViewer.camera.moveEnd.removeEventListener(setFromEvent);
+        // mapViewer.camera.changed.removeEventListener(setFromEvent);
+      }
+      catch(e){
+        console.log('CESIUM camera "moveEnd" remove listener failed',e);
+      }
+
     };
-  }, [ref, mapViewer]);
+  }, [mapViewer]);
 
   // return <div className="trackerPosition" ref={ref}></div>;
 
-  return (scaleData ? (<div className="scalePosition" ref={ref}>
-    <div className="distance-legend-label">{scaleData?.distanceLabel}</div>
-    <div className="distance-legend-scale-bar" style={{
+  return <div className="scalePosition">
+    {scaleData.distanceLabel && <div className="distance-legend-label">{scaleData.distanceLabel}</div>}
+    {scaleData.barWidth && <div className="distance-legend-scale-bar" style={{
       height: '2px',
-      width: scaleData?.barWidth + 'px', 
-      left: (5 + (125 - scaleData?.barWidth) / 2) + 'px' 
+      width: scaleData.barWidth + 'px', 
+      left: (5 + (125 - scaleData.barWidth) / 2) + 'px' 
     }}>
-    </div>
-  </div>) : null);
+    </div>}
+  </div>
 };

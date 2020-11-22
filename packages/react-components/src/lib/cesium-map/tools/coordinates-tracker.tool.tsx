@@ -20,7 +20,12 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (p
     mapViewer.scene.canvas.addEventListener('mousemove', setFromEvent);
 
     return (): void => {
-      mapViewer.scene.canvas.removeEventListener("mousemove", setFromEvent);
+      try{
+        mapViewer.scene.canvas.removeEventListener("mousemove", setFromEvent);
+      }
+      catch(e){
+        console.log('CESIUM canvas "mousemove" remove listener failed',e);
+      }
     };
   }, [ref, mapViewer]);
 
