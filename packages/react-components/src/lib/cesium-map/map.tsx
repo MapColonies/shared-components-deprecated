@@ -7,6 +7,8 @@ import { CesiumComponentRef } from 'resium';
 import { useRef } from 'react';
 import { getAltitude } from '../utils/map';
 import './map.css';
+import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
+import { Proj } from '.';
 
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
@@ -14,7 +16,7 @@ const MapViewProvider = mapContext.Provider;
 export interface MapProps {
   allowFullScreen?: boolean;
   showMousePosition?: boolean;
-  // projection?: Proj;
+  projection?: Proj;
   center?: [number, number];
   zoom?: number;
 }
@@ -32,10 +34,22 @@ export const useMap = (): CesiumViewer => {
 export const CesiumMap: React.FC<MapProps> = (props) => {
   const ref = useRef<CesiumComponentRef<CesiumViewer>>(null);
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
+  const [projection, setProjection] = useState<Proj>();
+  const [showMousePosition, setShowMousePosition] = useState<boolean>();
+  
   
   useEffect(() => {
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
+
+  useEffect(() => {
+    setProjection(props.projection ?? Proj.WGS84);
+  }, [props.projection]);
+
+
+  useEffect(() => {
+    setShowMousePosition(props.showMousePosition ?? true);
+  }, [props.showMousePosition]);
 
   useEffect(() => {
     const { zoom, center } = props;
@@ -48,7 +62,7 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
   }, [props, mapViewRef]);
 
   return(
-    <Viewer full ref={ref} 
+    <Viewer full={props.allowFullScreen ?? true} ref={ref} 
       timeline={false}
       animation={false}
       baseLayerPicker={false}
@@ -58,6 +72,13 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
     >
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
+        {
+          (showMousePosition === true) ? 
+            <CoordinatesTrackerTool projection={projection}></CoordinatesTrackerTool>
+            :
+            <></>
+        }
+        
       </MapViewProvider>
   </Viewer>
   );

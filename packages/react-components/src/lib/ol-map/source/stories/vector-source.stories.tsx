@@ -3,7 +3,7 @@ import { Geometries } from '@turf/helpers';
 import { Map } from '../../map';
 import { TileOsm } from '..';
 import { TileLayer, VectorLayer } from '../../layers';
-import { Proj } from '../../projections';
+import { Proj } from '../../../utils/projections';
 import { GeoJSONFeature } from '../../feature';
 import { VectorSource } from '../vector-source';
 

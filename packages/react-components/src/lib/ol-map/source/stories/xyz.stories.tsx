@@ -3,7 +3,7 @@ import { Map } from '../../map';
 import { getXYZOptions, TileXYZ } from '../xyz';
 import { TileLayer } from '../../layers/tile-layer';
 import { CSFStory } from '../../../utils/story';
-import { Proj } from '../../projections';
+import { Proj } from '../../../utils/projections';
 
 const xyzOptions = getXYZOptions({
   url:

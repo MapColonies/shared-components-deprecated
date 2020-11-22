@@ -1,0 +1,13 @@
+.trackerPosition{
+  background-color: white;
+  z-index: 2000;
+  position: absolute;
+  top: auto !important;
+  right: auto !important;
+  bottom: 8px;
+  left: 8px;
+  opacity: 0.7;
+  padding: 2px 2px;
+  border-radius: 2px;
+  font-size: 12px;
+}

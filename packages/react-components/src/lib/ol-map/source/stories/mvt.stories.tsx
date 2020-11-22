@@ -5,7 +5,7 @@ import { Map } from '../../map';
 import { MVTSource, getMVTOptions } from '../mvt';
 import { TileOsm } from '..';
 import { TileLayer } from '../../layers';
-import { Proj } from '../../projections';
+import { Proj } from '../../../utils/projections';
 
 export default {
   title: 'Map/Map Tiles/MVT',
