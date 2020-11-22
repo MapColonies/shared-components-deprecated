@@ -6,8 +6,10 @@ import { isNumber, isArray } from 'lodash';
 import { CesiumComponentRef } from 'resium';
 import { useRef } from 'react';
 import { getAltitude } from '../utils/map';
+import { Box } from '../box';
 import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
+import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { Proj } from '.';
 
 const mapContext = createContext<CesiumViewer | null>(null);
@@ -16,6 +18,7 @@ const MapViewProvider = mapContext.Provider;
 export interface MapProps {
   allowFullScreen?: boolean;
   showMousePosition?: boolean;
+  showScale?: boolean;
   projection?: Proj;
   center?: [number, number];
   zoom?: number;
@@ -36,6 +39,7 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
   const [projection, setProjection] = useState<Proj>();
   const [showMousePosition, setShowMousePosition] = useState<boolean>();
+  const [showScale, setShowScale] = useState<boolean>();
   
   
   useEffect(() => {
@@ -50,6 +54,10 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
   useEffect(() => {
     setShowMousePosition(props.showMousePosition ?? true);
   }, [props.showMousePosition]);
+
+  useEffect(() => {
+    setShowScale(props.showScale ?? true);
+  }, [props.showScale]);
 
   useEffect(() => {
     const { zoom, center } = props;
@@ -72,13 +80,17 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
     >
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
-        {
-          (showMousePosition === true) ? 
-            <CoordinatesTrackerTool projection={projection}></CoordinatesTrackerTool>
-            :
-            <></>
-        }
-        
+        <Box className="toolsContainer" display="flex">
+          {
+            (showMousePosition === true) ? 
+              <CoordinatesTrackerTool projection={projection}></CoordinatesTrackerTool>
+              :
+              <></>
+          }
+          {
+            (showScale === true) ? <ScaleTrackerTool/> : <></>
+          }
+       </Box>
       </MapViewProvider>
   </Viewer>
   );

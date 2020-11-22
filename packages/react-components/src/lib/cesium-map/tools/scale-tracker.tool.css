@@ -1,0 +1,23 @@
+.scalePosition{
+  background-color: white;
+  /* z-index: 2000;
+  position: absolute;
+  top: auto !important;
+  right: auto !important;
+  bottom: 8px;
+  left: 200px;
+  opacity: 0.7; */
+  padding: 1px 1px;
+  border-radius: 2px;
+  font-size: 12px;
+  width: 110px;
+}
+.distance-legend-label{
+  text-align: center;
+}
+.distance-legend-scale-bar{
+  background: black;
+  margin: 0 auto;
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
