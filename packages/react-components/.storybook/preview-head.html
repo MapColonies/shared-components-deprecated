@@ -11,3 +11,11 @@
 
 <link rel="stylesheet" href="/cesium/Widgets/widgets.css" />
 <script src="/cesium/Cesium.js"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    if(window.location.href.indexOf('cesium-map--localized-map') > 0){
+      document.body.dir='rtl';
+    }
+  });
+</script>

@@ -22,6 +22,7 @@ export interface MapProps {
   projection?: Proj;
   center?: [number, number];
   zoom?: number;
+  locale?: {[key: string]: string};
 }
 
 export const useMap = (): CesiumViewer => {
@@ -40,7 +41,7 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
   const [projection, setProjection] = useState<Proj>();
   const [showMousePosition, setShowMousePosition] = useState<boolean>();
   const [showScale, setShowScale] = useState<boolean>();
-  
+  const [locale, setLocale] = useState<{[key: string]: string}>();
   
   useEffect(() => {
     setMapViewRef(ref.current?.cesiumElement);
@@ -50,6 +51,9 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
     setProjection(props.projection ?? Proj.WGS84);
   }, [props.projection]);
 
+  useEffect(() => {
+    setLocale(props.locale);
+  }, [props.locale]);
 
   useEffect(() => {
     setShowMousePosition(props.showMousePosition ?? true);
@@ -88,7 +92,7 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
               <></>
           }
           {
-            (showScale === true) ? <ScaleTrackerTool/> : <></>
+            (showScale === true) ? <ScaleTrackerTool locale={locale}/> : <></>
           }
        </Box>
       </MapViewProvider>

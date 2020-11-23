@@ -42,6 +42,7 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (p
             const wmProjection = new WebMercatorProjection(ellipsoid);
             const res = wmProjection.project(cartographic);
             coordinatesText = `Mercator: ${res.y.toFixed(COORDINATES_MERCATOR_FRACTION_DIGITS)}m, ${res.x.toFixed(COORDINATES_MERCATOR_FRACTION_DIGITS)}m`;
+            ref.current.style.width='200px';
             break;
           }
           case Proj.WGS84: {
@@ -49,6 +50,7 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (p
             const latitudeString = CesiumMath.toDegrees(cartographic.latitude).toFixed(COORDINATES_WGS_FRACTION_DIGITS);
       
             coordinatesText = `WGS84: ${latitudeString}°N ${longitudeString}°E`;
+            ref.current.style.width='180px';
             break;
           }
           default:

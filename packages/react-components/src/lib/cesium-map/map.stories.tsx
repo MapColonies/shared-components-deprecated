@@ -34,14 +34,6 @@ export const ZommedMap: Story = (args: MapProps) => (
 );
 
 ZommedMap.argTypes = {
-  // projection: {
-  //   defaultValue: Proj.WGS84,
-  //   control: {
-  //     disable: true,
-  //     type: 'radio',
-  //     options: [Proj.WEB_MERCATOR, Proj.WGS84],
-  //   },
-  // },
   center: {
     defaultValue:[34.9578094, 32.8178637]
   },
@@ -64,14 +56,6 @@ export const MapWithProjection: Story = (args: MapProps) => (
 );
 
 MapWithProjection.argTypes = {
-  // projection: {
-  //   defaultValue: Proj.WGS84,
-  //   control: {
-  //     disable: true,
-  //     type: 'radio',
-  //     options: [Proj.WEB_MERCATOR, Proj.WGS84],
-  //   },
-  // },
   center: {
     defaultValue:[34.9578094, 32.8178637]
   },
@@ -91,4 +75,40 @@ MapWithProjection.argTypes = {
     },
   },
 };
+
+export const LocalizedMap: Story = (args: MapProps) => (
+  <div style={mapDivStyle}>
+    <CesiumMap {...args}>
+
+    </CesiumMap>
+  </div>
+);
+
+LocalizedMap.argTypes = {
+  center: {
+    defaultValue:[34.9578094, 32.8178637]
+  },
+  locale: {
+    defaultValue:{
+      METERS_UNIT: "מ'",
+      KILOMETERS_UNIT: "קמ'"
+    }
+  },
+  projection: {
+    defaultValue: Proj.WGS84,
+    control: {
+      type: 'radio',
+      options: [Proj.WEB_MERCATOR, Proj.WGS84],
+    },
+  },
+  zoom: {
+    defaultValue: 3,
+    control: {
+      type: 'range',
+      min: 0,
+      max: 20,
+    },
+  },
+};
+LocalizedMap.storyName = 'Localized Map (ctrl+F5)';
 
