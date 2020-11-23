@@ -89,10 +89,12 @@ LocalizedMap.argTypes = {
     defaultValue:[34.9578094, 32.8178637]
   },
   locale: {
+    /* eslint-disable @typescript-eslint/naming-convention */
     defaultValue:{
       METERS_UNIT: "מ'",
       KILOMETERS_UNIT: "קמ'"
     }
+    /* eslint-enable @typescript-eslint/naming-convention */
   },
   projection: {
     defaultValue: Proj.WGS84,

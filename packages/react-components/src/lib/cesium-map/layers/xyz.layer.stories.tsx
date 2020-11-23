@@ -1,6 +1,5 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { buildModuleUrl, GeographicTilingScheme } from 'cesium';
 import { CesiumMap } from '../map';
 import { CesiumXYZLayer } from './xyz.layer';
 

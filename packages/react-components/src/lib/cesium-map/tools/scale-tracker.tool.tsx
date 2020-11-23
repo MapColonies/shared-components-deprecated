@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Viewer, Math as CesiumMath, Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
+import React, { useEffect, useState } from 'react';
+import { Viewer, Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
 import { isNumber, get } from 'lodash'; 
 import { useMap } from '../map';
 

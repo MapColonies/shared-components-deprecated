@@ -78,7 +78,7 @@ export const MapWithGeojsonLayer: Story = () => (
       <CesiumGeojsonLayer
         data={data}
         markerColor={Color.RED}
-        onLoad={g => {
+        onLoad={(g):void => {
           // You can process the data source here
           g.entities.values[0].name = "Coors Field! After update";
           onLoadAction(g);

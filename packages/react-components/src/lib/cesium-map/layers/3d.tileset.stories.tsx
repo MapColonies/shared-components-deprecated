@@ -28,7 +28,7 @@ export const Cesium3DTilesetLayer: Story = (args: unknown) => (
         onTileFailed={action("onTileFailed")}
         onTileLoad={action("onTileLoad")}
         onTileUnload={action("onTileUnload")}
-        onReady={tileset => {
+        onReady={(tileset):void => {
           action("onReady");
         }}
         onClick={action("onClick")}
