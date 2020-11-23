@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Viewer } from 'resium';
-import { Viewer as CesiumViewer, Cartesian3 } from "cesium";
-import { isNumber, isArray } from 'lodash'; 
+import { Viewer as CesiumViewer, Cartesian3 } from 'cesium';
+import { isNumber, isArray } from 'lodash';
 
 import { CesiumComponentRef } from 'resium';
 import { useRef } from 'react';
@@ -22,7 +22,7 @@ export interface MapProps {
   projection?: Proj;
   center?: [number, number];
   zoom?: number;
-  locale?: {[key: string]: string};
+  locale?: { [key: string]: string };
 }
 
 export const useMap = (): CesiumViewer => {
@@ -41,8 +41,8 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
   const [projection, setProjection] = useState<Proj>();
   const [showMousePosition, setShowMousePosition] = useState<boolean>();
   const [showScale, setShowScale] = useState<boolean>();
-  const [locale, setLocale] = useState<{[key: string]: string}>();
-  
+  const [locale, setLocale] = useState<{ [key: string]: string }>();
+
   useEffect(() => {
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
@@ -67,14 +67,20 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
     const { zoom, center } = props;
     if (mapViewRef && isNumber(zoom) && isArray(center)) {
       void mapViewRef.camera.flyTo({
-        destination: Cartesian3.fromDegrees(center[0], center[1], getAltitude(zoom)),
+        destination: Cartesian3.fromDegrees(
+          center[0],
+          center[1],
+          getAltitude(zoom)
+        ),
         duration: 0,
       });
     }
   }, [props, mapViewRef]);
 
-  return(
-    <Viewer full={props.allowFullScreen ?? true} ref={ref} 
+  return (
+    <Viewer
+      full={props.allowFullScreen ?? true}
+      ref={ref}
       timeline={false}
       animation={false}
       baseLayerPicker={false}
@@ -85,18 +91,16 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
         <Box className="toolsContainer" display="flex">
-          {
-            (showMousePosition === true) ? 
-              <CoordinatesTrackerTool projection={projection}></CoordinatesTrackerTool>
-              :
-              <></>
-          }
-          {
-            (showScale === true) ? <ScaleTrackerTool locale={locale}/> : <></>
-          }
-       </Box>
+          {showMousePosition === true ? (
+            <CoordinatesTrackerTool
+              projection={projection}
+            ></CoordinatesTrackerTool>
+          ) : (
+            <></>
+          )}
+          {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
+        </Box>
       </MapViewProvider>
-  </Viewer>
+    </Viewer>
   );
 };
-  

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { action } from '@storybook/addon-actions';
-import { Color } from "cesium";
+import { Color } from 'cesium';
 import { CesiumMap } from '../map';
 import { CesiumGeojsonLayer } from './geojson.layer';
 
@@ -39,13 +39,16 @@ const data = {
       geometry: {
         type: 'LineString',
         coordinates: [
-          [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
-        ]
+          [102.0, 0.0],
+          [103.0, 1.0],
+          [104.0, 0.0],
+          [105.0, 1.0],
+        ],
       },
       properties: {
         prop0: 'value0',
-        prop1: 0.0
-      }
+        prop1: 0.0,
+      },
     },
     {
       type: 'Feature',
@@ -53,24 +56,23 @@ const data = {
         type: 'Polygon',
         coordinates: [
           [
-            [34.6165466,33.0270876],
-            [34.6165466,32.5896348],
-            [35.568924,32.5873207],
-            [35.5373383,33.0311173],
-            [34.6165466,33.0270876]
-          ]
-        ]
+            [34.6165466, 33.0270876],
+            [34.6165466, 32.5896348],
+            [35.568924, 32.5873207],
+            [35.5373383, 33.0311173],
+            [34.6165466, 33.0270876],
+          ],
+        ],
       },
       properties: {
         prop0: 'value0',
-        prop1: { 'this': 'that' }
-      }
-    }
-  ]
-  
+        prop1: { this: 'that' },
+      },
+    },
+  ],
 };
 
-const onLoadAction = action("onLoad");
+const onLoadAction = action('onLoad');
 
 export const MapWithGeojsonLayer: Story = () => (
   <div style={mapDivStyle}>
@@ -78,12 +80,13 @@ export const MapWithGeojsonLayer: Story = () => (
       <CesiumGeojsonLayer
         data={data}
         markerColor={Color.RED}
-        onLoad={(g):void => {
+        onLoad={(g): void => {
           // You can process the data source here
-          g.entities.values[0].name = "Coors Field! After update";
+          g.entities.values[0].name = 'Coors Field! After update';
           onLoadAction(g);
         }}
-        onError={action("onError")}      />
+        onError={action('onError')}
+      />
     </CesiumMap>
   </div>
 );

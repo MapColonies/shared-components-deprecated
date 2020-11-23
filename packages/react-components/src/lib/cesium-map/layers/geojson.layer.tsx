@@ -5,10 +5,8 @@ import { GeoJsonDataSourceProps } from 'resium/dist/types/src/GeoJsonDataSource/
 
 export interface RCesiumGeojsonLayerProps extends GeoJsonDataSourceProps {}
 
-export const CesiumGeojsonLayer: React.FC<RCesiumGeojsonLayerProps> = (props) => {
-  return (
-    <ResiumGeoJsonDataSource
-      {...props}
-    />
-  );
+export const CesiumGeojsonLayer: React.FC<RCesiumGeojsonLayerProps> = (
+  props
+) => {
+  return <ResiumGeoJsonDataSource {...props} />;
 };

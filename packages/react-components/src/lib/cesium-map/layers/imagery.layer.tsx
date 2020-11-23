@@ -5,10 +5,8 @@ import { ImageryLayerProps } from 'resium/dist/types/src/ImageryLayer/ImageryLay
 
 export interface RCesiumImageryLayerProps extends ImageryLayerProps {}
 
-export const CesiumImageryLayer: React.FC<RCesiumImageryLayerProps> = (props) => {
-  return (
-    <ResiumImageryLayer
-      {...props}
-    />
-  );
+export const CesiumImageryLayer: React.FC<RCesiumImageryLayerProps> = (
+  props
+) => {
+  return <ResiumImageryLayer {...props} />;
 };

@@ -14,7 +14,11 @@ import MousePosition from 'ol/control/MousePosition';
 import Collection from 'ol/Collection';
 import Control from 'ol/control/Control';
 import { transform } from 'ol/proj';
-import { Proj, COORDINATES_WGS_FRACTION_DIGITS, COORDINATES_MERCATOR_FRACTION_DIGITS } from '../utils/projections';
+import {
+  Proj,
+  COORDINATES_WGS_FRACTION_DIGITS,
+  COORDINATES_MERCATOR_FRACTION_DIGITS,
+} from '../utils/projections';
 
 export interface MapProps {
   allowFullScreen?: boolean;

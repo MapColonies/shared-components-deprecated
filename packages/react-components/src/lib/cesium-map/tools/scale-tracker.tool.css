@@ -1,14 +1,14 @@
-.scalePosition{
+.scalePosition {
   background-color: white;
   padding: 1px 1px;
   border-radius: 2px;
   font-size: 12px;
   width: 110px;
 }
-.distance-legend-label{
+.distance-legend-label {
   text-align: center;
 }
-.distance-legend-scale-bar{
+.distance-legend-scale-bar {
   background: black;
   margin: 0 auto;
   display: block;

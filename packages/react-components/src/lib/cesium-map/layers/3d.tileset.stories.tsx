@@ -23,15 +23,15 @@ export const Cesium3DTilesetLayer: Story = (args: unknown) => (
     <CesiumMap {...args}>
       <Cesium3DTileset
         url="/mock/tileset/tileset.json"
-        onAllTilesLoad={action("onAllTilesLoad")}
-        onInitialTilesLoad={action("onInitialTilesLoad")}
-        onTileFailed={action("onTileFailed")}
-        onTileLoad={action("onTileLoad")}
-        onTileUnload={action("onTileUnload")}
-        onReady={(tileset):void => {
-          action("onReady");
+        onAllTilesLoad={action('onAllTilesLoad')}
+        onInitialTilesLoad={action('onInitialTilesLoad')}
+        onTileFailed={action('onTileFailed')}
+        onTileLoad={action('onTileLoad')}
+        onTileUnload={action('onTileUnload')}
+        onReady={(tileset): void => {
+          action('onReady');
         }}
-        onClick={action("onClick")}
+        onClick={action('onClick')}
       />
     </CesiumMap>
   </div>

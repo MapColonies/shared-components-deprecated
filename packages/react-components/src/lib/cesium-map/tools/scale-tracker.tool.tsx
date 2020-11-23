@@ -1,46 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import { Viewer, Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
-import { isNumber, get } from 'lodash'; 
+import { isNumber, get } from 'lodash';
 import { useMap } from '../map';
 
 import './scale-tracker.tool.css';
 
 export interface RScaleTrackerToolProps {
-  locale?: {[key: string]: string};
-};
+  locale?: { [key: string]: string };
+}
 
 interface IScaleData {
-  barWidth?: number,
-  distanceLabel?: string,
-  lastLegendUpdate: number,
+  barWidth?: number;
+  distanceLabel?: string;
+  lastLegendUpdate: number;
 }
 
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 const distances = [
-  1, 2, 3, 5,
-  10, 20, 30, 50,
-  100, 200, 300, 500,
-  1000, 2000, 3000, 5000,
-  10000, 20000, 30000, 50000,
-  100000, 200000, 300000, 500000,
-  1000000, 2000000, 3000000, 5000000,
-  10000000, 20000000, 30000000, 50000000];
+  1,
+  2,
+  3,
+  5,
+  10,
+  20,
+  30,
+  50,
+  100,
+  200,
+  300,
+  500,
+  1000,
+  2000,
+  3000,
+  5000,
+  10000,
+  20000,
+  30000,
+  50000,
+  100000,
+  200000,
+  300000,
+  500000,
+  1000000,
+  2000000,
+  3000000,
+  5000000,
+  10000000,
+  20000000,
+  30000000,
+  50000000,
+];
 
 const updateDistanceLegendCesium = (
-    mapViewer: Viewer, 
-    prevScaleData: IScaleData,
-    setScaleData: React.Dispatch<React.SetStateAction<IScaleData>>,
-    locale?: {[key: string]: string}
-  ): void => {
-  const metersUnit = get(locale,'METERS_UNIT') ?? 'm';
-  const kiloMetersUnit = get(locale,'KILOMETERS_UNIT') ?? 'km';
+  mapViewer: Viewer,
+  prevScaleData: IScaleData,
+  setScaleData: React.Dispatch<React.SetStateAction<IScaleData>>,
+  locale?: { [key: string]: string }
+): void => {
+  const metersUnit = get(locale, 'METERS_UNIT') ?? 'm';
+  const kiloMetersUnit = get(locale, 'KILOMETERS_UNIT') ?? 'km';
   const scale: IScaleData = {
     barWidth: undefined,
     distanceLabel: undefined,
     lastLegendUpdate: prevScaleData.lastLegendUpdate,
-  }
+  };
   const geodesic = new EllipsoidGeodesic();
-  
+
   const now = new Date().getTime();
   if (now < scale.lastLegendUpdate + 250) {
     return;
@@ -108,38 +133,40 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
     barWidth: undefined,
     distanceLabel: undefined,
     lastLegendUpdate: -1,
-
   });
 
   useEffect(() => {
     const setFromEvent = (e: MouseEvent): void => {
-      updateDistanceLegendCesium(mapViewer,scaleData,setScaleData, props.locale);
+      updateDistanceLegendCesium(
+        mapViewer,
+        scaleData,
+        setScaleData,
+        props.locale
+      );
     };
 
     const helper = new EventHelper();
     const tileLoadHandler = (event: number): void => {
       // console.log("Tiles to load: " + event, mapViewer.scene.globe.tilesLoaded);
-      if (mapViewer.scene.globe.tilesLoaded ) {
+      if (mapViewer.scene.globe.tilesLoaded) {
         setFromEvent(new MouseEvent('mouse'));
         helper.removeAll();
       }
-    }
+    };
     // Register tiles loader handler for initial load because globe.pick returning undefined
     // see here https://community.cesium.com/t/globe-pick-returning-undefined/6616
     helper.add(mapViewer.scene.globe.tileLoadProgressEvent, tileLoadHandler);
-    
+
     mapViewer.camera.moveEnd.addEventListener(setFromEvent);
     // mapViewer.camera.changed.addEventListener(setFromEvent);
 
     return (): void => {
-      try{
+      try {
         mapViewer.camera.moveEnd.removeEventListener(setFromEvent);
         // mapViewer.camera.changed.removeEventListener(setFromEvent);
+      } catch (e) {
+        console.log('CESIUM camera "moveEnd" remove listener failed', e);
       }
-      catch(e){
-        console.log('CESIUM camera "moveEnd" remove listener failed',e);
-      }
-
     };
   }, [mapViewer, props.locale, scaleData]);
 

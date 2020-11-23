@@ -24,11 +24,15 @@ export const MapWithImageryLayers: Story = () => (
       <CesiumImageryLayer
         imageryProvider={
           new ArcGisMapServerImageryProvider({
-            url: "//services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer",
+            url:
+              '//services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
           })
         }
       />
-      <CesiumImageryLayer alpha={0.5} imageryProvider={new IonImageryProvider({ assetId: 3812 })} />
+      <CesiumImageryLayer
+        alpha={0.5}
+        imageryProvider={new IonImageryProvider({ assetId: 3812 })}
+      />
     </CesiumMap>
   </div>
 );

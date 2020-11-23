@@ -5,4 +5,3 @@ export enum Proj {
 
 export const COORDINATES_WGS_FRACTION_DIGITS = 5;
 export const COORDINATES_MERCATOR_FRACTION_DIGITS = 2;
-

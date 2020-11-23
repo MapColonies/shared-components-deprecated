@@ -19,23 +19,19 @@ const mapDivStyle = {
 
 export const BaseMap: Story = (args: MapProps) => (
   <div style={mapDivStyle}>
-    <CesiumMap {...args}>
-
-    </CesiumMap>
+    <CesiumMap {...args}></CesiumMap>
   </div>
 );
 
 export const ZommedMap: Story = (args: MapProps) => (
   <div style={mapDivStyle}>
-    <CesiumMap {...args}>
-
-    </CesiumMap>
+    <CesiumMap {...args}></CesiumMap>
   </div>
 );
 
 ZommedMap.argTypes = {
   center: {
-    defaultValue:[34.9578094, 32.8178637]
+    defaultValue: [34.9578094, 32.8178637],
   },
   zoom: {
     defaultValue: 3,
@@ -49,15 +45,13 @@ ZommedMap.argTypes = {
 
 export const MapWithProjection: Story = (args: MapProps) => (
   <div style={mapDivStyle}>
-    <CesiumMap {...args}>
-
-    </CesiumMap>
+    <CesiumMap {...args}></CesiumMap>
   </div>
 );
 
 MapWithProjection.argTypes = {
   center: {
-    defaultValue:[34.9578094, 32.8178637]
+    defaultValue: [34.9578094, 32.8178637],
   },
   projection: {
     defaultValue: Proj.WGS84,
@@ -78,22 +72,20 @@ MapWithProjection.argTypes = {
 
 export const LocalizedMap: Story = (args: MapProps) => (
   <div style={mapDivStyle}>
-    <CesiumMap {...args}>
-
-    </CesiumMap>
+    <CesiumMap {...args}></CesiumMap>
   </div>
 );
 
 LocalizedMap.argTypes = {
   center: {
-    defaultValue:[34.9578094, 32.8178637]
+    defaultValue: [34.9578094, 32.8178637],
   },
   locale: {
     /* eslint-disable @typescript-eslint/naming-convention */
-    defaultValue:{
+    defaultValue: {
       METERS_UNIT: "מ'",
-      KILOMETERS_UNIT: "קמ'"
-    }
+      KILOMETERS_UNIT: "קמ'",
+    },
     /* eslint-enable @typescript-eslint/naming-convention */
   },
   projection: {
@@ -113,4 +105,3 @@ LocalizedMap.argTypes = {
   },
 };
 LocalizedMap.storyName = 'Localized Map (ctrl+F5)';
-
