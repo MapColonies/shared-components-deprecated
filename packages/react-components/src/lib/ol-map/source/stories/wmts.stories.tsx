@@ -1,9 +1,9 @@
 import React from 'react';
+import { CSFStory } from '../../../utils/story';
 import { Map } from '../../map';
+import { TileLayer } from '../../layers/tile-layer';
 import { getWMTSOptions, TileWMTS } from '../wmts';
 import { TileOsm } from '../osm';
-import { TileLayer } from '../../layers/tile-layer';
-import { CSFStory } from '../../../utils/story';
 
 const wmtsOptions = getWMTSOptions({
   attributions: 'Tiles © ArcGIS',

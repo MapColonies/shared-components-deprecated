@@ -1,8 +1,8 @@
 import React from 'react';
-import { Map } from '../../map';
-import { getWMSOptions, TileWMS } from '../wms';
-import { TileLayer } from '../../layers/tile-layer';
 import { CSFStory } from '../../../utils/story';
+import { Map } from '../../map';
+import { TileLayer } from '../../layers/tile-layer';
+import { getWMSOptions, TileWMS } from '../wms';
 
 const wmsOptions = getWMSOptions({
   url: 'https://ahocevar.com/geoserver/wms',

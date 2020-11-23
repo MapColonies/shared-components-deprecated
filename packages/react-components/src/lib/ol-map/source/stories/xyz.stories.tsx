@@ -1,9 +1,9 @@
 import React from 'react';
-import { Map } from '../../map';
-import { getXYZOptions, TileXYZ } from '../xyz';
-import { TileLayer } from '../../layers/tile-layer';
-import { CSFStory } from '../../../utils/story';
 import { Proj } from '../../../utils/projections';
+import { CSFStory } from '../../../utils/story';
+import { Map } from '../../map';
+import { TileLayer } from '../../layers/tile-layer';
+import { getXYZOptions, TileXYZ } from '../xyz';
 
 const xyzOptions = getXYZOptions({
   url:

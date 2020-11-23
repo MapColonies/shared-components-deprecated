@@ -38,14 +38,6 @@ export const Cesium3DTilesetLayer: Story = (args: unknown) => (
 );
 
 Cesium3DTilesetLayer.argTypes = {
-  // projection: {
-  //   defaultValue: Proj.WGS84,
-  //   control: {
-  //     disable: true,
-  //     type: 'radio',
-  //     options: [Proj.WEB_MERCATOR, Proj.WGS84],
-  //   },
-  // },
   zoom: {
     defaultValue: 3,
     control: {
