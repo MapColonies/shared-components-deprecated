@@ -1,5 +1,8 @@
 module.exports = {
-  stories: ['../src/**/*.stories.tsx'],
+  stories: [
+    '../src/lib/date-range-picker/stories/DateRangePicker.stories.tsx',
+    '../src/**/*.stories.tsx'
+  ],
   addons: [
     '@storybook/preset-create-react-app',
     '@storybook/addon-storysource',
