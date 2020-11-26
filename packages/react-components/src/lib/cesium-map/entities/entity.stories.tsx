@@ -20,14 +20,14 @@ const mapDivStyle = {
   position: 'absolute' as const,
 };
 
-const initCanvas = () => {
+const initCanvas = (): HTMLCanvasElement => {
   const can = document.createElement("canvas");
   can.width = 100;
   can.height = 100;
   return can;
 };
 
-const renderCanvas = (can: HTMLCanvasElement, p: number) => {
+const renderCanvas = (can: HTMLCanvasElement, p: number): void => {
   const c = can.getContext("2d");
   if (!c) return;
   c.clearRect(0, 0, can.width, can.height);
@@ -48,16 +48,14 @@ const CanvasEntity: React.FC<RCesiumEntityProps> = props => {
       progress.current = Math.min(progress.current + 0.01, 1);
       setImage(image => {
         const canvas = image === c1 ? c2 : c1;
-        if (canvas) {
-          renderCanvas(canvas, progress.current);
-        }
+        renderCanvas(canvas, progress.current);
         return canvas;
       });
       if (progress.current >= 1) {
         clearInterval(i);
       }
     }, 10);
-    return () => window.clearInterval(i);
+    return (): void => window.clearInterval(i);
   }, [c1, c2]);
 
   return <CesiumEntity {...props} billboard={{ image }} />;

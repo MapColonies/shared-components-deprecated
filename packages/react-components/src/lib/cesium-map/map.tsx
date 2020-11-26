@@ -18,6 +18,9 @@ import {
 } from 'cesium';
 
 import { DrawHelper } from './tools/draw/drawHelper';
+import { CesiumEntity } from './entities/entity';
+import { CesiumEntityStaticDescription } from './entities/entity.description';
+import { CesiumPolygonGraphics } from './entities/graphics/polygon.graphics';
 
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
@@ -92,6 +95,8 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
     }
   }, [mapViewRef]);
 
+  const [drawEntityPosition, setDrawEntityPosition] = useState<any>();
+
   return (
     <Viewer
       full={props.allowFullScreen ?? true}
@@ -133,24 +138,51 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
 
         drawHelper.startDrawingPolygon({
           callback: function(positions) {
-              // _self.executeListeners({name: 'polygonCreated', positions: positions});
               console.log({name: 'polygonCreated', positions: positions});
 
-              var polyline = new DrawHelper.PolylinePrimitive({
+              // setDrawEntityPosition(positions);
+              
+              // var polyline = new DrawHelper.PolylinePrimitive({
+              //   positions: positions,
+              //   width: 5,
+              //   geodesic: true
+              // });
+              // mapViewRef?.scene.primitives.add(polyline);
+              // polyline.setEditable();
+              // polyline.addListener('onEdited', function(event) {
+              //   console.log('Polyline edited, ' + event.positions.length + ' points');
+              // });
+
+              var polygon = new DrawHelper.PolygonPrimitive({
                 positions: positions,
                 width: 5,
                 geodesic: true
               });
-              mapViewRef?.scene.primitives.add(polyline);
-              polyline.setEditable();
-              polyline.addListener('onEdited', function(event) {
-                console.log('Polyline edited, ' + event.positions.length + ' points');
+              mapViewRef?.scene.primitives.add(polygon);
+              polygon.setStrokeStyle(Color.AQUA,1);
+              polygon.setEditable();
+              polygon.addListener('onEdited', function(event) {
+                console.log('Polygone edited, ' + event.positions.length + ' points');
               });
+
           }
       });
       }}>RECtangle</button>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
+        <CesiumEntity
+          name="test"
+        >
+          <CesiumEntityStaticDescription>
+            <h1>Hello!</h1>
+            <p>This is description. It can be described with static JSX!</p>
+          </CesiumEntityStaticDescription>
+          <CesiumPolygonGraphics
+            hierarchy={drawEntityPosition}
+            // hierarchy={Cartesian3.fromDegreesArray([-108.0, 42.0, -100.0, 42.0, -104.0, 40.0]) as any} // WORKAROUND
+            material={Color.GREEN}
+          />
+        </CesiumEntity>
         <Box className="toolsContainer" display="flex">
           {showMousePosition === true ? (
             <CoordinatesTrackerTool
