@@ -16,7 +16,6 @@ const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
 
 export interface MapProps {
-  allowFullScreen?: boolean;
   showMousePosition?: boolean;
   showScale?: boolean;
   projection?: Proj;
@@ -79,7 +78,8 @@ export const CesiumMap: React.FC<MapProps> = (props) => {
 
   return (
     <Viewer
-      full={props.allowFullScreen ?? true}
+      full
+      fullscreenButton={true}
       ref={ref}
       timeline={false}
       animation={false}

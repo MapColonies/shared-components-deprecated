@@ -147,7 +147,6 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
 
     const helper = new EventHelper();
     const tileLoadHandler = (event: number): void => {
-      // console.log("Tiles to load: " + event, mapViewer.scene.globe.tilesLoaded);
       if (mapViewer.scene.globe.tilesLoaded) {
         setFromEvent(new MouseEvent('mouse'));
         helper.removeAll();
@@ -158,17 +157,20 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
     helper.add(mapViewer.scene.globe.tileLoadProgressEvent, tileLoadHandler);
 
     mapViewer.camera.moveEnd.addEventListener(setFromEvent);
-    // mapViewer.camera.changed.addEventListener(setFromEvent);
 
     return (): void => {
       try {
         mapViewer.camera.moveEnd.removeEventListener(setFromEvent);
-        // mapViewer.camera.changed.removeEventListener(setFromEvent);
       } catch (e) {
         console.log('CESIUM camera "moveEnd" remove listener failed', e);
       }
     };
   }, [mapViewer, props.locale, scaleData]);
+
+  const calcLeft = (width: number): number => {
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    return (5 + (125 - width) / 2);
+  };
 
   return (
     <div className="scalePosition">
@@ -180,8 +182,7 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
             style={{
               height: '2px',
               width: `${scaleData.barWidth.toString()}px`,
-              // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-              left: `${(5 + (125 - scaleData.barWidth) / 2).toString()}px`,
+              left: `${calcLeft(scaleData.barWidth).toString()}px`,
             }}
           />
         </>
