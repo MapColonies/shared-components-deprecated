@@ -169,7 +169,7 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
 
   const calcLeft = (width: number): number => {
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    return (5 + (125 - width) / 2);
+    return 5 + (125 - width) / 2;
   };
 
   return (
