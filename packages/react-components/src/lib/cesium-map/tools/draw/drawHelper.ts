@@ -1,4 +1,5 @@
 import * as Cesium from 'cesium';
+import './drawHelper.css';
 /* eslint-disable */
 var DrawHelper = (function() {
 
@@ -981,11 +982,14 @@ var DrawHelper = (function() {
 
         function updateExtent(value) {
             if(extent == null) {
-                extent = new Cesium.RectanglePrimitive();
+                //ALEX
+                extent = new Cesium.RectangleGeometry({rectangle: value});
+                // extent = new Cesium.RectanglePrimitive();
                 extent.asynchronous = false;
                 primitives.add(extent);
             }
-            extent.rectangle = value;
+            //ALEX
+            // extent.rectangle = value;
             // update the markers
             var corners = getExtentCorners(value);
             // create if they do not yet exist
