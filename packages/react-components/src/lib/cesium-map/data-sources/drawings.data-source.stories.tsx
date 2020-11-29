@@ -22,7 +22,7 @@ const mapDivStyle = {
 
 export const Drawings: Story = (args) => {
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
-  const [drawPrimitive, setDrawPrimitive] = useState<{type: DrawType, handler: ()=>{}}>();
+  const [drawPrimitive, setDrawPrimitive] = useState<{type: DrawType, handler(pos): void}>();
   const [drawEntities, setDrawEntities] = useState<IDrawing[]>([{
     hierarchy:[],
     name:'',
@@ -58,7 +58,6 @@ export const Drawings: Story = (args) => {
       <button style={{position: 'fixed', top:'50px', right: '20px', zIndex: 1}} 
               onClick={()=>{
                 setIsDrawing(true);
-                setDrawEntities([]);
                 setDrawPrimitive({
                   type: DrawType.BOX,
                   handler: (positions):void => {

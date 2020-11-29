@@ -5,14 +5,16 @@ var DrawHelper = (function() {
 
     // static variables
     var ellipsoid = Cesium.Ellipsoid.WGS84;
-    //ALEX
-    var CESIUM_SCENE = null;
 
     // constructor
     function _(cesiumWidget) {
+        this._scene = cesiumWidget.scene;
         //ALEX
-        this._scene = CESIUM_SCENE = cesiumWidget.scene;
-        this._tooltip = createTooltip(cesiumWidget.container);
+        this._tooltip = {
+            setVisible: () => {},
+            showAt: () => {}
+        };
+        // this._tooltip = createTooltip(cesiumWidget.container);
         this._surfaces = [];
 
         this.initialiseHandlers();
@@ -300,14 +302,9 @@ var DrawHelper = (function() {
             primitive.appearance.material = this.material;
             primitive.debugShowBoundingVolume = this.debugShowBoundingVolume;
             
-            //ALEX
             primitive.update(context, frameState, commandList);
-            // CESIUM_SCENE.primitives.add(primitive);
 
-            //ALEX
             this._outlinePolygon && this._outlinePolygon.update(context, frameState, commandList);
-            // this._outlinePolygon && CESIUM_SCENE.primitives.add(this._outlinePolygon);
-
         };
 
         _.prototype.isDestroyed = function() {
@@ -374,8 +371,6 @@ var DrawHelper = (function() {
         _.prototype.getOutlineGeometry = function() {
             return new Cesium.RectangleOutlineGeometry({
                 rectangle: this.extent,
-                // ALEX
-                vertexFormat : Cesium.EllipsoidSurfaceAppearance.VERTEX_FORMAT,
             });
         }
 
@@ -983,13 +978,12 @@ var DrawHelper = (function() {
         function updateExtent(value) {
             if(extent == null) {
                 //ALEX
-                extent = new Cesium.RectangleGeometry({rectangle: value});
-                // extent = new Cesium.RectanglePrimitive();
-                extent.asynchronous = false;
+                extent = new Cesium.GroundPrimitive();
+                //extent = new Cesium.RectanglePrimitive();
+                //extent.asynchronous = false;
                 primitives.add(extent);
             }
-            //ALEX
-            // extent.rectangle = value;
+            extent.rectangle = value;
             // update the markers
             var corners = getExtentCorners(value);
             // create if they do not yet exist
