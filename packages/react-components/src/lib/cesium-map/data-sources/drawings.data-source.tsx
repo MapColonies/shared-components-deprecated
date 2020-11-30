@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Color, Rectangle, Viewer } from 'cesium';
+import { Color, PolygonHierarchy, Rectangle, Viewer } from 'cesium';
 import { CustomDataSourceProps } from 'resium/dist/types/src/CustomDataSource/CustomDataSource';
 
 import { DrawType } from '../../models';
 import { CesiumEntity } from '../entities/entity';
 import { CesiumEntityStaticDescription } from '../entities/entity.description';
 import { CesiumPolygonGraphics } from '../entities/graphics/polygon.graphics';
+import { CesiumRectangleGraphics } from '../entities/graphics/rectangle.graphics';
 import { useMap } from '../map';
 import { DrawHelper } from '../tools/draw/drawHelper';
 import { CesiumCustomDataSource } from './custom.data-source';
-import { CesiumRectangleGraphics } from '../entities/graphics/rectangle.graphics';
+
+export class CesiumColor extends Color {};
+
+export type PrimitiveCoordinates = PolygonHierarchy | Rectangle;
 
 export interface IDrawing{
-  hierarchy: [],
+  coordinates: PrimitiveCoordinates,
   name: string,
-  id: string
+  id: string,
+  type: DrawType,
+}
+
+export interface IDrawingEvent{
+  primitive: PrimitiveCoordinates,
+  type: DrawType,
 }
 
 export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
@@ -22,31 +32,31 @@ export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
   drawState: {
     drawing: boolean,
     type: DrawType,
-    handler(positions): any
-  }
+    handler: (drawing:IDrawingEvent) => void
+  },
+  material: CesiumColor,
+  outlineColor: CesiumColor,
 }
 
 export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> = (
   props
 ) => {
-  const { drawState } = props;
+  const { drawState, material, outlineColor } = props;
   const mapViewer: Viewer = useMap();
 
-  const [drawHelper, setDrawHelper] = useState<any>();
+  const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
   
   useEffect(() => {
-    if (mapViewer) {
-      setDrawHelper(new DrawHelper(mapViewer));
-    }
+    setDrawHelper(new DrawHelper(mapViewer));
   }, [mapViewer]);
 
   useEffect(() => {
-    console.log('drawState.drawing=', drawState.drawing);
     if (drawState.drawing) {
       switch(drawState.type){
         case DrawType.POLYGON:
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           drawHelper.startDrawingPolygon({
-            callback: (positions) => {
+            callback: (positions: PrimitiveCoordinates) => {
               //// MAKE polygon editable example
               // var polygon = new DrawHelper.PolygonPrimitive({
               //   positions: positions,
@@ -60,13 +70,17 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
               //   console.log('Polygone edited, ' + event.positions.length + ' points');
               // });
 
-              drawState.handler(positions);
+              drawState.handler({
+                primitive: positions,
+                type: DrawType.POLYGON,
+              });
             } 
           });
           break;
         case DrawType.BOX:
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           drawHelper.startDrawingExtent({
-            callback: (positions) => {
+            callback: (positions: PrimitiveCoordinates) => {
               //// MAKE box editable example
               // var extentPrimitive = new DrawHelper.ExtentPrimitive({
               //   extent: positions,
@@ -78,35 +92,43 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
               // extentPrimitive.addListener('onEdited', function(event) {
               //   console.log('Extent edited: extent is (N: ' + event.extent.north.toFixed(3) + ', E: ' + event.extent.east.toFixed(3) + ', S: ' + event.extent.south.toFixed(3) + ', W: ' + event.extent.west.toFixed(3) + ')');
               // });
-              drawState.handler(positions);
+              drawState.handler({
+                primitive: positions,
+                type: DrawType.BOX,
+              });
             } 
           });
           break;
+        default:
+          break;
       }
     }
-  }, [drawState.drawing, drawState.handler, drawState.type, drawHelper]);
+  }, [drawState, drawHelper]);
 
-  const renderGraphicsComponent = (drawEntity) => {
-    if(drawEntity.hierarchy instanceof Rectangle){
-      return (
-        <CesiumRectangleGraphics
-          coordinates={drawEntity.hierarchy}
-          material={Color.YELLOW.withAlpha(0.5)}
-          outlineColor={Color.AQUA}
-        />
-      );
-    }
-    else {
-      return (
-        <CesiumPolygonGraphics
-          hierarchy={drawEntity.hierarchy}
-          // hierarchy={Cartesian3.fromDegreesArray([-108.0, 42.0, -100.0, 42.0, -104.0, 40.0]) as any} // WORKAROUND
-          material={Color.YELLOW.withAlpha(0.5)}
-          outlineColor={Color.AQUA}
-        />);
+  const renderGraphicsComponent = (drawEntity: IDrawing): React.ReactElement  => {
+    switch(drawEntity.type){
+      case DrawType.BOX:
+        return (
+          <CesiumRectangleGraphics
+            coordinates={drawEntity.coordinates as Rectangle}
+            material={material}
+            outlineColor={outlineColor}
+          />
+        );
+      case DrawType.POLYGON:
+        return (
+          <CesiumPolygonGraphics
+            hierarchy={drawEntity.coordinates as PolygonHierarchy}
+            // hierarchy={Cartesian3.fromDegreesArray([-108.0, 42.0, -100.0, 42.0, -104.0, 40.0]) as any} // WORKAROUND
+            material={material}
+            outlineColor={outlineColor}
+          />
+        );
+      default:
+        return <></>;
     }
   };
-
+  
   return (
   <CesiumCustomDataSource {...props} >
 
@@ -116,8 +138,8 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
         name={drawEntity.name}
       >
         <CesiumEntityStaticDescription>
-          <h1>Drawed Polygon</h1>
-          <p>This is description of drawed polygon</p>
+          <h1>Drawed Entity {drawEntity.name}</h1>
+          <p>This is description of drawed entity</p>
         </CesiumEntityStaticDescription>
         {renderGraphicsComponent(drawEntity)}
       </CesiumEntity>

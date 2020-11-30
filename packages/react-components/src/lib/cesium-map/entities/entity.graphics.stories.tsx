@@ -1,10 +1,9 @@
 import React from 'react';
 import { Cartesian3, Color } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { action } from '@storybook/addon-actions';
 import { CesiumMap } from '../map';
 import { CesiumEntity } from './entity';
-import { CesiumEntityDescription, CesiumEntityStaticDescription } from './entity.description';
+import { CesiumEntityStaticDescription } from './entity.description';
 import { CesiumPolygonGraphics } from './graphics/polygon.graphics';
 
 export default {
@@ -33,6 +32,7 @@ export const Polygon: Story = (args) => (
           <p>This is description. It can be described with static JSX!</p>
         </CesiumEntityStaticDescription>
         <CesiumPolygonGraphics
+          // eslint-disable-next-line
           hierarchy={Cartesian3.fromDegreesArray([-108.0, 42.0, -100.0, 42.0, -104.0, 40.0]) as any} // WORKAROUND
           material={Color.GREEN}
         />

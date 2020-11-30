@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Cartesian3, Color } from 'cesium';
+import { PolygonHierarchy } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { action } from '@storybook/addon-actions';
 import { DrawType } from '../../models';
 import { CesiumMap } from '../map';
-import { CesiumDrawingsDataSource, IDrawing } from './drawings.data-source';
+import { CesiumDrawingsDataSource, IDrawing, IDrawingEvent, CesiumColor } from './drawings.data-source';
 
 export default {
   title: 'Cesium Map/Entity/Drawing',
@@ -20,61 +19,59 @@ const mapDivStyle = {
   position: 'absolute' as const,
 };
 
+interface IDrawingObject {
+  type: DrawType, 
+  handler: (drawing: IDrawingEvent) => void,
+}
+
 export const Drawings: Story = (args) => {
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
-  const [drawPrimitive, setDrawPrimitive] = useState<{type: DrawType, handler(pos): void}>();
+  const [drawPrimitive, setDrawPrimitive] = useState<IDrawingObject>({
+    type: DrawType.UNKNOWN, 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    handler: (drawing: IDrawingEvent) => {},
+  });
   const [drawEntities, setDrawEntities] = useState<IDrawing[]>([{
-    hierarchy:[],
+    coordinates: new PolygonHierarchy(),
     name:'',
-    id:''
+    id:'',
+    type: DrawType.UNKNOWN
   }]);
+
+  const createDrawPrimitive = (type: DrawType): IDrawingObject => {
+    return {
+      type: type,
+      handler: (drawing:IDrawingEvent):void => {
+        console.log({name: `${type.toString()}_Created`, primitive: drawing.primitive});
+
+        const timeStamp = new Date().getTime().toString();
+        
+        setIsDrawing(false);
+
+        setDrawEntities([{
+          coordinates: drawing.primitive,
+          name: `${type.toString()}_${timeStamp}`,
+          id: timeStamp,
+          type: drawing.type
+        }]);
+      }
+    }
+  };
 
   return (
     <>
-      <button style={{position: 'fixed', top:'20px', right: '20px', zIndex: 1}} 
-              onClick={()=>{
+      <button style={{position: 'fixed', top:'20px', left: '20px', zIndex: 1}} 
+              onClick={():void=>{
                 setIsDrawing(true);
-                setDrawPrimitive({
-                  type: DrawType.POLYGON,
-                  handler: (positions):void => {
-                    console.log({name: 'polygonCreated', positions: positions});
-        
-                    const timeStamp = new Date().getTime().toString();
-                    
-                    setIsDrawing(false);
-        
-                    setTimeout(()=>setDrawEntities([{
-                      hierarchy: positions,
-                      name: `Polygon_${timeStamp}`,
-                      id: timeStamp
-                    }]),0);
-    
-                  }
-                });
+                setDrawPrimitive(createDrawPrimitive(DrawType.POLYGON));
               }}
       >
         Polygon
       </button>
-      <button style={{position: 'fixed', top:'50px', right: '20px', zIndex: 1}} 
-              onClick={()=>{
+      <button style={{position: 'fixed', top:'50px', left: '20px', zIndex: 1}} 
+              onClick={():void=>{
                 setIsDrawing(true);
-                setDrawPrimitive({
-                  type: DrawType.BOX,
-                  handler: (positions):void => {
-                    console.log({name: 'Box', positions: positions});
-        
-                    const timeStamp = new Date().getTime().toString();
-                    
-                    setIsDrawing(false);
-        
-                    setTimeout(()=>setDrawEntities([{
-                      hierarchy: positions,
-                      name: `Box_${timeStamp}`,
-                      id: timeStamp
-                    }]),0);
-    
-                  }
-                });
+                setDrawPrimitive(createDrawPrimitive(DrawType.BOX));
               }}
       >
         Box
@@ -83,10 +80,12 @@ export const Drawings: Story = (args) => {
         <CesiumMap>
           <CesiumDrawingsDataSource 
             drawings={drawEntities}
+            material={CesiumColor.YELLOW.withAlpha(0.5)}
+            outlineColor={CesiumColor.AQUA}
             drawState={{
               drawing: isDrawing,
-              type: drawPrimitive?.type,
-              handler: drawPrimitive?.handler
+              type: drawPrimitive.type,
+              handler: drawPrimitive.handler
             }}
           />
         </CesiumMap>

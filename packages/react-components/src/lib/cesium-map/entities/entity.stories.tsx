@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Cartesian3, Color } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { action } from '@storybook/addon-actions';
 import { CesiumMap } from '../map';
 import { CesiumEntity, RCesiumEntityProps } from './entity';
 import { CesiumEntityDescription, CesiumEntityStaticDescription } from './entity.description';
@@ -114,7 +113,7 @@ export const WithDescription: Story<RCesiumEntityProps> = (args) => {
         <CesiumEntityDescription>
           <h1>Hello!</h1>
           <p>This is description. It can be described with React!</p>
-          <button onClick={() => setCount(i => i + 1)}>counter: {count}</button>
+          <button onClick={(): void => setCount(i => i + 1)}>counter: {count}</button>
         </CesiumEntityDescription>
       </CesiumEntity>
     </CesiumMap>

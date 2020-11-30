@@ -958,7 +958,10 @@ var DrawHelper = (function() {
                 if(extent != null) {
                     primitives.remove(extent);
                 }
-                markers.remove();
+                //ALEX if added
+                if(markers != null){
+                    markers.remove();
+                }
                 mouseHandler.destroy();
                 tooltip.setVisible(false);
             }
