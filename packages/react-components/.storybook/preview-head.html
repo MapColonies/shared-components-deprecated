@@ -8,3 +8,14 @@
       position: relative;
     }
 </style>
+
+<link rel="stylesheet" href="/Cesium/Widgets/widgets.css" />
+<script src="/Cesium/Cesium.js"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    if(window.location.href.indexOf('cesium-map--localized-map') > 0){
+      document.body.dir='rtl';
+    }
+  });
+</script>

@@ -1,0 +1,38 @@
+.cesium-widget-credits {
+  display: none !important;
+}
+
+.cesium-viewer-fullscreenContainer {
+  bottom: 8px;
+  right: 8px;
+  left: unset;
+}
+
+body[dir='rtl'] .cesium-viewer-fullscreenContainer {
+  left: 8px;
+  right: unset;
+}
+
+body[dir='rtl'] .cesium-viewer-toolbar {
+  left: 5px;
+  right: unset;
+}
+
+.cesium-button.cesium-fullscreenButton {
+  border-radius: 14%;
+}
+
+.toolsContainer {
+  display: flex;
+  gap: 8px;
+  z-index: 2000;
+  position: absolute;
+  bottom: 12px;
+  right: 40px;
+  opacity: 0.7;
+}
+
+body[dir='rtl'] .toolsContainer {
+  left: 40px;
+  right: unset;
+}

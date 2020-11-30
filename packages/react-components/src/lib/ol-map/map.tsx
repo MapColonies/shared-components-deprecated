@@ -14,7 +14,11 @@ import MousePosition from 'ol/control/MousePosition';
 import Collection from 'ol/Collection';
 import Control from 'ol/control/Control';
 import { transform } from 'ol/proj';
-import { Proj } from './projections';
+import {
+  Proj,
+  COORDINATES_WGS_FRACTION_DIGITS,
+  COORDINATES_MERCATOR_FRACTION_DIGITS,
+} from '../utils/projections';
 
 export interface MapProps {
   allowFullScreen?: boolean;
@@ -29,9 +33,7 @@ const MapProvider = mapContext.Provider;
 
 const CENTER_LAT = 35,
   CENTER_LON = 32,
-  DEFAULT_ZOOM = 10,
-  COORDINATES_WGS_FRACTION_DIGITS = 5,
-  COORDINATES_MERCATOR_FRACTION_DIGITS = 2;
+  DEFAULT_ZOOM = 10;
 
 const getDefaultCenter = (projection: string | undefined): Coordinate => {
   return projection !== undefined && projection !== Proj.WGS84

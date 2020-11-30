@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Map } from '../map';
 import { TileOsm } from '../source';
 import { TileLayer } from '../layers';
-import { Proj } from '../projections';
+import { Proj } from '../../utils/projections';
 
 export default {
   title: 'Map',

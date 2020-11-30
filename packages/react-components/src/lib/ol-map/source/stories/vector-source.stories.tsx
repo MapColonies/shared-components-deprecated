@@ -1,10 +1,10 @@
 import React from 'react';
 import { Geometries } from '@turf/helpers';
+import { Proj } from '../../../utils/projections';
 import { Map } from '../../map';
-import { TileOsm } from '..';
 import { TileLayer, VectorLayer } from '../../layers';
-import { Proj } from '../../projections';
 import { GeoJSONFeature } from '../../feature';
+import { TileOsm } from '..';
 import { VectorSource } from '../vector-source';
 
 export default {

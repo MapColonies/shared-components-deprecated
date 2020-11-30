@@ -1,11 +1,11 @@
 import React from 'react';
 import { Style, Fill, Circle, Stroke } from 'ol/style';
+import { Proj } from '../../../utils/projections';
 import { VectorTileLayer } from '../../layers/vector-tile-layer';
 import { Map } from '../../map';
+import { TileLayer } from '../../layers';
 import { MVTSource, getMVTOptions } from '../mvt';
 import { TileOsm } from '..';
-import { TileLayer } from '../../layers';
-import { Proj } from '../../projections';
 
 export default {
   title: 'Map/Map Tiles/MVT',
