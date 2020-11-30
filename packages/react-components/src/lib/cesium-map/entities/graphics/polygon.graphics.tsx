@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PolygonGraphics  as ResiumPolygonGraphics} from 'resium';
+import { PolygonGraphics as ResiumPolygonGraphics } from 'resium';
 import { PolygonGraphicsProps } from 'resium/dist/types/src/PolygonGraphics/PolygonGraphics';
 
 export interface RCesiumPolygonGraphicsProps extends PolygonGraphicsProps {}

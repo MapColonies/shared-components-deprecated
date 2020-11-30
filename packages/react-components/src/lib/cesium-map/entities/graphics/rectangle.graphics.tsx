@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RectangleGraphics  as ResiumRectangleGraphics} from 'resium';
+import { RectangleGraphics as ResiumRectangleGraphics } from 'resium';
 import { RectangleGraphicsProps } from 'resium/dist/types/src/RectangleGraphics/RectangleGraphics';
 
 export interface RCesiumRectangleGraphicsProps extends RectangleGraphicsProps {}

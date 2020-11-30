@@ -11,31 +11,31 @@ import { useMap } from '../map';
 import { DrawHelper } from '../tools/draw/drawHelper';
 import { CesiumCustomDataSource } from './custom.data-source';
 
-export class CesiumColor extends Color {};
+export class CesiumColor extends Color {}
 
 export type PrimitiveCoordinates = PolygonHierarchy | Rectangle;
 
-export interface IDrawing{
-  coordinates: PrimitiveCoordinates,
-  name: string,
-  id: string,
-  type: DrawType,
+export interface IDrawing {
+  coordinates: PrimitiveCoordinates;
+  name: string;
+  id: string;
+  type: DrawType;
 }
 
-export interface IDrawingEvent{
-  primitive: PrimitiveCoordinates,
-  type: DrawType,
+export interface IDrawingEvent {
+  primitive: PrimitiveCoordinates;
+  type: DrawType;
 }
 
 export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
-  drawings: IDrawing[],
+  drawings: IDrawing[];
   drawState: {
-    drawing: boolean,
-    type: DrawType,
-    handler: (drawing:IDrawingEvent) => void
-  },
-  material: CesiumColor,
-  outlineColor: CesiumColor,
+    drawing: boolean;
+    type: DrawType;
+    handler: (drawing: IDrawingEvent) => void;
+  };
+  material: CesiumColor;
+  outlineColor: CesiumColor;
 }
 
 export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> = (
@@ -45,14 +45,14 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
   const mapViewer: Viewer = useMap();
 
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
-  
+
   useEffect(() => {
     setDrawHelper(new DrawHelper(mapViewer));
   }, [mapViewer]);
 
   useEffect(() => {
     if (drawState.drawing) {
-      switch(drawState.type){
+      switch (drawState.type) {
         case DrawType.POLYGON:
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           drawHelper.startDrawingPolygon({
@@ -74,7 +74,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
                 primitive: positions,
                 type: DrawType.POLYGON,
               });
-            } 
+            },
           });
           break;
         case DrawType.BOX:
@@ -96,7 +96,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
                 primitive: positions,
                 type: DrawType.BOX,
               });
-            } 
+            },
           });
           break;
         default:
@@ -105,8 +105,10 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
     }
   }, [drawState, drawHelper]);
 
-  const renderGraphicsComponent = (drawEntity: IDrawing): React.ReactElement  => {
-    switch(drawEntity.type){
+  const renderGraphicsComponent = (
+    drawEntity: IDrawing
+  ): React.ReactElement => {
+    switch (drawEntity.type) {
       case DrawType.BOX:
         return (
           <CesiumRectangleGraphics
@@ -128,24 +130,18 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
         return <></>;
     }
   };
-  
+
   return (
-  <CesiumCustomDataSource {...props} >
-
-    {props.drawings.map((drawEntity, i) => (
-      <CesiumEntity
-        key={drawEntity.id} 
-        name={drawEntity.name}
-      >
-        <CesiumEntityStaticDescription>
-          <h1>Drawed Entity {drawEntity.name}</h1>
-          <p>This is description of drawed entity</p>
-        </CesiumEntityStaticDescription>
-        {renderGraphicsComponent(drawEntity)}
-      </CesiumEntity>
-    ))}
-
-      
-  </CesiumCustomDataSource>
+    <CesiumCustomDataSource {...props}>
+      {props.drawings.map((drawEntity, i) => (
+        <CesiumEntity key={drawEntity.id} name={drawEntity.name}>
+          <CesiumEntityStaticDescription>
+            <h1>Drawed Entity {drawEntity.name}</h1>
+            <p>This is description of drawed entity</p>
+          </CesiumEntityStaticDescription>
+          {renderGraphicsComponent(drawEntity)}
+        </CesiumEntity>
+      ))}
+    </CesiumCustomDataSource>
   );
 };

@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { 
+import {
   EntityDescription as ResiumEntityDescription,
   EntityStaticDescription as ResiumEntityStaticDescription,
-
 } from 'resium';
 import { EntityDescriptionProps } from 'resium/dist/types/src/EntityDescription/EntityDescription';
 
@@ -15,8 +14,6 @@ export const CesiumEntityDescription: React.FC<RCesiumEntityDescriptionProps> = 
   return <ResiumEntityDescription {...props} />;
 };
 
-export const CesiumEntityStaticDescription: React.FC = (
-  props
-) => {
+export const CesiumEntityStaticDescription: React.FC = (props) => {
   return <ResiumEntityStaticDescription {...props} />;
 };

@@ -23,17 +23,23 @@ const mapDivStyle = {
 export const Polygon: Story = (args) => (
   <div style={mapDivStyle}>
     <CesiumMap>
-      <CesiumEntity
-        {...args}
-        name="test"
-      >
+      <CesiumEntity {...args} name="test">
         <CesiumEntityStaticDescription>
           <h1>Hello!</h1>
           <p>This is description. It can be described with static JSX!</p>
         </CesiumEntityStaticDescription>
         <CesiumPolygonGraphics
           // eslint-disable-next-line
-          hierarchy={Cartesian3.fromDegreesArray([-108.0, 42.0, -100.0, 42.0, -104.0, 40.0]) as any} // WORKAROUND
+          hierarchy={
+            Cartesian3.fromDegreesArray([
+              -108.0,
+              42.0,
+              -100.0,
+              42.0,
+              -104.0,
+              40.0,
+            ]) as any
+          } // WORKAROUND
           material={Color.GREEN}
         />
       </CesiumEntity>
