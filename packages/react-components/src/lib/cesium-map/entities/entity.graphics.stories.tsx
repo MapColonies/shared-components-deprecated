@@ -29,8 +29,8 @@ export const Polygon: Story = (args) => (
           <p>This is description. It can be described with static JSX!</p>
         </CesiumEntityStaticDescription>
         <CesiumPolygonGraphics
-          // eslint-disable-next-line
           hierarchy={
+            // eslint-disable-next-line
             Cartesian3.fromDegreesArray([
               -108.0,
               42.0,
