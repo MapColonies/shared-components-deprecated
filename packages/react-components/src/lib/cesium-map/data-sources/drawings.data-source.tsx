@@ -47,15 +47,16 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
 
   useEffect(() => {
-    setDrawHelper(new DrawHelper(mapViewer));
+    // eslint-disable-next-line
+    setDrawHelper(new (DrawHelper as any)(mapViewer));
   }, [mapViewer]);
 
   useEffect(() => {
-    if (drawState.drawing) {
+    if (drawState.drawing && drawHelper) {
       switch (drawState.type) {
         case DrawType.POLYGON:
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          drawHelper.startDrawingPolygon({
+          // eslint-disable-next-line
+          (drawHelper as any).startDrawingPolygon({
             callback: (positions: PrimitiveCoordinates) => {
               //// MAKE polygon editable example
               // var polygon = new DrawHelper.PolygonPrimitive({
@@ -78,8 +79,8 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
           });
           break;
         case DrawType.BOX:
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          drawHelper.startDrawingExtent({
+          // eslint-disable-next-line
+          (drawHelper as any).startDrawingExtent({
             callback: (positions: PrimitiveCoordinates) => {
               //// MAKE box editable example
               // var extentPrimitive = new DrawHelper.ExtentPrimitive({
