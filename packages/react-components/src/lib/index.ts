@@ -7,3 +7,4 @@ export * from './popover';
 export * from './box';
 export * from './cssbaseline';
 export * from './theme';
+export * from './cesium-map';

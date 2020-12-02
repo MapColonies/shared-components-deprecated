@@ -15,7 +15,7 @@ import { Proj } from '.';
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
 
-export interface MapProps {
+export interface CesiumMapProps {
   showMousePosition?: boolean;
   showScale?: boolean;
   projection?: Proj;
@@ -24,7 +24,7 @@ export interface MapProps {
   locale?: { [key: string]: string };
 }
 
-export const useMap = (): CesiumViewer => {
+export const useCesiumMap = (): CesiumViewer => {
   const mapViewer = useContext(mapContext);
 
   if (mapViewer === null) {
@@ -34,7 +34,7 @@ export const useMap = (): CesiumViewer => {
   return mapViewer;
 };
 
-export const CesiumMap: React.FC<MapProps> = (props) => {
+export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const ref = useRef<CesiumComponentRef<CesiumViewer>>(null);
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
   const [projection, setProjection] = useState<Proj>();
