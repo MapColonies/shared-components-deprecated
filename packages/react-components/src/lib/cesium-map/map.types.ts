@@ -2,7 +2,7 @@ import { PolygonHierarchy, SceneMode } from 'cesium';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const CesiumSceneMode = {
-    ...SceneMode
+  ...SceneMode,
 };
 
-export class CesiumPolygonHierarchy extends PolygonHierarchy {};
+export class CesiumPolygonHierarchy extends PolygonHierarchy {}

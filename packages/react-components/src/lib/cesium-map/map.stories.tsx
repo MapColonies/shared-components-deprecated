@@ -82,7 +82,6 @@ Map2DWithProjection.argTypes = {
     defaultValue: [34.9578094, 32.8178637],
   },
   sceneMode: {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     defaultValue: CesiumSceneMode.SCENE2D,
   },
   projection: {
@@ -102,7 +101,6 @@ Map2DWithProjection.argTypes = {
   },
 };
 Map2DWithProjection.storyName = '2D Map with projection';
-
 
 export const LocalizedMap: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>

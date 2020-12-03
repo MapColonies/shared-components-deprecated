@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import { Viewer, CesiumComponentRef } from 'resium';
 import { ViewerProps } from 'resium/dist/types/src/Viewer/Viewer';
 import { Viewer as CesiumViewer, Cartesian3 } from 'cesium';
@@ -14,7 +20,7 @@ import { Proj } from '.';
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
 
-export interface CesiumMapProps extends ViewerProps  {
+export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
   showScale?: boolean;
   projection?: Proj;
@@ -50,7 +56,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     navigationHelpButton: false,
     homeButton: false,
     ...(props as ViewerProps),
-  }
+  };
 
   useEffect(() => {
     setMapViewRef(ref.current?.cesiumElement);
@@ -87,11 +93,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [props, mapViewRef]);
 
   return (
-    <Viewer
-      full
-      ref={ref}
-      {...viewerProps}
-    >
+    <Viewer full ref={ref} {...viewerProps}>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
         <Box className="toolsContainer" display="flex">
