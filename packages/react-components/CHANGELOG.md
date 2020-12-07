@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.2.0...@map-colonies/react-components@3.3.0) (2020-12-07)
+
+
+### Bug Fixes
+
+* **cesium-viewer:** props extendet + types + story ([35bfe9d](https://github.com/MapColonies/shared-components/commit/35bfe9d7fc457bfee787dc546d8cd96322fdd1fb))
+* **components:** assets hadling doc, cesium proper exposure ([ce1604c](https://github.com/MapColonies/shared-components/commit/ce1604c4539b2a6cd6507cfa57a0fa87c7ecf8c1))
+* **components-assets:** copy components assets to dist ([f4f9a7f](https://github.com/MapColonies/shared-components/commit/f4f9a7fc6af958cebc41a7d82f1cd71924493f37))
+* **draw-datasource:** cleanup, refactor, eslint ([dedf861](https://github.com/MapColonies/shared-components/commit/dedf8618ec940f1600f97a0748b5b171fa5bdeba))
+* **eslint:** fix ([76fa4a5](https://github.com/MapColonies/shared-components/commit/76fa4a5a97d1f90637117a16c9258639a961f548))
+* **eslint:** imports order ([f6db3af](https://github.com/MapColonies/shared-components/commit/f6db3af49192a5c05ae742b2008667ef2bb9f2bf))
+* **eslint:** lint error fix ([e0df166](https://github.com/MapColonies/shared-components/commit/e0df166c0ef342ce65b01461f7b6a601e17278d9))
+* **lint:** fix ([f53e4a7](https://github.com/MapColonies/shared-components/commit/f53e4a7147425a3a9ac47a385229ddd3566d68cf))
+* **mouse-position:** prevent displaying both projections ([debb25d](https://github.com/MapColonies/shared-components/commit/debb25d69c85f5596d9732f2d67dedb1bc667a37))
+* **mouse-position:** prevent displaying both projections in map component ([#69](https://github.com/MapColonies/shared-components/issues/69)) ([bc9c488](https://github.com/MapColonies/shared-components/commit/bc9c488eb76b5c4d39d093522fc2dabdc805f8b0))
+* **mouse-tracker:** css ([8834ea1](https://github.com/MapColonies/shared-components/commit/8834ea13891b6e71ff79d4458ec4d7b817d1f9e6))
+* **pr-comments:** requested changes performed ([1a9444a](https://github.com/MapColonies/shared-components/commit/1a9444a90a053f4e092cbdae49fa20c52991344d))
+* **prettier:** applied prettier ([495362c](https://github.com/MapColonies/shared-components/commit/495362c281b238a782c9e4410966b2544e204b85))
+* **prettier:** fix ([564e45f](https://github.com/MapColonies/shared-components/commit/564e45fcedeee9434d4df3264bc429457cc2c4e3))
+* **prettier:** fix ([1165b8d](https://github.com/MapColonies/shared-components/commit/1165b8d8d887560da79552d4feb31452fe0f126c))
+* **prettier:** fixed ([804cc4c](https://github.com/MapColonies/shared-components/commit/804cc4c089f486134a5c6127750ffd16fe161f12))
+* **prettier:** run ([68bceef](https://github.com/MapColonies/shared-components/commit/68bceef409ca510c85360f44a2939ba777f1e726))
+* **storybook:** default story by order in manager.js ([c88d490](https://github.com/MapColonies/shared-components/commit/c88d490d08e2e9581478fade759bc2e87d1e2e5d))
+* **ts:** drawhelper out of ts rules ([639f30d](https://github.com/MapColonies/shared-components/commit/639f30d40475c6de8fcd27e67e3c8ef1ef839386))
+* prettier ([aa9c46c](https://github.com/MapColonies/shared-components/commit/aa9c46c362d9cdf5e6e3a4e5e41de0f842d6a209))
+
+
+### Features
+
+* **cesium:** layers ([793bd7f](https://github.com/MapColonies/shared-components/commit/793bd7f784e4aeae272ff1867072244ce5af0884))
+* **cesium:** map, 3dtiles, imagery + stories ([9c59f97](https://github.com/MapColonies/shared-components/commit/9c59f97ce42be65f3c9ed2acaadaccbbf412bad6))
+* **cesium-draw:** implementation by drawHelper, start ([5bba094](https://github.com/MapColonies/shared-components/commit/5bba0947965f11e80011056678a08fd4e0b51ec8))
+* **cesium-entity:** component added ([5614754](https://github.com/MapColonies/shared-components/commit/56147540403d00cf2b59fdfc72f81bbe91d30708))
+* **cesium-layers:** wms, wmts, xyz layers + stories ([bcd39f8](https://github.com/MapColonies/shared-components/commit/bcd39f85e813b93979823e5fad173731fac8d040))
+* **cesium-map:** start ([b93199f](https://github.com/MapColonies/shared-components/commit/b93199fcf6f27d130372f64aac3aa3f472a58b74))
+* **coordinates-mouse-tracker:** added ([f8bb8bb](https://github.com/MapColonies/shared-components/commit/f8bb8bb4728081a9fb45bc3787d489e9d4422075))
+* **draw:** cont ([628063e](https://github.com/MapColonies/shared-components/commit/628063ea63271977407acb109c870802e5fa10aa))
+* **draw:** draw layer + rectangle start ([3eb7860](https://github.com/MapColonies/shared-components/commit/3eb7860f1efa0c146fdea2290832169690f1c84a))
+* **draw-rectangle:** implementation, drawHelper cleanup ([30028ae](https://github.com/MapColonies/shared-components/commit/30028ae0e79f8175737e043b3f00f2b3c063428b))
+* **scale-mousetarck:** rtl/ltr layout + localization ([d6676d9](https://github.com/MapColonies/shared-components/commit/d6676d9e8f876fb962a3f1ca54f03a430f4b6d1c))
+* **scale-tool:** code cleanup start ([9ef1465](https://github.com/MapColonies/shared-components/commit/9ef14650fc3ba55cb50523b9c399e7d8f54d6b96))
+* **scale-tool:** start ([501e562](https://github.com/MapColonies/shared-components/commit/501e5626aeb18f687b2dbcc8ce4b5859e65ad2c6))
+
+
+
+
+
+
 # [3.2.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.1.2...@map-colonies/react-components@3.2.0) (2020-11-15)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.1.0...@map-colonies/react-core@3.2.0) (2020-12-07)
+
+
+### Bug Fixes
+
+* **components:** assets hadling doc, cesium proper exposure ([ce1604c](https://github.com/MapColonies/shared-components/commit/ce1604c4539b2a6cd6507cfa57a0fa87c7ecf8c1))
+
+
+
+
+
+
 # 3.1.0 (2020-09-07)
 
 
