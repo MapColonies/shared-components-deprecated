@@ -3,12 +3,12 @@ import React from 'react';
 
 import { Cesium3DTileset as Resium3DTileset } from 'resium';
 import { Cesium3DTilesetProps } from 'resium/dist/types/src/Cesium3DTileset/Cesium3DTileset';
-import { useMap } from '../map';
+import { useCesiumMap } from '../map';
 
 export interface RCesium3DTilesetProps extends Cesium3DTilesetProps {}
 
 export const Cesium3DTileset: React.FC<RCesium3DTilesetProps> = (props) => {
-  const mapViewer: Viewer = useMap();
+  const mapViewer: Viewer = useCesiumMap();
   return (
     <Resium3DTileset
       {...props}

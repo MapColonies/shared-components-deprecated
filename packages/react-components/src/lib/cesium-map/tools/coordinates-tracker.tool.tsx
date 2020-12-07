@@ -5,7 +5,7 @@ import {
   Math as CesiumMath,
   WebMercatorProjection,
 } from 'cesium';
-import { useMap } from '../map';
+import { useCesiumMap } from '../map';
 
 import './coordinates-tracker.tool.css';
 import {
@@ -21,7 +21,7 @@ export interface RCoordinatesTrackerToolProps {
 export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
   props
 ) => {
-  const mapViewer: Viewer = useMap();
+  const mapViewer: Viewer = useCesiumMap();
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -57,7 +57,7 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
             coordinatesText = `Mercator: ${res.y.toFixed(
               COORDINATES_MERCATOR_FRACTION_DIGITS
             )}m, ${res.x.toFixed(COORDINATES_MERCATOR_FRACTION_DIGITS)}m`;
-            ref.current.style.width = '200px';
+            ref.current.style.width = '220px';
             break;
           }
           case Proj.WGS84: {
@@ -69,7 +69,7 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
             ).toFixed(COORDINATES_WGS_FRACTION_DIGITS);
 
             coordinatesText = `WGS84: ${latitudeString}°N ${longitudeString}°E`;
-            ref.current.style.width = '180px';
+            ref.current.style.width = '200px';
             break;
           }
           default:

@@ -7,7 +7,7 @@ import { CesiumEntity } from '../entities/entity';
 import { CesiumEntityStaticDescription } from '../entities/entity.description';
 import { CesiumPolygonGraphics } from '../entities/graphics/polygon.graphics';
 import { CesiumRectangleGraphics } from '../entities/graphics/rectangle.graphics';
-import { useMap } from '../map';
+import { useCesiumMap } from '../map';
 import { DrawHelper } from '../tools/draw/drawHelper';
 import { CesiumCustomDataSource } from './custom.data-source';
 
@@ -42,7 +42,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
   props
 ) => {
   const { drawState, material, outlineColor } = props;
-  const mapViewer: Viewer = useMap();
+  const mapViewer: Viewer = useCesiumMap();
 
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
 

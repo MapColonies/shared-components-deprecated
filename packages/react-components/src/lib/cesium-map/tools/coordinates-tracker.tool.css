@@ -4,6 +4,8 @@
   padding: 2px 2px;
   border-radius: 2px;
   font-size: 12px;
-  height: 14px;
+  height: 20px;
   text-align: center;
+  line-height: 16px;
+  white-space: nowrap;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { CesiumMap, MapProps } from './map';
+import { CesiumMap, CesiumMapProps } from './map';
+import { CesiumSceneMode } from './map.types';
 import { Proj } from '.';
 
 export default {
@@ -17,13 +18,13 @@ const mapDivStyle = {
   position: 'absolute' as const,
 };
 
-export const BaseMap: Story = (args: MapProps) => (
+export const BaseMap: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}></CesiumMap>
   </div>
 );
 
-export const ZommedMap: Story = (args: MapProps) => (
+export const ZommedMap: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}></CesiumMap>
   </div>
@@ -43,7 +44,7 @@ ZommedMap.argTypes = {
   },
 };
 
-export const MapWithProjection: Story = (args: MapProps) => (
+export const MapWithProjection: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}></CesiumMap>
   </div>
@@ -70,7 +71,38 @@ MapWithProjection.argTypes = {
   },
 };
 
-export const LocalizedMap: Story = (args: MapProps) => (
+export const Map2DWithProjection: Story = (args: CesiumMapProps) => (
+  <div style={mapDivStyle}>
+    <CesiumMap {...args}></CesiumMap>
+  </div>
+);
+
+Map2DWithProjection.argTypes = {
+  center: {
+    defaultValue: [34.9578094, 32.8178637],
+  },
+  sceneMode: {
+    defaultValue: CesiumSceneMode.SCENE2D,
+  },
+  projection: {
+    defaultValue: Proj.WGS84,
+    control: {
+      type: 'radio',
+      options: [Proj.WEB_MERCATOR, Proj.WGS84],
+    },
+  },
+  zoom: {
+    defaultValue: 8,
+    control: {
+      type: 'range',
+      min: 0,
+      max: 20,
+    },
+  },
+};
+Map2DWithProjection.storyName = '2D Map with projection';
+
+export const LocalizedMap: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}></CesiumMap>
   </div>
