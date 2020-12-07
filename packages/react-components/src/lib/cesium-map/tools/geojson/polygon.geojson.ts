@@ -1,8 +1,4 @@
-import {
-  Math as CesiumMath,
-  Cartographic,
-  Cartesian3,
-} from 'cesium';
+import { Math as CesiumMath, Cartographic, Cartesian3 } from 'cesium';
 import { GeoJSON } from 'geojson';
 
 export const polygonToGeoJSON = (positions: Cartesian3[]): GeoJSON => {

@@ -76,7 +76,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
               drawState.handler({
                 primitive: positions,
                 type: DrawType.POLYGON,
-                geojson: polygonToGeoJSON(positions as Cartesian3[])
+                geojson: polygonToGeoJSON(positions as Cartesian3[]),
               });
             },
           });
@@ -99,7 +99,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
               drawState.handler({
                 primitive: positions,
                 type: DrawType.BOX,
-                geojson: rectangleToGeoJSON(positions as Rectangle)
+                geojson: rectangleToGeoJSON(positions as Rectangle),
               });
             },
           });
@@ -125,8 +125,9 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
       case DrawType.POLYGON:
         return (
           <CesiumPolygonGraphics
-            hierarchy={new PolygonHierarchy(drawEntity.coordinates as Cartesian3[])}
-            // hierarchy={Cartesian3.fromDegreesArray([-108.0, 42.0, -100.0, 42.0, -104.0, 40.0]) as any} // WORKAROUND
+            hierarchy={
+              new PolygonHierarchy(drawEntity.coordinates as Cartesian3[])
+            }
             material={material}
             outlineColor={outlineColor}
           />

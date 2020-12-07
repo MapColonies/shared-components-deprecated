@@ -4,4 +4,3 @@ import { SceneMode } from 'cesium';
 export const CesiumSceneMode = {
   ...SceneMode,
 };
-
