@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { PolygonHierarchy } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { DrawType } from '../../models';
 import { CesiumMap } from '../map';
@@ -38,7 +37,7 @@ export const Drawings: Story = (args) => {
   });
   const [drawEntities, setDrawEntities] = useState<IDrawing[]>([
     {
-      coordinates: new PolygonHierarchy(),
+      coordinates: [],
       name: '',
       id: '',
       type: DrawType.UNKNOWN,
