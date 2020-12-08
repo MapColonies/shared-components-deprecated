@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { DrawType } from '../../models';
+import { BboxCorner, DrawType } from '../../models';
 import { CesiumMap } from '../map';
 import {
   CesiumDrawingsDataSource,
@@ -113,23 +113,23 @@ export const Drawings: Story = (args) => {
                   { 
                     type : 'Feature', 
                     properties : {  
-                      type : 'top_right',
+                      type : BboxCorner.BOTTOM_LEFT,
+                    }, 
+                    geometry : { 
+                      type : 'Point', 
+                      coordinates : [ 34.88, 32.72 ] 
+                    }
+                  },
+                  { 
+                    type : 'Feature', 
+                    properties : {  
+                      type : BboxCorner.TOP_RIGHT,
                     }, 
                     geometry : { 
                       type : 'Point', 
                       coordinates : [ 35.02, 32.87 ] 
                     }
                   },
-                  { 
-                    type : 'Feature', 
-                    properties : {  
-                      type : 'bottom_left',
-                    }, 
-                    geometry : { 
-                      type : 'Point', 
-                      coordinates : [ 34.88, 32.72 ] 
-                    }
-                  }
                 ]
               }
             },
