@@ -84,6 +84,60 @@ export const Drawings: Story = (args) => {
       >
         Box
       </button>
+      <button
+        style={{ position: 'fixed', top: '80px', left: '20px', zIndex: 1 }}
+        onClick={(): void => {
+          setIsDrawing(false);
+          setDrawPrimitive({
+            type: DrawType.UNKNOWN,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            handler: (drawing: IDrawingEvent) => {},
+          });
+        }}
+      >
+        Stop Draw
+      </button>
+      <button
+        style={{ position: 'fixed', top: '140px', left: '20px', zIndex: 1 }}
+        onClick={(): void => {
+          setIsDrawing(false);
+          setDrawEntities([
+            {
+              coordinates: undefined,
+              name: `${DrawType.BOX.toString()}_KUKU`,
+              id: 'KUKU',
+              type: DrawType.BOX,
+              geojson: {
+                type : 'FeatureCollection',
+                features: [
+                  { 
+                    type : 'Feature', 
+                    properties : {  
+                      type : 'top_right',
+                    }, 
+                    geometry : { 
+                      type : 'Point', 
+                      coordinates : [ 35.02, 32.87 ] 
+                    }
+                  },
+                  { 
+                    type : 'Feature', 
+                    properties : {  
+                      type : 'bottom_left',
+                    }, 
+                    geometry : { 
+                      type : 'Point', 
+                      coordinates : [ 34.88, 32.72 ] 
+                    }
+                  }
+                ]
+              }
+            },
+          ]);
+        }}
+      >
+        Draw rectangle by coordinates
+      </button>
       <div style={mapDivStyle}>
         <CesiumMap>
           <CesiumDrawingsDataSource
