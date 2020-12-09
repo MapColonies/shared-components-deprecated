@@ -923,6 +923,7 @@ var DrawHelper = (function () {
     var markers = new _.BillboardGroup(this, defaultBillboard);
 
     var mouseHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    setDrawCursor(scene);
 
     // Now wait for start
     mouseHandler.setInputAction(function (movement) {
@@ -991,6 +992,7 @@ var DrawHelper = (function () {
         } else {
           var cartesian = scene.camera.pickEllipsoid(position, ellipsoid);
           if (cartesian) {
+            unsetDrawCursor(scene);
             _self.stopDrawing();
             if (typeof options.callback == 'function') {
               // remove overlapping ones
@@ -1012,6 +1014,21 @@ var DrawHelper = (function () {
     ]);
   }
 
+  // ALEX add to change draw mode cursor 
+  function setDrawCursor(scene) {
+    if(scene){
+      scene.canvas.style.cursor = 'crosshair';
+    }
+  }
+  
+  // ALEX add to restore regular mode  
+  function unsetDrawCursor(scene) {
+    if(scene){
+      scene.canvas.style.cursor = '';
+    }
+  }
+
+
   _.prototype.startDrawingExtent = function (options) {
     var options = copyOptions(options, defaultSurfaceOptions);
 
@@ -1025,6 +1042,7 @@ var DrawHelper = (function () {
       }
       mouseHandler.destroy();
       tooltip.setVisible(false);
+      unsetDrawCursor(scene);
     });
 
     var _self = this;
@@ -1037,6 +1055,7 @@ var DrawHelper = (function () {
     var markers = null;
 
     var mouseHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    setDrawCursor(scene);
 
     function updateExtent(value) {
       if (extent == null) {
