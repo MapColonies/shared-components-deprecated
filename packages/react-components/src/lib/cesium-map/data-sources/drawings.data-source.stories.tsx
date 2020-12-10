@@ -44,7 +44,7 @@ export const Drawings: Story = (args) => {
       type: DrawType.UNKNOWN,
     },
   ]);
-  const [center] = useState<[number, number]>([34.9578094,32.8178637]);
+  const [center] = useState<[number, number]>([34.9578094, 32.8178637]);
 
   const createDrawPrimitive = (type: DrawType): IDrawingObject => {
     return {
@@ -110,30 +110,30 @@ export const Drawings: Story = (args) => {
               id: 'KUKU',
               type: DrawType.BOX,
               geojson: {
-                type : 'FeatureCollection',
+                type: 'FeatureCollection',
                 features: [
-                  { 
-                    type : 'Feature', 
-                    properties : {  
-                      type : BboxCorner.BOTTOM_LEFT,
-                    }, 
-                    geometry : { 
-                      type : 'Point', 
-                      coordinates : [ 34.88, 32.72 ] 
-                    }
+                  {
+                    type: 'Feature',
+                    properties: {
+                      type: BboxCorner.BOTTOM_LEFT,
+                    },
+                    geometry: {
+                      type: 'Point',
+                      coordinates: [34.88, 32.72],
+                    },
                   },
-                  { 
-                    type : 'Feature', 
-                    properties : {  
-                      type : BboxCorner.TOP_RIGHT,
-                    }, 
-                    geometry : { 
-                      type : 'Point', 
-                      coordinates : [ 35.02, 32.87 ] 
-                    }
+                  {
+                    type: 'Feature',
+                    properties: {
+                      type: BboxCorner.TOP_RIGHT,
+                    },
+                    geometry: {
+                      type: 'Point',
+                      coordinates: [35.02, 32.87],
+                    },
                   },
-                ]
-              }
+                ],
+              },
             },
           ]);
         }}

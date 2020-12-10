@@ -140,9 +140,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
       case DrawType.POLYGON:
         return (
           <CesiumPolygonGraphics
-            hierarchy={
-              new PolygonHierarchy(coordinates as Cartesian3[])
-            }
+            hierarchy={new PolygonHierarchy(coordinates as Cartesian3[])}
             material={material}
             outlineColor={outlineColor}
           />

@@ -1015,20 +1015,19 @@ var DrawHelper = (function () {
     ]);
   }
 
-  // ALEX add to change draw mode cursor 
+  // ALEX add to change draw mode cursor
   function setDrawCursor(scene) {
-    if(scene){
+    if (scene) {
       scene.canvas.style.cursor = 'crosshair';
     }
   }
-  
-  // ALEX add to restore regular mode  
+
+  // ALEX add to restore regular mode
   function unsetDrawCursor(scene) {
-    if(scene){
+    if (scene) {
       scene.canvas.style.cursor = '';
     }
   }
-
 
   _.prototype.startDrawingExtent = function (options) {
     var options = copyOptions(options, defaultSurfaceOptions);
