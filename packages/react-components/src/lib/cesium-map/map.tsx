@@ -79,7 +79,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [props.showScale]);
 
   useEffect(() => {
-    const { zoom, center } = props;
+    const zoom = props.zoom;
+    const center = props.center;
     if (mapViewRef && isNumber(zoom) && isArray(center)) {
       void mapViewRef.camera.flyTo({
         destination: Cartesian3.fromDegrees(
@@ -90,7 +91,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         duration: 0,
       });
     }
-  }, [props, mapViewRef]);
+  }, [props.zoom, props.center, mapViewRef]);
 
   return (
     <Viewer full ref={ref} {...viewerProps}>

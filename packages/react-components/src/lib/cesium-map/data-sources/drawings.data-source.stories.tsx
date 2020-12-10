@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { BboxCorner, DrawType } from '../../models';
+import { CesiumSceneMode } from '../map.types';
 import { CesiumMap } from '../map';
 import {
   CesiumDrawingsDataSource,
@@ -43,6 +44,7 @@ export const Drawings: Story = (args) => {
       type: DrawType.UNKNOWN,
     },
   ]);
+  const [center] = useState<[number, number]>([34.9578094,32.8178637]);
 
   const createDrawPrimitive = (type: DrawType): IDrawingObject => {
     return {
@@ -139,7 +141,7 @@ export const Drawings: Story = (args) => {
         Draw rectangle by coordinates
       </button>
       <div style={mapDivStyle}>
-        <CesiumMap>
+        <CesiumMap center={center} sceneMode={CesiumSceneMode.SCENE2D} zoom={9}>
           <CesiumDrawingsDataSource
             drawings={drawEntities}
             material={CesiumColor.YELLOW.withAlpha(0.5)}
