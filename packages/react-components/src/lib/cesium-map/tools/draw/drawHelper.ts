@@ -902,6 +902,7 @@ var DrawHelper = (function () {
       markers.remove();
       mouseHandler.destroy();
       tooltip.setVisible(false);
+      unsetDrawCursor(scene);
     });
 
     var _self = this;
