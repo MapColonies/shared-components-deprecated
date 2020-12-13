@@ -23,15 +23,18 @@ export const geoJSONToPrimitive = (
         return feat.properties?.type === BboxCorner.TOP_RIGHT;
       }) as Feature<Point>;
 
+      // eslint-disable-next-line
       if (rightTopPoint && bottomLeftPoint) {
-        if(bottomLeftPoint.geometry.coordinates[0] === rightTopPoint.geometry.coordinates[0] &&
-          bottomLeftPoint.geometry.coordinates[1] === rightTopPoint.geometry.coordinates[1]
-          ){
-            throw new Error(
-              `${type} must define BOTTOM_LEFT and TOP_RIGHT different points`
-            ); 
-        }
-        else{
+        if (
+          bottomLeftPoint.geometry.coordinates[0] ===
+            rightTopPoint.geometry.coordinates[0] &&
+          bottomLeftPoint.geometry.coordinates[1] ===
+            rightTopPoint.geometry.coordinates[1]
+        ) {
+          throw new Error(
+            `${type} must define BOTTOM_LEFT and TOP_RIGHT different points`
+          );
+        } else {
           return Rectangle.fromDegrees(
             bottomLeftPoint.geometry.coordinates[0],
             bottomLeftPoint.geometry.coordinates[1],
