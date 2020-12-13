@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { DrawType } from '../../models';
+import { BboxCorner, DrawType } from '../../models';
+import { CesiumSceneMode } from '../map.types';
 import { CesiumMap } from '../map';
 import {
   CesiumDrawingsDataSource,
@@ -43,6 +44,7 @@ export const Drawings: Story = (args) => {
       type: DrawType.UNKNOWN,
     },
   ]);
+  const [center] = useState<[number, number]>([34.9578094, 32.8178637]);
 
   const createDrawPrimitive = (type: DrawType): IDrawingObject => {
     return {
@@ -84,8 +86,62 @@ export const Drawings: Story = (args) => {
       >
         Box
       </button>
+      <button
+        style={{ position: 'fixed', top: '80px', left: '20px', zIndex: 1 }}
+        onClick={(): void => {
+          setIsDrawing(false);
+          setDrawPrimitive({
+            type: DrawType.UNKNOWN,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            handler: (drawing: IDrawingEvent) => {},
+          });
+        }}
+      >
+        Stop Draw
+      </button>
+      <button
+        style={{ position: 'fixed', top: '140px', left: '20px', zIndex: 1 }}
+        onClick={(): void => {
+          setIsDrawing(false);
+          setDrawEntities([
+            {
+              coordinates: undefined,
+              name: `${DrawType.BOX.toString()}_KUKU`,
+              id: 'KUKU',
+              type: DrawType.BOX,
+              geojson: {
+                type: 'FeatureCollection',
+                features: [
+                  {
+                    type: 'Feature',
+                    properties: {
+                      type: BboxCorner.BOTTOM_LEFT,
+                    },
+                    geometry: {
+                      type: 'Point',
+                      coordinates: [34.88, 32.72],
+                    },
+                  },
+                  {
+                    type: 'Feature',
+                    properties: {
+                      type: BboxCorner.TOP_RIGHT,
+                    },
+                    geometry: {
+                      type: 'Point',
+                      coordinates: [35.02, 32.87],
+                    },
+                  },
+                ],
+              },
+            },
+          ]);
+        }}
+      >
+        Draw rectangle by coordinates
+      </button>
       <div style={mapDivStyle}>
-        <CesiumMap>
+        <CesiumMap center={center} sceneMode={CesiumSceneMode.SCENE2D} zoom={9}>
           <CesiumDrawingsDataSource
             drawings={drawEntities}
             material={CesiumColor.YELLOW.withAlpha(0.5)}

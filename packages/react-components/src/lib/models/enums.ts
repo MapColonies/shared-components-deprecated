@@ -8,3 +8,8 @@ export enum SupportedLocales {
   HE = 'he',
   EN = 'en',
 }
+
+export enum BboxCorner {
+  TOP_RIGHT = 'TOP_RIGHT',
+  BOTTOM_LEFT = 'BOTTOM_LEFT',
+}

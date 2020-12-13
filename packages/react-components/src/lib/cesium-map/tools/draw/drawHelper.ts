@@ -10,7 +10,7 @@ var DrawHelper = (function () {
   // constructor
   function _(cesiumWidget) {
     this._scene = cesiumWidget.scene;
-    //ALEX
+    //MC_CHANGE disable/override tooltip
     this._tooltip = {
       setVisible: () => {},
       showAt: () => {},
@@ -300,7 +300,7 @@ var DrawHelper = (function () {
                 depthTest: {
                   enabled: true,
                 },
-                //ALEX
+                //MC_CHANGE
                 lineWidth: this.strokeWidth || 4.0,
                 // lineWidth : Math.min(this.strokeWidth || 4.0, context._aliasedLineWidthRange[1])
               },
@@ -902,6 +902,7 @@ var DrawHelper = (function () {
       markers.remove();
       mouseHandler.destroy();
       tooltip.setVisible(false);
+      unsetDrawCursor(scene);
     });
 
     var _self = this;
@@ -923,6 +924,7 @@ var DrawHelper = (function () {
     var markers = new _.BillboardGroup(this, defaultBillboard);
 
     var mouseHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    setDrawCursor(scene);
 
     // Now wait for start
     mouseHandler.setInputAction(function (movement) {
@@ -991,6 +993,7 @@ var DrawHelper = (function () {
         } else {
           var cartesian = scene.camera.pickEllipsoid(position, ellipsoid);
           if (cartesian) {
+            unsetDrawCursor(scene);
             _self.stopDrawing();
             if (typeof options.callback == 'function') {
               // remove overlapping ones
@@ -1012,6 +1015,20 @@ var DrawHelper = (function () {
     ]);
   }
 
+  // MC_CHANGE add to change draw mode cursor
+  function setDrawCursor(scene) {
+    if (scene) {
+      scene.canvas.style.cursor = 'crosshair';
+    }
+  }
+
+  // MC_CHANGE add to restore regular mode
+  function unsetDrawCursor(scene) {
+    if (scene) {
+      scene.canvas.style.cursor = '';
+    }
+  }
+
   _.prototype.startDrawingExtent = function (options) {
     var options = copyOptions(options, defaultSurfaceOptions);
 
@@ -1019,12 +1036,13 @@ var DrawHelper = (function () {
       if (extent != null) {
         primitives.remove(extent);
       }
-      //ALEX if added
+      //MC_CHANGE if added
       if (markers != null) {
         markers.remove();
       }
       mouseHandler.destroy();
       tooltip.setVisible(false);
+      unsetDrawCursor(scene);
     });
 
     var _self = this;
@@ -1037,10 +1055,11 @@ var DrawHelper = (function () {
     var markers = null;
 
     var mouseHandler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    setDrawCursor(scene);
 
     function updateExtent(value) {
       if (extent == null) {
-        //ALEX
+        //MC_CHANGE
         extent = new Cesium.GroundPrimitive();
         //extent = new Cesium.RectanglePrimitive();
         //extent.asynchronous = false;
