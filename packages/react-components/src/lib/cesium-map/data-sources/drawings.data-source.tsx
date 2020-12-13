@@ -110,7 +110,9 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
             });
             break;
           default:
-            throw(new Error(`[CESIUM DRAW]: ${drawState.type} unrecognized primitive to draw.`))
+            throw new Error(
+              `[CESIUM DRAW]: ${drawState.type} unrecognized primitive to draw.`
+            );
             break;
         }
       } else {
