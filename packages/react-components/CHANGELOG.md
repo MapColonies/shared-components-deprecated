@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.1...@map-colonies/react-components@3.3.2) (2020-12-13)
+
+
+### Bug Fixes
+
+* **drawhelper:** inspire ([#82](https://github.com/MapColonies/shared-components/issues/82)) ([bbb5639](https://github.com/MapColonies/shared-components/commit/bbb563974bd6fb89274d6383d7ae72df4267a7b7))
+
+
+
+
+
 ## [3.3.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.0...@map-colonies/react-components@3.3.1) (2020-12-13)
 
 
