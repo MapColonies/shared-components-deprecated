@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.0...@map-colonies/react-components@3.3.1) (2020-12-13)
+
+
+### Bug Fixes
+
+* **cesium-draw:** draw by primitive or geojson ([#80](https://github.com/MapColonies/shared-components/issues/80)) ([d85c123](https://github.com/MapColonies/shared-components/commit/d85c1234d7ed28d28d3dfa0453bf6fb0c6e9d0d3))
+
+
+
+
+
+
 # [3.3.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.2.0...@map-colonies/react-components@3.3.0) (2020-12-07)
 
 
