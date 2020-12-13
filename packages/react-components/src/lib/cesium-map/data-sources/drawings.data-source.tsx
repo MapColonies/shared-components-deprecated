@@ -58,11 +58,13 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
 
   useEffect(() => {
     if (drawHelper) {
+      // eslint-disable-next-line
+      const drawHelperInstance = drawHelper as any;
       if (drawState.drawing) {
         switch (drawState.type) {
           case DrawType.POLYGON:
             // eslint-disable-next-line
-            (drawHelper as any).startDrawingPolygon({
+            drawHelperInstance.startDrawingPolygon({
               callback: (positions: PrimitiveCoordinates) => {
                 //// MAKE polygon editable example
                 // var polygon = new DrawHelper.PolygonPrimitive({
@@ -86,7 +88,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
             break;
           case DrawType.BOX:
             // eslint-disable-next-line
-            (drawHelper as any).startDrawingExtent({
+            drawHelperInstance.startDrawingExtent({
               callback: (positions: PrimitiveCoordinates) => {
                 //// MAKE box editable example
                 // var extentPrimitive = new DrawHelper.ExtentPrimitive({
@@ -108,11 +110,12 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
             });
             break;
           default:
+            throw(new Error(`[CESIUM DRAW]: ${drawState.type} unrecognized primitive to draw.`))
             break;
         }
       } else {
         // eslint-disable-next-line
-        (drawHelper as any).stopDrawing();
+        drawHelperInstance.stopDrawing();
       }
     }
   }, [drawState, drawHelper]);
@@ -121,7 +124,6 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
     drawEntity: IDrawing
   ): React.ReactElement => {
     const coordinates =
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       drawEntity.coordinates !== undefined
         ? drawEntity.coordinates
         : geoJSONToPrimitive(
