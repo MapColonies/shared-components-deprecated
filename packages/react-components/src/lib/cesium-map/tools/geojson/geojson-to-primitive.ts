@@ -17,19 +17,28 @@ export const geoJSONToPrimitive = (
 
       const bottomLeftPoint = find(geojson.features, (feat) => {
         return feat.properties?.type === BboxCorner.BOTTOM_LEFT;
-      });
+      }) as Feature<Point>;
 
       const rightTopPoint = find(geojson.features, (feat) => {
         return feat.properties?.type === BboxCorner.TOP_RIGHT;
-      });
+      }) as Feature<Point>;
 
       if (rightTopPoint && bottomLeftPoint) {
-        return Rectangle.fromDegrees(
-          (bottomLeftPoint as Feature<Point>).geometry.coordinates[0],
-          (bottomLeftPoint as Feature<Point>).geometry.coordinates[1],
-          (rightTopPoint as Feature<Point>).geometry.coordinates[0],
-          (rightTopPoint as Feature<Point>).geometry.coordinates[1]
-        );
+        if(bottomLeftPoint.geometry.coordinates[0] === rightTopPoint.geometry.coordinates[0] &&
+          bottomLeftPoint.geometry.coordinates[1] === rightTopPoint.geometry.coordinates[1]
+          ){
+            throw new Error(
+              `${type} must define BOTTOM_LEFT and TOP_RIGHT different points`
+            ); 
+        }
+        else{
+          return Rectangle.fromDegrees(
+            bottomLeftPoint.geometry.coordinates[0],
+            bottomLeftPoint.geometry.coordinates[1],
+            rightTopPoint.geometry.coordinates[0],
+            rightTopPoint.geometry.coordinates[1]
+          );
+        }
       } else {
         throw new Error(
           `${type} geojson must define BOTTOM_LEFT and TOP_RIGHT points`

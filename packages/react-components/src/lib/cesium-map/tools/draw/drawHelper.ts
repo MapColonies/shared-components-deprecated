@@ -10,7 +10,7 @@ var DrawHelper = (function () {
   // constructor
   function _(cesiumWidget) {
     this._scene = cesiumWidget.scene;
-    //ALEX
+    //MC_CHANGE disable/override tooltip
     this._tooltip = {
       setVisible: () => {},
       showAt: () => {},
@@ -300,7 +300,7 @@ var DrawHelper = (function () {
                 depthTest: {
                   enabled: true,
                 },
-                //ALEX
+                //MC_CHANGE
                 lineWidth: this.strokeWidth || 4.0,
                 // lineWidth : Math.min(this.strokeWidth || 4.0, context._aliasedLineWidthRange[1])
               },
@@ -1015,14 +1015,14 @@ var DrawHelper = (function () {
     ]);
   }
 
-  // ALEX add to change draw mode cursor
+  // MC_CHANGE add to change draw mode cursor
   function setDrawCursor(scene) {
     if (scene) {
       scene.canvas.style.cursor = 'crosshair';
     }
   }
 
-  // ALEX add to restore regular mode
+  // MC_CHANGE add to restore regular mode
   function unsetDrawCursor(scene) {
     if (scene) {
       scene.canvas.style.cursor = '';
@@ -1036,7 +1036,7 @@ var DrawHelper = (function () {
       if (extent != null) {
         primitives.remove(extent);
       }
-      //ALEX if added
+      //MC_CHANGE if added
       if (markers != null) {
         markers.remove();
       }
@@ -1059,7 +1059,7 @@ var DrawHelper = (function () {
 
     function updateExtent(value) {
       if (extent == null) {
-        //ALEX
+        //MC_CHANGE
         extent = new Cesium.GroundPrimitive();
         //extent = new Cesium.RectanglePrimitive();
         //extent.asynchronous = false;
