@@ -69,6 +69,20 @@ const data = {
         prop1: { this: 'that' },
       },
     },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'LineString',
+        coordinates: 
+          [
+            [32.2558594, 32.8611323],
+            [32.4975586, 30.1831218],
+            [35.8813477, 30.4486737],
+            [35.8154297, 33.0086635],
+            [32.2558594, 32.8611323],
+          ],
+      },
+    },
   ],
 };
 
@@ -83,6 +97,14 @@ export const MapWithGeojsonLayer: Story = () => (
         onLoad={(g): void => {
           // You can process the data source here
           g.entities.values[0].name = 'Coors Field! After update';
+
+          g.entities.values[2].polygon.material = Color.TRANSPARENT; //Color.RED.withAlpha(0.4);
+          g.entities.values[2].polygon.outlineColor = Color.LIGHTBLUE;
+          g.entities.values[2].polygon.outlineWidth = 6.0;
+
+          // /https://sandcastle.cesium.com/index.html?src=CZML%20Polyline.html&label=CZML
+          g.entities.values[3].polyline.material = Color.LIGHTBLUE;
+          g.entities.values[3].polyline.width = 6.0;
           onLoadAction(g);
         }}
         onError={action('onError')}
