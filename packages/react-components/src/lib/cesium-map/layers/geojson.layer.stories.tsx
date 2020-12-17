@@ -98,12 +98,17 @@ export const MapWithGeojsonLayer: Story = () => (
           // You can process the data source here
           g.entities.values[0].name = 'Coors Field! After update';
 
+          // @ts-ignore
           g.entities.values[2].polygon.material = Color.TRANSPARENT; //Color.RED.withAlpha(0.4);
+          // @ts-ignore
           g.entities.values[2].polygon.outlineColor = Color.LIGHTBLUE;
+          // @ts-ignore
           g.entities.values[2].polygon.outlineWidth = 6.0;
 
           // /https://sandcastle.cesium.com/index.html?src=CZML%20Polyline.html&label=CZML
+          // @ts-ignore
           g.entities.values[3].polyline.material = Color.LIGHTBLUE;
+          // @ts-ignore
           g.entities.values[3].polyline.width = 6.0;
           onLoadAction(g);
         }}
