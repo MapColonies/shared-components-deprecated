@@ -26,7 +26,6 @@ const optionsXYZ = {
   url: `https://tiles.openaerialmap.org/5b25fa612b6a08001185f80f/0/5b25fa612b6a08001185f810/{z}/{x}/{y}.png`,
 };
 
-
 export const MapWithOSMLayers: Story = (args) => {
   const [center] = useState<[number, number]>([34.82, 32.04]);
   return (
