@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.2...@map-colonies/react-components@3.3.3) (2020-12-22)
+
+
+### Features
+
+* **osm-layer:** cesium additions ([#83](https://github.com/MapColonies/shared-components/issues/83)) ([7fe0749](https://github.com/MapColonies/shared-components/commit/7fe074951d85ee22339679e16a3c5b206c595574))
+
+
+
+
+
+
 ## [3.3.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.1...@map-colonies/react-components@3.3.2) (2020-12-13)
 
 
