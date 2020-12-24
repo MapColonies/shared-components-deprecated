@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.4](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.3...@map-colonies/react-components@3.3.4) (2020-12-24)
+
+
+### Bug Fixes
+
+* **wmts-layer-config:** proper configs are passed + story ([#86](https://github.com/MapColonies/shared-components/issues/86)) ([e6697b0](https://github.com/MapColonies/shared-components/commit/e6697b0e95405e07c2e6fc34107f8d21bb0cab18))
+
+
+
+
+
+
 ## [3.3.3](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.2...@map-colonies/react-components@3.3.3) (2020-12-22)
 
 
