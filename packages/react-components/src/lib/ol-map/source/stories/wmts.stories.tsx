@@ -12,6 +12,19 @@ const wmtsOptions = getWMTSOptions({
   layer: '0',
   projection: 'EPSG:3857',
   format: 'image/png',
+  style: 'default',
+  matrixSet: 'EPSG:3857',
+  heightWidthRatio: 1,
+  requestEncoding: 'KVP',
+});
+
+const wmtsOptions1 = getWMTSOptions({
+  url: 'http://10.28.11.95:8080/wmts/{Layer}/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.png',
+  layer: 'combined_layers',
+  matrixSet: 'gridname',
+  format: 'png',
+  projection: 'EPSG:4326',
+  style: 'default',
 });
 
 const mapDivStyle = {
@@ -33,6 +46,9 @@ export const Basic: CSFStory<JSX.Element> = () => (
       </TileLayer>
       <TileLayer>
         <TileWMTS options={wmtsOptions} />
+      </TileLayer>
+      <TileLayer options={{opacity: 0.4}}>
+        <TileWMTS options={wmtsOptions1} />
       </TileLayer>
     </Map>
   </div>
