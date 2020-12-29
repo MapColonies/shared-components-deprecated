@@ -1061,12 +1061,15 @@ var DrawHelper = (function () {
     function updateExtent(value) {
       if (extent == null) {
         //MC_CHANGE
-        extent = new Cesium.GroundPrimitive();
+        extent = new DrawHelper.ExtentPrimitive({
+          extent: value,
+          material: options.material
+        });
         //extent = new Cesium.RectanglePrimitive();
-        //extent.asynchronous = false;
-        primitives.add(extent);
-      }
-      extent.rectangle = value;
+        extent.asynchronous = false; 
+        primitives.add(extent); 
+      } 
+      extent.setExtent(value);
       // update the markers
       var corners = getExtentCorners(value);
       // create if they do not yet exist
