@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.5](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.4...@map-colonies/react-components@3.3.5) (2020-12-30)
+
+
+### Bug Fixes
+
+* **drawing:** drawing polygon geojson and colors ([#89](https://github.com/MapColonies/shared-components/issues/89)) ([311f998](https://github.com/MapColonies/shared-components/commit/311f998726eba094473465e77eeef8d98e28e2a8))
+
+
+
+
+
 ## [3.3.4](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.3...@map-colonies/react-components@3.3.4) (2020-12-24)
 
 
