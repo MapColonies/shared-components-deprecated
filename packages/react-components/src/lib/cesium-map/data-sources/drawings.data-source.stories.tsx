@@ -144,8 +144,9 @@ export const Drawings: Story = (args) => {
         <CesiumMap center={center} sceneMode={CesiumSceneMode.SCENE2D} zoom={9}>
           <CesiumDrawingsDataSource
             drawings={drawEntities}
-            material={CesiumColor.YELLOW.withAlpha(0.5)}
-            outlineColor={CesiumColor.AQUA}
+            drawingMaterial={CesiumColor.RED.withAlpha(0.5)}
+            material={CesiumColor.YELLOW.withAlpha(0.5)} //might be supplied if "consumer" want to differintiate between color while drawing and map actual primitive color
+            drawingVertexColor={CesiumColor.AQUA}
             drawState={{
               drawing: isDrawing,
               type: drawPrimitive.type,

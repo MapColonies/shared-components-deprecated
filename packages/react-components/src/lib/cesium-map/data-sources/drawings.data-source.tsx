@@ -39,22 +39,25 @@ export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
     type: DrawType;
     handler: (drawing: IDrawingEvent) => void;
   };
-  material: CesiumColor;
-  outlineColor: CesiumColor;
+  drawingMaterial: CesiumColor;
+  drawingVertexColor?: CesiumColor;
+  material?: CesiumColor;
 }
 
 export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> = (
   props
 ) => {
-  const { drawState, material, outlineColor } = props;
+  const { drawState, drawingMaterial, drawingVertexColor, material } = props;
   const mapViewer: Viewer = useCesiumMap();
 
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
 
   useEffect(() => {
-    // eslint-disable-next-line
-    setDrawHelper(new (DrawHelper as any)(mapViewer));
-  }, [mapViewer]);
+    setDrawHelper(
+      // eslint-disable-next-line
+      new (DrawHelper as any)(mapViewer, drawingMaterial, drawingVertexColor)
+    );
+  }, []);
 
   useEffect(() => {
     if (drawHelper) {
@@ -137,16 +140,14 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
         return (
           <CesiumRectangleGraphics
             coordinates={coordinates as Rectangle}
-            material={material}
-            outlineColor={outlineColor}
+            material={material ?? drawingMaterial}
           />
         );
       case DrawType.POLYGON:
         return (
           <CesiumPolygonGraphics
             hierarchy={new PolygonHierarchy(coordinates as Cartesian3[])}
-            material={material}
-            outlineColor={outlineColor}
+            material={material ?? drawingMaterial}
           />
         );
       default:

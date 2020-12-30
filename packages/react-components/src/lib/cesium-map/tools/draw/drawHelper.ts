@@ -7,10 +7,21 @@ import './drawHelper.css';
 var DrawHelper = (function () {
   // static variables
   var ellipsoid = Cesium.Ellipsoid.WGS84;
+  var drawingVertexColor;
+  var material = Cesium.Material.fromType(Cesium.Material.ColorType);
 
   // constructor
-  function _(cesiumWidget) {
+  function _(
+    cesiumWidget,
+    materialClr = new Cesium.Color(1.0, 1.0, 0.0, 0.5),
+    drawingVertexClr = new Cesium.Color(1.0, 1.0, 1.0, 1.0)
+  ) {
     this._scene = cesiumWidget.scene;
+
+    // UPDATE scoped varibles
+    material.uniforms.color = materialClr;
+    drawingVertexColor = drawingVertexClr;
+
     //MC_CHANGE disable/override tooltip
     this._tooltip = {
       setVisible: () => {},
@@ -153,9 +164,6 @@ var DrawHelper = (function () {
     }
     this._editedSurface = surface;
   };
-
-  var material = Cesium.Material.fromType(Cesium.Material.ColorType);
-  material.uniforms.color = new Cesium.Color(1.0, 1.0, 0.0, 0.5);
 
   var defaultShapeOptions = {
     ellipsoid: Cesium.Ellipsoid.WGS84,
@@ -684,7 +692,7 @@ var DrawHelper = (function () {
       verticalOrigin: Cesium.VerticalOrigin.CENTER,
       scale: 1.0,
       image: this._options.iconUrl,
-      color: new Cesium.Color(1.0, 1.0, 1.0, 1.0),
+      color: drawingVertexColor,
     });
 
     // if editable
@@ -1061,12 +1069,15 @@ var DrawHelper = (function () {
     function updateExtent(value) {
       if (extent == null) {
         //MC_CHANGE
-        extent = new Cesium.GroundPrimitive();
+        extent = new DrawHelper.ExtentPrimitive({
+          extent: value,
+          material: options.material,
+        });
         //extent = new Cesium.RectanglePrimitive();
-        //extent.asynchronous = false;
+        extent.asynchronous = false;
         primitives.add(extent);
       }
-      extent.rectangle = value;
+      extent.setExtent(value);
       // update the markers
       var corners = getExtentCorners(value);
       // create if they do not yet exist
