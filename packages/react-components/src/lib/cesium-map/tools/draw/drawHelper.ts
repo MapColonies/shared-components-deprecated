@@ -11,15 +11,17 @@ var DrawHelper = (function () {
   var material = Cesium.Material.fromType(Cesium.Material.ColorType);
 
   // constructor
-  function _(cesiumWidget,  
-            materialClr = new Cesium.Color(1.0, 1.0, 0.0, 0.5), 
-            drawingVertexClr = new Cesium.Color(1.0, 1.0, 1.0, 1.0)) {
+  function _(
+    cesiumWidget,
+    materialClr = new Cesium.Color(1.0, 1.0, 0.0, 0.5),
+    drawingVertexClr = new Cesium.Color(1.0, 1.0, 1.0, 1.0)
+  ) {
     this._scene = cesiumWidget.scene;
 
     // UPDATE scoped varibles
     material.uniforms.color = materialClr;
     drawingVertexColor = drawingVertexClr;
-    
+
     //MC_CHANGE disable/override tooltip
     this._tooltip = {
       setVisible: () => {},
@@ -690,7 +692,7 @@ var DrawHelper = (function () {
       verticalOrigin: Cesium.VerticalOrigin.CENTER,
       scale: 1.0,
       image: this._options.iconUrl,
-      color: drawingVertexColor
+      color: drawingVertexColor,
     });
 
     // if editable
@@ -1069,12 +1071,12 @@ var DrawHelper = (function () {
         //MC_CHANGE
         extent = new DrawHelper.ExtentPrimitive({
           extent: value,
-          material: options.material
+          material: options.material,
         });
         //extent = new Cesium.RectanglePrimitive();
-        extent.asynchronous = false; 
-        primitives.add(extent); 
-      } 
+        extent.asynchronous = false;
+        primitives.add(extent);
+      }
       extent.setExtent(value);
       // update the markers
       var corners = getExtentCorners(value);

@@ -14,7 +14,7 @@ import { geoJSONToPrimitive } from '../tools/geojson/geojson-to-primitive';
 import { rectangleToGeoJSON, polygonToGeoJSON } from '../tools/geojson';
 import { CesiumCustomDataSource } from './custom.data-source';
 
-export class CesiumColor extends Color {};
+export class CesiumColor extends Color {}
 
 export type PrimitiveCoordinates = Cartesian3[] | Rectangle | undefined;
 
@@ -53,8 +53,10 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
 
   useEffect(() => {
-    // eslint-disable-next-line
-    setDrawHelper(new (DrawHelper as any)(mapViewer, drawingMaterial, drawingVertexColor));
+    setDrawHelper(
+      // eslint-disable-next-line
+      new (DrawHelper as any)(mapViewer, drawingMaterial, drawingVertexColor)
+    );
   }, []);
 
   useEffect(() => {
