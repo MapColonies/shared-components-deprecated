@@ -51,12 +51,8 @@ Cesium3DTilesetLayer.argTypes = {
 export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}>
-      <Cesium3DTileset
-        url="/mock/Rehovot_solar_tileset/L16_31232/L16_31232.json"
-      />
-      <Cesium3DTileset
-        url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json"
-      />
+      <Cesium3DTileset url="/mock/Rehovot_solar_tileset/L16_31232/L16_31232.json" />
+      <Cesium3DTileset url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json" />
     </CesiumMap>
   </div>
 );
