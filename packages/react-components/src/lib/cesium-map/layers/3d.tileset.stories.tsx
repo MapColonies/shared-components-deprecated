@@ -22,6 +22,7 @@ export const Cesium3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}>
       <Cesium3DTileset
+        isZoomTo={true}
         url="/mock/tileset/tileset.json"
         onAllTilesLoad={action('onAllTilesLoad')}
         onInitialTilesLoad={action('onInitialTilesLoad')}
@@ -48,16 +49,52 @@ Cesium3DTilesetLayer.argTypes = {
   },
 };
 
-export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
+export const Cesium3DTilesetOnHeightLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}>
-      <Cesium3DTileset url="/mock/Rehovot_solar_tileset/L16_31232/L16_31232.json" />
-      <Cesium3DTileset url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json" />
+      <Cesium3DTileset
+        isZoomTo={false}
+        heightFromGround={-170}
+        url="/mock/tileset/tileset.json"
+        onAllTilesLoad={action('onAllTilesLoad')}
+        onInitialTilesLoad={action('onInitialTilesLoad')}
+        onTileFailed={action('onTileFailed')}
+        onTileLoad={action('onTileLoad')}
+        onTileUnload={action('onTileUnload')}
+        onReady={(tileset): void => {
+          action('onReady');
+        }}
+        onClick={action('onClick')}
+      />
     </CesiumMap>
   </div>
 );
 
-Cesium3DTilesetLayer.argTypes = {
+Cesium3DTilesetOnHeightLayer.argTypes = {
+  zoom: {
+    defaultValue: 18,
+    control: {
+      type: 'range',
+      min: 0,
+      max: 20,
+    },
+  },
+  center: {
+    defaultValue: [-75.61208,40.04227]
+  }
+};
+
+
+export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
+  <div style={mapDivStyle}>
+    <CesiumMap {...args}>
+      <Cesium3DTileset url="/mock/Rehovot_solar_tileset/L16_31232/L16_31232.json" />
+      <Cesium3DTileset isZoomTo={true} url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json" />
+    </CesiumMap>
+  </div>
+);
+
+CesiumSolar3DTilesetLayer.argTypes = {
   center: {
     defaultValue: [34.811, 31.908],
   },
