@@ -7,10 +7,19 @@ import React, {
 } from 'react';
 import { Viewer, CesiumComponentRef } from 'resium';
 import { ViewerProps } from 'resium/dist/types/src/Viewer/Viewer';
-import { Viewer as CesiumViewer, Cartesian3 } from 'cesium';
+import {
+  Viewer as CesiumViewer,
+  Cartesian3,
+  SceneMode,
+  Cartesian2,
+  Matrix4,
+  PerspectiveFrustum,
+  PerspectiveOffCenterFrustum,
+  OrthographicFrustum,
+} from 'cesium';
 import { isNumber, isArray } from 'lodash';
 
-import { getAltitude } from '../utils/map';
+import { getAltitude, toDegrees } from '../utils/map';
 import { Box } from '../box';
 import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
@@ -19,6 +28,24 @@ import { Proj } from '.';
 
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
+const cameraPositionRefreshRate = 10000;
+interface ICameraPosition {
+  longitude: number;
+  latitude: number;
+  height: number | undefined;
+}
+
+interface ICameraState {
+  position: ICameraPosition;
+  direction?: Cartesian3;
+  up?: Cartesian3;
+  right?: Cartesian3;
+  transform?: Matrix4;
+  frustum?:
+    | PerspectiveFrustum
+    | PerspectiveOffCenterFrustum
+    | OrthographicFrustum;
+}
 
 export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
@@ -46,6 +73,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [showMousePosition, setShowMousePosition] = useState<boolean>();
   const [showScale, setShowScale] = useState<boolean>();
   const [locale, setLocale] = useState<{ [key: string]: string }>();
+  const [cameraState, setCameraState] = useState<ICameraState | undefined>();
 
   const viewerProps = {
     fullscreenButton: true,
@@ -56,6 +84,45 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     navigationHelpButton: false,
     homeButton: false,
     ...(props as ViewerProps),
+  };
+
+  const getCameraPosition = (): ICameraPosition => {
+    if (mapViewRef === undefined) {
+      return {
+        longitude: 0,
+        latitude: 0,
+        height: 0,
+      };
+    }
+    // https://stackoverflow.com/questions/33348761/get-center-in-cesium-map
+    if (mapViewRef.scene.mode === SceneMode.SCENE3D) {
+      const windowPosition = new Cartesian2(
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        mapViewRef.container.clientWidth / 2,
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        mapViewRef.container.clientHeight / 2
+      );
+      const pickRay = mapViewRef.scene.camera.getPickRay(windowPosition);
+      const pickPosition = mapViewRef.scene.globe.pick(
+        pickRay,
+        mapViewRef.scene
+      );
+      const pickPositionCartographic = mapViewRef.scene.globe.ellipsoid.cartesianToCartographic(
+        pickPosition as Cartesian3
+      );
+      return {
+        longitude: toDegrees(pickPositionCartographic.longitude),
+        latitude: toDegrees(pickPositionCartographic.latitude),
+        height: mapViewRef.scene.camera.positionCartographic.height,
+      };
+    } else {
+      const camPos = mapViewRef.camera.positionCartographic;
+      return {
+        longitude: toDegrees(camPos.longitude),
+        latitude: toDegrees(camPos.latitude),
+        height: camPos.height,
+      };
+    }
   };
 
   useEffect(() => {
@@ -77,6 +144,53 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   useEffect(() => {
     setShowScale(props.showScale ?? true);
   }, [props.showScale]);
+
+  useEffect(() => {
+    const intervalHandle = setInterval(() => {
+      if (mapViewRef && mapViewRef.scene.mode !== SceneMode.MORPHING) {
+        const camera = mapViewRef.camera;
+
+        const store: ICameraState = {
+          position: getCameraPosition(),
+          direction: camera.direction.clone(),
+          up: camera.up.clone(),
+          right: camera.right.clone(),
+          transform: camera.transform.clone(),
+          frustum: camera.frustum.clone(),
+        };
+        setCameraState(store);
+      }
+    }, cameraPositionRefreshRate);
+
+    return () => {
+      clearInterval(intervalHandle);
+    };
+  }, [mapViewRef]);
+
+  useEffect(() => {
+    const morphCompleteHandler = () => {
+      if (mapViewRef && cameraState) {
+        void mapViewRef.camera.flyTo({
+          destination: Cartesian3.fromDegrees(
+            cameraState.position.longitude,
+            cameraState.position.latitude,
+            cameraState.position.height
+          ),
+          duration: 0,
+        });
+      }
+    };
+    if (mapViewRef) {
+      mapViewRef.scene.morphComplete.addEventListener(morphCompleteHandler);
+    }
+    return () => {
+      if (mapViewRef) {
+        mapViewRef.scene.morphComplete.removeEventListener(
+          morphCompleteHandler
+        );
+      }
+    };
+  }, [mapViewRef, cameraState]);
 
   useEffect(() => {
     const zoom = props.zoom;
