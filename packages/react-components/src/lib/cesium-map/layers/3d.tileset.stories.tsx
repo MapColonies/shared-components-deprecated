@@ -80,16 +80,18 @@ Cesium3DTilesetOnHeightLayer.argTypes = {
     },
   },
   center: {
-    defaultValue: [-75.61208,40.04227]
-  }
+    defaultValue: [-75.61208, 40.04227],
+  },
 };
-
 
 export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}>
       <Cesium3DTileset url="/mock/Rehovot_solar_tileset/L16_31232/L16_31232.json" />
-      <Cesium3DTileset isZoomTo={true} url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json" />
+      <Cesium3DTileset
+        isZoomTo={true}
+        url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json"
+      />
     </CesiumMap>
   </div>
 );

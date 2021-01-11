@@ -17,22 +17,22 @@ export const Cesium3DTileset: React.FC<RCesium3DTilesetProps> = (props) => {
       {...props}
       onReady={(tileset): void => {
         props.onReady?.(tileset);
-        if(props.isZoomTo ?? false){
+        if (props.isZoomTo) {
           void mapViewer.zoomTo(tileset);
         }
-        if(props.heightFromGround){
+        if (props.heightFromGround) {
           const cartographic = Cartographic.fromCartesian(
             tileset.boundingSphere.center
           );
           const surface = Cartesian3.fromRadians(
             cartographic.longitude,
             cartographic.latitude,
-            0.0,
+            0.0
           );
           const offset = Cartesian3.fromRadians(
             cartographic.longitude,
             cartographic.latitude,
-            props.heightFromGround,
+            props.heightFromGround
           );
           const translation = Cartesian3.subtract(
             offset,
