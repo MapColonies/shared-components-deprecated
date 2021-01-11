@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.6](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.5...@map-colonies/react-components@3.3.6) (2021-01-11)
+
+
+### Bug Fixes
+
+* **gitignore:** updated ([78fc970](https://github.com/MapColonies/shared-components/commit/78fc9707d8f1201ac2ec5703ed1f00093f1fbc49))
+
+
+### Features
+
+* **3d-geo-mock-tiles:** added 3d mock tiles ([77b485a](https://github.com/MapColonies/shared-components/commit/77b485a454ad44e15e96ecbd153ca4b87fc0dec6))
+* **camea-position:** preserve position and 3d tiles props ([#93](https://github.com/MapColonies/shared-components/issues/93)) ([e2f5a84](https://github.com/MapColonies/shared-components/commit/e2f5a84ea9929bd3174c668a7c0c8bb887ed7fa6))
+
+
+
+
+
 ## [3.3.5](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.4...@map-colonies/react-components@3.3.5) (2020-12-30)
 
 
