@@ -4,6 +4,10 @@ export const toRadian = (num: number): number => {
   return (num * Math.PI) / 180;
 };
 
+export const toDegrees = (num: number): number => {
+  return num * (180 / Math.PI);
+};
+
 export const getAltitude = (mapzoom: number): number => {
   //this equation is a transformation of the angular size equation solving for D. See: http://en.wikipedia.org/wiki/Forced_perspective
   const firstPartOfEq = 0.05 * (591657550.5 / Math.pow(2, mapzoom - 1) / 2); //amount displayed is .05 meters and map scale =591657550.5/(Math.pow(2,(mapzoom-1))))
