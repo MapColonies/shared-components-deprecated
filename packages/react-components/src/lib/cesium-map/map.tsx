@@ -24,7 +24,8 @@ import { Box } from '../box';
 import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
-import { Proj } from '.';
+import { CesiumSceneMode, Proj } from '.';
+import { CesiumSettings } from './settings/settings';
 
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
@@ -211,7 +212,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     <Viewer full ref={ref} {...viewerProps}>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
-        <Box className="toolsContainer" display="flex">
+        <Box className="sideToolsContainer">
+          <CesiumSettings sceneModes={[CesiumSceneMode.SCENE2D, CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}/>
+        </Box>
+        <Box className="toolsContainer">
           {showMousePosition === true ? (
             <CoordinatesTrackerTool
               projection={projection}

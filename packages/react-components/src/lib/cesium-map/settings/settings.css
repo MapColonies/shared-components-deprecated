@@ -1,0 +1,25 @@
+.mapScenesContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.baseMapsContainer{
+  margin-top: 12px;
+}
+
+.settingsDialogPortal{
+  transform: translateZ(0);
+  height: calc(100vh - 220px);
+  width: 280px;
+  position: absolute;
+  top: 40px;
+  right: 180px;
+}
+
+.settingsDialogPortal .mdc-dialog__container{
+  align-items: unset;
+}
+
+.sectionLabel{
+  margin-block-end: 0.5em;
+}
