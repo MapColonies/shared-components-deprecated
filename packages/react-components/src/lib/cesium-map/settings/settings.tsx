@@ -2,37 +2,36 @@ import React, {useState} from 'react';
 import { Dialog, DialogTitle, DialogContent, Icon, Button } from '@map-colonies/react-core';
 import { Box } from '../../box';
 import { CesiumSceneModeEnum } from '../map.types';
+import { RCesiumOSMLayerOptions, RCesiumWMSLayerOptions, RCesiumWMTSLayerOptions, RCesiumXYZLayerOptions } from '../layers';
 import { CesiumSceneModes } from './scene-modes';
-
-import "./settings.css";
 import { CesiumBaseMaps } from './base-maps';
-
-export interface ISettingsBaseLayer {
-  refId: string,
-  opacity: number,
-}
+import "./settings.css";
 
 export interface IRasterLayer {
   id: string,
   type:  'OSM_LAYER' | 'WMTS_LAYER' | 'WMS_LAYER' | 'XYZ_LAYER';
-  url: string
+  opacity: number,
+  zIndex: number,
+  options: RCesiumOSMLayerOptions | RCesiumWMSLayerOptions | RCesiumWMTSLayerOptions | RCesiumXYZLayerOptions
 }
 
 export interface IVectorLayer {
   id: string,
+  opacity: number,
+  zIndex: number,
   url: string
 }
 
+export interface IBaseMap {
+  id: string,
+  title?: string,
+  thumbnail?: string,
+  baseRasteLayers: IRasterLayer[],
+  baseVectorLayers: IVectorLayer[]
+}
+
 export interface IBaseMaps {
-  maps: [{
-    id: string,
-    title?: string,
-    thumbnail?: string,
-    baseRasteLayers: ISettingsBaseLayer[],
-    baseVectorLayers: ISettingsBaseLayer[]
-  }],
-  rasteLayers: IRasterLayer[],
-  vectoLayers: IVectorLayer[]
+  maps: IBaseMap[]
 }
 
 export interface RCesiumMapProps {
@@ -44,7 +43,7 @@ export const CesiumSettings: React.FC<RCesiumMapProps> = (
   props
 ) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { sceneModes } = props;
+  const { sceneModes, baseMaps } = props;
 
   return (
     <>
@@ -85,8 +84,12 @@ export const CesiumSettings: React.FC<RCesiumMapProps> = (
             </Box>
             
             <Box className="baseMapsContainer">
-              <h4 className="sectionLabel">Base Map</h4>
-              <CesiumBaseMaps></CesiumBaseMaps>
+              {
+                baseMaps && <>
+                  <h4 className="sectionLabel">Base Map</h4>
+                  <CesiumBaseMaps baseMaps={baseMaps}></CesiumBaseMaps>
+                </>
+              }
             </Box>
             
             <Button

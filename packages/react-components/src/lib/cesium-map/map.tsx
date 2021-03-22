@@ -24,8 +24,9 @@ import { Box } from '../box';
 import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
-import { CesiumSceneMode, Proj } from '.';
-import { CesiumSettings } from './settings/settings';
+import { CesiumSettings, IBaseMaps } from './settings/settings';
+import LayerManager from './layers-manager';
+import { CesiumSceneMode, CesiumSceneModeEnum, Proj } from '.';
 
 const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
@@ -55,6 +56,9 @@ export interface CesiumMapProps extends ViewerProps {
   center?: [number, number];
   zoom?: number;
   locale?: { [key: string]: string };
+  sceneModes?: CesiumSceneModeEnum[];
+  baseMaps?: IBaseMaps;
+
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -75,6 +79,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [showScale, setShowScale] = useState<boolean>();
   const [locale, setLocale] = useState<{ [key: string]: string }>();
   const [cameraState, setCameraState] = useState<ICameraState | undefined>();
+  const [sceneModes, setSceneModes] = useState<CesiumSceneModeEnum[] | undefined>();
+  const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
 
   const viewerProps = {
     fullscreenButton: true,
@@ -84,6 +90,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     geocoder: false,
     navigationHelpButton: false,
     homeButton: false,
+    sceneModePicker: false,
     ...(props as ViewerProps),
   };
 
@@ -127,8 +134,20 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   };
 
   useEffect(() => {
+    if (ref.current){
+      (ref.current.cesiumElement as any).layersManager = new LayerManager(ref.current.cesiumElement);
+    }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
+
+  useEffect(() => {
+    setSceneModes(props.sceneModes ?? [CesiumSceneMode.SCENE2D, CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]);
+  }, [props.sceneModes]);
+
+  useEffect(() => {
+    setBaseMaps(props.baseMaps);
+  }, [props.baseMaps]);
+
 
   useEffect(() => {
     setProjection(props.projection ?? Proj.WGS84);
@@ -213,7 +232,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
         <Box className="sideToolsContainer">
-          <CesiumSettings sceneModes={[CesiumSceneMode.SCENE2D, CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}/>
+          <CesiumSettings 
+            sceneModes={sceneModes as CesiumSceneModeEnum[]}
+            baseMaps={baseMaps}
+          />
         </Box>
         <Box className="toolsContainer">
           {showMousePosition === true ? (
