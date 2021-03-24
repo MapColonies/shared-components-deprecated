@@ -24,7 +24,7 @@ import { Box } from '../box';
 import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
-import { CesiumSettings, IBaseMaps } from './settings/settings';
+import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum, Proj } from '.';
 
@@ -146,8 +146,12 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
 
   useEffect(() => {
     setBaseMaps(props.baseMaps);
-  }, [props.baseMaps]);
 
+    const currentMap = props.baseMaps?.maps.find((map: IBaseMap) => map.isCurrent);
+    if(currentMap && mapViewRef){
+      mapViewRef.layersManager.setBaseMapLayers(currentMap);
+    }
+  }, [props.baseMaps, mapViewRef]);
 
   useEffect(() => {
     setProjection(props.projection ?? Proj.WGS84);

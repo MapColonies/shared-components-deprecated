@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { UrlTemplateImageryProvider, Viewer, WebMapServiceImageryProvider } from 'cesium';
-
-import { CesiumSceneMode, CesiumSceneModeEnum } from '../map.types';
+import React, { useState, useEffect } from 'react';
+import { Viewer } from 'cesium';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useCesiumMap } from '../map';
-
 import { IBaseMap, IBaseMaps } from './settings';
 
 import "./base-maps.css";
+
+const useStyle = makeStyles((theme: Theme) =>
+  createStyles({
+    mapContainer: {
+      width: '60px',
+      height: '60px',
+      border: `${theme.palette.background.paper} 2px solid`,
+    },
+  })
+);
 
 export interface RCesiumBaseMapsProps {
   baseMaps?: IBaseMaps;
@@ -14,52 +22,36 @@ export interface RCesiumBaseMapsProps {
 
 export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
   const mapViewer: Viewer = useCesiumMap();
-  const [currentMap, setCurrentMap] =  useState<string>(' ');
   const { baseMaps } = props;
+  const [currentMap, setCurrentMap] =  useState<string>(' ');
+  const [selectedBaseMap, setSelectedBaseMap] =  useState<IBaseMap | undefined>();
+  const classes = useStyle();
+
+  useEffect(() => {
+    const defaultMap = baseMaps?.maps.find((map: IBaseMap) => map.isCurrent);
+    if(defaultMap){
+      setSelectedBaseMap(defaultMap);
+    }
+  }, [baseMaps]);
 
   const handleMapSection = (id: string): void => {
-    console.log('Setting map as bck -->', id);
-    // eslint-disable-next-line 
-    console.log(mapViewer.imageryLayers._layers.length);
-
     if (baseMaps){
+      // Remove previous base-map layers
       mapViewer.layersManager.removeBaseMapLayers();
 
+      // Change base-map: add base-map layers by zIndex order 
       const selectedBaseMap = baseMaps.maps.find((map: IBaseMap) => map.id === id);
       if(selectedBaseMap)
       {
-        const sortedBaseMapLayers = selectedBaseMap.baseRasteLayers.sort((layer1, layer2) => layer1.zIndex - layer2.zIndex);
-        sortedBaseMapLayers.forEach((layer, idx) => {
-          let cesiumLayer;
-          switch (layer.type){
-            case 'XYZ_LAYER':
-              cesiumLayer = mapViewer.imageryLayers.addImageryProvider(    
-                new UrlTemplateImageryProvider({
-                  ...layer.options,
-                  defaultAlpha: layer.opacity
-                }), 
-                idx
-              );
-              break;
-            case 'WMS_LAYER':
-              cesiumLayer = mapViewer.imageryLayers.addImageryProvider(    
-                new WebMapServiceImageryProvider({
-                  ...layer.options,
-                  defaultAlpha: layer.opacity
-                }), 
-                idx
-              );
-              break;
-          }
-          cesiumLayer.meta = {
-            parenBasetMapId: selectedBaseMap.id,
-            ...layer
-          }
-          cesiumLayer.alex =  '*******CUSTOM*******';
+        mapViewer.layersManager.setBaseMapLayers(selectedBaseMap);
+
+        setSelectedBaseMap(selectedBaseMap);
+
+        baseMaps.maps.forEach((map: IBaseMap) => {
+          map.isCurrent = selectedBaseMap === map;
         });
       }
     }
-
   };
 
   return (
@@ -67,8 +59,8 @@ export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
       <label className="mapLabel">{currentMap}</label>
       <ul className="mapSelector">
         {
-          baseMaps.maps.map((map: IBaseMap) => 
-            <li className="mapContainer" key={map.id} >
+          baseMaps?.maps.map((map: IBaseMap) => 
+            <li className={`mapContainer ${classes.mapContainer} ${map === selectedBaseMap ? 'mapContainerSelected' :''}`} key={map.id} >
               <img 
                 alt={''} 
                 className="mapContainerImg"

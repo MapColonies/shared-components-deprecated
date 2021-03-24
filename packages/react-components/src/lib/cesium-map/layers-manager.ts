@@ -1,7 +1,10 @@
 import {
   Viewer as CesiumViewer,
-  ImageryLayer
+  ImageryLayer,
+  UrlTemplateImageryProvider,
+  WebMapServiceImageryProvider
 } from 'cesium';
+import { IRasterLayer, IBaseMap } from './settings/settings';
 
 class LayerManager {
   public mapViewer: CesiumViewer;
@@ -10,10 +13,45 @@ class LayerManager {
     this.mapViewer = mapViewer;
   }
 
-  public addMetaToLayer(meta, layerPredicate: (layer: ImageryLayer, idx: number) => boolean): void{
+  public addMetaToLayer(meta, layerPredicate: (layer: ImageryLayer, idx: number) => boolean): void {
     const layer = this.mapViewer.imageryLayers._layers.find(layerPredicate);
     if(layer){
       layer.meta = meta;
+    }
+  }
+
+  public setBaseMapLayers (baseMap: IBaseMap): void {
+    const sortedBaseMapLayers = baseMap.baseRasteLayers.sort((layer1, layer2) => layer1.zIndex - layer2.zIndex);
+    sortedBaseMapLayers.forEach((layer, idx) => {
+      this.addRasterLayer(layer, idx, baseMap.id);
+    });
+  }
+
+  public addRasterLayer(layer: IRasterLayer, index: number, parentId: string): void {
+    let cesiumLayer;
+    switch (layer.type){
+      case 'XYZ_LAYER':
+        cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(    
+          new UrlTemplateImageryProvider(layer.options), 
+          index
+        );
+        break;
+      case 'WMS_LAYER':
+        cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(    
+          new WebMapServiceImageryProvider(layer.options), 
+          index
+        );
+        break;
+      case 'OSM_LAYER':
+      case 'WMTS_LAYER':
+        break;
+    }
+    if(cesiumLayer){
+      cesiumLayer.alpha = layer.opacity;
+      cesiumLayer.meta = {
+        parenBasetMapId: parentId,
+        ...layer
+      }
     }
   }
 

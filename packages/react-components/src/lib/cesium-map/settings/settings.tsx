@@ -26,6 +26,7 @@ export interface IBaseMap {
   id: string,
   title?: string,
   thumbnail?: string,
+  isCurrent?: boolean,
   baseRasteLayers: IRasterLayer[],
   baseVectorLayers: IVectorLayer[]
 }
