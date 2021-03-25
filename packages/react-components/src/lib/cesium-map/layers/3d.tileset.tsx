@@ -1,9 +1,9 @@
-import { Cartesian3, Cartographic, Matrix4, Viewer } from 'cesium';
+import { Cartesian3, Cartographic, Matrix4 } from 'cesium';
 import React from 'react';
 
 import { Cesium3DTileset as Resium3DTileset } from 'resium';
 import { Cesium3DTilesetProps } from 'resium/dist/types/src/Cesium3DTileset/Cesium3DTileset';
-import { useCesiumMap } from '../map';
+import { CesiumViewer, useCesiumMap } from '../map';
 
 export interface RCesium3DTilesetProps extends Cesium3DTilesetProps {
   isZoomTo?: boolean;
@@ -11,7 +11,7 @@ export interface RCesium3DTilesetProps extends Cesium3DTilesetProps {
 }
 
 export const Cesium3DTileset: React.FC<RCesium3DTilesetProps> = (props) => {
-  const mapViewer: Viewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
   return (
     <Resium3DTileset
       {...props}

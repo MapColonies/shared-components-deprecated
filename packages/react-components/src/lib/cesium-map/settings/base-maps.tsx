@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Viewer } from 'cesium';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { useCesiumMap } from '../map';
+import { CesiumViewer, useCesiumMap } from '../map';
 import { IBaseMap, IBaseMaps } from './settings';
 
 import "./base-maps.css";
@@ -21,7 +20,7 @@ export interface RCesiumBaseMapsProps {
 }
 
 export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
-  const mapViewer: Viewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
   const { baseMaps } = props;
   const [currentMap, setCurrentMap] =  useState<string>(' ');
   const [selectedBaseMap, setSelectedBaseMap] =  useState<IBaseMap | undefined>();
@@ -37,13 +36,13 @@ export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
   const handleMapSection = (id: string): void => {
     if (baseMaps){
       // Remove previous base-map layers
-      mapViewer.layersManager.removeBaseMapLayers();
+      mapViewer.layersManager?.removeBaseMapLayers();
 
       // Change base-map: add base-map layers by zIndex order 
       const selectedBaseMap = baseMaps.maps.find((map: IBaseMap) => map.id === id);
       if(selectedBaseMap)
       {
-        mapViewer.layersManager.setBaseMapLayers(selectedBaseMap);
+        mapViewer.layersManager?.setBaseMapLayers(selectedBaseMap);
 
         setSelectedBaseMap(selectedBaseMap);
 

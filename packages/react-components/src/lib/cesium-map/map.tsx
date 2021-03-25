@@ -8,7 +8,7 @@ import React, {
 import { Viewer, CesiumComponentRef } from 'resium';
 import { ViewerProps } from 'resium/dist/types/src/Viewer/Viewer';
 import {
-  Viewer as CesiumViewer,
+  Viewer as CesiumViewerCls,
   Cartesian3,
   SceneMode,
   Cartesian2,
@@ -28,9 +28,6 @@ import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum, Proj } from '.';
 
-const mapContext = createContext<CesiumViewer | null>(null);
-const MapViewProvider = mapContext.Provider;
-const cameraPositionRefreshRate = 10000;
 interface ICameraPosition {
   longitude: number;
   latitude: number;
@@ -48,6 +45,16 @@ interface ICameraState {
     | PerspectiveOffCenterFrustum
     | OrthographicFrustum;
 }
+export class CesiumViewer extends CesiumViewerCls{
+  public layersManager?: LayerManager;
+  public constructor(container: string | Element , options?: CesiumViewerCls.ConstructorOptions){
+    super(container, options);
+  }
+}
+
+const mapContext = createContext<CesiumViewer | null>(null);
+const MapViewProvider = mapContext.Provider;
+const cameraPositionRefreshRate = 10000;
 
 export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
@@ -94,48 +101,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     ...(props as ViewerProps),
   };
 
-  const getCameraPosition = (): ICameraPosition => {
-    if (mapViewRef === undefined) {
-      return {
-        longitude: 0,
-        latitude: 0,
-        height: 0,
-      };
-    }
-    // https://stackoverflow.com/questions/33348761/get-center-in-cesium-map
-    if (mapViewRef.scene.mode === SceneMode.SCENE3D) {
-      const windowPosition = new Cartesian2(
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        mapViewRef.container.clientWidth / 2,
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        mapViewRef.container.clientHeight / 2
-      );
-      const pickRay = mapViewRef.scene.camera.getPickRay(windowPosition);
-      const pickPosition = mapViewRef.scene.globe.pick(
-        pickRay,
-        mapViewRef.scene
-      );
-      const pickPositionCartographic = mapViewRef.scene.globe.ellipsoid.cartesianToCartographic(
-        pickPosition as Cartesian3
-      );
-      return {
-        longitude: toDegrees(pickPositionCartographic.longitude),
-        latitude: toDegrees(pickPositionCartographic.latitude),
-        height: mapViewRef.scene.camera.positionCartographic.height,
-      };
-    } else {
-      const camPos = mapViewRef.camera.positionCartographic;
-      return {
-        longitude: toDegrees(camPos.longitude),
-        latitude: toDegrees(camPos.latitude),
-        height: camPos.height,
-      };
-    }
-  };
-
   useEffect(() => {
     if (ref.current){
-      (ref.current.cesiumElement as any).layersManager = new LayerManager(ref.current.cesiumElement);
+      (ref.current.cesiumElement as CesiumViewer).layersManager = new LayerManager(ref.current.cesiumElement);
     }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
@@ -149,7 +117,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
 
     const currentMap = props.baseMaps?.maps.find((map: IBaseMap) => map.isCurrent);
     if(currentMap && mapViewRef){
-      mapViewRef.layersManager.setBaseMapLayers(currentMap);
+      mapViewRef.layersManager?.setBaseMapLayers(currentMap);
     }
   }, [props.baseMaps, mapViewRef]);
 
@@ -170,6 +138,45 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [props.showScale]);
 
   useEffect(() => {
+    const getCameraPosition = (): ICameraPosition => {
+      if (mapViewRef === undefined) {
+        return {
+          longitude: 0,
+          latitude: 0,
+          height: 0,
+        };
+      }
+      // https://stackoverflow.com/questions/33348761/get-center-in-cesium-map
+      if (mapViewRef.scene.mode === SceneMode.SCENE3D) {
+        const windowPosition = new Cartesian2(
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+          mapViewRef.container.clientWidth / 2,
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+          mapViewRef.container.clientHeight / 2
+        );
+        const pickRay = mapViewRef.scene.camera.getPickRay(windowPosition);
+        const pickPosition = mapViewRef.scene.globe.pick(
+          pickRay,
+          mapViewRef.scene
+        );
+        const pickPositionCartographic = mapViewRef.scene.globe.ellipsoid.cartesianToCartographic(
+          pickPosition as Cartesian3
+        );
+        return {
+          longitude: toDegrees(pickPositionCartographic.longitude),
+          latitude: toDegrees(pickPositionCartographic.latitude),
+          height: mapViewRef.scene.camera.positionCartographic.height,
+        };
+      } else {
+        const camPos = mapViewRef.camera.positionCartographic;
+        return {
+          longitude: toDegrees(camPos.longitude),
+          latitude: toDegrees(camPos.latitude),
+          height: camPos.height,
+        };
+      }
+    };
+
     const intervalHandle = setInterval(() => {
       if (mapViewRef && mapViewRef.scene.mode !== SceneMode.MORPHING) {
         const camera = mapViewRef.camera;
@@ -186,13 +193,13 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       }
     }, cameraPositionRefreshRate);
 
-    return () => {
+    return (): void => {
       clearInterval(intervalHandle);
     };
   }, [mapViewRef]);
 
   useEffect(() => {
-    const morphCompleteHandler = () => {
+    const morphCompleteHandler = (): void => {
       if (mapViewRef && cameraState) {
         void mapViewRef.camera.flyTo({
           destination: Cartesian3.fromDegrees(
@@ -207,7 +214,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     if (mapViewRef) {
       mapViewRef.scene.morphComplete.addEventListener(morphCompleteHandler);
     }
-    return () => {
+    return (): void => {
       if (mapViewRef) {
         mapViewRef.scene.morphComplete.removeEventListener(
           morphCompleteHandler

@@ -1,22 +1,23 @@
 import React from 'react';
-import { Viewer } from 'cesium';
 import { Icon } from '@map-colonies/react-core';
 
 import { CesiumSceneMode, CesiumSceneModeEnum } from '../map.types';
-import { useCesiumMap } from '../map';
+import { CesiumViewer, useCesiumMap } from '../map';
 
 import "./scene-modes.css";
+
+const NOT_FOUND = -1;
 
 export interface RCesiumSceneModesProps {
    sceneModes: CesiumSceneModeEnum[]
 }
 
 export const CesiumSceneModes: React.FC<RCesiumSceneModesProps> = ( props ) => {
-  const mapViewer: Viewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
   const { sceneModes } = props;
 
   const isInMapViews = (sceneMode: CesiumSceneModeEnum): boolean => {
-    return sceneModes.findIndex((item) => item === sceneMode) > -1;
+    return sceneModes.findIndex((item) => item === sceneMode) > NOT_FOUND;
   }
 
   return (
