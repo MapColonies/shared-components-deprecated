@@ -3,6 +3,20 @@
   gap: 8px;
 }
 
+.settingsIconContainer {
+  fill: #fff;
+  width: 40px;
+  height: 40px;
+  background: #303336;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.settingsIconContainer:hover {
+  background: #48b;
+  border-color: #aef;
+}
+
 .baseMapsContainer{
   margin-top: 12px;
   min-height: 58%;
@@ -19,6 +33,14 @@
 
 .settingsDialogPortal .mdc-dialog__container{
   align-items: unset;
+}
+.settingsDialogPortal .mdc-dialog .mdc-dialog__surface {
+  max-height: unset;
+}
+
+body[dir='rtl'] .settingsDialogPortal{
+  left: 80px;
+  right: unset;
 }
 
 .sectionLabel{

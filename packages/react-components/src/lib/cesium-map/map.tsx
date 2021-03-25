@@ -246,6 +246,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           <CesiumSettings 
             sceneModes={sceneModes as CesiumSceneModeEnum[]}
             baseMaps={baseMaps}
+            locale={locale}
           />
         </Box>
         <Box className="toolsContainer">

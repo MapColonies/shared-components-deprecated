@@ -46,3 +46,8 @@ body[dir='rtl'] .toolsContainer {
   top: 12px;
   right: 40px;
 }
+
+body[dir='rtl'] .sideToolsContainer {
+  left: 40px;
+  right: unset;
+}

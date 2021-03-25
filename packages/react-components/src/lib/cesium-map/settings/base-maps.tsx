@@ -30,6 +30,7 @@ export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
     const defaultMap = baseMaps?.maps.find((map: IBaseMap) => map.isCurrent);
     if(defaultMap){
       setSelectedBaseMap(defaultMap);
+      setCurrentMap(defaultMap.title !== undefined ? defaultMap.title : ' ');
     }
   }, [baseMaps]);
 
@@ -65,6 +66,7 @@ export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
                 className="mapContainerImg"
                 src={map.thumbnail}
                 onMouseOver={(): void => { setCurrentMap(map.title) }} 
+                onMouseOut={(): void => { setCurrentMap(selectedBaseMap?.title !== undefined ? selectedBaseMap.title : ' ') }} 
                 onClick={(): void => { handleMapSection(map.id) }}
               />
             </li>
