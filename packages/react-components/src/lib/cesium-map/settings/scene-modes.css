@@ -11,3 +11,9 @@
   background: #48b;
   border-color: #aef;
 }
+
+.mapViewCurrent{
+  fill: #aef;
+  border: 1px solid #aef;
+  border-radius: 4px;
+}

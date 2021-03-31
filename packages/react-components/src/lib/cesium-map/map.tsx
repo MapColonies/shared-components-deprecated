@@ -103,7 +103,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
 
   useEffect(() => {
     if (ref.current){
-      (ref.current.cesiumElement as CesiumViewer).layersManager = new LayerManager(ref.current.cesiumElement);
+      const viewer = ref.current.cesiumElement as CesiumViewer;
+      viewer.layersManager = new LayerManager(viewer);
     }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);

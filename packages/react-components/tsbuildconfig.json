@@ -31,6 +31,7 @@
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "src/setupTests.ts",
-    "src/**/stories/*.tsx"
+    "src/**/stories/*.tsx",
+    "src/**/*.stories.tsx"
   ]
 }

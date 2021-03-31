@@ -65,7 +65,7 @@ export const CesiumBaseMaps: React.FC<RCesiumBaseMapsProps> = ( props ) => {
                 alt={''} 
                 className="mapContainerImg"
                 src={map.thumbnail}
-                onMouseOver={(): void => { setCurrentMap(map.title) }} 
+                onMouseOver={(): void => { setCurrentMap(map.title as string) }} 
                 onMouseOut={(): void => { setCurrentMap(selectedBaseMap?.title !== undefined ? selectedBaseMap.title : ' ') }} 
                 onClick={(): void => { handleMapSection(map.id) }}
               />

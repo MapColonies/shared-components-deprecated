@@ -25,7 +25,7 @@ class LayerManager {
   }
 
   /* eslint-disable */
-  public addMetaToLayer(meta, layerPredicate: (layer: ImageryLayer, idx: number) => boolean): void {
+  public addMetaToLayer(meta: any, layerPredicate: (layer: ImageryLayer, idx: number) => boolean): void {
     const layer = this.layers.find(layerPredicate);
     if(layer){
       layer.meta = meta;

@@ -25,6 +25,7 @@
 .settingsDialogPortal{
   transform: translateZ(0);
   height: calc(100vh - 220px);
+  max-height: 460px;
   width: 280px;
   position: absolute;
   top: 40px;
