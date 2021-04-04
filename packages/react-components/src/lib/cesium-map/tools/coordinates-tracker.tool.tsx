@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Cartesian3,
-  Math as CesiumMath,
-  WebMercatorProjection,
-} from 'cesium';
+import { Cartesian3, Math as CesiumMath, WebMercatorProjection } from 'cesium';
 import { CesiumViewer, useCesiumMap } from '../map';
 
 import './coordinates-tracker.tool.css';

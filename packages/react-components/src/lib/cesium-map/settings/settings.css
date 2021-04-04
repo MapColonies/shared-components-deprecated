@@ -17,12 +17,12 @@
   border-color: #aef;
 }
 
-.baseMapsContainer{
+.baseMapsContainer {
   margin-top: 12px;
   min-height: 58%;
 }
 
-.settingsDialogPortal{
+.settingsDialogPortal {
   transform: translateZ(0);
   height: calc(100vh - 220px);
   max-height: 460px;
@@ -32,18 +32,18 @@
   right: 80px;
 }
 
-.settingsDialogPortal .mdc-dialog__container{
+.settingsDialogPortal .mdc-dialog__container {
   align-items: unset;
 }
 .settingsDialogPortal .mdc-dialog .mdc-dialog__surface {
   max-height: unset;
 }
 
-body[dir='rtl'] .settingsDialogPortal{
+body[dir='rtl'] .settingsDialogPortal {
   left: 80px;
   right: unset;
 }
 
-.sectionLabel{
+.sectionLabel {
   margin-block-end: 0.5em;
 }

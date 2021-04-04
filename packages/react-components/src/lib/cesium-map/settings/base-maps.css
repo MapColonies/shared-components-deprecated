@@ -1,4 +1,4 @@
-.mapSelector{
+.mapSelector {
   width: 260px;
   list-style: none;
   padding-left: 0;
@@ -10,28 +10,28 @@
   padding-inline-start: 0px;
 }
 
-.mapContainer{
+.mapContainer {
 }
 
-.mapContainerSelected{
+.mapContainerSelected {
   border: blueviolet 2px solid !important;
   border-radius: 2px;
 }
 
-.mapContainer:hover{
+.mapContainer:hover {
   border: tomato 2px solid;
   border-radius: 2px;
 }
 
-.mapContainerImg{
+.mapContainerImg {
   width: 100%;
   height: 100%;
 }
 
-.mapLabel{
+.mapLabel {
   font-size: 12px;
 }
 
-.mapLabel::before{
-  content:"\00a0";
+.mapLabel::before {
+  content: '\00a0';
 }

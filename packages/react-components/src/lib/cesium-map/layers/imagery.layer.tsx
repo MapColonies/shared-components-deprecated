@@ -14,16 +14,19 @@ export const CesiumImageryLayer: React.FC<RCesiumImageryLayerProps> = (
   // eslint-disable-next-line
   const { meta, ...restProps } = props;
   const mapViewer: CesiumViewer = useCesiumMap();
-  
+
   useLayoutEffect(() => {
-    mapViewer.layersManager?.addMetaToLayer(meta, (layer: ImageryLayer, idx: number): boolean=>{
-      if(meta !== undefined){
-        // eslint-disable-next-line
-        return (layer as any)._imageryProvider._resource._url === meta.url;
+    mapViewer.layersManager?.addMetaToLayer(
+      meta,
+      (layer: ImageryLayer, idx: number): boolean => {
+        if (meta !== undefined) {
+          // eslint-disable-next-line
+          return (layer as any)._imageryProvider._resource._url === meta.url;
+        }
+        return false;
       }
-      return false;
-    });
+    );
   }, [meta, mapViewer]);
-  
+
   return <ResiumImageryLayer {...restProps} />;
 };

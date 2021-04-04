@@ -120,8 +120,7 @@ LocalizedMap.argTypes = {
       MAP_SETTINGS_DIALOG_TITLE: 'הגדרות מפה',
       MAP_SETTINGS_SCENE_MODE_TITLE: 'תצורה',
       MAP_SETTINGS_BASE_MAP_TITLE: 'מפות בסיס',
-      MAP_SETTINGS_OK_BUTTON_TEXT: 'אישור'
-    
+      MAP_SETTINGS_OK_BUTTON_TEXT: 'אישור',
     },
     /* eslint-enable @typescript-eslint/naming-convention */
   },

@@ -45,9 +45,12 @@ interface ICameraState {
     | PerspectiveOffCenterFrustum
     | OrthographicFrustum;
 }
-export class CesiumViewer extends CesiumViewerCls{
+export class CesiumViewer extends CesiumViewerCls {
   public layersManager?: LayerManager;
-  public constructor(container: string | Element , options?: CesiumViewerCls.ConstructorOptions){
+  public constructor(
+    container: string | Element,
+    options?: CesiumViewerCls.ConstructorOptions
+  ) {
     super(container, options);
   }
 }
@@ -65,7 +68,6 @@ export interface CesiumMapProps extends ViewerProps {
   locale?: { [key: string]: string };
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
-
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -86,7 +88,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [showScale, setShowScale] = useState<boolean>();
   const [locale, setLocale] = useState<{ [key: string]: string }>();
   const [cameraState, setCameraState] = useState<ICameraState | undefined>();
-  const [sceneModes, setSceneModes] = useState<CesiumSceneModeEnum[] | undefined>();
+  const [sceneModes, setSceneModes] = useState<
+    CesiumSceneModeEnum[] | undefined
+  >();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
 
   const viewerProps = {
@@ -102,7 +106,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   };
 
   useEffect(() => {
-    if (ref.current){
+    if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
       viewer.layersManager = new LayerManager(viewer);
     }
@@ -110,14 +114,22 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [ref]);
 
   useEffect(() => {
-    setSceneModes(props.sceneModes ?? [CesiumSceneMode.SCENE2D, CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]);
+    setSceneModes(
+      props.sceneModes ?? [
+        CesiumSceneMode.SCENE2D,
+        CesiumSceneMode.SCENE3D,
+        CesiumSceneMode.COLUMBUS_VIEW,
+      ]
+    );
   }, [props.sceneModes]);
 
   useEffect(() => {
     setBaseMaps(props.baseMaps);
 
-    const currentMap = props.baseMaps?.maps.find((map: IBaseMap) => map.isCurrent);
-    if(currentMap && mapViewRef){
+    const currentMap = props.baseMaps?.maps.find(
+      (map: IBaseMap) => map.isCurrent
+    );
+    if (currentMap && mapViewRef) {
       mapViewRef.layersManager?.setBaseMapLayers(currentMap);
     }
   }, [props.baseMaps, mapViewRef]);
@@ -244,7 +256,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         {props.children}
         <Box className="sideToolsContainer">
-          <CesiumSettings 
+          <CesiumSettings
             sceneModes={sceneModes as CesiumSceneModeEnum[]}
             baseMaps={baseMaps}
             locale={locale}
