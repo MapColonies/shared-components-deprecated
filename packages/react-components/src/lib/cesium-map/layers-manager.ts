@@ -2,7 +2,8 @@
 import {
   ImageryLayer,
   UrlTemplateImageryProvider,
-  WebMapServiceImageryProvider
+  WebMapServiceImageryProvider,
+  WebMapTileServiceImageryProvider
 } from 'cesium';
 import { get } from 'lodash';
 import { CesiumViewer } from './map';
@@ -55,8 +56,13 @@ class LayerManager {
           index
         );
         break;
-      case 'OSM_LAYER':
       case 'WMTS_LAYER':
+        cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(    
+          new WebMapTileServiceImageryProvider(layer.options as WebMapTileServiceImageryProvider.ConstructorOptions), 
+          index
+        );
+        break;
+      case 'OSM_LAYER':
         break;
     }
     if(cesiumLayer){

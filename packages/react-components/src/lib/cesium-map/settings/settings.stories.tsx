@@ -132,6 +132,22 @@ const BASE_MAPS = {
             credit: 'openstreetmap',
           }
         },
+        {
+          id: 'WMTS_POPULATION_TILES',
+          type:  'WMTS_LAYER',
+          opacity: 0.4,
+          zIndex: 2,
+          options: {
+            url:
+              'https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Population_Density/MapServer/WMTS/',
+            layer: 'USGSShadedReliefOnly',
+            style: 'default',
+            format: 'image/jpeg',
+            tileMatrixSetID: 'default028mm',
+            maximumLevel: 19,
+            credit: 'U. S. Geological Survey',
+          }
+        },
       ],
       baseVectorLayers: [],
     }
