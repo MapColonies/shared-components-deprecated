@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Viewer, Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
+import { Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
 import { isNumber, get } from 'lodash';
-import { useCesiumMap } from '../map';
+import { CesiumViewer, useCesiumMap } from '../map';
 
 import './scale-tracker.tool.css';
 
@@ -52,7 +52,7 @@ const distances = [
 ];
 
 const updateDistanceLegendCesium = (
-  mapViewer: Viewer,
+  mapViewer: CesiumViewer,
   prevScaleData: IScaleData,
   setScaleData: React.Dispatch<React.SetStateAction<IScaleData>>,
   locale?: { [key: string]: string }
@@ -128,7 +128,7 @@ const updateDistanceLegendCesium = (
 /* eslint-enable @typescript-eslint/no-magic-numbers */
 
 export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
-  const mapViewer: Viewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
   const [scaleData, setScaleData] = useState<IScaleData>({
     barWidth: undefined,
     distanceLabel: undefined,

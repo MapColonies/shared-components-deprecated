@@ -1,0 +1,37 @@
+.mapSelector {
+  width: 260px;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 4px;
+  min-height: 140px;
+  margin-block-start: 0px;
+  padding-inline-start: 0px;
+}
+
+.mapContainer {
+}
+
+.mapContainerSelected {
+  border: blueviolet 2px solid !important;
+  border-radius: 2px;
+}
+
+.mapContainer:hover {
+  border: tomato 2px solid;
+  border-radius: 2px;
+}
+
+.mapContainerImg {
+  width: 100%;
+  height: 100%;
+}
+
+.mapLabel {
+  font-size: 12px;
+}
+
+.mapLabel::before {
+  content: '\00a0';
+}

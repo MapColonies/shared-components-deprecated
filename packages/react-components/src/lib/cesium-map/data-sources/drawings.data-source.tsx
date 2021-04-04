@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cartesian3, Color, Rectangle, Viewer, PolygonHierarchy } from 'cesium';
+import { Cartesian3, Color, Rectangle, PolygonHierarchy } from 'cesium';
 import { FeatureCollection, GeoJSON } from 'geojson';
 import { CustomDataSourceProps } from 'resium/dist/types/src/CustomDataSource/CustomDataSource';
 
@@ -8,7 +8,7 @@ import { CesiumEntity } from '../entities/entity';
 import { CesiumEntityStaticDescription } from '../entities/entity.description';
 import { CesiumPolygonGraphics } from '../entities/graphics/polygon.graphics';
 import { CesiumRectangleGraphics } from '../entities/graphics/rectangle.graphics';
-import { useCesiumMap } from '../map';
+import { CesiumViewer, useCesiumMap } from '../map';
 import { DrawHelper } from '../tools/draw/drawHelper';
 import { geoJSONToPrimitive } from '../tools/geojson/geojson-to-primitive';
 import { rectangleToGeoJSON, polygonToGeoJSON } from '../tools/geojson';
@@ -48,7 +48,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
   props
 ) => {
   const { drawState, drawingMaterial, drawingVertexColor, material } = props;
-  const mapViewer: Viewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
 
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
 

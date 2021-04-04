@@ -1,0 +1,19 @@
+.mapViewIcon {
+  fill: #fff;
+  width: 40px;
+  height: 40px;
+  background: #303336;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.mapViewIcon:hover {
+  background: #48b;
+  border-color: #aef;
+}
+
+.mapViewCurrent {
+  fill: #aef;
+  border: 1px solid #aef;
+  border-radius: 4px;
+}

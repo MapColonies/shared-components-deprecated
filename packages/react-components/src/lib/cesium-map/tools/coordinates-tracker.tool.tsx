@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Cartesian3,
-  Viewer,
-  Math as CesiumMath,
-  WebMercatorProjection,
-} from 'cesium';
-import { useCesiumMap } from '../map';
+import { Cartesian3, Math as CesiumMath, WebMercatorProjection } from 'cesium';
+import { CesiumViewer, useCesiumMap } from '../map';
 
 import './coordinates-tracker.tool.css';
 import {
@@ -21,7 +16,7 @@ export interface RCoordinatesTrackerToolProps {
 export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
   props
 ) => {
-  const mapViewer: Viewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
