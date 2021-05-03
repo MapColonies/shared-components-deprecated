@@ -1,11 +1,11 @@
 .trackerPosition {
-  background-color: white;
+  background-color: var(--mdc-theme-surface);
   z-index: 2000;
   padding: 2px 2px;
   border-radius: 2px;
   font-size: 12px;
-  height: 20px;
+  height: 24px;
   text-align: center;
-  line-height: 16px;
+  line-height: 20px;
   white-space: nowrap;
 }
