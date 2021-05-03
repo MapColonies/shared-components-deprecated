@@ -40,10 +40,15 @@ export const Theme = createComponent<ThemeProps>(function Theme(props, ref) {
   );
 });
 
+export interface IOptions {
+  [key: string]: any; // string
+  custom?: { [key: string]: any };
+}
+
 /** A ThemeProvider. This sets theme colors for its child tree. */
 export interface ThemeProviderProps {
   /** Any theme option pointing to a valid CSS value. */
-  options: { [key: string]: string };
+  options: IOptions;
   /** Additional standard inline styles that will be merged into the style tag. */
   style?: Object;
   /** Instead of injecting a div tag, wrap a child component by merging the theme styles directly onto it. Useful when you don't want to mess with layout. */
@@ -52,9 +57,7 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 
-export const ThemeContext = React.createContext(
-  Themes.lightTheme as { [key: string]: string }
-);
+export const ThemeContext = React.createContext(Themes.lightTheme as IOptions);
 
 export function useTheme() {
   const theme = React.useContext(ThemeContext);

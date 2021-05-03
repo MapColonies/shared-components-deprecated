@@ -1,0 +1,7 @@
+.mdc-dialog .mdc-dialog__title {
+  color: var(--mdc-theme-on-surface);
+}
+
+.mdc-dialog .mdc-dialog__content {
+  color: rgba(var(--mdc-theme-on-surface), 0.7);
+}

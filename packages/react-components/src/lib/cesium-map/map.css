@@ -23,6 +23,7 @@ body[dir='rtl'] .cesium-viewer-toolbar {
 }
 
 .toolsContainer {
+  color: var(--mdc-theme-on-surface);
   display: flex;
   gap: 8px;
   z-index: 2000;
