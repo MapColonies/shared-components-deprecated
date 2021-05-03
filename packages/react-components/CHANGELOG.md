@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.6...@map-colonies/react-components@3.4.0) (2021-05-03)
+
+
+### Bug Fixes
+
+* **themeing:** theming for dialog and map tools ([#99](https://github.com/MapColonies/shared-components/issues/99)) ([041ea76](https://github.com/MapColonies/shared-components/commit/041ea769815cee5cf8b0c18ac55ea107e665d99c))
+
+
+### Features
+
+* **map-settings:** custom map settings dialog (basemaps, scenemodes) ([#98](https://github.com/MapColonies/shared-components/issues/98)) ([c0d5931](https://github.com/MapColonies/shared-components/commit/c0d5931979c94ccca66ec01fbed990472d965652))
+
+
+
+
+
+
 ## [3.3.6](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.5...@map-colonies/react-components@3.3.6) (2021-01-11)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.2.0...@map-colonies/react-core@3.3.0) (2021-05-03)
+
+
+### Bug Fixes
+
+* **themeing:** theming for dialog and map tools ([#99](https://github.com/MapColonies/shared-components/issues/99)) ([041ea76](https://github.com/MapColonies/shared-components/commit/041ea769815cee5cf8b0c18ac55ea107e665d99c))
+
+
+
+
+
 # [3.2.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.1.0...@map-colonies/react-core@3.2.0) (2020-12-07)
 
 
