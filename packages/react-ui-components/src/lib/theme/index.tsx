@@ -40,9 +40,9 @@ export const Theme = createComponent<ThemeProps>(function Theme(props, ref) {
   );
 });
 
-export interface IOptions{
+export interface IOptions {
   [key: string]: any; // string
-  custom?: {[key: string]: any};
+  custom?: { [key: string]: any };
 }
 
 /** A ThemeProvider. This sets theme colors for its child tree. */
@@ -57,9 +57,7 @@ export interface ThemeProviderProps {
   children?: React.ReactNode;
 }
 
-export const ThemeContext = React.createContext(
-  Themes.lightTheme as IOptions
-);
+export const ThemeContext = React.createContext(Themes.lightTheme as IOptions);
 
 export function useTheme() {
   const theme = React.useContext(ThemeContext);
