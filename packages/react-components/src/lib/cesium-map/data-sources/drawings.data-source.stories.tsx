@@ -152,6 +152,7 @@ export const Drawings: Story = (args) => {
               type: drawPrimitive.type,
               handler: drawPrimitive.handler,
             }}
+            hollow={args.hollow as boolean}
           />
         </CesiumMap>
       </div>
