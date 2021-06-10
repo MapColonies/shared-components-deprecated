@@ -5,15 +5,11 @@ import bboxPolygon from '@turf/bbox-polygon';
 
 export const rectangleToPositions = (positions: Rectangle): Cartesian3[] => {
   const line = turf.lineString([
-    [
-      positions.west,
-      positions.south,
-    ],
-    [
-      positions.east,
-      positions.north,
-    ],
+    [positions.west, positions.south],
+    [positions.east, positions.north],
   ]);
   const polygon = bboxPolygon(bbox(line));
-  return polygon.geometry.coordinates[0].map((coord) => Cartesian3.fromRadiansArray(coord)[0]);
+  return polygon.geometry.coordinates[0].map(
+    (coord) => Cartesian3.fromRadiansArray(coord)[0]
+  );
 };

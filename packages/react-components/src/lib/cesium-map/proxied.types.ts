@@ -1,7 +1,6 @@
-import { 
+import {
   PolylineDashMaterialProperty,
   ConstantProperty,
-  
   VerticalOrigin,
   LabelStyle,
   Cartesian2,
@@ -9,9 +8,8 @@ import {
   BoundingSphere,
   Ellipsoid,
   ConstantPositionProperty,
-  GeographicTilingScheme
-} 
-from 'cesium';
+  GeographicTilingScheme,
+} from 'cesium';
 
 // PROXIED CLASSES
 export class CesiumPolylineDashMaterialProperty extends PolylineDashMaterialProperty {}
