@@ -8,10 +8,12 @@ import { CesiumEntity } from '../entities/entity';
 import { CesiumEntityStaticDescription } from '../entities/entity.description';
 import { CesiumPolygonGraphics } from '../entities/graphics/polygon.graphics';
 import { CesiumRectangleGraphics } from '../entities/graphics/rectangle.graphics';
+import { CesiumPolylineGraphics } from '../entities/graphics/polyline.graphics';
 import { CesiumViewer, useCesiumMap } from '../map';
 import { DrawHelper } from '../tools/draw/drawHelper';
 import { geoJSONToPrimitive } from '../tools/geojson/geojson-to-primitive';
 import { rectangleToGeoJSON, polygonToGeoJSON } from '../tools/geojson';
+import { rectangleToPositions } from '../tools/cesium/primitives-conversions.cesium';
 import { CesiumCustomDataSource } from './custom.data-source';
 
 export class CesiumColor extends Color {}
@@ -42,12 +44,14 @@ export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
   drawingMaterial: CesiumColor;
   drawingVertexColor?: CesiumColor;
   material?: CesiumColor;
+  hollow?: boolean;
+  outlineWidth?: number;
 }
 
 export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> = (
   props
 ) => {
-  const { drawState, drawingMaterial, drawingVertexColor, material } = props;
+  const { drawState, drawingMaterial, drawingVertexColor, material, hollow, outlineWidth } = props;
   const mapViewer: CesiumViewer = useCesiumMap();
 
   const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
@@ -128,31 +132,50 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
   const renderGraphicsComponent = (
     drawEntity: IDrawing
   ): React.ReactElement => {
-    const coordinates =
+    let coordinates: Rectangle | Cartesian3[] | undefined =
       drawEntity.coordinates !== undefined
         ? drawEntity.coordinates
         : geoJSONToPrimitive(
             drawEntity.type,
             drawEntity.geojson as FeatureCollection
           );
-    switch (drawEntity.type) {
-      case DrawType.BOX:
-        return (
-          <CesiumRectangleGraphics
-            coordinates={coordinates as Rectangle}
-            material={material ?? drawingMaterial}
-          />
-        );
-      case DrawType.POLYGON:
-        return (
-          <CesiumPolygonGraphics
-            hierarchy={new PolygonHierarchy(coordinates as Cartesian3[])}
-            material={material ?? drawingMaterial}
-          />
-        );
-      default:
-        return <></>;
+    if(hollow !== true){
+      switch (drawEntity.type) {
+        case DrawType.BOX:
+          return (
+            <CesiumRectangleGraphics
+              coordinates={coordinates as Rectangle}
+              material={material ?? drawingMaterial}
+            />);
+        case DrawType.POLYGON:
+          return (
+            <CesiumPolygonGraphics
+              hierarchy={new PolygonHierarchy(coordinates as Cartesian3[])}
+              material={material ?? drawingMaterial}
+            />);
+        default:
+          return <></>;
+      }
     }
+    else {
+      switch (drawEntity.type) {
+        case DrawType.BOX:
+          coordinates = rectangleToPositions(coordinates as Rectangle);
+          break;
+        case DrawType.POLYGON:
+          coordinates = [...coordinates as Cartesian3[], (coordinates as Cartesian3[])[0]];
+          break;
+        default:
+          return <></>;
+      }
+      return (
+        <CesiumPolylineGraphics
+          positions={coordinates}
+          width={outlineWidth ?? 1}
+          material={material ?? drawingMaterial}
+        />);
+    }
+
   };
 
   return (
