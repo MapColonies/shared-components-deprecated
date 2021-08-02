@@ -155,7 +155,6 @@ const BASE_MAPS = {
   ],
 };
 
-
 const layers = [
   {
     id: '2_raster_ext',
@@ -163,31 +162,34 @@ const layers = [
     opacity: 1,
     zIndex: 0,
     options: {
-      url: 'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png'
-    }
+      url:
+        'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
+    },
   },
   {
     id: '3_raster_ext',
     type: 'XYZ_LAYER',
-    opacity: 1, 
+    opacity: 1,
     zIndex: 1,
     options: {
-      url: 'https://tiles.openaerialmap.org/5a8316e22553e6000ce5ac7f/0/c3fcbe99-d339-41b6-8ec0-33d90ccca020/{z}/{x}/{y}.png'
-    }
+      url:
+        'https://tiles.openaerialmap.org/5a8316e22553e6000ce5ac7f/0/c3fcbe99-d339-41b6-8ec0-33d90ccca020/{z}/{x}/{y}.png',
+    },
   },
   {
     id: '4_raster1_ext',
-    type: 'XYZ_LAYER', 
-    opacity: 1, 
+    type: 'XYZ_LAYER',
+    opacity: 1,
     zIndex: 2,
     options: {
-      url: 'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png'
-    }
+      url:
+        'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
+    },
   },
 ];
 
 export const MapWithSettings: Story = () => {
-  const [center] = useState<[number, number]>([34.811, 31.908]); 
+  const [center] = useState<[number, number]>([34.811, 31.908]);
   return (
     <div style={mapDivStyle}>
       <CesiumMap
@@ -197,7 +199,7 @@ export const MapWithSettings: Story = () => {
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
       >
-        <LayersMozaik layers={layers}/>
+        <LayersMozaik layers={layers} />
       </CesiumMap>
     </div>
   );
@@ -205,7 +207,7 @@ export const MapWithSettings: Story = () => {
 MapWithSettings.storyName = 'Map Layer Manager';
 
 interface ILayersMozaikProps {
-  layers:IRasterLayer[],
+  layers: IRasterLayer[];
 }
 
 const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
@@ -221,34 +223,49 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
     sortedLayers.forEach((layer, idx) => {
       mapViewer.layersManager?.addRasterLayer(layer, idx, '');
     });
-
   }, [layers, mapViewer]);
 
   const handleLower = () => {
-    mapViewer.layersManager?.lower(selectedLayer,times);
+    mapViewer.layersManager?.lower(selectedLayer, times);
   };
 
   const handleRaise = () => {
-    mapViewer.layersManager?.raise(selectedLayer,times);
+    mapViewer.layersManager?.raise(selectedLayer, times);
   };
-  
+
   return (
     <>
-      <select 
-        defaultValue={selectedLayer} 
-        onChange={(evt):void => {setSelectedLayer(evt.target.value);}} 
+      <select
+        defaultValue={selectedLayer}
+        onChange={(evt): void => {
+          setSelectedLayer(evt.target.value);
+        }}
       >
-        {
-          layers.map(layer => <option defaultValue={layer.id}>{layer.id}</option> )
-        }
+        {layers.map((layer) => (
+          <option defaultValue={layer.id}>{layer.id}</option>
+        ))}
       </select>
-      <input 
+      <input
         type="number"
         value={times}
-        onChange={(evt):void => {setTimes(parseInt(evt.target.value));}} 
+        onChange={(evt): void => {
+          setTimes(parseInt(evt.target.value));
+        }}
       ></input>
-      <button onClick={():void => {handleRaise()}}>Raise</button>
-      <button onClick={():void => {handleLower()}}>Lower</button>
+      <button
+        onClick={(): void => {
+          handleRaise();
+        }}
+      >
+        Raise
+      </button>
+      <button
+        onClick={(): void => {
+          handleLower();
+        }}
+      >
+        Lower
+      </button>
     </>
   );
-}
+};

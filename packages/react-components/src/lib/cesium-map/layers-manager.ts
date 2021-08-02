@@ -107,27 +107,29 @@ class LayerManager {
     // TODO: remove vector layers
   }
 
-  public raise(layerId: string, positions=1): void {
+  public raise(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
 
     if (layer) {
-      for(let position = 0; position < positions; position++){
+      for (let position = 0; position < positions; position++) {
         this.mapViewer.imageryLayers.raise(layer);
       }
     }
   }
 
-  public lower(layerId: string, positions=1): void {
+  public lower(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
     const lowerLimit = this.getBaseLayersCount();
-    const layerIdx =  this.mapViewer.imageryLayers.indexOf(layer as ImageryLayer);
+    const layerIdx = this.mapViewer.imageryLayers.indexOf(
+      layer as ImageryLayer
+    );
 
-    if(layerIdx - positions <= lowerLimit){
+    if (layerIdx - positions <= lowerLimit) {
       positions = layerIdx - lowerLimit;
     }
 
     if (layer) {
-      for(let position = 0; position < positions; position++){
+      for (let position = 0; position < positions; position++) {
         this.mapViewer.imageryLayers.lower(layer);
       }
     }
@@ -144,9 +146,11 @@ class LayerManager {
   public lowerToBottom(layerId: string): void {
     const layer = this.findLayerById(layerId);
     const lowerLimit = this.getBaseLayersCount();
-    const layerIdx =  this.mapViewer.imageryLayers.indexOf(layer as ImageryLayer);
+    const layerIdx = this.mapViewer.imageryLayers.indexOf(
+      layer as ImageryLayer
+    );
 
-    this.lower(layerId, layerIdx-lowerLimit);
+    this.lower(layerId, layerIdx - lowerLimit);
     // if (layer) {
     //   this.mapViewer.imageryLayers.lowerToBottom(layer);
     // }
@@ -155,9 +159,9 @@ class LayerManager {
   public length(): number {
     return this.mapViewer.imageryLayers.length;
   }
-  
+
   private getBaseLayersCount(): number {
-    const baseLayers = this.layers.filter(layer => {
+    const baseLayers = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
       return parentId ? true : false;
     });
