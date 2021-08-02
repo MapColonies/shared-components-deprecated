@@ -48,157 +48,158 @@ export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
   outlineWidth?: number;
 }
 
-export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
-  (props) => {
-    const {
-      drawState,
-      drawingMaterial,
-      drawingVertexColor,
-      material,
-      hollow,
-      outlineWidth,
-    } = props;
-    const mapViewer: CesiumViewer = useCesiumMap();
+export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> = (
+  props
+) => {
+  const {
+    drawState,
+    drawingMaterial,
+    drawingVertexColor,
+    material,
+    hollow,
+    outlineWidth,
+  } = props;
+  const mapViewer: CesiumViewer = useCesiumMap();
 
-    const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
+  const [drawHelper, setDrawHelper] = useState<typeof DrawHelper>();
 
-    useEffect(() => {
-      setDrawHelper(
-        // eslint-disable-next-line
-        new (DrawHelper as any)(mapViewer, drawingMaterial, drawingVertexColor)
-      );
-    }, []);
+  useEffect(() => {
+    setDrawHelper(
+      // eslint-disable-next-line
+      new (DrawHelper as any)(mapViewer, drawingMaterial, drawingVertexColor)
+    );
+  }, []);
 
-    useEffect(() => {
-      if (drawHelper) {
-        // eslint-disable-next-line
-        const drawHelperInstance = drawHelper as any;
-        if (drawState.drawing) {
-          switch (drawState.type) {
-            case DrawType.POLYGON:
-              // eslint-disable-next-line
-              drawHelperInstance.startDrawingPolygon({
-                callback: (positions: PrimitiveCoordinates) => {
-                  //// MAKE polygon editable example
-                  // var polygon = new DrawHelper.PolygonPrimitive({
-                  //   positions: positions,
-                  //   width: 5,
-                  //   geodesic: true
-                  // });
-                  // mapViewer.scene.primitives.add(polygon);
-                  // polygon.setStrokeStyle(Color.AQUA,1);
-                  // polygon.setEditable();
-                  // polygon.addListener('onEdited', function(event) {
-                  //   console.log('Polygone edited, ' + event.positions.length + ' points');
-                  // });
-                  drawState.handler({
-                    primitive: positions,
-                    type: DrawType.POLYGON,
-                    geojson: polygonToGeoJSON(positions as Cartesian3[]),
-                  });
-                },
-              });
-              break;
-            case DrawType.BOX:
-              // eslint-disable-next-line
-              drawHelperInstance.startDrawingExtent({
-                callback: (positions: PrimitiveCoordinates) => {
-                  //// MAKE box editable example
-                  // var extentPrimitive = new DrawHelper.ExtentPrimitive({
-                  //   extent: positions,
-                  //   material: Cesium.Material.fromType(Cesium.Material.StripeType)
-                  // });
-                  // mapViewer.scene.primitives.add(extentPrimitive);
-                  // extentPrimitive.setStrokeStyle(Color.AQUA,1);
-                  // extentPrimitive.setEditable();
-                  // extentPrimitive.addListener('onEdited', function(event) {
-                  //   console.log('Extent edited: extent is (N: ' + event.extent.north.toFixed(3) + ', E: ' + event.extent.east.toFixed(3) + ', S: ' + event.extent.south.toFixed(3) + ', W: ' + event.extent.west.toFixed(3) + ')');
-                  // });
-                  drawState.handler({
-                    primitive: positions,
-                    type: DrawType.BOX,
-                    geojson: rectangleToGeoJSON(positions as Rectangle),
-                  });
-                },
-              });
-              break;
-            default:
-              throw new Error(
-                `[CESIUM DRAW]: ${drawState.type} unrecognized primitive to draw.`
-              );
-              break;
-          }
-        } else {
-          // eslint-disable-next-line
-          drawHelperInstance.stopDrawing();
-        }
-      }
-    }, [drawState, drawHelper]);
-
-    const renderGraphicsComponent = (
-      drawEntity: IDrawing
-    ): React.ReactElement => {
-      let coordinates: Rectangle | Cartesian3[] | undefined =
-        drawEntity.coordinates !== undefined
-          ? drawEntity.coordinates
-          : geoJSONToPrimitive(
-              drawEntity.type,
-              drawEntity.geojson as FeatureCollection
-            );
-      if (hollow !== true) {
-        switch (drawEntity.type) {
-          case DrawType.BOX:
-            return (
-              <CesiumRectangleGraphics
-                coordinates={coordinates as Rectangle}
-                material={material ?? drawingMaterial}
-              />
-            );
+  useEffect(() => {
+    if (drawHelper) {
+      // eslint-disable-next-line
+      const drawHelperInstance = drawHelper as any;
+      if (drawState.drawing) {
+        switch (drawState.type) {
           case DrawType.POLYGON:
-            return (
-              <CesiumPolygonGraphics
-                hierarchy={new PolygonHierarchy(coordinates as Cartesian3[])}
-                material={material ?? drawingMaterial}
-              />
-            );
+            // eslint-disable-next-line
+            drawHelperInstance.startDrawingPolygon({
+              callback: (positions: PrimitiveCoordinates) => {
+                //// MAKE polygon editable example
+                // var polygon = new DrawHelper.PolygonPrimitive({
+                //   positions: positions,
+                //   width: 5,
+                //   geodesic: true
+                // });
+                // mapViewer.scene.primitives.add(polygon);
+                // polygon.setStrokeStyle(Color.AQUA,1);
+                // polygon.setEditable();
+                // polygon.addListener('onEdited', function(event) {
+                //   console.log('Polygone edited, ' + event.positions.length + ' points');
+                // });
+                drawState.handler({
+                  primitive: positions,
+                  type: DrawType.POLYGON,
+                  geojson: polygonToGeoJSON(positions as Cartesian3[]),
+                });
+              },
+            });
+            break;
+          case DrawType.BOX:
+            // eslint-disable-next-line
+            drawHelperInstance.startDrawingExtent({
+              callback: (positions: PrimitiveCoordinates) => {
+                //// MAKE box editable example
+                // var extentPrimitive = new DrawHelper.ExtentPrimitive({
+                //   extent: positions,
+                //   material: Cesium.Material.fromType(Cesium.Material.StripeType)
+                // });
+                // mapViewer.scene.primitives.add(extentPrimitive);
+                // extentPrimitive.setStrokeStyle(Color.AQUA,1);
+                // extentPrimitive.setEditable();
+                // extentPrimitive.addListener('onEdited', function(event) {
+                //   console.log('Extent edited: extent is (N: ' + event.extent.north.toFixed(3) + ', E: ' + event.extent.east.toFixed(3) + ', S: ' + event.extent.south.toFixed(3) + ', W: ' + event.extent.west.toFixed(3) + ')');
+                // });
+                drawState.handler({
+                  primitive: positions,
+                  type: DrawType.BOX,
+                  geojson: rectangleToGeoJSON(positions as Rectangle),
+                });
+              },
+            });
+            break;
           default:
-            return <></>;
+            throw new Error(
+              `[CESIUM DRAW]: ${drawState.type} unrecognized primitive to draw.`
+            );
+            break;
         }
       } else {
-        switch (drawEntity.type) {
-          case DrawType.BOX:
-            coordinates = rectangleToPositions(coordinates as Rectangle);
-            break;
-          case DrawType.POLYGON:
-            coordinates = [
-              ...(coordinates as Cartesian3[]),
-              (coordinates as Cartesian3[])[0],
-            ];
-            break;
-          default:
-            return <></>;
-        }
-        return (
-          <CesiumPolylineGraphics
-            positions={coordinates}
-            width={outlineWidth ?? 1}
-            material={material ?? drawingMaterial}
-          />
-        );
+        // eslint-disable-next-line
+        drawHelperInstance.stopDrawing();
       }
-    };
+    }
+  }, [drawState, drawHelper]);
 
-    return (
-      <CesiumCustomDataSource {...props}>
-        {props.drawings.map((drawEntity, i) => (
-          <CesiumEntity key={drawEntity.id} name={drawEntity.name}>
-            <CesiumEntityStaticDescription>
-              <h1>Drawed Entity {drawEntity.name}</h1>
-              <p>This is description of drawed entity</p>
-            </CesiumEntityStaticDescription>
-            {renderGraphicsComponent(drawEntity)}
-          </CesiumEntity>
-        ))}
-      </CesiumCustomDataSource>
-    );
+  const renderGraphicsComponent = (
+    drawEntity: IDrawing
+  ): React.ReactElement => {
+    let coordinates: Rectangle | Cartesian3[] | undefined =
+      drawEntity.coordinates !== undefined
+        ? drawEntity.coordinates
+        : geoJSONToPrimitive(
+            drawEntity.type,
+            drawEntity.geojson as FeatureCollection
+          );
+    if (hollow !== true) {
+      switch (drawEntity.type) {
+        case DrawType.BOX:
+          return (
+            <CesiumRectangleGraphics
+              coordinates={coordinates as Rectangle}
+              material={material ?? drawingMaterial}
+            />
+          );
+        case DrawType.POLYGON:
+          return (
+            <CesiumPolygonGraphics
+              hierarchy={new PolygonHierarchy(coordinates as Cartesian3[])}
+              material={material ?? drawingMaterial}
+            />
+          );
+        default:
+          return <></>;
+      }
+    } else {
+      switch (drawEntity.type) {
+        case DrawType.BOX:
+          coordinates = rectangleToPositions(coordinates as Rectangle);
+          break;
+        case DrawType.POLYGON:
+          coordinates = [
+            ...(coordinates as Cartesian3[]),
+            (coordinates as Cartesian3[])[0],
+          ];
+          break;
+        default:
+          return <></>;
+      }
+      return (
+        <CesiumPolylineGraphics
+          positions={coordinates}
+          width={outlineWidth ?? 1}
+          material={material ?? drawingMaterial}
+        />
+      );
+    }
   };
+
+  return (
+    <CesiumCustomDataSource {...props}>
+      {props.drawings.map((drawEntity, i) => (
+        <CesiumEntity key={drawEntity.id} name={drawEntity.name}>
+          <CesiumEntityStaticDescription>
+            <h1>Drawed Entity {drawEntity.name}</h1>
+            <p>This is description of drawed entity</p>
+          </CesiumEntityStaticDescription>
+          {renderGraphicsComponent(drawEntity)}
+        </CesiumEntity>
+      ))}
+    </CesiumCustomDataSource>
+  );
+};
