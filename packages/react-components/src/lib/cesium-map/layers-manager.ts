@@ -6,12 +6,39 @@ import {
   WebMapTileServiceImageryProvider,
 } from 'cesium';
 import { get } from 'lodash';
+import {
+  RCesiumOSMLayerOptions,
+  RCesiumWMSLayerOptions,
+  RCesiumWMTSLayerOptions,
+  RCesiumXYZLayerOptions,
+} from './layers';
 import { CesiumViewer } from './map';
 import { IRasterLayer, IBaseMap } from './settings/settings';
 
-interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
-  meta?: any;
+export interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
+  meta?: Record<string, unknown>;
 }
+
+export interface IRasterLayer {
+  id: string;
+  type: 'OSM_LAYER' | 'WMTS_LAYER' | 'WMS_LAYER' | 'XYZ_LAYER';
+  opacity: number;
+  zIndex: number;
+  show?: boolean;
+  options:
+    | RCesiumOSMLayerOptions
+    | RCesiumWMSLayerOptions
+    | RCesiumWMTSLayerOptions
+    | RCesiumXYZLayerOptions;
+}
+
+export interface IVectorLayer {
+  id: string;
+  opacity: number;
+  zIndex: number;
+  url: string;
+}
+
 
 class LayerManager {
   public mapViewer: CesiumViewer;
@@ -85,6 +112,9 @@ class LayerManager {
         parentBasetMapId: parentId,
         ...layer,
       };
+      if(layer.show !== undefined){
+        cesiumLayer.show = layer.show;
+      }
     }
   }
 
@@ -158,6 +188,33 @@ class LayerManager {
 
   public length(): number {
     return this.mapViewer.imageryLayers.length;
+  }
+
+  public show(layerId: string, isShow: boolean): void {
+    const layer = this.get(layerId);
+    if(layer !== undefined){
+      layer.show = isShow;
+    }
+  }
+
+  public showAll(isShow: boolean): void {
+    const nonBaseLayers = this.layers.filter((layer) => {
+      const parentId = get(layer.meta, 'parentBasetMapId') as string;
+      return parentId ?  false : true;
+    });
+    nonBaseLayers.forEach((layer:ICesiumImageryLayer) => {
+      this.show(layer.meta?.id as string, isShow);
+    });
+  }
+
+  public get(layerId: string): ICesiumImageryLayer | undefined {
+    const layerInt = this.findLayerById(layerId);
+
+    const layerIdx = this.mapViewer.imageryLayers.indexOf(
+      layerInt as ImageryLayer
+    );
+
+    return layerIdx ? this.mapViewer.imageryLayers.get(layerIdx) : undefined;
   }
 
   private getBaseLayersCount(): number {
