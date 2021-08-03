@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.6.0...@map-colonies/react-components@3.6.1) (2021-08-03)
+
+
+### Bug Fixes
+
+* layaers manager functionality added and story ([#102](https://github.com/MapColonies/shared-components/issues/102)) ([012d9b0](https://github.com/MapColonies/shared-components/commit/012d9b02dd594f4d02baf6a9728767dbdb87bec8))
+
+
+
+
+
 # [3.6.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.3.6...@map-colonies/react-components@3.6.0) (2021-08-02)
 
 
