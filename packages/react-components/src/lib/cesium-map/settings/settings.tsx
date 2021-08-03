@@ -7,35 +7,11 @@ import {
 } from '@map-colonies/react-core';
 import { get } from 'lodash';
 import { Box } from '../../box';
+import { IRasterLayer, IVectorLayer } from '../layers-manager';
 import { CesiumSceneModeEnum } from '../map.types';
-import {
-  RCesiumOSMLayerOptions,
-  RCesiumWMSLayerOptions,
-  RCesiumWMTSLayerOptions,
-  RCesiumXYZLayerOptions,
-} from '../layers';
 import { CesiumSceneModes } from './scene-modes';
 import { CesiumBaseMaps } from './base-maps';
 import './settings.css';
-
-export interface IRasterLayer {
-  id: string;
-  type: 'OSM_LAYER' | 'WMTS_LAYER' | 'WMS_LAYER' | 'XYZ_LAYER';
-  opacity: number;
-  zIndex: number;
-  options:
-    | RCesiumOSMLayerOptions
-    | RCesiumWMSLayerOptions
-    | RCesiumWMTSLayerOptions
-    | RCesiumXYZLayerOptions;
-}
-
-export interface IVectorLayer {
-  id: string;
-  opacity: number;
-  zIndex: number;
-  url: string;
-}
 
 export interface IBaseMap {
   id: string;

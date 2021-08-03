@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from './map';
 import { CesiumSceneMode } from './map.types';
-import { IRasterLayer } from './settings/settings';
+import { IRasterLayer } from './layers-manager';
 
 export default {
   title: 'Cesium Map/Layers Manager',
@@ -161,6 +161,7 @@ const layers = [
     type: 'XYZ_LAYER',
     opacity: 1,
     zIndex: 0,
+    show: false,
     options: {
       url:
         'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
@@ -171,6 +172,7 @@ const layers = [
     type: 'XYZ_LAYER',
     opacity: 1,
     zIndex: 1,
+    show: false,
     options: {
       url:
         'https://tiles.openaerialmap.org/5a8316e22553e6000ce5ac7f/0/c3fcbe99-d339-41b6-8ec0-33d90ccca020/{z}/{x}/{y}.png',
@@ -181,6 +183,7 @@ const layers = [
     type: 'XYZ_LAYER',
     opacity: 1,
     zIndex: 2,
+    show: false,
     options: {
       url:
         'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
@@ -215,6 +218,7 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
   const { layers } = props;
   const [selectedLayer, setSelectedLayer] = useState<string>(layers[0].id);
   const [times, setTimes] = useState<number>(1);
+  const [allShow, setAllShow] = useState<boolean>(false);
 
   useLayoutEffect(() => {
     const sortedLayers = layers.sort(
@@ -225,12 +229,17 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
     });
   }, [layers, mapViewer]);
 
-  const handleLower = () => {
+  const handleLower = (): void => {
     mapViewer.layersManager?.lower(selectedLayer, times);
   };
 
-  const handleRaise = () => {
+  const handleRaise = (): void => {
     mapViewer.layersManager?.raise(selectedLayer, times);
+  };
+
+  const handleToglleAll = (): void => {
+    mapViewer.layersManager?.showAll(!allShow);
+    setAllShow(!allShow);
   };
 
   return (
@@ -265,6 +274,13 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
         }}
       >
         Lower
+      </button>
+      <button
+        onClick={(): void => {
+          handleToglleAll();
+        }}
+      >
+        Toggle All
       </button>
     </>
   );
