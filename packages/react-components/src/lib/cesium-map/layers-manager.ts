@@ -39,7 +39,6 @@ export interface IVectorLayer {
   url: string;
 }
 
-
 class LayerManager {
   public mapViewer: CesiumViewer;
 
@@ -112,7 +111,7 @@ class LayerManager {
         parentBasetMapId: parentId,
         ...layer,
       };
-      if(layer.show !== undefined){
+      if (layer.show !== undefined) {
         cesiumLayer.show = layer.show;
       }
     }
@@ -192,7 +191,7 @@ class LayerManager {
 
   public show(layerId: string, isShow: boolean): void {
     const layer = this.get(layerId);
-    if(layer !== undefined){
+    if (layer !== undefined) {
       layer.show = isShow;
     }
   }
@@ -200,9 +199,9 @@ class LayerManager {
   public showAll(isShow: boolean): void {
     const nonBaseLayers = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
-      return parentId ?  false : true;
+      return parentId ? false : true;
     });
-    nonBaseLayers.forEach((layer:ICesiumImageryLayer) => {
+    nonBaseLayers.forEach((layer: ICesiumImageryLayer) => {
       this.show(layer.meta?.id as string, isShow);
     });
   }
