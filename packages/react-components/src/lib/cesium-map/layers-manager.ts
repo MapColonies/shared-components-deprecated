@@ -13,7 +13,7 @@ import {
   RCesiumXYZLayerOptions,
 } from './layers';
 import { CesiumViewer } from './map';
-import { IRasterLayer, IBaseMap } from './settings/settings';
+import { IBaseMap } from './settings/settings';
 
 export interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
   meta?: Record<string, unknown>;
