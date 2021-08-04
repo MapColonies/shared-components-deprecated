@@ -238,7 +238,7 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
   };
 
   const handleToglleAll = (): void => {
-    mapViewer.layersManager?.showAll(!allShow);
+    mapViewer.layersManager?.showAllNotBase(!allShow);
     setAllShow(!allShow);
   };
 
