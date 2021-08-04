@@ -136,6 +136,17 @@ class LayerManager {
     // TODO: remove vector layers
   }
 
+  public removeNotBaseMapLayers(): void {
+    const layerToDelete = this.layers.filter((layer) => {
+      const parentId = get(layer.meta, 'parentBasetMapId') as string;
+      return parentId ? false : true;
+    });
+    layerToDelete.forEach((layer) => {
+      this.mapViewer.imageryLayers.remove(layer, true);
+    });
+    // TODO: remove vector layers
+  }
+
   public raise(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
 
@@ -196,7 +207,7 @@ class LayerManager {
     }
   }
 
-  public showAll(isShow: boolean): void {
+  public showAllNotBase(isShow: boolean): void {
     const nonBaseLayers = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
       return parentId ? false : true;
