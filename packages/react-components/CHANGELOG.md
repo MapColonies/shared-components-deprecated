@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.5](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.6.1...@map-colonies/react-components@3.6.5) (2021-08-09)
+
+
+### Bug Fixes
+
+* remove not based method added ([#103](https://github.com/MapColonies/shared-components/issues/103)) ([a84c3bf](https://github.com/MapColonies/shared-components/commit/a84c3bfbad42aedc2fe5831fe1f94dbb057d9282))
+
+
+
+
+
 ## [3.6.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.6.0...@map-colonies/react-components@3.6.1) (2021-08-03)
 
 
