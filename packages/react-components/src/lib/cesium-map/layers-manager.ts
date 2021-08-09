@@ -136,6 +136,7 @@ class LayerManager {
     // TODO: remove vector layers
   }
 
+  // Remove all non base layers
   public removeNotBaseMapLayers(): void {
     const layerToDelete = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
