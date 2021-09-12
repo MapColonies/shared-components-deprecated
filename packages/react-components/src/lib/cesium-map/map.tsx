@@ -61,7 +61,7 @@ const MapViewProvider = mapContext.Provider;
 const cameraPositionRefreshRate = 10000;
 
 export interface IContextMenuData {
-  data: Record<string, unknown>;
+  data?: Record<string, unknown>;
   style?: Record<string, string>;
 } 
 
@@ -293,7 +293,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           React.cloneElement(
             props.imageryContextMenu,
             { 
-              data: mapViewRef ? mapViewRef.layersManager?.findLayerByPosition(imageryMenuPosition.x as number, imageryMenuPosition.y as number) as unknown as Record<string, unknown> : { error: 'No data' } as Record<string, unknown>, 
+              data: mapViewRef ?
+                mapViewRef.layersManager?.findLayerByPosition(imageryMenuPosition.x as number, imageryMenuPosition.y as number) as unknown as Record<string, unknown> :
+                { error: 'No data' } as Record<string, unknown>,
               style: {
                 left: `${imageryMenuPosition.x as string}px`,
                 top: `${imageryMenuPosition.y as string}px`,
