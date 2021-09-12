@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { CesiumMap, CesiumMapProps } from './map';
+import { CesiumMap, CesiumMapProps, IContextMenuData } from './map';
 import { CesiumSceneMode } from './map.types';
 import { Proj } from '.';
 
@@ -141,3 +141,45 @@ LocalizedMap.argTypes = {
   },
 };
 LocalizedMap.storyName = 'Localized Map (ctrl+F5)';
+
+
+const ContextMenu: React.FC<IContextMenuData> = ({ style, data }) => {
+    return (
+      <div className="container" style={style}>
+        <div
+          className="item"
+          onClick={() => {
+            console.log(data);
+          }}
+        >
+          Remove {data.alpha}
+        </div>
+        {/* <div (click)="data.onActionClick()" class="item">Remove {{data.item.name}}</div>
+        <div (click)="data.onActionClick()" class="item">Update {{data.item.name}}</div>
+        <div (click)="data.onActionClick()" class="item">Do Something</div> */}
+      </div>
+    )
+};
+
+export const ContextMenuOnMap: Story = (args: CesiumMapProps) => (
+  <div style={mapDivStyle}>
+    <CesiumMap 
+      {...args}
+      imageryContextMenu={<ContextMenu/>}
+    ></CesiumMap>
+  </div>
+);
+
+ContextMenuOnMap.argTypes = {
+  center: {
+    defaultValue: [34.9578094, 32.8178637],
+  },
+  zoom: {
+    defaultValue: 3,
+    control: {
+      type: 'range',
+      min: 0,
+      max: 20,
+    },
+  }
+};

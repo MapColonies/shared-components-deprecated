@@ -16,6 +16,7 @@ import {
   PerspectiveFrustum,
   PerspectiveOffCenterFrustum,
   OrthographicFrustum,
+  ScreenSpaceEventType,
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
 
@@ -59,6 +60,11 @@ const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
 const cameraPositionRefreshRate = 10000;
 
+export interface IContextMenuData {
+  data: Record<string, unknown>;
+  style?: Record<string, string>;
+} 
+
 export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
   showScale?: boolean;
@@ -68,6 +74,7 @@ export interface CesiumMapProps extends ViewerProps {
   locale?: { [key: string]: string };
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
+  imageryContextMenu?: React.ReactElement<IContextMenuData>;
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -92,6 +99,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     CesiumSceneModeEnum[] | undefined
   >();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
+  const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
+  const [imageryMenuPosition, setImageryMenuPosition] = useState<Record<string,unknown> | undefined>(undefined);
 
   const viewerProps = {
     fullscreenButton: true,
@@ -109,6 +118,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
       viewer.layersManager = new LayerManager(viewer);
+      viewer.screenSpaceEventHandler.setInputAction((evt: Record<string,unknown>)=>{
+        console.log('RIGHT click', evt.position);
+        setImageryMenuPosition(evt.position as Record<string,unknown>);
+        setShowImageryMenu(true);
+      }, ScreenSpaceEventType.RIGHT_CLICK);
     }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
@@ -272,6 +286,23 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           )}
           {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
         </Box>
+        {
+          showImageryMenu &&
+          imageryMenuPosition &&
+          props.imageryContextMenu && 
+          React.cloneElement(
+            props.imageryContextMenu,
+            { 
+              data: mapViewRef ? mapViewRef.layersManager?.findLayerByPosition(imageryMenuPosition.x as number, imageryMenuPosition.y as number) as unknown as Record<string, unknown> : { error: 'No data' } as Record<string, unknown>, 
+              style: {
+                left: `${imageryMenuPosition.x as string}px`,
+                top: `${imageryMenuPosition.y as string}px`,
+                position: 'fixed',
+                backgroundColor: 'white'
+              }
+            }
+          )
+        }
       </MapViewProvider>
     </Viewer>
   );
