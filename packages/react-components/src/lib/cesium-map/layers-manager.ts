@@ -228,7 +228,10 @@ class LayerManager {
     return layerIdx ? this.mapViewer.imageryLayers.get(layerIdx) : undefined;
   }
 
-  public findLayerByPosition(x: number, y: number): ICesiumImageryLayer | undefined {
+  public findLayerByPosition(
+    x: number,
+    y: number
+  ): ICesiumImageryLayer | undefined {
     /*return this.layers.find((layer) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return layer.meta !== undefined ? layer.meta.id === layerId && layer.meta.show === true : false;

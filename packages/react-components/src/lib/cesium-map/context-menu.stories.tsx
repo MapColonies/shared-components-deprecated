@@ -195,20 +195,40 @@ const ContextMenu: React.FC<IContextMenuData> = ({ style, data }) => {
   const layerId = (data?.meta as Record<string, unknown>).id;
   return (
     <div className="container" style={style}>
-      <div className="item" onClick={(): void => { console.log('TOP', data); }}>
+      <div
+        className="item"
+        onClick={(): void => {
+          console.log('TOP', data);
+        }}
+      >
         Move {layerId} to TOP
       </div>
-      <div className="item" onClick={(): void => { console.log('up', data); }}>
+      <div
+        className="item"
+        onClick={(): void => {
+          console.log('up', data);
+        }}
+      >
         Move {layerId} up
       </div>
-      <div className="item" onClick={(): void => { console.log('down', data); }}>
+      <div
+        className="item"
+        onClick={(): void => {
+          console.log('down', data);
+        }}
+      >
         Move {layerId} down
       </div>
-      <div className="item" onClick={(): void => { console.log('BOTTOM', data); }}>
+      <div
+        className="item"
+        onClick={(): void => {
+          console.log('BOTTOM', data);
+        }}
+      >
         Move {layerId} to BOTTOM
       </div>
     </div>
-  )
+  );
 };
 
 export const MapWithSettings: Story = () => {
@@ -221,14 +241,14 @@ export const MapWithSettings: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
-        imageryContextMenu={<ContextMenu/>}
+        imageryContextMenu={<ContextMenu />}
       >
         <LayersMozaik layers={layers} />
       </CesiumMap>
     </div>
   );
 };
-MapWithSettings.storyName = 'Map Context Menu                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ';
+MapWithSettings.storyName = 'Map Context Menu';
 
 interface ILayersMozaikProps {
   layers: IRasterLayer[];
