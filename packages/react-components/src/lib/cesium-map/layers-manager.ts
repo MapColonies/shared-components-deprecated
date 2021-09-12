@@ -6,6 +6,7 @@ import {
   WebMapTileServiceImageryProvider,
 } from 'cesium';
 import { get } from 'lodash';
+// import * as turf from '@turf/boolean-point-in-polygon';
 import {
   RCesiumOSMLayerOptions,
   RCesiumWMSLayerOptions,
@@ -232,9 +233,16 @@ class LayerManager {
     x: number,
     y: number
   ): ICesiumImageryLayer | undefined {
-    /*return this.layers.find((layer) => {
+    /*const pt = turf.point([-77, 44]);
+    return this.layers.find((layer) => {
+      const poly = turf.polygon([[
+        [-81, 41],
+        [-81, 47],
+        [-72, 47],
+        [-81, 41]
+      ]]);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return layer.meta !== undefined ? layer.meta.id === layerId && layer.meta.show === true : false;
+      return layer.meta !== undefined ? turf.booleanPointInPolygon(pt, poly) && layer.show === true : false;
     });*/
     return this.layers[0];
   }
