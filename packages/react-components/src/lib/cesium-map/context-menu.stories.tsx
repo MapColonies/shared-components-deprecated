@@ -1,5 +1,8 @@
 import React, { useLayoutEffect, useState } from 'react';
+import { get } from 'lodash';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { Menu, MenuItem, MenuSurfaceAnchor } from '@map-colonies/react-core';
+import { Box } from '../box';
 import { CesiumMap, IContextMenuData, useCesiumMap } from './map';
 import { CesiumSceneMode } from './map.types';
 import { IRasterLayer } from './layers-manager';
@@ -11,6 +14,10 @@ export default {
     layout: 'fullscreen',
   },
 } as Meta;
+
+interface ILayersMozaikProps {
+  layers: IRasterLayer[];
+}
 
 const mapDivStyle = {
   height: '90%',
@@ -191,68 +198,58 @@ const layers = [
   },
 ];
 
-const ContextMenu: React.FC<IContextMenuData> = ({ style, data }) => {
-  const layerId = (data?.meta as Record<string, unknown>).id;
+const ContextMenu: React.FC<IContextMenuData> = ({ style, data, handleClose }) => {
+
+  const handleAction = (action: string, data: Record<string, unknown>): void => {
+    console.log(`ACTION:${action}`);
+    console.log('DATA:',data);
+  };
+  const isLayerFound = (get(data, 'isLayerFound') ?? true) as boolean;
+  if(!isLayerFound){
+    console.log(data.msg);
+  }
+
   return (
-    <div className="container" style={style}>
-      <div
-        className="item"
-        onClick={(): void => {
-          console.log('TOP', data);
-        }}
-      >
-        Move {layerId} to TOP
-      </div>
-      <div
-        className="item"
-        onClick={(): void => {
-          console.log('up', data);
-        }}
-      >
-        Move {layerId} up
-      </div>
-      <div
-        className="item"
-        onClick={(): void => {
-          console.log('down', data);
-        }}
-      >
-        Move {layerId} down
-      </div>
-      <div
-        className="item"
-        onClick={(): void => {
-          console.log('BOTTOM', data);
-        }}
-      >
-        Move {layerId} to BOTTOM
-      </div>
-    </div>
+    <>
+    {
+    isLayerFound && <Box className="container" style={style}>
+      <MenuSurfaceAnchor id="actionsMenuContainer">
+        <Menu
+          open={true}
+          onClose={
+            evt => {
+              console.log(' BEFORE CLOSE');
+              handleClose();
+            }
+          }
+          onMouseOver={evt => evt.stopPropagation()}
+        >
+          {
+            ['TOP', 'UP', 'DOWN', 'BOTTOM'].map(action => {
+              return (
+                <MenuItem key={`imageryMenuItemAction_${action}`}>
+                  <Box 
+                    className="imageryMenuItem"
+                    onClick={(evt): void => {
+                      handleAction(action, data as Record<string, unknown>);
+                    }}
+                  >
+                    {action}
+                  </Box>
+              </MenuItem>
+            )
+            })
+          }
+        </Menu>
+      </MenuSurfaceAnchor>
+    </Box>
+    }
+    {
+      !isLayerFound && <Box style={style}></Box>
+    }
+    </>
   );
 };
-
-export const MapWithSettings: Story = () => {
-  const [center] = useState<[number, number]>([34.811, 31.908]);
-  return (
-    <div style={mapDivStyle}>
-      <CesiumMap
-        center={center}
-        zoom={14}
-        imageryProvider={false}
-        sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
-        baseMaps={BASE_MAPS}
-        imageryContextMenu={<ContextMenu />}
-      >
-        <LayersMozaik layers={layers} />
-      </CesiumMap>
-    </div>
-  );
-};
-MapWithSettings.storyName = 'Map Context Menu';
-
-interface ILayersMozaikProps {
-  layers: IRasterLayer[];
-}
 
 const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
   const mapViewer = useCesiumMap();
@@ -292,7 +289,7 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
         }}
       >
         {layers.map((layer) => (
-          <option defaultValue={layer.id}>{layer.id}</option>
+          <option key={layer.id} defaultValue={layer.id}>{layer.id}</option>
         ))}
       </select>
       <input
@@ -326,3 +323,26 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
     </>
   );
 };
+
+export const MapWithContextMenu: Story = () => {
+  const [center] = useState<[number, number]>([34.811, 31.908]);
+  return (
+    <div style={mapDivStyle}>
+      <CesiumMap
+        center={center}
+        zoom={14}
+        imageryProvider={false}
+        sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
+        baseMaps={BASE_MAPS}
+        imageryContextMenu={<ContextMenu />}
+      >
+        <LayersMozaik layers={layers} />
+      </CesiumMap>
+    </div>
+  );
+};
+MapWithContextMenu.storyName = 'Map Context Menu';
+
+
+
+

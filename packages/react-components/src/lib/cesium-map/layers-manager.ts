@@ -6,7 +6,9 @@ import {
   WebMapTileServiceImageryProvider,
 } from 'cesium';
 import { get } from 'lodash';
-// import * as turf from '@turf/boolean-point-in-polygon';
+import { Feature, Point, Polygon } from 'geojson';
+import { Properties } from '@turf/helpers';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import {
   RCesiumOSMLayerOptions,
   RCesiumWMSLayerOptions,
@@ -233,18 +235,32 @@ class LayerManager {
     x: number,
     y: number
   ): ICesiumImageryLayer | undefined {
-    /*const pt = turf.point([-77, 44]);
-    return this.layers.find((layer) => {
-      const poly = turf.polygon([[
-        [-81, 41],
-        [-81, 47],
-        [-72, 47],
-        [-81, 41]
-      ]]);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return layer.meta !== undefined ? turf.booleanPointInPolygon(pt, poly) && layer.show === true : false;
-    });*/
-    return this.layers[0];
+    const pt: Point = {
+      "type": "Point",
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      "coordinates": [-77, 44]
+    };
+    const nonBaseLayers = this.layers.filter((layer) => {
+      const parentId = get(layer.meta, 'parentBasetMapId') as string;
+      return parentId ? false : true;
+    });
+    
+    return nonBaseLayers.find((layer) => {
+      const poly: Feature<Polygon,Properties> = {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [[
+            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+            [-81, 41], [-81, 47], [-72, 47], [-72, 41], [-81, 41]
+          ]]
+        }
+      };
+      // eslint-disable-next-line
+      return layer.meta !== undefined ? booleanPointInPolygon(pt, poly) && layer.show : false;
+    });
+    // return this.layers[0];
   }
 
   private getBaseLayersCount(): number {
