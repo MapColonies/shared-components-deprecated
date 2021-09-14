@@ -248,8 +248,7 @@ class LayerManager {
       const footprint: Feature<Polygon, Properties> = {
         type: 'Feature',
         properties: {},
-        // @ts-ignore
-        geometry: layer.meta?.meta?.footprint as Polygon,
+        geometry: layer.meta?.footprint as Polygon,
       };
       const isInLayer = booleanPointInPolygon(position.geometry, footprint);
       return isInLayer && layer.show;
