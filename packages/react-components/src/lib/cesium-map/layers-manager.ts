@@ -236,34 +236,28 @@ class LayerManager {
   public findLayerByPosition(
     x: number,
     y: number
-  ): ICesiumImageryLayer | undefined {
-    const position = pointToGeoJSON(this.mapViewer, x, y);
-    const pt: Point = {
-      "type": "Point",
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      "coordinates": [-77, 44]
-    };
+  ): ICesiumImageryLayer[] | undefined {
+    const position = pointToGeoJSON(this.mapViewer, x, y) as Feature<Point>;
 
     const nonBaseLayers = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
       return parentId ? false : true;
     });
     
-    return nonBaseLayers.find((layer) => {
+    const selectedVisibleLayers = nonBaseLayers.filter((layer) => {
       const footprint: Feature<Polygon,Properties> = {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "Polygon",
-          "coordinates": [[
-            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            [-81, 41], [-81, 47], [-72, 47], [-72, 41], [-81, 41]
-          ]]
-        }
+        type: 'Feature',
+        properties: {},
+        // @ts-ignore
+        geometry: layer.meta?.meta?.footprint as Polygon
       };
-      const isInLayer = booleanPointInPolygon(pt, footprint);
-      // eslint-disable-next-line
+      const isInLayer = booleanPointInPolygon(position.geometry, footprint);
       return isInLayer && layer.show;
+    });
+
+    return selectedVisibleLayers.sort((layer1, layer2) => {
+      // @ts-ignore
+      return layer2.meta?.zIndex - layer1.meta?.zIndex;
     });
   }
 
