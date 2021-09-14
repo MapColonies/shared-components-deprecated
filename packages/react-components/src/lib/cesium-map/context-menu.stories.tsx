@@ -239,7 +239,10 @@ const ContextMenu: React.FC<IContextMenuData> = ({
   data,
   handleClose,
 }) => {
-  const layerId = data[0]?.meta !== undefined ? (data[0]?.meta as Record<string, unknown>).id as string : '';
+  const layerId =
+    data[0]?.meta !== undefined
+      ? ((data[0]?.meta as Record<string, unknown>).id as string)
+      : '';
 
   const handleAction = (
     action: string,
