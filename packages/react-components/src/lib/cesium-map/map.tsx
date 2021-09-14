@@ -61,7 +61,7 @@ const MapViewProvider = mapContext.Provider;
 const cameraPositionRefreshRate = 10000;
 
 export interface IContextMenuData {
-  data?: Record<string, unknown>;
+  data: Record<string, unknown>[];
   style?: Record<string, string>;
   handleClose: () => void;
 }
@@ -300,7 +300,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             data: mapViewRef?.layersManager?.findLayerByPosition(
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number
-            ) as unknown as Record<string, unknown>,
+            ) as unknown as Record<string, unknown>[],
             style: {
               left: `${imageryMenuPosition.x as string}px`,
               top: `${imageryMenuPosition.y as string}px`,

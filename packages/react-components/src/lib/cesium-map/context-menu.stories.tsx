@@ -239,9 +239,11 @@ const ContextMenu: React.FC<IContextMenuData> = ({
   data,
   handleClose,
 }) => {
+  const layerId = data[0]?.meta !== undefined ? (data[0]?.meta as Record<string, unknown>).id as string : '';
+
   const handleAction = (
     action: string,
-    data: Record<string, unknown>
+    data: Record<string, unknown>[]
   ): void => {
     console.log(`ACTION: ${action}`);
     console.log('DATA:', data);
@@ -249,11 +251,11 @@ const ContextMenu: React.FC<IContextMenuData> = ({
 
   return (
     <>
-      {data?.length > 0 && (
+      {data.length > 0 && (
         <Box className="container" style={style}>
-          {data?.length > 1 && (
+          {data.length > 1 && (
             <h3>
-              Overlapping <span style={{ color: 'red' }}>{data?.length}</span>{' '}
+              Overlapping <span style={{ color: 'red' }}>{data.length}</span>{' '}
               layers
             </h3>
           )}
@@ -269,10 +271,10 @@ const ContextMenu: React.FC<IContextMenuData> = ({
                     <Box
                       className="imageryMenuItem"
                       onClick={(evt): void => {
-                        handleAction(action, data as Record<string, unknown>);
+                        handleAction(action, data);
                       }}
                     >
-                      {`${data[0]?.meta?.id} ${action}`}
+                      {`${layerId} ${action}`}
                     </Box>
                   </MenuItem>
                 );
@@ -281,7 +283,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
           </MenuSurfaceAnchor>
         </Box>
       )}
-      {data?.length === 0 && <Box style={style}></Box>}
+      {data.length === 0 && <Box style={style}></Box>}
     </>
   );
 };

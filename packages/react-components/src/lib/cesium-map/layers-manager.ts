@@ -34,7 +34,7 @@ export interface IRasterLayer {
     | RCesiumWMSLayerOptions
     | RCesiumWMTSLayerOptions
     | RCesiumXYZLayerOptions;
-  meta: Record<string, unknown>;
+  footprint: Record<string, unknown>;
 }
 
 export interface IVectorLayer {
