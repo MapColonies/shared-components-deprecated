@@ -298,12 +298,12 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           props.imageryContextMenu &&
           React.cloneElement(props.imageryContextMenu, {
             data: (mapViewRef?.layersManager?.findLayerByPosition(
-                    imageryMenuPosition.x as number,
-                    imageryMenuPosition.y as number
-                  ) ?? { 
-                    isLayerFound: false,
-                    msg: 'No data' 
-                  }) as Record<string, unknown>,
+              imageryMenuPosition.x as number,
+              imageryMenuPosition.y as number
+            ) ?? {
+              isLayerFound: false,
+              msg: 'No data',
+            }) as Record<string, unknown>,
             style: {
               left: `${imageryMenuPosition.x as string}px`,
               top: `${imageryMenuPosition.y as string}px`,
@@ -312,7 +312,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             },
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);
-            }
+            },
           })}
       </MapViewProvider>
     </Viewer>

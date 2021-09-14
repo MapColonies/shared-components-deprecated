@@ -175,10 +175,18 @@ const layers = [
     },
     meta: {
       footprint: {
-        type: "Polygon",
-        coordinates: [[[34.8099445223518,31.9061345394902],[34.8200994167574,31.9061345394902],[34.8200994167574,31.9106311613979],[34.8099445223518,31.9106311613979],[34.8099445223518,31.9061345394902]]]
-      }
-    }
+        type: 'Polygon',
+        coordinates: [
+          [
+            [34.8099445223518, 31.9061345394902],
+            [34.8200994167574, 31.9061345394902],
+            [34.8200994167574, 31.9106311613979],
+            [34.8099445223518, 31.9106311613979],
+            [34.8099445223518, 31.9061345394902],
+          ],
+        ],
+      },
+    },
   },
   {
     id: '3_raster_ext',
@@ -192,10 +200,18 @@ const layers = [
     },
     meta: {
       footprint: {
-        type: "Polygon",
-        coordinates: [[[34.8106008249547,31.9076273723004],[34.8137969069015,31.9076273723004],[34.8137969069015,31.9103791381117],[34.8106008249547,31.9103791381117],[34.8106008249547,31.9076273723004]]]
-      }
-    }
+        type: 'Polygon',
+        coordinates: [
+          [
+            [34.8106008249547, 31.9076273723004],
+            [34.8137969069015, 31.9076273723004],
+            [34.8137969069015, 31.9103791381117],
+            [34.8106008249547, 31.9103791381117],
+            [34.8106008249547, 31.9076273723004],
+          ],
+        ],
+      },
+    },
   },
   {
     id: '4_raster1_ext',
@@ -209,42 +225,58 @@ const layers = [
     },
     meta: {
       footprint: {
-        type: "Polygon",
-        coordinates: [[[34.8043847068541,31.9023297972932],[34.8142791322292,31.9023297972932],[34.8142791322292,31.9108796531516],[34.8043847068541,31.9108796531516],[34.8043847068541,31.9023297972932]]]
-      }
-    }
+        type: 'Polygon',
+        coordinates: [
+          [
+            [34.8043847068541, 31.9023297972932],
+            [34.8142791322292, 31.9023297972932],
+            [34.8142791322292, 31.9108796531516],
+            [34.8043847068541, 31.9108796531516],
+            [34.8043847068541, 31.9023297972932],
+          ],
+        ],
+      },
+    },
   },
 ];
 
-const ContextMenu: React.FC<IContextMenuData> = ({ style, data, handleClose }) => {
-
-  const handleAction = (action: string, data: Record<string, unknown>): void => {
+const ContextMenu: React.FC<IContextMenuData> = ({
+  style,
+  data,
+  handleClose,
+}) => {
+  const handleAction = (
+    action: string,
+    data: Record<string, unknown>
+  ): void => {
     console.log(`ACTION:${action}`);
-    console.log('DATA:',data);
+    console.log('DATA:', data);
   };
   const isLayerFound = (get(data, 'isLayerFound') ?? true) as boolean;
-  if(!isLayerFound){
+  if (!isLayerFound) {
     console.log(data?.msg);
   }
 
   return (
     <>
-    {
-      isLayerFound && data?.length > 0 && <Box className="container" style={style}>
-        {
-          data?.length > 1 && <h3>Overlapping <span style={{color: 'red'}}>{data?.length}</span> layers</h3>
-        }
-        <MenuSurfaceAnchor id="actionsMenuContainer">
-          <Menu
-            open={true}
-            onClose={ evt => handleClose() }
-            onMouseOver={ evt => evt.stopPropagation() }
-          >
-            {
-              ['TOP', 'UP', 'DOWN', 'BOTTOM'].map(action => {
+      {isLayerFound && data?.length > 0 && (
+        <Box className="container" style={style}>
+          {data?.length > 1 && (
+            <h3>
+              Overlapping <span style={{ color: 'red' }}>{data?.length}</span>{' '}
+              layers
+            </h3>
+          )}
+          <MenuSurfaceAnchor id="actionsMenuContainer">
+            <Menu
+              open={true}
+              onClose={(evt) => handleClose()}
+              onMouseOver={(evt) => evt.stopPropagation()}
+            >
+              {['TOP', 'UP', 'DOWN', 'BOTTOM'].map((action) => {
                 return (
                   <MenuItem key={`imageryMenuItemAction_${action}`}>
-                    <Box 
+                    <Box
                       className="imageryMenuItem"
                       onClick={(evt): void => {
                         handleAction(action, data as Record<string, unknown>);
@@ -253,16 +285,13 @@ const ContextMenu: React.FC<IContextMenuData> = ({ style, data, handleClose }) =
                       {`${data[0]?.meta?.id} ${action}`}
                     </Box>
                   </MenuItem>
-                )
-              })
-            }
-          </Menu>
-        </MenuSurfaceAnchor>
-      </Box>
-    }
-    {
-      (!isLayerFound || data?.length === 0) && <Box style={style}></Box>
-    }
+                );
+              })}
+            </Menu>
+          </MenuSurfaceAnchor>
+        </Box>
+      )}
+      {(!isLayerFound || data?.length === 0) && <Box style={style}></Box>}
     </>
   );
 };
@@ -305,7 +334,9 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
         }}
       >
         {layers.map((layer) => (
-          <option key={layer.id} defaultValue={layer.id}>{layer.id}</option>
+          <option key={layer.id} defaultValue={layer.id}>
+            {layer.id}
+          </option>
         ))}
       </select>
       <input
@@ -358,7 +389,3 @@ export const MapWithContextMenu: Story = () => {
   );
 };
 MapWithContextMenu.storyName = 'Map Context Menu';
-
-
-
-

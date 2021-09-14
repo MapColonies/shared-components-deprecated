@@ -243,13 +243,13 @@ class LayerManager {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
       return parentId ? false : true;
     });
-    
+
     const selectedVisibleLayers = nonBaseLayers.filter((layer) => {
-      const footprint: Feature<Polygon,Properties> = {
+      const footprint: Feature<Polygon, Properties> = {
         type: 'Feature',
         properties: {},
         // @ts-ignore
-        geometry: layer.meta?.meta?.footprint as Polygon
+        geometry: layer.meta?.meta?.footprint as Polygon,
       };
       const isInLayer = booleanPointInPolygon(position.geometry, footprint);
       return isInLayer && layer.show;
