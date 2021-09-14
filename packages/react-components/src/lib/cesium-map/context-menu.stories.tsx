@@ -206,7 +206,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({ style, data, handleClose }) =
   };
   const isLayerFound = (get(data, 'isLayerFound') ?? true) as boolean;
   if(!isLayerFound){
-    console.log(data.msg);
+    console.log(data?.msg);
   }
 
   return (
@@ -216,13 +216,8 @@ const ContextMenu: React.FC<IContextMenuData> = ({ style, data, handleClose }) =
       <MenuSurfaceAnchor id="actionsMenuContainer">
         <Menu
           open={true}
-          onClose={
-            evt => {
-              console.log(' BEFORE CLOSE');
-              handleClose();
-            }
-          }
-          onMouseOver={evt => evt.stopPropagation()}
+          onClose={ evt => handleClose() }
+          onMouseOver={ evt => evt.stopPropagation() }
         >
           {
             ['TOP', 'UP', 'DOWN', 'BOTTOM'].map(action => {

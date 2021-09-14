@@ -17,6 +17,7 @@ import {
 } from './layers';
 import { CesiumViewer } from './map';
 import { IBaseMap } from './settings/settings';
+import { pointToGeoJSON } from './tools/geojson/point.geojson';
 
 export interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
   meta?: Record<string, unknown>;
@@ -33,6 +34,7 @@ export interface IRasterLayer {
     | RCesiumWMSLayerOptions
     | RCesiumWMTSLayerOptions
     | RCesiumXYZLayerOptions;
+  meta: Record<string, unknown>;
 }
 
 export interface IVectorLayer {
@@ -235,18 +237,20 @@ class LayerManager {
     x: number,
     y: number
   ): ICesiumImageryLayer | undefined {
+    const position = pointToGeoJSON(this.mapViewer, x, y);
     const pt: Point = {
       "type": "Point",
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       "coordinates": [-77, 44]
     };
+
     const nonBaseLayers = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
       return parentId ? false : true;
     });
     
     return nonBaseLayers.find((layer) => {
-      const poly: Feature<Polygon,Properties> = {
+      const footprint: Feature<Polygon,Properties> = {
         "type": "Feature",
         "properties": {},
         "geometry": {
@@ -257,10 +261,10 @@ class LayerManager {
           ]]
         }
       };
+      const isInLayer = booleanPointInPolygon(pt, footprint);
       // eslint-disable-next-line
-      return layer.meta !== undefined ? booleanPointInPolygon(pt, poly) && layer.show : false;
+      return isInLayer && layer.show;
     });
-    // return this.layers[0];
   }
 
   private getBaseLayersCount(): number {

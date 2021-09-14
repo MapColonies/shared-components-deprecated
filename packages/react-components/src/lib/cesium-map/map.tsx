@@ -19,15 +19,15 @@ import {
   ScreenSpaceEventType,
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
-
 import { getAltitude, toDegrees } from '../utils/map';
 import { Box } from '../box';
-import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum, Proj } from '.';
+
+import './map.css';
 
 interface ICameraPosition {
   longitude: number;
