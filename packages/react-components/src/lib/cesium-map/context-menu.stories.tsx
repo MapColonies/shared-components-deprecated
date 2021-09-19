@@ -376,6 +376,7 @@ export const MapWithContextMenu: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
+        // @ts-ignore
         imageryContextMenu={<ContextMenu />}
       >
         <LayersMozaik layers={layers} />

@@ -51,7 +51,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rimraf dist && tsc --project tsbuildconfig.json && yarn run copyassets:components",
+    "build": "npx rimraf dist && tsc --project tsbuildconfig.json && yarn run copyassets:components",
     "test": "react-scripts test",
     "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
     "eject": "react-scripts eject",

@@ -34,7 +34,7 @@ export interface IRasterLayer {
     | RCesiumWMSLayerOptions
     | RCesiumWMTSLayerOptions
     | RCesiumXYZLayerOptions;
-  footprint: Record<string, unknown>;
+  footprint?: Record<string, unknown>;
 }
 
 export interface IVectorLayer {
@@ -245,13 +245,20 @@ class LayerManager {
     });
 
     const selectedVisibleLayers = nonBaseLayers.filter((layer) => {
-      const footprint: Feature<Polygon, Properties> = {
-        type: 'Feature',
-        properties: {},
-        geometry: layer.meta?.footprint as Polygon,
-      };
-      const isInLayer = booleanPointInPolygon(position.geometry, footprint);
-      return isInLayer && layer.show;
+      const layerFootprint = get(layer.meta, 'footprint') as Polygon | undefined;
+      if (layerFootprint !== undefined) {
+        const isInLayer = booleanPointInPolygon(
+          position.geometry, 
+          {
+            type: 'Feature',
+            properties: {},
+            geometry: layerFootprint,
+          });
+        return isInLayer && layer.show;
+      } else {
+        console.warn('CesiumImageryLayer has no defined footprint', layer.meta);
+        return false;
+      }
     });
 
     return selectedVisibleLayers.sort((layer1, layer2) => {
