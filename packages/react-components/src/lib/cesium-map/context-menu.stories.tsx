@@ -210,7 +210,7 @@ const layers = [
           ],
         ],
       },
-    }
+    },
   },
   {
     id: '4_raster1_ext',
