@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { get } from 'lodash';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { Menu, MenuItem, MenuSurfaceAnchor } from '@map-colonies/react-core';
 import { Box } from '../box';
@@ -173,17 +172,19 @@ const layers = [
       url:
         'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
     },
-    footprint: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [34.8099445223518, 31.9061345394902],
-          [34.8200994167574, 31.9061345394902],
-          [34.8200994167574, 31.9106311613979],
-          [34.8099445223518, 31.9106311613979],
-          [34.8099445223518, 31.9061345394902],
+    details: {
+      footprint: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [34.8099445223518, 31.9061345394902],
+            [34.8200994167574, 31.9061345394902],
+            [34.8200994167574, 31.9106311613979],
+            [34.8099445223518, 31.9106311613979],
+            [34.8099445223518, 31.9061345394902],
+          ],
         ],
-      ],
+      },
     },
   },
   {
@@ -196,18 +197,20 @@ const layers = [
       url:
         'https://tiles.openaerialmap.org/5a8316e22553e6000ce5ac7f/0/c3fcbe99-d339-41b6-8ec0-33d90ccca020/{z}/{x}/{y}.png',
     },
-    footprint: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [34.8106008249547, 31.9076273723004],
-          [34.8137969069015, 31.9076273723004],
-          [34.8137969069015, 31.9103791381117],
-          [34.8106008249547, 31.9103791381117],
-          [34.8106008249547, 31.9076273723004],
+    details: {
+      footprint: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [34.8106008249547, 31.9076273723004],
+            [34.8137969069015, 31.9076273723004],
+            [34.8137969069015, 31.9103791381117],
+            [34.8106008249547, 31.9103791381117],
+            [34.8106008249547, 31.9076273723004],
+          ],
         ],
-      ],
-    },
+      },
+    }
   },
   {
     id: '4_raster1_ext',
@@ -219,17 +222,19 @@ const layers = [
       url:
         'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
     },
-    footprint: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [34.8043847068541, 31.9023297972932],
-          [34.8142791322292, 31.9023297972932],
-          [34.8142791322292, 31.9108796531516],
-          [34.8043847068541, 31.9108796531516],
-          [34.8043847068541, 31.9023297972932],
+    details: {
+      footprint: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [34.8043847068541, 31.9023297972932],
+            [34.8142791322292, 31.9023297972932],
+            [34.8142791322292, 31.9108796531516],
+            [34.8043847068541, 31.9108796531516],
+            [34.8043847068541, 31.9023297972932],
+          ],
         ],
-      ],
+      },
     },
   },
 ];
@@ -265,8 +270,8 @@ const ContextMenu: React.FC<IContextMenuData> = ({
           <MenuSurfaceAnchor id="actionsMenuContainer">
             <Menu
               open={true}
-              onClose={(evt) => handleClose()}
-              onMouseOver={(evt) => evt.stopPropagation()}
+              onClose={(evt): void => handleClose()}
+              onMouseOver={(evt): void => evt.stopPropagation()}
             >
               {['TOP', 'UP', 'DOWN', 'BOTTOM'].map((action) => {
                 return (

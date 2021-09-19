@@ -7,7 +7,6 @@ import {
 } from 'cesium';
 import { get } from 'lodash';
 import { Feature, Point, Polygon } from 'geojson';
-import { Properties } from '@turf/helpers';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import {
   RCesiumOSMLayerOptions,
@@ -34,7 +33,7 @@ export interface IRasterLayer {
     | RCesiumWMSLayerOptions
     | RCesiumWMTSLayerOptions
     | RCesiumXYZLayerOptions;
-  footprint?: Record<string, unknown>;
+  details?: Record<string, unknown>;
 }
 
 export interface IVectorLayer {
@@ -245,7 +244,7 @@ class LayerManager {
     });
 
     const selectedVisibleLayers = nonBaseLayers.filter((layer) => {
-      const layerFootprint = get(layer.meta, 'footprint') as
+      const layerFootprint = get(layer.meta, 'details.footprint') as
         | Polygon
         | undefined;
       if (layerFootprint !== undefined) {
