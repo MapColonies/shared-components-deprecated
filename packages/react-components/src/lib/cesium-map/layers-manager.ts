@@ -245,15 +245,15 @@ class LayerManager {
     });
 
     const selectedVisibleLayers = nonBaseLayers.filter((layer) => {
-      const layerFootprint = get(layer.meta, 'footprint') as Polygon | undefined;
+      const layerFootprint = get(layer.meta, 'footprint') as
+        | Polygon
+        | undefined;
       if (layerFootprint !== undefined) {
-        const isInLayer = booleanPointInPolygon(
-          position.geometry, 
-          {
-            type: 'Feature',
-            properties: {},
-            geometry: layerFootprint,
-          });
+        const isInLayer = booleanPointInPolygon(position.geometry, {
+          type: 'Feature',
+          properties: {},
+          geometry: layerFootprint,
+        });
         return isInLayer && layer.show;
       } else {
         console.warn('CesiumImageryLayer has no defined footprint', layer.meta);
