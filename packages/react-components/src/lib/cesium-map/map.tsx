@@ -293,11 +293,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           )}
           {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
         </Box>
-        {showImageryMenu &&
+        {props.imageryContextMenu &&
+          showImageryMenu &&
           imageryMenuPosition &&
-          props.imageryContextMenu &&
           React.cloneElement(props.imageryContextMenu, {
-            data: (mapViewRef?.layersManager?.findLayerByPosition(
+            data: (mapViewRef?.layersManager?.findLayerByPOI(
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number
             ) as unknown) as Record<string, unknown>[],

@@ -233,7 +233,7 @@ class LayerManager {
     return layerIdx ? this.mapViewer.imageryLayers.get(layerIdx) : undefined;
   }
 
-  public findLayerByPosition(
+  public findLayerByPOI(
     x: number,
     y: number
   ): ICesiumImageryLayer[] | undefined {
