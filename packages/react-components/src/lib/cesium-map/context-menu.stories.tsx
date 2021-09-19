@@ -260,14 +260,14 @@ const ContextMenu: React.FC<IContextMenuData> = ({
   return (
     <>
       {data.length > 0 && (
-        <Box className="container" style={style}>
+        <Box style={style}>
           {data.length > 1 && (
             <h3>
               Overlapping <span style={{ color: 'red' }}>{data.length}</span>{' '}
               layers
             </h3>
           )}
-          <MenuSurfaceAnchor id="actionsMenuContainer">
+          <MenuSurfaceAnchor>
             <Menu
               open={true}
               onClose={(evt): void => handleClose()}
@@ -277,7 +277,6 @@ const ContextMenu: React.FC<IContextMenuData> = ({
                 return (
                   <MenuItem key={`imageryMenuItemAction_${action}`}>
                     <Box
-                      className="imageryMenuItem"
                       onClick={(evt): void => {
                         handleAction(action, data);
                       }}
