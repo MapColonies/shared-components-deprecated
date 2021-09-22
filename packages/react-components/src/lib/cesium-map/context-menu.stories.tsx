@@ -260,11 +260,20 @@ const ContextMenu: React.FC<IContextMenuData> = ({
   return (
     <>
       {data.length > 0 && (
-        <Box style={{...style, background: 'var(--mdc-theme-surface)', borderRadius: '4px', padding: '12px', paddingBottom: '220px'}}>
+        <Box
+          style={{
+            ...style,
+            background: 'var(--mdc-theme-surface)',
+            borderRadius: '4px',
+            padding: '12px',
+            paddingBottom: '220px',
+          }}
+        >
           <h4>Actions on {layerId}:</h4>
           {data.length > 1 && (
             <h3>
-              <span style={{ color: 'red' }}>{data.length}</span> layers overlapping
+              <span style={{ color: 'red' }}>{data.length}</span> layers
+              overlapping
             </h3>
           )}
           <MenuSurfaceAnchor>
@@ -272,7 +281,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
               open={true}
               onClose={(evt): void => handleClose()}
               onMouseOver={(evt): void => evt.stopPropagation()}
-              style={{width: '100%'}}
+              style={{ width: '100%' }}
             >
               {['Top', 'Up', 'Down', 'Bottom'].map((action) => {
                 return (
@@ -291,7 +300,18 @@ const ContextMenu: React.FC<IContextMenuData> = ({
           </MenuSurfaceAnchor>
         </Box>
       )}
-      {data.length === 0 && <Box style={{...style, background: 'var(--mdc-theme-surface)', borderRadius: '4px', padding: '12px'}}>xxx</Box>}
+      {data.length === 0 && (
+        <Box
+          style={{
+            ...style,
+            background: 'var(--mdc-theme-surface)',
+            borderRadius: '4px',
+            padding: '12px',
+          }}
+        >
+          No data found
+        </Box>
+      )}
     </>
   );
 };
