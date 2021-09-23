@@ -304,7 +304,6 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             style: {
               left: `${imageryMenuPosition.x as string}px`,
               top: `${imageryMenuPosition.y as string}px`,
-              position: 'fixed',
             },
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);

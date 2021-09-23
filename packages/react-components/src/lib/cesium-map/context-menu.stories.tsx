@@ -264,6 +264,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
           style={{
             ...style,
             background: 'var(--mdc-theme-surface)',
+            position: 'absolute',
             borderRadius: '4px',
             padding: '12px',
             paddingBottom: '220px',
@@ -305,6 +306,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
           style={{
             ...style,
             background: 'var(--mdc-theme-surface)',
+            position: 'absolute',
             borderRadius: '4px',
             padding: '12px',
           }}
