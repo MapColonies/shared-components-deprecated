@@ -281,7 +281,6 @@ const ContextMenu: React.FC<IContextMenuData> = ({
             <Menu
               open={true}
               onClose={(evt): void => handleClose()}
-              onMouseOver={(evt): void => evt.stopPropagation()}
               style={{ width: '100%' }}
             >
               {['Top', 'Up', 'Down', 'Bottom'].map((action) => {
