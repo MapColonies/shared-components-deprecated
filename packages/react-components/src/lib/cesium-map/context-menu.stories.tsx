@@ -333,12 +333,20 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
     });
   }, [layers, mapViewer]);
 
+  const handleRaise = (): void => {
+    mapViewer.layersManager?.raise(selectedLayer, times);
+  };
+
   const handleLower = (): void => {
     mapViewer.layersManager?.lower(selectedLayer, times);
   };
 
-  const handleRaise = (): void => {
-    mapViewer.layersManager?.raise(selectedLayer, times);
+  const handleRaiseToTop = (): void => {
+    mapViewer.layersManager?.raiseToTop(selectedLayer);
+  };
+
+  const handleLowerToBottom = (): void => {
+    mapViewer.layersManager?.lowerToBottom(selectedLayer);
   };
 
   const handleToglleAll = (): void => {
@@ -380,6 +388,20 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
         }}
       >
         Lower
+      </button>
+      <button
+        onClick={(): void => {
+          handleRaiseToTop();
+        }}
+      >
+        RaiseToTop
+      </button>
+      <button
+        onClick={(): void => {
+          handleLowerToBottom();
+        }}
+      >
+        LowerToBottom
       </button>
       <button
         onClick={(): void => {

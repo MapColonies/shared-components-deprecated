@@ -18,6 +18,9 @@ import { CesiumViewer } from './map';
 import { IBaseMap } from './settings/settings';
 import { pointToGeoJSON } from './tools/geojson/point.geojson';
 
+const INC = 1;
+const DEC = -1;
+
 export interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
   meta?: Record<string, unknown>;
 }
@@ -154,16 +157,20 @@ class LayerManager {
 
   public raise(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
+    const order = (layer?.meta as Record<string, unknown>).zIndex as number;
 
     if (layer) {
       for (let position = 0; position < positions; position++) {
         this.mapViewer.imageryLayers.raise(layer);
       }
     }
+
+    this.updateLayersOrder(layerId, order, order + positions);
   }
 
   public lower(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
+    const order = (layer?.meta as Record<string, unknown>).zIndex as number;
     const lowerLimit = this.getBaseLayersCount();
     const layerIdx = this.mapViewer.imageryLayers.indexOf(
       layer as ImageryLayer
@@ -178,18 +185,24 @@ class LayerManager {
         this.mapViewer.imageryLayers.lower(layer);
       }
     }
+
+    this.updateLayersOrder(layerId, order, order - positions);
   }
 
   public raiseToTop(layerId: string): void {
     const layer = this.findLayerById(layerId);
+    const order = (layer?.meta as Record<string, unknown>).zIndex as number;
 
     if (layer) {
       this.mapViewer.imageryLayers.raiseToTop(layer);
     }
+
+    this.updateLayersOrder(layerId, order, this.mapViewer.imageryLayers.length - this.getBaseLayersCount() - 1);
   }
 
   public lowerToBottom(layerId: string): void {
     const layer = this.findLayerById(layerId);
+    // const order = (layer?.meta as Record<string, unknown>).zIndex as number;
     const lowerLimit = this.getBaseLayersCount();
     const layerIdx = this.mapViewer.imageryLayers.indexOf(
       layer as ImageryLayer
@@ -199,6 +212,8 @@ class LayerManager {
     // if (layer) {
     //   this.mapViewer.imageryLayers.lowerToBottom(layer);
     // }
+
+    // this.updateLayersOrder(layerId, order, 0);
   }
 
   public length(): number {
@@ -278,6 +293,20 @@ class LayerManager {
     return this.layers.find((layer) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return layer.meta !== undefined ? layer.meta.id === layerId : false;
+    });
+  }
+
+  private updateLayersOrder(id: string, from: number, to: number): void {
+    const move = from > to ? INC : DEC;
+    const min = from < to ? from : to;
+    const max = from < to ? to : from;
+
+    this.layers.forEach((layer) => {
+      const parentId = get(layer.meta, 'parentBasetMapId') as string;
+      if (!parentId) {
+        const layerOrder = layer.meta?.zIndex as number;
+        (layer.meta as Record<string, unknown>).zIndex = layerOrder >= min && layerOrder <= max && layerOrder !== from ? layerOrder + move : (layerOrder === from ? to : layerOrder);
+      }
     });
   }
 }
