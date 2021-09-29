@@ -197,7 +197,11 @@ class LayerManager {
       this.mapViewer.imageryLayers.raiseToTop(layer);
     }
 
-    this.updateLayersOrder(layerId, order, this.mapViewer.imageryLayers.length - this.getBaseLayersCount() - 1);
+    this.updateLayersOrder(
+      layerId,
+      order,
+      this.mapViewer.imageryLayers.length - this.getBaseLayersCount() - 1
+    );
   }
 
   public lowerToBottom(layerId: string): void {
@@ -305,7 +309,12 @@ class LayerManager {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
       if (!parentId) {
         const layerOrder = layer.meta?.zIndex as number;
-        (layer.meta as Record<string, unknown>).zIndex = layerOrder >= min && layerOrder <= max && layerOrder !== from ? layerOrder + move : (layerOrder === from ? to : layerOrder);
+        (layer.meta as Record<string, unknown>).zIndex =
+          layerOrder >= min && layerOrder <= max && layerOrder !== from
+            ? layerOrder + move
+            : layerOrder === from
+            ? to
+            : layerOrder;
       }
     });
   }
