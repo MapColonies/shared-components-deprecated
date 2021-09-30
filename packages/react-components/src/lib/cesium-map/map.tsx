@@ -316,7 +316,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);
             },
-            size: props.imageryContextMenuSize ?? {height: 212, width: 260}
+            size: props.imageryContextMenuSize ?? { height: 212, width: 260 },
           })}
       </MapViewProvider>
     </Viewer>
