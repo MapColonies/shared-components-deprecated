@@ -64,6 +64,10 @@ export interface IContextMenuData {
   data: Record<string, unknown>[];
   style?: Record<string, string>;
   handleClose: () => void;
+  size: {
+    height: number;
+    width: number;
+  };
 }
 
 export interface CesiumMapProps extends ViewerProps {
@@ -76,6 +80,10 @@ export interface CesiumMapProps extends ViewerProps {
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
   imageryContextMenu?: React.ReactElement<IContextMenuData>;
+  imageryContextMenuSize?: {
+    height: number;
+    width: number;
+  };
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -308,6 +316,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);
             },
+            size: props.imageryContextMenuSize ?? {height: 212, width: 260}
           })}
       </MapViewProvider>
     </Viewer>
