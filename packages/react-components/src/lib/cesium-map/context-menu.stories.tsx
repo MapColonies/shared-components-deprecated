@@ -262,7 +262,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
 
   const emptyStyle = {
     left: `${(position as Record<string, number>).x}px`,
-    top: `${(position as Record<string, number>).y}px`
+    top: `${(position as Record<string, number>).y}px`,
   };
 
   return (
