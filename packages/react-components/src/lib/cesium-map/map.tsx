@@ -31,6 +31,7 @@ import './map.css';
 
 const DEFAULT_HEIGHT = 212;
 const DEFAULT_WIDTH = 260;
+const LIST_HEIGHT = 100;
 
 interface ICameraPosition {
   longitude: number;
@@ -146,7 +147,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x
       }px`,
       top: `${
-        mapHeight - y < menuHeight ? y - (menuHeight - (mapHeight - y)) : y
+        mapHeight - y < (menuHeight + LIST_HEIGHT) ? y - (menuHeight + LIST_HEIGHT - (mapHeight - y)) : y
       }px`,
     };
   };
