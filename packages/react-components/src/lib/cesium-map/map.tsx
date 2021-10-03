@@ -138,12 +138,17 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     menuWidth: number,
     menuHeight: number
   ): Record<string, string> => {
-    const container = ((mapViewRef as CesiumViewer).layersManager as LayerManager).mapViewer.container;
+    const container = ((mapViewRef as CesiumViewer)
+      .layersManager as LayerManager).mapViewer.container;
     const mapWidth = container.clientWidth;
     const mapHeight = container.clientHeight;
     return {
-      left: `${mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x}px`,
-      top: `${mapHeight - y < menuHeight ? y - (menuHeight - (mapHeight - y)) : y}px`,
+      left: `${
+        mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x
+      }px`,
+      top: `${
+        mapHeight - y < menuHeight ? y - (menuHeight - (mapHeight - y)) : y
+      }px`,
     };
   };
 
@@ -342,9 +347,12 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             },
             position: {
               x: imageryMenuPosition.x as number,
-              y: imageryMenuPosition.y as number
+              y: imageryMenuPosition.y as number,
             },
-            size: props.imageryContextMenuSize ?? { height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH },
+            size: props.imageryContextMenuSize ?? {
+              height: DEFAULT_HEIGHT,
+              width: DEFAULT_WIDTH,
+            },
           })}
       </MapViewProvider>
     </Viewer>

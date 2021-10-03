@@ -244,7 +244,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
   style,
   position,
   size,
-  handleClose
+  handleClose,
 }) => {
   const layerId =
     data[0]?.meta !== undefined
@@ -430,7 +430,7 @@ export const MapWithContextMenu: Story = () => {
         baseMaps={BASE_MAPS}
         // @ts-ignore
         imageryContextMenu={<ContextMenu />}
-        imageryContextMenuSize={ {height: 340, width: 200} }
+        imageryContextMenuSize={{ height: 340, width: 200 }}
       >
         <LayersMozaik layers={layers} />
       </CesiumMap>
