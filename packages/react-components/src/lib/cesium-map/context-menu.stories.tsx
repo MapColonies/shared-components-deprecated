@@ -241,8 +241,8 @@ const layers = [
 
 const ContextMenu: React.FC<IContextMenuData> = ({
   data,
-  style,
   position,
+  style,
   size,
   handleClose,
 }) => {
@@ -260,11 +260,17 @@ const ContextMenu: React.FC<IContextMenuData> = ({
     console.log('SIZE:', size);
   };
 
+  const emptyStyle = {
+    left: `${(position as Record<string, number>).x}px`,
+    top: `${(position as Record<string, number>).y}px`
+  };
+
   return (
     <>
       {data.length > 0 && (
         <Box
           style={{
+            ...emptyStyle,
             ...style,
             background: 'var(--mdc-theme-surface)',
             position: 'absolute',
@@ -306,8 +312,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
       {data.length === 0 && (
         <Box
           style={{
-            left: position.x,
-            top: position.y,
+            ...emptyStyle,
             background: 'var(--mdc-theme-surface)',
             position: 'absolute',
             borderRadius: '4px',

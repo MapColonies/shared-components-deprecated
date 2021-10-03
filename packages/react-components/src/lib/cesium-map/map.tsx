@@ -65,12 +65,12 @@ const cameraPositionRefreshRate = 10000;
 
 export interface IContextMenuData {
   data: Record<string, unknown>[];
-  style?: Record<string, string>;
   position: {
     x: number;
     y: number;
   };
-  size: {
+  style?: Record<string, string>;
+  size?: {
     height: number;
     width: number;
   };
@@ -138,8 +138,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     menuWidth: number,
     menuHeight: number
   ): Record<string, string> => {
-    const container = ((mapViewRef as CesiumViewer)
-      .layersManager as LayerManager).mapViewer.container;
+    const container = (mapViewRef as CesiumViewer).container;
     const mapWidth = container.clientWidth;
     const mapHeight = container.clientHeight;
     return {
@@ -336,22 +335,22 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number
             ) as unknown) as Record<string, unknown>[],
+            position: {
+              x: imageryMenuPosition.x as number,
+              y: imageryMenuPosition.y as number,
+            },
             style: getImageryMenuStyle(
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number,
               props.imageryContextMenuSize?.width ?? DEFAULT_WIDTH,
               props.imageryContextMenuSize?.height ?? DEFAULT_HEIGHT
             ),
-            handleClose: () => {
-              setShowImageryMenu(!showImageryMenu);
-            },
-            position: {
-              x: imageryMenuPosition.x as number,
-              y: imageryMenuPosition.y as number,
-            },
             size: props.imageryContextMenuSize ?? {
               height: DEFAULT_HEIGHT,
               width: DEFAULT_WIDTH,
+            },
+            handleClose: () => {
+              setShowImageryMenu(!showImageryMenu);
             },
           })}
       </MapViewProvider>
