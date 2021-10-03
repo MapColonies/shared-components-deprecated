@@ -240,9 +240,11 @@ const layers = [
 ];
 
 const ContextMenu: React.FC<IContextMenuData> = ({
-  style,
   data,
-  handleClose,
+  style,
+  position,
+  size,
+  handleClose
 }) => {
   const layerId =
     data[0]?.meta !== undefined
@@ -255,6 +257,7 @@ const ContextMenu: React.FC<IContextMenuData> = ({
   ): void => {
     console.log(`ACTION: ${action}`);
     console.log('DATA:', data);
+    console.log('SIZE:', size);
   };
 
   return (
@@ -303,7 +306,8 @@ const ContextMenu: React.FC<IContextMenuData> = ({
       {data.length === 0 && (
         <Box
           style={{
-            ...style,
+            left: position.x,
+            top: position.y,
             background: 'var(--mdc-theme-surface)',
             position: 'absolute',
             borderRadius: '4px',
@@ -426,6 +430,7 @@ export const MapWithContextMenu: Story = () => {
         baseMaps={BASE_MAPS}
         // @ts-ignore
         imageryContextMenu={<ContextMenu />}
+        imageryContextMenuSize={ {height: 340, width: 200} }
       >
         <LayersMozaik layers={layers} />
       </CesiumMap>

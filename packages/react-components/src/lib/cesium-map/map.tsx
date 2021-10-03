@@ -29,6 +29,9 @@ import { CesiumSceneMode, CesiumSceneModeEnum, Proj } from '.';
 
 import './map.css';
 
+const DEFAULT_HEIGHT = 212;
+const DEFAULT_WIDTH = 260;
+
 interface ICameraPosition {
   longitude: number;
   latitude: number;
@@ -63,11 +66,15 @@ const cameraPositionRefreshRate = 10000;
 export interface IContextMenuData {
   data: Record<string, unknown>[];
   style?: Record<string, string>;
-  handleClose: () => void;
+  position: {
+    x: number;
+    y: number;
+  };
   size: {
     height: number;
     width: number;
   };
+  handleClose: () => void;
 }
 
 export interface CesiumMapProps extends ViewerProps {
@@ -123,6 +130,21 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     homeButton: false,
     sceneModePicker: false,
     ...(props as ViewerProps),
+  };
+
+  const getImageryMenuStyle = (
+    x: number,
+    y: number,
+    menuWidth: number,
+    menuHeight: number
+  ): Record<string, string> => {
+    const container = ((mapViewRef as CesiumViewer).layersManager as LayerManager).mapViewer.container;
+    const mapWidth = container.clientWidth;
+    const mapHeight = container.clientHeight;
+    return {
+      left: `${mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x}px`,
+      top: `${mapHeight - y < menuHeight ? y - (menuHeight - (mapHeight - y)) : y}px`,
+    };
   };
 
   useEffect(() => {
@@ -309,14 +331,20 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number
             ) as unknown) as Record<string, unknown>[],
-            style: {
-              left: `${imageryMenuPosition.x as string}px`,
-              top: `${imageryMenuPosition.y as string}px`,
-            },
+            style: getImageryMenuStyle(
+              imageryMenuPosition.x as number,
+              imageryMenuPosition.y as number,
+              props.imageryContextMenuSize?.width ?? DEFAULT_WIDTH,
+              props.imageryContextMenuSize?.height ?? DEFAULT_HEIGHT
+            ),
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);
             },
-            size: props.imageryContextMenuSize ?? { height: 212, width: 260 },
+            position: {
+              x: imageryMenuPosition.x as number,
+              y: imageryMenuPosition.y as number
+            },
+            size: props.imageryContextMenuSize ?? { height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH },
           })}
       </MapViewProvider>
     </Viewer>
