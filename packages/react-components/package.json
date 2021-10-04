@@ -26,6 +26,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@turf/bbox": "^6.0.1",
     "@turf/bbox-polygon": "^6.0.1",
+    "@turf/boolean-point-in-polygon": "^6.5.0",
     "@turf/helpers": "^6.1.4",
     "@turf/rewind": "^5.1.5",
     "@types/geojson": "^7946.0.7",
@@ -50,7 +51,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rimraf dist && tsc --project tsbuildconfig.json && yarn run copyassets:components",
+    "build": "npx rimraf dist && tsc --project tsbuildconfig.json && yarn run copyassets:components",
     "test": "react-scripts test",
     "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
     "eject": "react-scripts eject",

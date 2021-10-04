@@ -16,17 +16,22 @@ import {
   PerspectiveFrustum,
   PerspectiveOffCenterFrustum,
   OrthographicFrustum,
+  ScreenSpaceEventType,
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
-
 import { getAltitude, toDegrees } from '../utils/map';
 import { Box } from '../box';
-import './map.css';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum, Proj } from '.';
+
+import './map.css';
+
+const DEFAULT_HEIGHT = 212;
+const DEFAULT_WIDTH = 260;
+const DEFAULT_DYNAMIC_HEIGHT_INCREMENT = 0;
 
 interface ICameraPosition {
   longitude: number;
@@ -59,6 +64,20 @@ const mapContext = createContext<CesiumViewer | null>(null);
 const MapViewProvider = mapContext.Provider;
 const cameraPositionRefreshRate = 10000;
 
+export interface IContextMenuData {
+  data: Record<string, unknown>[];
+  position: {
+    x: number;
+    y: number;
+  };
+  style?: Record<string, string>;
+  size?: {
+    height: number;
+    width: number;
+  };
+  handleClose: () => void;
+}
+
 export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
   showScale?: boolean;
@@ -68,6 +87,12 @@ export interface CesiumMapProps extends ViewerProps {
   locale?: { [key: string]: string };
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
+  imageryContextMenu?: React.ReactElement<IContextMenuData>;
+  imageryContextMenuSize?: {
+    height: number;
+    width: number;
+    dynamicHeightIncrement?: number;
+  };
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -92,6 +117,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     CesiumSceneModeEnum[] | undefined
   >();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
+  const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
+  const [imageryMenuPosition, setImageryMenuPosition] = useState<
+    Record<string, unknown> | undefined
+  >(undefined);
 
   const viewerProps = {
     fullscreenButton: true,
@@ -105,10 +134,42 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     ...(props as ViewerProps),
   };
 
+  const getImageryMenuStyle = (
+    x: number,
+    y: number,
+    menuWidth: number,
+    menuHeight: number,
+    menuDynamicHeightIncrement: number
+  ): Record<string, string> => {
+    const container = (mapViewRef as CesiumViewer).container;
+    const mapWidth = container.clientWidth;
+    const mapHeight = container.clientHeight;
+    const calculatedHeight = menuHeight + menuDynamicHeightIncrement;
+    return {
+      left: `${
+        mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x
+      }px`,
+      top: `${
+        mapHeight - y < calculatedHeight
+          ? y - (calculatedHeight - (mapHeight - y))
+          : y
+      }px`,
+    };
+  };
+
   useEffect(() => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
       viewer.layersManager = new LayerManager(viewer);
+      viewer.screenSpaceEventHandler.setInputAction(
+        (evt: Record<string, unknown>) => {
+          console.log('RIGHT click', evt.position);
+          setShowImageryMenu(false);
+          setImageryMenuPosition(evt.position as Record<string, unknown>);
+          setShowImageryMenu(true);
+        },
+        ScreenSpaceEventType.RIGHT_CLICK
+      );
     }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
@@ -272,6 +333,34 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           )}
           {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
         </Box>
+        {props.imageryContextMenu &&
+          showImageryMenu &&
+          imageryMenuPosition &&
+          React.cloneElement(props.imageryContextMenu, {
+            data: (mapViewRef?.layersManager?.findLayerByPOI(
+              imageryMenuPosition.x as number,
+              imageryMenuPosition.y as number
+            ) as unknown) as Record<string, unknown>[],
+            position: {
+              x: imageryMenuPosition.x as number,
+              y: imageryMenuPosition.y as number,
+            },
+            style: getImageryMenuStyle(
+              imageryMenuPosition.x as number,
+              imageryMenuPosition.y as number,
+              props.imageryContextMenuSize?.width ?? DEFAULT_WIDTH,
+              props.imageryContextMenuSize?.height ?? DEFAULT_HEIGHT,
+              props.imageryContextMenuSize?.dynamicHeightIncrement ??
+                DEFAULT_DYNAMIC_HEIGHT_INCREMENT
+            ),
+            size: props.imageryContextMenuSize ?? {
+              height: DEFAULT_HEIGHT,
+              width: DEFAULT_WIDTH,
+            },
+            handleClose: () => {
+              setShowImageryMenu(!showImageryMenu);
+            },
+          })}
       </MapViewProvider>
     </Viewer>
   );

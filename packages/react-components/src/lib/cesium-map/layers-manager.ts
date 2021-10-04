@@ -6,6 +6,8 @@ import {
   WebMapTileServiceImageryProvider,
 } from 'cesium';
 import { get } from 'lodash';
+import { Feature, Point, Polygon } from 'geojson';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import {
   RCesiumOSMLayerOptions,
   RCesiumWMSLayerOptions,
@@ -14,6 +16,10 @@ import {
 } from './layers';
 import { CesiumViewer } from './map';
 import { IBaseMap } from './settings/settings';
+import { pointToGeoJSON } from './tools/geojson/point.geojson';
+
+const INC = 1;
+const DEC = -1;
 
 export interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
   meta?: Record<string, unknown>;
@@ -30,6 +36,7 @@ export interface IRasterLayer {
     | RCesiumWMSLayerOptions
     | RCesiumWMTSLayerOptions
     | RCesiumXYZLayerOptions;
+  details?: Record<string, unknown>;
 }
 
 export interface IVectorLayer {
@@ -150,16 +157,20 @@ class LayerManager {
 
   public raise(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
+    const order = (layer?.meta as Record<string, unknown>).zIndex as number;
 
     if (layer) {
       for (let position = 0; position < positions; position++) {
         this.mapViewer.imageryLayers.raise(layer);
       }
     }
+
+    this.updateLayersOrder(layerId, order, order + positions);
   }
 
   public lower(layerId: string, positions = 1): void {
     const layer = this.findLayerById(layerId);
+    const order = (layer?.meta as Record<string, unknown>).zIndex as number;
     const lowerLimit = this.getBaseLayersCount();
     const layerIdx = this.mapViewer.imageryLayers.indexOf(
       layer as ImageryLayer
@@ -174,18 +185,28 @@ class LayerManager {
         this.mapViewer.imageryLayers.lower(layer);
       }
     }
+
+    this.updateLayersOrder(layerId, order, order - positions);
   }
 
   public raiseToTop(layerId: string): void {
     const layer = this.findLayerById(layerId);
+    const order = (layer?.meta as Record<string, unknown>).zIndex as number;
 
     if (layer) {
       this.mapViewer.imageryLayers.raiseToTop(layer);
     }
+
+    this.updateLayersOrder(
+      layerId,
+      order,
+      this.mapViewer.imageryLayers.length - this.getBaseLayersCount() - 1
+    );
   }
 
   public lowerToBottom(layerId: string): void {
     const layer = this.findLayerById(layerId);
+    // const order = (layer?.meta as Record<string, unknown>).zIndex as number;
     const lowerLimit = this.getBaseLayersCount();
     const layerIdx = this.mapViewer.imageryLayers.indexOf(
       layer as ImageryLayer
@@ -195,6 +216,8 @@ class LayerManager {
     // if (layer) {
     //   this.mapViewer.imageryLayers.lowerToBottom(layer);
     // }
+
+    // this.updateLayersOrder(layerId, order, 0);
   }
 
   public length(): number {
@@ -228,6 +251,40 @@ class LayerManager {
     return layerIdx ? this.mapViewer.imageryLayers.get(layerIdx) : undefined;
   }
 
+  public findLayerByPOI(
+    x: number,
+    y: number
+  ): ICesiumImageryLayer[] | undefined {
+    const position = pointToGeoJSON(this.mapViewer, x, y) as Feature<Point>;
+
+    const nonBaseLayers = this.layers.filter((layer) => {
+      const parentId = get(layer.meta, 'parentBasetMapId') as string;
+      return parentId ? false : true;
+    });
+
+    const selectedVisibleLayers = nonBaseLayers.filter((layer) => {
+      const layerFootprint = get(layer.meta, 'details.footprint') as
+        | Polygon
+        | undefined;
+      if (layerFootprint !== undefined) {
+        const isInLayer = booleanPointInPolygon(position.geometry, {
+          type: 'Feature',
+          properties: {},
+          geometry: layerFootprint,
+        });
+        return isInLayer && layer.show;
+      } else {
+        console.warn('CesiumImageryLayer has no defined footprint', layer.meta);
+        return false;
+      }
+    });
+
+    return selectedVisibleLayers.sort((layer1, layer2) => {
+      // @ts-ignore
+      return layer2.meta?.zIndex - layer1.meta?.zIndex;
+    });
+  }
+
   private getBaseLayersCount(): number {
     const baseLayers = this.layers.filter((layer) => {
       const parentId = get(layer.meta, 'parentBasetMapId') as string;
@@ -240,6 +297,25 @@ class LayerManager {
     return this.layers.find((layer) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return layer.meta !== undefined ? layer.meta.id === layerId : false;
+    });
+  }
+
+  private updateLayersOrder(id: string, from: number, to: number): void {
+    const move = from > to ? INC : DEC;
+    const min = from < to ? from : to;
+    const max = from < to ? to : from;
+
+    this.layers.forEach((layer) => {
+      const parentId = get(layer.meta, 'parentBasetMapId') as string;
+      if (!parentId) {
+        const layerOrder = layer.meta?.zIndex as number;
+        (layer.meta as Record<string, unknown>).zIndex =
+          layerOrder >= min && layerOrder <= max && layerOrder !== from
+            ? layerOrder + move
+            : layerOrder === from
+            ? to
+            : layerOrder;
+      }
     });
   }
 }
