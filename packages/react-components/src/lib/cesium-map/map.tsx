@@ -31,7 +31,7 @@ import './map.css';
 
 const DEFAULT_HEIGHT = 212;
 const DEFAULT_WIDTH = 260;
-const LIST_HEIGHT = 120;
+const DEFAULT_DYNAMIC_HEIGHT_INCREMENT = 0;
 
 interface ICameraPosition {
   longitude: number;
@@ -91,6 +91,7 @@ export interface CesiumMapProps extends ViewerProps {
   imageryContextMenuSize?: {
     height: number;
     width: number;
+    dynamicHeightIncrement?: number;
   };
 }
 
@@ -137,18 +138,22 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     x: number,
     y: number,
     menuWidth: number,
-    menuHeight: number
+    menuHeight: number,
+    menuDynamicHeightIncrement: number,
   ): Record<string, string> => {
     const container = (mapViewRef as CesiumViewer).container;
     const mapWidth = container.clientWidth;
     const mapHeight = container.clientHeight;
+    const calculatedHeight = menuHeight + menuDynamicHeightIncrement;
     return {
       left: `${
-        mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x
+        mapWidth - x < menuWidth
+          ? x - (menuWidth - (mapWidth - x))
+          : x
       }px`,
       top: `${
-        mapHeight - y < menuHeight + LIST_HEIGHT
-          ? y - (menuHeight + LIST_HEIGHT - (mapHeight - y))
+        mapHeight - y < calculatedHeight
+          ? y - (calculatedHeight - (mapHeight - y))
           : y
       }px`,
     };
@@ -346,7 +351,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number,
               props.imageryContextMenuSize?.width ?? DEFAULT_WIDTH,
-              props.imageryContextMenuSize?.height ?? DEFAULT_HEIGHT
+              props.imageryContextMenuSize?.height ?? DEFAULT_HEIGHT,
+              props.imageryContextMenuSize?.dynamicHeightIncrement ?? DEFAULT_DYNAMIC_HEIGHT_INCREMENT,
             ),
             size: props.imageryContextMenuSize ?? {
               height: DEFAULT_HEIGHT,
