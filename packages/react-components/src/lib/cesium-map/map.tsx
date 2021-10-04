@@ -147,7 +147,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         mapWidth - x < menuWidth ? x - (menuWidth - (mapWidth - x)) : x
       }px`,
       top: `${
-        mapHeight - y < (menuHeight + LIST_HEIGHT) ? y - (menuHeight + LIST_HEIGHT - (mapHeight - y)) : y
+        mapHeight - y < menuHeight + LIST_HEIGHT
+          ? y - (menuHeight + LIST_HEIGHT - (mapHeight - y))
+          : y
       }px`,
     };
   };
