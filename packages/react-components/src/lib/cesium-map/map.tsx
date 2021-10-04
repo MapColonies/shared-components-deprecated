@@ -31,7 +31,7 @@ import './map.css';
 
 const DEFAULT_HEIGHT = 212;
 const DEFAULT_WIDTH = 260;
-const LIST_HEIGHT = 100;
+const LIST_HEIGHT = 120;
 
 interface ICameraPosition {
   longitude: number;
