@@ -1,6 +1,6 @@
 {
   "name": "@map-colonies/react-components",
-  "version": "3.7.1",
+  "version": "3.7.0",
   "module": "dist/index.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -85,7 +85,7 @@
     "jest-enzyme": "^7.1.2",
     "react-test-renderer": "^16.13.1"
   },
-  "gitHead": "0312325d702838d80fdc728a9c6a221e81b9b318",
+  "gitHead": "3e15e1e543de64636187a5482827f6f2ba1de4bb",
   "jest": {
     "coverageReporters": [
       "text",

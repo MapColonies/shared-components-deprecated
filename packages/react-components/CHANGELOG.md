@@ -3,17 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.7.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.7.0...@map-colonies/react-components@3.7.1) (2021-10-05)
-
-
-### Bug Fixes
-
-* handle right click only if context menu exist ([d44a84a](https://github.com/MapColonies/shared-components/commit/d44a84ade56e7cc73e47d1f6062e48a1889af793))
-
-
-
-
-
 # [3.7.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.6.5...@map-colonies/react-components@3.7.0) (2021-10-04)
 
 
