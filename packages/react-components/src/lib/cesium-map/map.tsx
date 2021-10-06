@@ -161,15 +161,17 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
       viewer.layersManager = new LayerManager(viewer);
-      viewer.screenSpaceEventHandler.setInputAction(
-        (evt: Record<string, unknown>) => {
-          console.log('RIGHT click', evt.position);
-          setShowImageryMenu(false);
-          setImageryMenuPosition(evt.position as Record<string, unknown>);
-          setShowImageryMenu(true);
-        },
-        ScreenSpaceEventType.RIGHT_CLICK
-      );
+      if (props.imageryContextMenu) {
+        viewer.screenSpaceEventHandler.setInputAction(
+          (evt: Record<string, unknown>) => {
+            // console.log('RIGHT click', evt.position);
+            setShowImageryMenu(false);
+            setImageryMenuPosition(evt.position as Record<string, unknown>);
+            setShowImageryMenu(true);
+          },
+          ScreenSpaceEventType.RIGHT_CLICK
+        );
+      }
     }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref]);
