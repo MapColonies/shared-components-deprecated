@@ -174,7 +174,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       }
     }
     setMapViewRef(ref.current?.cesiumElement);
-  }, [ref]);
+  }, [ref, props.imageryContextMenu]);
 
   useEffect(() => {
     setSceneModes(
