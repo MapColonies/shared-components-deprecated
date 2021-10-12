@@ -40,6 +40,7 @@
     "copyfiles": "2.3.0",
     "cross-env": "7.0.2",
     "date-fns": "^2.14.0",
+    "get-input-selection": "^1.1.4",
     "lodash": "^4.17.20",
     "ol": "^6.4.3",
     "react": "^16.13.1",
@@ -47,6 +48,7 @@
     "react-scripts": "3.4.1",
     "resium": "^1.13.1",
     "rimraf": "3.0.2",
+    "textarea-caret": "^3.1.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
