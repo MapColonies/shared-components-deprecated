@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention, @typescript-eslint/prefer-regexp-exec, @typescript-eslint/no-magic-numbers*/
+/* eslint-disable */
 import React, { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import getCaretCoordinates from 'textarea-caret';
 import getInputSelection, { setCaretPosition } from 'get-input-selection';
@@ -202,6 +202,7 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
 
     const old = recentValue;
     const str = e.target.value;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const caret = (getInputSelection(getInputElement(e.target)) as {start: number, end: number}).end;
 
     if (!str.length) {
@@ -382,8 +383,8 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
       }
     );
 
-    // setCaretPosition(refInput.current, caret);
     const input = getInputElement((refInput.current as unknown) as HTMLElement);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     setCaretPosition(input, caret);
   }
 
@@ -397,7 +398,6 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
   };
 
   const updateHelper = (str: string, caret: number, options: string[]) => {
-    /* eslint-disable */ 
     const parent = (refInput.current as unknown) as HTMLElement;
     if(refInput.current === null){
       return;
@@ -461,10 +461,10 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
     } else {
       resetHelper();
     }
-    /* eslint-enable */
   }
 
   const resetHelper = () => {
+    const timeDelay = 100;
     setTimeout(()=>{
       updateState(
         { 
@@ -472,7 +472,7 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
           helperVisible: false, selection: 0 
         }
       );
-    }, 100);
+    }, timeDelay);
   }
 
   const renderAutocompleteList = () => {

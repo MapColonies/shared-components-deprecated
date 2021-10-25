@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention, @typescript-eslint/prefer-regexp-exec, @typescript-eslint/no-magic-numbers*/
 import React from 'react';
 import { Story } from '@storybook/react/types-6-0';
 import { TextField } from '@map-colonies/react-core';
