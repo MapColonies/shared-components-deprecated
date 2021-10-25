@@ -8,3 +8,4 @@ export * from './box';
 export * from './cssbaseline';
 export * from './theme';
 export * from './cesium-map';
+export * from './autocomplete';
