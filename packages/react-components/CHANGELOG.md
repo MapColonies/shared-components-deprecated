@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.7.4...@map-colonies/react-components@3.8.0) (2021-11-01)
+
+
+### Features
+
+* date time picker component ([#109](https://github.com/MapColonies/shared-components/issues/109)) ([d2d6312](https://github.com/MapColonies/shared-components/commit/d2d631288324c6212301fbecff1088c179614664))
+
+
+
+
+
 ## [3.7.4](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.7.3...@map-colonies/react-components@3.7.4) (2021-10-25)
 
 **Note:** Version bump only for package @map-colonies/react-components
