@@ -61,22 +61,22 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
   const [dateFormat, setDateFormat] = useState<string>(
-    DEFAULTS.DATE_PICKER.dateFormat
+    DEFAULTS.DATE_RANGE_PICKER.dateFormat
   );
 
   const flexDirection =
-    props.controlsLayout ?? DEFAULTS.DATE_PICKER.controlsLayout;
+    props.controlsLayout ?? DEFAULTS.DATE_RANGE_PICKER.controlsLayout;
   const disableFuture =
-    props.disableFuture ?? DEFAULTS.DATE_PICKER.disableFuture;
+    props.disableFuture ?? DEFAULTS.DATE_RANGE_PICKER.disableFuture;
   const startPlaceHolderText =
     props.local?.startPlaceHolderText ??
-    DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
+    DEFAULTS.DATE_RANGE_PICKER.local.startPlaceHolderText;
   const endPlaceHolderText =
     props.local?.endPlaceHolderText ??
-    DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
-  const setText = props.local?.setText ?? DEFAULTS.DATE_PICKER.local.setText;
+    DEFAULTS.DATE_RANGE_PICKER.local.endPlaceHolderText;
+  const setText = props.local?.setText ?? DEFAULTS.DATE_RANGE_PICKER.local.setText;
   const calendarLocale =
-    props.local?.calendarLocale ?? DEFAULTS.DATE_PICKER.local.calendarLocale;
+    props.local?.calendarLocale ?? DEFAULTS.DATE_RANGE_PICKER.local.calendarLocale;
 
   const locale = calendarLocale === SupportedLocales.HE ? he : enUS;
 
@@ -89,7 +89,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   }, [props.to]);
 
   useEffect(() => {
-    setDateFormat(props.dateFormat ?? DEFAULTS.DATE_PICKER.dateFormat);
+    setDateFormat(props.dateFormat ?? DEFAULTS.DATE_RANGE_PICKER.dateFormat);
   }, [props.dateFormat]);
 
   const isRangeValid = Boolean(
@@ -116,7 +116,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
           <KeyboardDateTimePicker
             variant="inline"
-            label={startPlaceHolderText}
+            placeholder={startPlaceHolderText}
             onChange={(date): void => setFrom(date as Date)}
             value={from}
             disableFuture={disableFuture}
@@ -126,7 +126,7 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
           />
           <KeyboardDateTimePicker
             variant="inline"
-            label={endPlaceHolderText}
+            placeholder={endPlaceHolderText}
             className={classes.margin}
             onChange={(date): void => setTo(date as Date)}
             value={to}

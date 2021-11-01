@@ -1,4 +1,5 @@
 export * from './date-range-picker';
+export * from './date-picker';
 export * from './map-filter-container';
 export * from './models';
 export * from './ol-map';
