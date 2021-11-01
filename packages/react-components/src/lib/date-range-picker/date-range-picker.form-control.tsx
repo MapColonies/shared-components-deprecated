@@ -80,7 +80,9 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (
       ? DEFAULTS.DATE_RANGE_PICKER.renderAsButton
       : props.renderAsButton;
   const offset =
-    props.offset === undefined ? DEFAULTS.DATE_RANGE_PICKER.offset : props.offset;
+    props.offset === undefined
+      ? DEFAULTS.DATE_RANGE_PICKER.offset
+      : props.offset;
   const disableFuture =
     props.disableFuture === undefined
       ? DEFAULTS.DATE_RANGE_PICKER.disableFuture

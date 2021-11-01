@@ -43,16 +43,16 @@ export const DateTimePicker: React.FC<DatePickerProps> = (props) => {
     value: propValue,
     ...resProps
   } = props;
-  
+
   const {
     placeHolderText = DEFAULTS.DATE_PICKER.local.placeHolderText,
-    calendarLocale
+    calendarLocale,
   } = local ?? {
     placeHolderText: DEFAULTS.DATE_PICKER.local.placeHolderText,
-    calendarLocale: SupportedLocales.EN
+    calendarLocale: SupportedLocales.EN,
   };
-  
-  const locale = calendarLocale === SupportedLocales.HE ? he : enUS; 
+
+  const locale = calendarLocale === SupportedLocales.HE ? he : enUS;
 
   const handleOnChange = (e: any): void => {
     setValue(e);
@@ -61,30 +61,30 @@ export const DateTimePicker: React.FC<DatePickerProps> = (props) => {
 
   return (
     <ThemeProvider theme={themeMui}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
-          {
-            showTime && <KeyboardDateTimePicker
-              variant={variant as WrapperVariant}
-              placeholder={placeHolderText}
-              onChange={handleOnChange}
-              value={value}
-              disableFuture={disableFuture}
-              format={format}
-              {...resProps}
-            />
-          }
-          {
-            !showTime && <KeyboardDatePicker
-              variant={variant as WrapperVariant}
-              placeholder={placeHolderText}
-              onChange={handleOnChange}
-              value={value}
-              disableFuture={disableFuture}
-              format={format}
-              {...resProps}
-            />
-          }
-        </MuiPickersUtilsProvider>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
+        {showTime && (
+          <KeyboardDateTimePicker
+            variant={variant as WrapperVariant}
+            placeholder={placeHolderText}
+            onChange={handleOnChange}
+            value={value}
+            disableFuture={disableFuture}
+            format={format}
+            {...resProps}
+          />
+        )}
+        {!showTime && (
+          <KeyboardDatePicker
+            variant={variant as WrapperVariant}
+            placeholder={placeHolderText}
+            onChange={handleOnChange}
+            value={value}
+            disableFuture={disableFuture}
+            format={format}
+            {...resProps}
+          />
+        )}
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   );
 };

@@ -74,9 +74,11 @@ export const DateTimeRangePicker: React.FC<DateRangePickerProps> = (props) => {
   const endPlaceHolderText =
     props.local?.endPlaceHolderText ??
     DEFAULTS.DATE_RANGE_PICKER.local.endPlaceHolderText;
-  const setText = props.local?.setText ?? DEFAULTS.DATE_RANGE_PICKER.local.setText;
+  const setText =
+    props.local?.setText ?? DEFAULTS.DATE_RANGE_PICKER.local.setText;
   const calendarLocale =
-    props.local?.calendarLocale ?? DEFAULTS.DATE_RANGE_PICKER.local.calendarLocale;
+    props.local?.calendarLocale ??
+    DEFAULTS.DATE_RANGE_PICKER.local.calendarLocale;
 
   const locale = calendarLocale === SupportedLocales.HE ? he : enUS;
 

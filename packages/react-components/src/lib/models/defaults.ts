@@ -11,7 +11,7 @@ const DEFAULTS = {
     },
     disableFuture: true,
     showTime: false,
-    variant: 'inline'
+    variant: 'inline',
   },
   // eslint-disable-next-line @typescript-eslint/naming-convention
   DATE_RANGE_PICKER: {

@@ -13,10 +13,7 @@ export default {
 };
 
 export const DatePickerDefault: CSFStory<JSX.Element> = () => (
-  <DateTimePicker 
-    onChange={action('date changed')} 
-    value={TODAY}
-  />
+  <DateTimePicker onChange={action('date changed')} value={TODAY} />
 );
 
 DatePickerDefault.story = {
@@ -25,8 +22,8 @@ DatePickerDefault.story = {
 
 export const DateTimePickerMode: CSFStory<JSX.Element> = () => (
   <DateTimePicker
-    value={TODAY} 
-    onChange={action('date changed')} 
+    value={TODAY}
+    onChange={action('date changed')}
     showTime={true}
     format={'dd/MM/yyyy HH:mm'}
   />
@@ -38,7 +35,7 @@ DateTimePickerMode.story = {
 
 export const DateNoFutureLimitTime: CSFStory<JSX.Element> = () => (
   <DateTimePicker
-    value={TODAY} 
+    value={TODAY}
     disableFuture={false}
     onChange={action('date changed')}
   />
@@ -56,8 +53,11 @@ export const DateMinMaxLimitTime: CSFStory<JSX.Element> = () => {
   maxDate.setDate(maxDate.getDate() + deltaInDays);
   return (
     <DateTimePicker
-      value={TODAY} 
-      onChange={(date)=>{action('date changed')(date); console.log(date?.toDateString())}}
+      value={TODAY}
+      onChange={(date) => {
+        action('date changed')(date);
+        console.log(date?.toDateString());
+      }}
       minDate={minDate}
       maxDate={maxDate}
     />
@@ -76,9 +76,15 @@ export const DateMinMaxLimitTimeWithOnBlur: CSFStory<JSX.Element> = () => {
   maxDate.setDate(maxDate.getDate() + deltaInDays);
   return (
     <DateTimePicker
-      value={TODAY} 
-      onChange={(date)=>{action('date changed')(date); console.log(date?.toDateString())}}
-      onBlur={(date)=>{action('OnBlur invoked')(date); console.log('OnBlur invoked')}}
+      value={TODAY}
+      onChange={(date) => {
+        action('date changed')(date);
+        console.log(date?.toDateString());
+      }}
+      onBlur={(date) => {
+        action('OnBlur invoked')(date);
+        console.log('OnBlur invoked');
+      }}
       minDate={minDate}
       maxDate={maxDate}
     />
@@ -89,14 +95,9 @@ DateMinMaxLimitTimeWithOnBlur.story = {
   name: 'Date time with OnBlur ',
 };
 
-
 export const DateTimeWithControlArgs: Story = (args: unknown) => {
   return (
-    <DateTimePicker
-      {...args}
-      value={TODAY} 
-      onChange={action('date changed')}
-    />
+    <DateTimePicker {...args} value={TODAY} onChange={action('date changed')} />
   );
 };
 
