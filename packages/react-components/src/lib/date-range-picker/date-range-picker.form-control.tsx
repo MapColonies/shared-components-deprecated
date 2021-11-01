@@ -34,7 +34,7 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (
   const [from, setFrom] = useState<Date | null>(null);
   const [to, setTo] = useState<Date | null>(null);
   const [dateFormat, setDateFormat] = useState<string>(
-    DEFAULTS.DATE_PICKER.dateFormat
+    DEFAULTS.DATE_RANGE_PICKER.dateFormat
   );
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
@@ -66,24 +66,26 @@ export const DateTimeRangePickerFormControl: React.FC<DateRangePickerProps> = (
   }, [props.to]);
 
   useEffect(() => {
-    setDateFormat(props.dateFormat ?? DEFAULTS.DATE_PICKER.dateFormat);
+    setDateFormat(props.dateFormat ?? DEFAULTS.DATE_RANGE_PICKER.dateFormat);
   }, [props.dateFormat]);
 
   const startPlaceHolderText =
     props.local?.startPlaceHolderText ??
-    DEFAULTS.DATE_PICKER.local.startPlaceHolderText;
+    DEFAULTS.DATE_RANGE_PICKER.local.startPlaceHolderText;
   const endPlaceHolderText =
     props.local?.endPlaceHolderText ??
-    DEFAULTS.DATE_PICKER.local.endPlaceHolderText;
+    DEFAULTS.DATE_RANGE_PICKER.local.endPlaceHolderText;
   const renderAsButton =
     props.renderAsButton === undefined
-      ? DEFAULTS.DATE_PICKER.renderAsButton
+      ? DEFAULTS.DATE_RANGE_PICKER.renderAsButton
       : props.renderAsButton;
   const offset =
-    props.offset === undefined ? DEFAULTS.DATE_PICKER.offset : props.offset;
+    props.offset === undefined
+      ? DEFAULTS.DATE_RANGE_PICKER.offset
+      : props.offset;
   const disableFuture =
     props.disableFuture === undefined
-      ? DEFAULTS.DATE_PICKER.disableFuture
+      ? DEFAULTS.DATE_RANGE_PICKER.disableFuture
       : props.disableFuture;
 
   const controlText = useMemo(() => {

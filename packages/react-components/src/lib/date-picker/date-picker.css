@@ -1,0 +1,9 @@
+body[dir='rtl'] .drpContainer .MuiInputLabel-formControl {
+  right: 0px;
+  left: unset;
+}
+
+body[dir='rtl'] .drpContainer .MuiInputBase-input {
+  direction: ltr;
+  text-align: end;
+}
