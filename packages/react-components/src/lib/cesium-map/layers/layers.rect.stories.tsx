@@ -2,9 +2,10 @@ import React, { useLayoutEffect, useState } from 'react';
 import { Rectangle, Color } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import bbox from '@turf/bbox';
-import { CesiumMap, useCesiumMap } from '../map';
+import { CesiumMap, CesiumMapProps, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
-import { IRasterLayer } from '../layers-manager';
+import { IRasterLayer, LayerType } from '../layers-manager';
+import { IBaseMaps } from '../settings/settings';
 import { CesiumXYZLayer } from './xyz.layer';
 
 export default {
@@ -75,41 +76,13 @@ const BASE_MAPS = {
   ],
 };
 
-const layers = [
-  {
-    id: '2_raster_ext',
-    type: 'XYZ_LAYER',
-    opacity: 1,
-    zIndex: 0,
-    show: false,
-    options: {
-      url:
-        'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
-    },
-  },
-  // {
-  //   id: '3_raster_ext',
-  //   type: 'XYZ_LAYER',
-  //   opacity: 1,
-  //   zIndex: 1,
-  //   show: false,
-  //   options: {
-  //     url:
-  //       'https://tiles.openaerialmap.org/5a8316e22553e6000ce5ac7f/0/c3fcbe99-d339-41b6-8ec0-33d90ccca020/{z}/{x}/{y}.png',
-  //   },
-  // },
-  // {
-  //   id: '4_raster1_ext',
-  //   type: 'XYZ_LAYER',
-  //   opacity: 1,
-  //   zIndex: 2,
-  //   show: false,
-  //   options: {
-  //     url:
-  //       'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
-  //   },
-  // },
-];
+const mapViewProps: CesiumMapProps = {
+  center: [34.811, 31.908],
+  zoom: 14,
+  imageryProvider: false,
+  sceneModes: [CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW],
+  baseMaps: BASE_MAPS as IBaseMaps,
+};
 
 const optionsRectXYZ = {
   url:
@@ -134,13 +107,7 @@ const childLayerRect = Rectangle.fromDegrees(...bbox(optionsRectXYZ.footprint));
 
 export const MapWithXYZLayersAndRect: Story = () => (
   <div style={mapDivStyle}>
-    <CesiumMap
-      center={[34.811, 31.908]}
-      zoom={14}
-      imageryProvider={false}
-      // sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
-      baseMaps={BASE_MAPS}
-    >
+    <CesiumMap {...mapViewProps}>
       <CesiumXYZLayer rectangle={childLayerRect} options={optionsRectXYZ} />
     </CesiumMap>
   </div>
@@ -149,33 +116,37 @@ export const MapWithXYZLayersAndRect: Story = () => (
 MapWithXYZLayersAndRect.storyName = 'XYZ child layer with rect';
 
 export const MapWithSettings: Story = () => {
-  const [center] = useState<[number, number]>([34.811, 31.908]);
+  const layer = {
+    id: '2_raster_ext',
+    type: 'XYZ_LAYER' as LayerType,
+    opacity: 1,
+    zIndex: 0,
+    show: false,
+    options: {
+      url:
+        'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
+    },
+  };
+
   return (
     <div style={mapDivStyle}>
-      <CesiumMap
-        center={center}
-        zoom={14}
-        imageryProvider={false}
-        sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
-        baseMaps={BASE_MAPS}
-      >
-        <LayersMozaik layers={layers} />
+      <CesiumMap {...mapViewProps}>
+        <LayerViewer layer={layer as IRasterLayer} />
       </CesiumMap>
     </div>
   );
 };
 MapWithSettings.storyName = 'Layer manager rect';
 
-interface ILayersMozaikProps {
-  layers: IRasterLayer[];
+interface ILayerViewerProps {
+  layer: IRasterLayer;
 }
 
-const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
+const LayerViewer: React.FC<ILayerViewerProps> = (props) => {
   const mapViewer = useCesiumMap();
-  const { layers } = props;
-  const [selectedLayer, setSelectedLayer] = useState<string>(layers[0].id);
-  const [times, setTimes] = useState<number>(1);
-  const [allShow, setAllShow] = useState<boolean>(false);
+  const { layer } = props;
+  const [selectedLayer, setSelectedLayer] = useState<string>(layer.id);
+  const [showLayer, setShowLayer] = useState<boolean>(false);
 
   // Mockin footprint data on layer meta
 
@@ -192,37 +163,26 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
     ],
   };
 
-  const layerManagerRect = Rectangle.fromDegrees(...bbox(layerFootprint));
-
   useLayoutEffect(() => {
+    const layerManagerRect = Rectangle.fromDegrees(...bbox(layerFootprint));
+
     mapViewer.entities.add({
       rectangle: {
         coordinates: layerManagerRect,
         fill: false,
-        outline: true,
+        outline: showLayer,
         outlineColor: Color.WHITE,
       },
     });
-    const sortedLayers = layers.sort(
-      (layer1, layer2) => layer1.zIndex - layer2.zIndex
-    );
-    sortedLayers.forEach((layer, idx) => {
-      layer.options.rectangle = layerManagerRect;
-      mapViewer.layersManager?.addRasterLayer(layer, idx, '');
-    });
-  }, [layerManagerRect, layers, mapViewer]);
 
-  const handleLower = (): void => {
-    mapViewer.layersManager?.lower(selectedLayer, times);
-  };
+    layer.options.rectangle = layerManagerRect;
 
-  const handleRaise = (): void => {
-    mapViewer.layersManager?.raise(selectedLayer, times);
-  };
+    mapViewer.layersManager?.addRasterLayer(layer, 0, '');
+  }, [mapViewer, showLayer, layerFootprint, layer]);
 
-  const handleToglleAll = (): void => {
-    mapViewer.layersManager?.showAllNotBase(!allShow);
-    setAllShow(!allShow);
+  const handleToggleLayer = (): void => {
+    mapViewer.layersManager?.showAllNotBase(!showLayer);
+    setShowLayer(!showLayer);
   };
 
   return (
@@ -233,37 +193,14 @@ const LayersMozaik: React.FC<ILayersMozaikProps> = (props) => {
           setSelectedLayer(evt.target.value);
         }}
       >
-        {layers.map((layer) => (
-          <option defaultValue={layer.id}>{layer.id}</option>
-        ))}
+        <option defaultValue={layer.id}>{layer.id}</option>
       </select>
-      <input
-        type="number"
-        value={times}
-        onChange={(evt): void => {
-          setTimes(parseInt(evt.target.value));
-        }}
-      ></input>
       <button
         onClick={(): void => {
-          handleRaise();
+          handleToggleLayer();
         }}
       >
-        Raise
-      </button>
-      <button
-        onClick={(): void => {
-          handleLower();
-        }}
-      >
-        Lower
-      </button>
-      <button
-        onClick={(): void => {
-          handleToglleAll();
-        }}
-      >
-        Toggle All
+        Toggle Layer
       </button>
     </>
   );
