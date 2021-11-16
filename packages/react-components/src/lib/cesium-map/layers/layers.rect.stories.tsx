@@ -121,7 +121,7 @@ export const MapWithSettings: Story = () => {
     type: 'XYZ_LAYER' as LayerType,
     opacity: 1,
     zIndex: 0,
-    show: false,
+    show: true,
     options: {
       url:
         'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
@@ -145,11 +145,8 @@ interface ILayerViewerProps {
 const LayerViewer: React.FC<ILayerViewerProps> = (props) => {
   const mapViewer = useCesiumMap();
   const { layer } = props;
-  const [selectedLayer, setSelectedLayer] = useState<string>(layer.id);
-  const [showLayer, setShowLayer] = useState<boolean>(false);
 
   // Mockin footprint data on layer meta
-
   const layerFootprint = {
     type: 'Polygon',
     coordinates: [
@@ -166,42 +163,9 @@ const LayerViewer: React.FC<ILayerViewerProps> = (props) => {
   useLayoutEffect(() => {
     const layerManagerRect = Rectangle.fromDegrees(...bbox(layerFootprint));
 
-    mapViewer.entities.add({
-      rectangle: {
-        coordinates: layerManagerRect,
-        fill: false,
-        outline: showLayer,
-        outlineColor: Color.WHITE,
-      },
-    });
-
     layer.options.rectangle = layerManagerRect;
 
     mapViewer.layersManager?.addRasterLayer(layer, 0, '');
-  }, [mapViewer, showLayer, layerFootprint, layer]);
-
-  const handleToggleLayer = (): void => {
-    mapViewer.layersManager?.showAllNotBase(!showLayer);
-    setShowLayer(!showLayer);
-  };
-
-  return (
-    <>
-      <select
-        defaultValue={selectedLayer}
-        onChange={(evt): void => {
-          setSelectedLayer(evt.target.value);
-        }}
-      >
-        <option defaultValue={layer.id}>{layer.id}</option>
-      </select>
-      <button
-        onClick={(): void => {
-          handleToggleLayer();
-        }}
-      >
-        Toggle Layer
-      </button>
-    </>
-  );
+  }, [mapViewer, layerFootprint, layer]);
+  return <></>;
 };
