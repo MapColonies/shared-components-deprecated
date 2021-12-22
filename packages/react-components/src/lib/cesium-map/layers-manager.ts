@@ -25,9 +25,11 @@ export interface ICesiumImageryLayer extends InstanceType<typeof ImageryLayer> {
   meta?: Record<string, unknown>;
 }
 
+export type LayerType = 'OSM_LAYER' | 'WMTS_LAYER' | 'WMS_LAYER' | 'XYZ_LAYER';
+
 export interface IRasterLayer {
   id: string;
-  type: 'OSM_LAYER' | 'WMTS_LAYER' | 'WMS_LAYER' | 'XYZ_LAYER';
+  type: LayerType;
   opacity: number;
   zIndex: number;
   show?: boolean;
