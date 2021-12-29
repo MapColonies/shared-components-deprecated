@@ -17,6 +17,7 @@ import {
   PerspectiveOffCenterFrustum,
   OrthographicFrustum,
   ScreenSpaceEventType,
+  TerrainProvider,
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
 import { getAltitude, toDegrees } from '../utils/map';
@@ -87,6 +88,7 @@ export interface CesiumMapProps extends ViewerProps {
   locale?: { [key: string]: string };
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
+  terrainProvider?: TerrainProvider;
   imageryContextMenu?: React.ReactElement<IContextMenuData>;
   imageryContextMenuSize?: {
     height: number;
@@ -113,14 +115,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [showScale, setShowScale] = useState<boolean>();
   const [locale, setLocale] = useState<{ [key: string]: string }>();
   const [cameraState, setCameraState] = useState<ICameraState | undefined>();
-  const [sceneModes, setSceneModes] = useState<
-    CesiumSceneModeEnum[] | undefined
-  >();
+  const [sceneModes, setSceneModes] = useState<CesiumSceneModeEnum[] | undefined>();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
   const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
-  const [imageryMenuPosition, setImageryMenuPosition] = useState<
-    Record<string, unknown> | undefined
-  >(undefined);
+  const [imageryMenuPosition, setImageryMenuPosition] = useState<Record<string, unknown> | undefined>(undefined);
 
   const viewerProps = {
     fullscreenButton: true,
@@ -161,6 +159,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
       viewer.layersManager = new LayerManager(viewer);
+      if (props.terrainProvider) {
+        viewer.terrainProvider = props.terrainProvider;
+      }
       if (props.imageryContextMenu) {
         viewer.screenSpaceEventHandler.setInputAction(
           (evt: Record<string, unknown>) => {
@@ -174,7 +175,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       }
     }
     setMapViewRef(ref.current?.cesiumElement);
-  }, [ref, props.imageryContextMenu]);
+  }, [ref, props.imageryContextMenu, props.terrainProvider]);
 
   useEffect(() => {
     setSceneModes(
@@ -326,16 +327,19 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           />
         </Box>
         <Box className="toolsContainer">
-          {showMousePosition === true ? (
-            <CoordinatesTrackerTool
-              projection={projection}
-            ></CoordinatesTrackerTool>
-          ) : (
-            <></>
-          )}
+          {
+            showMousePosition === true ? (
+              <CoordinatesTrackerTool
+                projection={projection}
+              ></CoordinatesTrackerTool>
+            ) : (
+              <></>
+            )
+          }
           {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
         </Box>
-        {props.imageryContextMenu &&
+        {
+          props.imageryContextMenu &&
           showImageryMenu &&
           imageryMenuPosition &&
           React.cloneElement(props.imageryContextMenu, {
@@ -362,7 +366,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);
             },
-          })}
+          })
+        }
       </MapViewProvider>
     </Viewer>
   );
