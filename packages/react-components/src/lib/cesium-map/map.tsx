@@ -115,11 +115,17 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [showScale, setShowScale] = useState<boolean>();
   const [locale, setLocale] = useState<{ [key: string]: string }>();
   const [cameraState, setCameraState] = useState<ICameraState | undefined>();
-  const [sceneModes, setSceneModes] = useState<CesiumSceneModeEnum[] | undefined>();
+  const [sceneModes, setSceneModes] = useState<
+    CesiumSceneModeEnum[] | undefined
+  >();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
-  const [terrainProvider, setTerrainProvider] = useState<TerrainProvider | undefined>();
+  const [terrainProvider, setTerrainProvider] = useState<
+    TerrainProvider | undefined
+  >();
   const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
-  const [imageryMenuPosition, setImageryMenuPosition] = useState<Record<string, unknown> | undefined>(undefined);
+  const [imageryMenuPosition, setImageryMenuPosition] = useState<
+    Record<string, unknown> | undefined
+  >(undefined);
 
   const viewerProps = {
     fullscreenButton: true,
@@ -329,19 +335,16 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           />
         </Box>
         <Box className="toolsContainer">
-          {
-            showMousePosition === true ? (
-              <CoordinatesTrackerTool
-                projection={projection}
-              ></CoordinatesTrackerTool>
-            ) : (
-              <></>
-            )
-          }
+          {showMousePosition === true ? (
+            <CoordinatesTrackerTool
+              projection={projection}
+            ></CoordinatesTrackerTool>
+          ) : (
+            <></>
+          )}
           {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
         </Box>
-        {
-          props.imageryContextMenu &&
+        {props.imageryContextMenu &&
           showImageryMenu &&
           imageryMenuPosition &&
           React.cloneElement(props.imageryContextMenu, {
@@ -368,8 +371,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             handleClose: () => {
               setShowImageryMenu(!showImageryMenu);
             },
-          })
-        }
+          })}
       </MapViewProvider>
     </Viewer>
   );

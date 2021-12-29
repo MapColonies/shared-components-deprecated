@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { ArcGISTiledElevationTerrainProvider, EllipsoidTerrainProvider, TerrainProvider, VRTheWorldTerrainProvider } from 'cesium';
+import {
+  ArcGISTiledElevationTerrainProvider,
+  EllipsoidTerrainProvider,
+  TerrainProvider,
+  VRTheWorldTerrainProvider,
+} from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from './map';
 import { CesiumSceneMode } from './map.types';
@@ -158,11 +163,12 @@ const BASE_MAPS = {
 const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
 const VRTheWorldProvider = new VRTheWorldTerrainProvider({
-  url: 'http://www.vr-theworld.com/vr-theworld/tiles1.0.0/73/'
+  url: 'http://www.vr-theworld.com/vr-theworld/tiles1.0.0/73/',
 });
 
 const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
-  url: 'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer'
+  url:
+    'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer',
 });
 
 const terrainProviderList = [
@@ -189,26 +195,25 @@ interface ITerrainProviderSelectorProps {
   terrainProviderList: ITerrainProviderItem[];
 }
 
-const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({ terrainProviderList }) => {
+const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
+  terrainProviderList,
+}) => {
   const mapViewer = useCesiumMap();
 
   return (
     <select
       defaultValue={terrainProviderList[0].id}
       onChange={(evt): void => {
-        const selected = terrainProviderList.find(item => item.id === evt.target.value);
-        mapViewer.terrainProvider = (selected as ITerrainProviderItem).value as TerrainProvider;
+        const selected = terrainProviderList.find(
+          (item) => item.id === evt.target.value
+        );
+        mapViewer.terrainProvider = (selected as ITerrainProviderItem)
+          .value as TerrainProvider;
       }}
     >
-      {
-        terrainProviderList.map((provider) => {
-          return (
-            <option key={provider.id}>
-              {provider.id}
-            </option>
-          );
-        })
-      }
+      {terrainProviderList.map((provider) => {
+        return <option key={provider.id}>{provider.id}</option>;
+      })}
     </select>
   );
 };
