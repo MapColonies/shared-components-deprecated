@@ -117,6 +117,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [cameraState, setCameraState] = useState<ICameraState | undefined>();
   const [sceneModes, setSceneModes] = useState<CesiumSceneModeEnum[] | undefined>();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
+  const [terrainProvider, setTerrainProvider] = useState<TerrainProvider | undefined>();
   const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
   const [imageryMenuPosition, setImageryMenuPosition] = useState<Record<string, unknown> | undefined>(undefined);
 
@@ -159,9 +160,6 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
       viewer.layersManager = new LayerManager(viewer);
-      if (props.terrainProvider) {
-        viewer.terrainProvider = props.terrainProvider;
-      }
       if (props.imageryContextMenu) {
         viewer.screenSpaceEventHandler.setInputAction(
           (evt: Record<string, unknown>) => {
@@ -175,7 +173,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       }
     }
     setMapViewRef(ref.current?.cesiumElement);
-  }, [ref, props.imageryContextMenu, props.terrainProvider]);
+  }, [ref, props.imageryContextMenu]);
+
+  useEffect(() => {
+    setTerrainProvider(props.terrainProvider);
+  }, [props.terrainProvider]);
 
   useEffect(() => {
     setSceneModes(
