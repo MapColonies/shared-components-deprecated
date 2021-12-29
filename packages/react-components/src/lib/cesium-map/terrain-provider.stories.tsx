@@ -1,9 +1,8 @@
-import React, { useLayoutEffect, useState } from 'react';
-import { ArcGISTiledElevationTerrainProvider, CesiumTerrainProvider, createWorldTerrain, EllipsoidTerrainProvider, GoogleEarthEnterpriseMetadata, GoogleEarthEnterpriseTerrainProvider, IonResource, VRTheWorldTerrainProvider } from 'cesium';
+import React, { useState } from 'react';
+import { ArcGISTiledElevationTerrainProvider, EllipsoidTerrainProvider, TerrainProvider, VRTheWorldTerrainProvider } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from './map';
 import { CesiumSceneMode } from './map.types';
-import { IRasterLayer } from './layers-manager';
 
 export default {
   title: 'Cesium Map/Quantized Mesh',
@@ -12,10 +11,6 @@ export default {
     layout: 'fullscreen',
   },
 } as Meta;
-
-interface ILayersMozaikProps {
-  layers: IRasterLayer[];
-}
 
 const mapDivStyle = {
   height: '90%',
@@ -160,117 +155,7 @@ const BASE_MAPS = {
   ],
 };
 
-const layers = [
-  {
-    id: '2_raster_ext',
-    type: 'XYZ_LAYER',
-    opacity: 1,
-    zIndex: 0,
-    show: false,
-    options: {
-      url:
-        'https://tiles.openaerialmap.org/5a9f90c42553e6000ce5ad6c/0/eee1a570-128e-4947-9ffa-1e69c1efab7c/{z}/{x}/{y}.png',
-    },
-    details: {
-      footprint: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [34.8099445223518, 31.9061345394902],
-            [34.8200994167574, 31.9061345394902],
-            [34.8200994167574, 31.9106311613979],
-            [34.8099445223518, 31.9106311613979],
-            [34.8099445223518, 31.9061345394902],
-          ],
-        ],
-      },
-    },
-  },
-  {
-    id: '3_raster_ext',
-    type: 'XYZ_LAYER',
-    opacity: 1,
-    zIndex: 1,
-    show: false,
-    options: {
-      url:
-        'https://tiles.openaerialmap.org/5a8316e22553e6000ce5ac7f/0/c3fcbe99-d339-41b6-8ec0-33d90ccca020/{z}/{x}/{y}.png',
-    },
-    details: {
-      footprint: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [34.8106008249547, 31.9076273723004],
-            [34.8137969069015, 31.9076273723004],
-            [34.8137969069015, 31.9103791381117],
-            [34.8106008249547, 31.9103791381117],
-            [34.8106008249547, 31.9076273723004],
-          ],
-        ],
-      },
-    },
-  },
-  {
-    id: '4_raster1_ext',
-    type: 'XYZ_LAYER',
-    opacity: 1,
-    zIndex: 2,
-    show: false,
-    options: {
-      url:
-        'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
-    },
-    details: {
-      footprint: {
-        type: 'Polygon',
-        coordinates: [
-          [
-            [34.8043847068541, 31.9023297972932],
-            [34.8142791322292, 31.9023297972932],
-            [34.8142791322292, 31.9108796531516],
-            [34.8043847068541, 31.9108796531516],
-            [34.8043847068541, 31.9023297972932],
-          ],
-        ],
-      },
-    },
-  },
-];
-
-const TerrainProviderSelector: React.FC<ILayersMozaikProps> = (props) => {
-  const mapViewer = useCesiumMap();
-  const { layers } = props;
-  const [selectedLayer, setSelectedLayer] = useState<string>(layers[0].id);
-
-  useLayoutEffect(() => {
-    const sortedLayers = layers.sort(
-      (layer1, layer2) => layer1.zIndex - layer2.zIndex
-    );
-    sortedLayers.forEach((layer, idx) => {
-      mapViewer.layersManager?.addRasterLayer(layer, idx, '');
-    });
-  }, [layers, mapViewer]);
-
-  return (
-    <>
-      <select
-        defaultValue={selectedLayer}
-        onChange={(evt): void => {
-          setSelectedLayer(evt.target.value);
-        }}
-      >
-        {layers.map((layer) => (
-          <option key={layer.id} defaultValue={layer.id}>
-            {layer.id}
-          </option>
-        ))}
-      </select>
-    </>
-  );
-};
-
-// const EllipsoidProvider = new EllipsoidTerrainProvider({});
+const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
 const VRTheWorldProvider = new VRTheWorldTerrainProvider({
   url: 'http://www.vr-theworld.com/vr-theworld/tiles1.0.0/73/'
@@ -279,6 +164,54 @@ const VRTheWorldProvider = new VRTheWorldTerrainProvider({
 const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
   url: 'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer'
 });
+
+const terrainProviderList = [
+  {
+    id: 'NONE',
+    value: EllipsoidProvider,
+  },
+  {
+    id: 'V R The World Terrain Provider',
+    value: VRTheWorldProvider,
+  },
+  {
+    id: 'Arc Gis Terrain Provider',
+    value: ArcGisProvider,
+  },
+];
+
+interface ITerrainProviderItem {
+  id: string;
+  value: TerrainProvider | undefined;
+}
+
+interface ITerrainProviderSelectorProps {
+  terrainProviderList: ITerrainProviderItem[];
+}
+
+const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({ terrainProviderList }) => {
+  const mapViewer = useCesiumMap();
+
+  return (
+    <select
+      defaultValue={terrainProviderList[0].id}
+      onChange={(evt): void => {
+        const selected = terrainProviderList.find(item => item.id === evt.target.value);
+        mapViewer.terrainProvider = (selected as ITerrainProviderItem).value as TerrainProvider;
+      }}
+    >
+      {
+        terrainProviderList.map((provider) => {
+          return (
+            <option key={provider.id}>
+              {provider.id}
+            </option>
+          );
+        })
+      }
+    </select>
+  );
+};
 
 export const MapWithTerrainProvider: Story = () => {
   const [center] = useState<[number, number]>([24, -200]);
@@ -290,9 +223,9 @@ export const MapWithTerrainProvider: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
-        terrainProvider={VRTheWorldProvider}
+        terrainProvider={undefined}
       >
-        <TerrainProviderSelector layers={layers} />
+        <TerrainProviderSelector terrainProviderList={terrainProviderList} />
       </CesiumMap>
     </div>
   );
