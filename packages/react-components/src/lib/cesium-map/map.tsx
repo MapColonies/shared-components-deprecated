@@ -119,9 +119,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     CesiumSceneModeEnum[] | undefined
   >();
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
+  // eslint-disable-next-line
   const [terrainProvider, setTerrainProvider] = useState<
     TerrainProvider | undefined
-  >();
+  >(undefined);
   const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
   const [imageryMenuPosition, setImageryMenuPosition] = useState<
     Record<string, unknown> | undefined
