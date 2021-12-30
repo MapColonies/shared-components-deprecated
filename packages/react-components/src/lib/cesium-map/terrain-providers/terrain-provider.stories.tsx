@@ -4,10 +4,12 @@ import {
   EllipsoidTerrainProvider,
   TerrainProvider,
   VRTheWorldTerrainProvider,
+  WebMercatorTilingScheme,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { CesiumMap, useCesiumMap } from './map';
-import { CesiumSceneMode } from './map.types';
+import { CesiumMap, useCesiumMap } from '../map';
+import { CesiumSceneMode } from '../map.types';
+import QuantizedMeshTerrainProvider from './quantized-mesh.terrain-provider';
 
 export default {
   title: 'Cesium Map/Quantized Mesh',
@@ -171,6 +173,17 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
     'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer',
 });
 
+const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
+  getUrl: (x: number, y: number, level: number): string => {
+    const tilingScheme = new WebMercatorTilingScheme();
+    const column = x;
+    const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
+
+    return `/assets/example-tiles/${level}/${column}/${row}.terrain`;
+  },
+  credit: `Mapcolonies`
+});
+
 const terrainProviderList = [
   {
     id: 'NONE',
@@ -184,6 +197,10 @@ const terrainProviderList = [
     id: 'Arc Gis Terrain Provider',
     value: ArcGisProvider,
   },
+  {
+    id: 'Quantized Mesh Terrain Provider',
+    value: QuantizedMeshProvider,
+  }
 ];
 
 interface ITerrainProviderItem {
@@ -230,8 +247,8 @@ export const MapWithTerrainProvider: Story = () => {
         baseMaps={BASE_MAPS}
         terrainProvider={undefined}
       >
-        <TerrainProviderSelector terrainProviderList={terrainProviderList} />
       </CesiumMap>
+      <TerrainProviderSelector terrainProviderList={terrainProviderList} />
     </div>
   );
 };
