@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import {
   BoundingSphere,
@@ -25,10 +29,14 @@ export default class QuantizedMeshTerrainProvider {
   private readonly credits: Credit[] | undefined;
   private readonly readyPromise: Promise<boolean>;
 
-  public constructor (options = {}) {
+  public constructor (options: {
+    getUrl?: (x: number, y: number, level: number) => string,
+    credit?: string,
+    tilingScheme?: TilingScheme,
+  }) {
     this.ready = false;
     this.dummyTile = decode(dummyTileBuffer);
-    this.tilingScheme = options.tilingScheme || new WebMercatorTilingScheme();
+    this.tilingScheme = options.tilingScheme ?? new WebMercatorTilingScheme();
 
     if (options.getUrl === undefined) {
       throw new Error('getUrl option is missing');
@@ -44,7 +52,7 @@ export default class QuantizedMeshTerrainProvider {
     this.ready = true;
   }
 
-  private generateDummyTileHeader (x: number, y: number, level: number) {
+  private generateDummyTileHeader (x: number, y: number, level: number): Record<string, number> {
     const tileRect = this.tilingScheme.tileXYToRectangle(x, y, level);
     const tileNativeRect = this.tilingScheme.tileXYToNativeRectangle(x, y, level);
     const tileCenter = Cartographic.toCartesian(Rectangle.center(tileRect));
@@ -66,7 +74,7 @@ export default class QuantizedMeshTerrainProvider {
     };
   }
 
-  private createQuantizedMeshData (decodedTile, x: number, y: number, level: number) {
+  private createQuantizedMeshData (decodedTile: any, x: number, y: number, level: number): QuantizedMeshTerrainData {
     const tileRect = this.tilingScheme.tileXYToRectangle(x, y, level);
     const boundingSphereCenter = new Cartesian3(
       decodedTile.header.boundingSphereCenterX,
@@ -114,15 +122,14 @@ export default class QuantizedMeshTerrainProvider {
     });
   }
 
-  private generateDummyTile (x: number, y: number, level: number) {
-    return Object.assign(
-      {},
-      this.dummyTile,
-      this.generateDummyTileHeader(x, y, level)
-    );
+  private generateDummyTile (x: number, y: number, level: number): any {
+    return {
+      ...this.dummyTile,
+      ...this.generateDummyTileHeader(x, y, level)
+    };
   }
 
-  private decodeResponse (res, x: number, y: number, level: number) {
+  private decodeResponse (res: any, x: number, y: number, level: number): any {
     return res.arrayBuffer()
       .then(buffer => {
         return decode(buffer);
@@ -135,7 +142,7 @@ export default class QuantizedMeshTerrainProvider {
       });
   }
 
-  private requestTileGeometry (x: number, y: number, level: number) {
+  private requestTileGeometry (x: number, y: number, level: number): any {
     const url = this.getUrl(x, y, level);
 
     return window.fetch(url)
