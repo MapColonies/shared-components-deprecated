@@ -237,7 +237,7 @@ export const dummyTile = new Uint8Array([
   5,
   0,
   6,
-  0
+  0,
 ]);
 
 export default dummyTile.buffer;

@@ -182,7 +182,7 @@ const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
 
     return `/assets/example-tiles/${level}/${column}/${row}.terrain`;
   },
-  credit: `Mapcolonies`
+  credit: `Mapcolonies`,
 });
 
 const terrainProviderList = [
@@ -201,7 +201,7 @@ const terrainProviderList = [
   {
     id: 'Quantized Mesh Terrain Provider',
     value: QuantizedMeshProvider,
-  }
+  },
 ];
 
 interface ITerrainProviderItem {
@@ -250,7 +250,7 @@ export const MapWithTerrainProvider: Story = () => {
         terrainProvider={undefined}
         mapProjection={new WebMercatorProjection()}
       >
-      <TerrainProviderSelector terrainProviderList={terrainProviderList} />
+        <TerrainProviderSelector terrainProviderList={terrainProviderList} />
       </CesiumMap>
     </div>
   );
