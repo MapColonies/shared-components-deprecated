@@ -20,35 +20,70 @@ import {
 import decode from '@here/quantized-mesh-decoder';
 import dummyTileBuffer from './dummy-tile';
 
-export default class QuantizedMeshTerrainProvider {
-  private readonly ready: boolean;
+export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
+  public tilingScheme: TilingScheme;
+  public ready: boolean;
+  public readyPromise: Promise<boolean>;
   private readonly dummyTile;
-  private readonly tilingScheme: TilingScheme;
   private readonly getUrl: (x: number, y: number, level: number) => string;
   private readonly credits: Credit[] | undefined;
-  private readonly readyPromise: Promise<boolean>;
 
   public constructor(options: {
     getUrl?: (x: number, y: number, level: number) => string;
     credit?: string;
     tilingScheme?: TilingScheme;
   }) {
+    // super();
     this.ready = false;
     this.dummyTile = decode(dummyTileBuffer);
     this.tilingScheme = options.tilingScheme ?? new WebMercatorTilingScheme();
-
+    
     if (options.getUrl === undefined) {
       throw new Error('getUrl option is missing');
     }
-
+    
     if (options.credit !== undefined) {
       this.credits = [new Credit(options.credit)];
     }
-
+    
     this.getUrl = options.getUrl;
-
+    
     this.readyPromise = Promise.resolve(true);
     this.ready = true;
+  }
+
+  public requestTileGeometry(x: number, y: number, level: number): any {
+    const url = this.getUrl(x, y, level);
+
+    return window
+      .fetch(url)
+      .then((res) => {
+        if (res.status !== 200) {
+          return this.generateDummyTile(x, y, level);
+        }
+
+        return this.decodeResponse(res, x, y, level);
+      })
+      .then((decodedTile) => {
+        return this.createQuantizedMeshData(decodedTile, x, y, level);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  public getTileDataAvailable(x: number, y: number, level: number): boolean {
+    return true;
+  }
+
+  public getLevelMaximumGeometricError(level: number): number {
+    const levelZeroMaximumGeometricError = TerrainProvider.getEstimatedLevelZeroGeometricErrorForAHeightmap(
+      this.tilingScheme.ellipsoid,
+      65,
+      this.tilingScheme.getNumberOfXTilesAtLevel(0)
+    );
+
+    return levelZeroMaximumGeometricError / (1 << level);
   }
 
   private generateDummyTileHeader(
@@ -155,39 +190,5 @@ export default class QuantizedMeshTerrainProvider {
 
         return this.generateDummyTile(x, y, level);
       });
-  }
-
-  private requestTileGeometry(x: number, y: number, level: number): any {
-    const url = this.getUrl(x, y, level);
-
-    return window
-      .fetch(url)
-      .then((res) => {
-        if (res.status !== 200) {
-          return this.generateDummyTile(x, y, level);
-        }
-
-        return this.decodeResponse(res, x, y, level);
-      })
-      .then((decodedTile) => {
-        return this.createQuantizedMeshData(decodedTile, x, y, level);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
-  private getTileDataAvailable(x: number, y: number, level: number): boolean {
-    return true;
-  }
-
-  private getLevelMaximumGeometricError(level: number): number {
-    const levelZeroMaximumGeometricError = TerrainProvider.getEstimatedLevelZeroGeometricErrorForAHeightmap(
-      this.tilingScheme.ellipsoid,
-      65,
-      this.tilingScheme.getNumberOfXTilesAtLevel(0)
-    );
-
-    return levelZeroMaximumGeometricError / (1 << level);
   }
 }
