@@ -13,6 +13,7 @@ import {
   OrientedBoundingBox,
   QuantizedMeshTerrainData,
   Rectangle,
+  TerrainData,
   TerrainProvider,
   TilingScheme,
   WebMercatorTilingScheme,
@@ -69,7 +70,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     }
     
     if (options.credit !== undefined) {
-      this.credits = [new Credit(options.credit)];
+      this.credits = [ new Credit(options.credit) ];
     }
     
     this.getUrl = options.getUrl;
@@ -78,7 +79,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     this.ready = true;
   }
 
-  public requestTileGeometry(x: number, y: number, level: number): any {
+  public requestTileGeometry(x: number, y: number, level: number): Promise<void | QuantizedMeshTerrainData> | undefined {
     const url = this.getUrl(x, y, level);
 
     return window
@@ -87,7 +88,6 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
         if (res.status !== 200) {
           return this.generateDummyTile(x, y, level);
         }
-
         return this.decodeResponse(res, x, y, level);
       })
       .then((decodedTile) => {
@@ -116,7 +116,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     x: number,
     y: number,
     level: number
-  ): Record<string, number> {
+  ): IDecodedTileHeader {
     const tileRect = this.tilingScheme.tileXYToRectangle(x, y, level);
     const tileNativeRect = this.tilingScheme.tileXYToNativeRectangle(
       x,
@@ -197,20 +197,20 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     });
   }
 
-  private generateDummyTile(x: number, y: number, level: number): any {
+  private generateDummyTile(x: number, y: number, level: number): IDecodedTile {
     return {
       ...this.dummyTile,
       ...this.generateDummyTileHeader(x, y, level),
     };
   }
 
-  private decodeResponse(res: any, x: number, y: number, level: number): any {
+  private decodeResponse(res: any, x: number, y: number, level: number): IDecodedTile {
     return res
       .arrayBuffer()
-      .then((buffer) => {
+      .then((buffer: unknown) => {
         return decode(buffer);
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         console.error(`Decoding failed on tile ${this.getUrl(x, y, level)}`);
         console.error(err);
 

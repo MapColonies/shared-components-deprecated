@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
+  // Ellipsoid,
   EllipsoidTerrainProvider,
   TerrainProvider,
   VRTheWorldTerrainProvider,
@@ -176,7 +177,7 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
 
 const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
   getUrl: (x: number, y: number, level: number): string => {
-    const tilingScheme = new WebMercatorTilingScheme();
+    const tilingScheme = new WebMercatorTilingScheme(); // {ellipsoid: Ellipsoid.WGS84}
     const column = x;
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
@@ -248,7 +249,7 @@ export const MapWithTerrainProvider: Story = () => {
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
         terrainProvider={undefined}
-        mapProjection={new WebMercatorProjection()}
+        mapProjection={new WebMercatorProjection()} // Ellipsoid.WGS84
       >
         <TerrainProviderSelector terrainProviderList={terrainProviderList} />
       </CesiumMap>
