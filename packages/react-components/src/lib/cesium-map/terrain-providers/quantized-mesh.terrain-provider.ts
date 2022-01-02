@@ -20,11 +20,37 @@ import {
 import decode from '@here/quantized-mesh-decoder';
 import dummyTileBuffer from './dummy-tile';
 
+interface IDecodedTileHeader {
+  centerX: number;
+  centerY: number;
+  centerZ: number;
+  minHeight: number;
+  maxHeight: number;
+  boundingSphereCenterX: number;
+  boundingSphereCenterY: number;
+  boundingSphereCenterZ: number;
+  boundingSphereRadius: number;
+  horizonOcclusionPointX: number;
+  horizonOcclusionPointY: number;
+  horizonOcclusionPointZ: number;
+}
+
+interface IDecodedTile {
+  header: IDecodedTileHeader;
+  vertexData: Uint16Array;
+  triangleIndices: Uint16Array | Uint32Array;
+  westIndices: number[];
+  northIndices: number[];
+  eastIndices: number[];
+  southIndices: number[];
+  extensions: unknown;
+}
+
 export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   public tilingScheme: TilingScheme;
   public ready: boolean;
   public readyPromise: Promise<boolean>;
-  private readonly dummyTile;
+  private readonly dummyTile: IDecodedTile;
   private readonly getUrl: (x: number, y: number, level: number) => string;
   private readonly credits: Credit[] | undefined;
 
@@ -119,7 +145,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   }
 
   private createQuantizedMeshData(
-    decodedTile: any,
+    decodedTile: IDecodedTile,
     x: number,
     y: number,
     level: number
