@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -13,7 +14,6 @@ import {
   OrientedBoundingBox,
   QuantizedMeshTerrainData,
   Rectangle,
-  TerrainData,
   TerrainProvider,
   TilingScheme,
   WebMercatorTilingScheme,
@@ -64,36 +64,40 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     this.ready = false;
     this.dummyTile = decode(dummyTileBuffer);
     this.tilingScheme = options.tilingScheme ?? new WebMercatorTilingScheme();
-    
+
     if (options.getUrl === undefined) {
       throw new Error('getUrl option is missing');
     }
-    
+
     if (options.credit !== undefined) {
-      this.credits = [ new Credit(options.credit) ];
+      this.credits = [new Credit(options.credit)];
     }
-    
+
     this.getUrl = options.getUrl;
-    
+
     this.readyPromise = Promise.resolve(true);
     this.ready = true;
   }
 
-  public requestTileGeometry(x: number, y: number, level: number): Promise<void | QuantizedMeshTerrainData> | undefined {
+  public requestTileGeometry(
+    x: number,
+    y: number,
+    level: number
+  ): Promise<void | QuantizedMeshTerrainData> | undefined {
     const url = this.getUrl(x, y, level);
 
     return window
       .fetch(url)
-      .then((res) => {
+      .then((res: Response) => {
         if (res.status !== 200) {
           return this.generateDummyTile(x, y, level);
         }
         return this.decodeResponse(res, x, y, level);
       })
-      .then((decodedTile) => {
+      .then((decodedTile: IDecodedTile) => {
         return this.createQuantizedMeshData(decodedTile, x, y, level);
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
         console.error(err);
       });
   }
@@ -204,10 +208,15 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     };
   }
 
-  private decodeResponse(res: any, x: number, y: number, level: number): IDecodedTile {
+  private decodeResponse(
+    res: any,
+    x: number,
+    y: number,
+    level: number
+  ): IDecodedTile {
     return res
       .arrayBuffer()
-      .then((buffer: unknown) => {
+      .then((buffer: ArrayBuffer) => {
         return decode(buffer);
       })
       .catch((err: unknown) => {
