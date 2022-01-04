@@ -18,34 +18,14 @@ import {
   TilingScheme,
   WebMercatorTilingScheme,
 } from 'cesium';
-import decode from '@here/quantized-mesh-decoder';
+import {
+  decode,
+  IDecodedTile,
+  IDecodedTileHeader,
+} from './quantized-mesh.decoder';
 import dummyTileBuffer from './dummy-tile';
 
-interface IDecodedTileHeader {
-  centerX: number;
-  centerY: number;
-  centerZ: number;
-  minHeight: number;
-  maxHeight: number;
-  boundingSphereCenterX: number;
-  boundingSphereCenterY: number;
-  boundingSphereCenterZ: number;
-  boundingSphereRadius: number;
-  horizonOcclusionPointX: number;
-  horizonOcclusionPointY: number;
-  horizonOcclusionPointZ: number;
-}
-
-interface IDecodedTile {
-  header: IDecodedTileHeader;
-  vertexData: Uint16Array;
-  triangleIndices: Uint16Array | Uint32Array;
-  westIndices: number[];
-  northIndices: number[];
-  eastIndices: number[];
-  southIndices: number[];
-  extensions: unknown;
-}
+const TILE_IMAGE_WIDTH = 65;
 
 export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   public tilingScheme: TilingScheme;
@@ -90,8 +70,9 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
       .fetch(url, {
         method: 'GET',
         headers: {
-          'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2EwZTNiOC1jYWQzLTRhMjctYjE3ZC1jNjlmZDk4NWVmMjAiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTI3NzA5OCwiZXhwIjoxNjQxMjgwNjk4fQ.Yzw4poLt0yJFDlyOE6OowNEMKvSgaCWFKAPj1YX9eE8'
-        }
+          authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2EwZTNiOC1jYWQzLTRhMjctYjE3ZC1jNjlmZDk4NWVmMjAiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTI3NzA5OCwiZXhwIjoxNjQxMjgwNjk4fQ.Yzw4poLt0yJFDlyOE6OowNEMKvSgaCWFKAPj1YX9eE8',
+        },
       })
       .then((res: Response) => {
         if (res.status !== 200) {
@@ -114,7 +95,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   public getLevelMaximumGeometricError(level: number): number {
     const levelZeroMaximumGeometricError = TerrainProvider.getEstimatedLevelZeroGeometricErrorForAHeightmap(
       this.tilingScheme.ellipsoid,
-      65,
+      TILE_IMAGE_WIDTH,
       this.tilingScheme.getNumberOfXTilesAtLevel(0)
     );
 
@@ -221,7 +202,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   ): IDecodedTile {
     return res
       .arrayBuffer()
-      .then((buffer: ArrayBuffer) => {
+      .then((buffer: ArrayBufferLike) => {
         return decode(buffer);
       })
       .catch((err: unknown) => {

@@ -1,1 +1,0 @@
-declare module '@here/quantized-mesh-decoder';

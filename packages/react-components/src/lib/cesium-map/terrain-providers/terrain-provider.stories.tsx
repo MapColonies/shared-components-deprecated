@@ -7,7 +7,7 @@ import {
   VRTheWorldTerrainProvider,
   WebMercatorProjection,
   // WebMercatorTilingScheme,
-  GeographicTilingScheme
+  GeographicTilingScheme,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
@@ -188,7 +188,7 @@ const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
     // return `/assets/example-tiles/${level}/${column}/${row}.terrain`;
-    return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`
+    return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`;
   },
   credit: `Mapcolonies`,
 });

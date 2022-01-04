@@ -1617,11 +1617,6 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@here/quantized-mesh-decoder@^1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@here/quantized-mesh-decoder/-/quantized-mesh-decoder-1.2.8.tgz#ddb28a8ad7a8fbf4dfe1654293b57ef0a5611f07"
-  integrity sha512-fYOgpANVVMT38cHlCAIqzUun0cvhWGjpTI+jCbFtdfWgE24+sHtoCqPFvue6UhC9LA64j//lrdMKtryUvskqiA==
-
 "@icons/material@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
