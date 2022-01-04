@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
-  // Ellipsoid,
+  Ellipsoid,
   EllipsoidTerrainProvider,
   TerrainProvider,
   VRTheWorldTerrainProvider,
   WebMercatorProjection,
-  WebMercatorTilingScheme,
+  // WebMercatorTilingScheme,
+  GeographicTilingScheme
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
@@ -177,11 +178,17 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
 
 const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
   getUrl: (x: number, y: number, level: number): string => {
-    const tilingScheme = new WebMercatorTilingScheme(); // {ellipsoid: Ellipsoid.WGS84}
+    // const tilingScheme = new WebMercatorTilingScheme(); // {ellipsoid: Ellipsoid.WGS84}
+    const tilingScheme = new GeographicTilingScheme({
+      numberOfLevelZeroTilesX: 2,
+      numberOfLevelZeroTilesY: 1,
+      ellipsoid: Ellipsoid.WGS84,
+    });
     const column = x;
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
-    return `/assets/example-tiles/${level}/${column}/${row}.terrain`;
+    // return `/assets/example-tiles/${level}/${column}/${row}.terrain`;
+    return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`
   },
   credit: `Mapcolonies`,
 });

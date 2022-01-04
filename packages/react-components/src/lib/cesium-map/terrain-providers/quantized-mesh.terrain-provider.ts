@@ -87,7 +87,12 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     const url = this.getUrl(x, y, level);
 
     return window
-      .fetch(url)
+      .fetch(url, {
+        method: 'GET',
+        headers: {
+          'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2EwZTNiOC1jYWQzLTRhMjctYjE3ZC1jNjlmZDk4NWVmMjAiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTI3NzA5OCwiZXhwIjoxNjQxMjgwNjk4fQ.Yzw4poLt0yJFDlyOE6OowNEMKvSgaCWFKAPj1YX9eE8'
+        }
+      })
       .then((res: Response) => {
         if (res.status !== 200) {
           return this.generateDummyTile(x, y, level);
