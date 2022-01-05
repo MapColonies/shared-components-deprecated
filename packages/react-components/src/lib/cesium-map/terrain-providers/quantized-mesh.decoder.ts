@@ -1,6 +1,8 @@
+import { IDecodedTile, IDecodedTileHeader, IExtensions } from './quantized-mesh.terrain-provider';
+
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-const MAX_VERTEX_COUNT = 65536;
 const LITTLE_ENDIAN = true;
+const MAX_VERTEX_COUNT = 65536;
 
 export const DECODING_STEPS = {
   header: 0,
@@ -10,42 +12,11 @@ export const DECODING_STEPS = {
   extensions: 4,
 };
 
-export interface IDecodedTileHeader {
-  centerX: number;
-  centerY: number;
-  centerZ: number;
-  minHeight: number;
-  maxHeight: number;
-  boundingSphereCenterX: number;
-  boundingSphereCenterY: number;
-  boundingSphereCenterZ: number;
-  boundingSphereRadius: number;
-  horizonOcclusionPointX: number;
-  horizonOcclusionPointY: number;
-  horizonOcclusionPointZ: number;
-}
-
-export interface IDecodedTile {
-  header: IDecodedTileHeader;
-  vertexData: Uint16Array;
-  triangleIndices: Uint16Array | Uint32Array;
-  westIndices: number[];
-  northIndices: number[];
-  eastIndices: number[];
-  southIndices: number[];
-  extensions?: unknown;
-}
-
-interface IExtensions {
-  vertexNormals?: Uint8Array;
-  waterMask?: ArrayBufferLike;
-  metadata?: unknown;
-}
-
 const QUANTIZED_MESH_HEADER = {
   centerX: Float64Array.BYTES_PER_ELEMENT,
   centerY: Float64Array.BYTES_PER_ELEMENT,
   centerZ: Float64Array.BYTES_PER_ELEMENT,
+
   minHeight: Float32Array.BYTES_PER_ELEMENT,
   maxHeight: Float32Array.BYTES_PER_ELEMENT,
 
@@ -129,9 +100,9 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   const headerEndPosition = position;
 
-  // if (maxDecodingStep < DECODING_STEPS.vertices) {
-  //   return { header };
-  // }
+  if (maxDecodingStep < DECODING_STEPS.vertices) {
+    return { header };
+  }
 
   // Decode Vertex Data
 
@@ -182,9 +153,9 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   const vertexDataEndPosition = position;
 
-  // if (maxDecodingStep < DECODING_STEPS.triangleIndices) {
-  //   return { header, vertexData };
-  // }
+  if (maxDecodingStep < DECODING_STEPS.triangleIndices) {
+    return { header, vertexData };
+  }
 
   // Decode Triangle Indices
 
@@ -216,9 +187,9 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   const triangleIndicesEndPosition = position;
 
-  // if (maxDecodingStep < DECODING_STEPS.edgeIndices) {
-  //   return { header, vertexData, triangleIndices };
-  // }
+  if (maxDecodingStep < DECODING_STEPS.edgeIndices) {
+    return { header, vertexData, triangleIndices };
+  }
 
   // Decode Edge Indices
 

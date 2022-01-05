@@ -18,14 +18,42 @@ import {
   TilingScheme,
   WebMercatorTilingScheme,
 } from 'cesium';
-import {
-  decode,
-  IDecodedTile,
-  IDecodedTileHeader,
-} from './quantized-mesh.decoder';
+import decode from '@here/quantized-mesh-decoder';
 import dummyTileBuffer from './dummy-tile';
 
 const TILE_IMAGE_WIDTH = 65;
+
+export interface IDecodedTileHeader {
+  centerX: number;
+  centerY: number;
+  centerZ: number;
+  minHeight: number;
+  maxHeight: number;
+  boundingSphereCenterX: number;
+  boundingSphereCenterY: number;
+  boundingSphereCenterZ: number;
+  boundingSphereRadius: number;
+  horizonOcclusionPointX: number;
+  horizonOcclusionPointY: number;
+  horizonOcclusionPointZ: number;
+}
+
+export interface IExtensions {
+  vertexNormals?: Uint8Array;
+  waterMask?: ArrayBufferLike;
+  metadata?: unknown;
+}
+
+export interface IDecodedTile {
+  header: IDecodedTileHeader;
+  vertexData: Uint16Array;
+  triangleIndices: Uint16Array | Uint32Array;
+  westIndices: number[];
+  northIndices: number[];
+  eastIndices: number[];
+  southIndices: number[];
+  extensions?: IExtensions;
+}
 
 export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   public tilingScheme: TilingScheme;
@@ -42,7 +70,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   }) {
     // super();
     this.ready = false;
-    this.dummyTile = {}; // decode(dummyTileBuffer);
+    this.dummyTile = decode(dummyTileBuffer);
     this.tilingScheme = options.tilingScheme ?? new WebMercatorTilingScheme();
 
     if (options.getUrl === undefined) {

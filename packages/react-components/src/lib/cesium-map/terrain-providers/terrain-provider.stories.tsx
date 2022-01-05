@@ -200,8 +200,8 @@ const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
     const column = x;
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
-    // return `/mock/terrain_example_tiles/${level}/${column}/${row}.terrain`;
-    return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`;
+    return `/mock/terrain_example_tiles/${level}/${column}/${row}.terrain`;
+    // return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`;
   },
   credit: `Mapcolonies`,
 });
@@ -224,7 +224,7 @@ const terrainProviderList = [
     value: ArcGisProvider,
   },
   {
-    id: 'Quantized Mesh Terrain Provider',
+    id: 'Custom Terrain Provider',
     value: QuantizedMeshProvider,
   },
 ];
@@ -272,7 +272,6 @@ export const QuantizedMesh: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
-        terrainProvider={undefined}
         mapProjection={new WebMercatorProjection()} // Ellipsoid.WGS84
       >
         <Cesium3DTileset
