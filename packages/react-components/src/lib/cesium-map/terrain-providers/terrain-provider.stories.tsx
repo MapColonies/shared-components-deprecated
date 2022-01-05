@@ -8,6 +8,8 @@ import {
   WebMercatorProjection,
   // WebMercatorTilingScheme,
   GeographicTilingScheme,
+  CesiumTerrainProvider,
+  Resource,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
@@ -167,6 +169,16 @@ const BASE_MAPS = {
 
 const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
+const CesiumProvider = new CesiumTerrainProvider({
+  url: new Resource({
+    url: 'https://assets.cesium.com/1',
+    headers: {
+      authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjNmExMzdjMC1iYzYwLTQ3Y2EtYjc2Yy05Y2FkZjFiNzBhYjEiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTM2NTkwNywiZXhwIjoxNjQxMzY5NTA3fQ.u5Tcvmy31j78oSYgKh7h3Tw_Bf1vm2e-06o8dClMigA',
+    }
+  }),
+});
+
 const VRTheWorldProvider = new VRTheWorldTerrainProvider({
   url: 'http://www.vr-theworld.com/vr-theworld/tiles1.0.0/73/',
 });
@@ -197,6 +209,10 @@ const terrainProviderList = [
   {
     id: 'NONE',
     value: EllipsoidProvider,
+  },
+  {
+    id: 'Cesium Provider',
+    value: CesiumProvider,
   },
   {
     id: 'V R The World Terrain Provider',
