@@ -15,7 +15,7 @@ import { CesiumSceneMode } from '../map.types';
 import QuantizedMeshTerrainProvider from './quantized-mesh.terrain-provider';
 
 export default {
-  title: 'Cesium Map/Quantized Mesh',
+  title: 'Cesium Map',
   component: CesiumMap,
   parameters: {
     layout: 'fullscreen',
@@ -244,7 +244,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   );
 };
 
-export const MapWithTerrainProvider: Story = () => {
+export const QuantizedMesh: Story = () => {
   // const [center] = useState<[number, number]>([24, -200]);
   const [center] = useState<[number, number]>([-122, 43]);
   return (
@@ -263,4 +263,4 @@ export const MapWithTerrainProvider: Story = () => {
     </div>
   );
 };
-MapWithTerrainProvider.storyName = 'Map with Terrain Provider';
+// QuantizedMesh.storyName = 'Quantized Map';

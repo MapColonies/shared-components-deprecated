@@ -42,7 +42,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
   }) {
     // super();
     this.ready = false;
-    this.dummyTile = decode(dummyTileBuffer);
+    this.dummyTile = {}; // decode(dummyTileBuffer);
     this.tilingScheme = options.tilingScheme ?? new WebMercatorTilingScheme();
 
     if (options.getUrl === undefined) {
@@ -71,7 +71,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
         method: 'GET',
         headers: {
           authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzN2EwZTNiOC1jYWQzLTRhMjctYjE3ZC1jNjlmZDk4NWVmMjAiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTI3NzA5OCwiZXhwIjoxNjQxMjgwNjk4fQ.Yzw4poLt0yJFDlyOE6OowNEMKvSgaCWFKAPj1YX9eE8',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjNmExMzdjMC1iYzYwLTQ3Y2EtYjc2Yy05Y2FkZjFiNzBhYjEiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTM2NTkwNywiZXhwIjoxNjQxMzY5NTA3fQ.u5Tcvmy31j78oSYgKh7h3Tw_Bf1vm2e-06o8dClMigA',
         },
       })
       .then((res: Response) => {
