@@ -14,6 +14,7 @@ import {
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
+import { Cesium3DTileset } from '../layers';
 import QuantizedMeshTerrainProvider from './quantized-mesh.terrain-provider';
 
 export default {
@@ -199,7 +200,7 @@ const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
     const column = x;
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
-    // return `/assets/example-tiles/${level}/${column}/${row}.terrain`;
+    // return `/mock/terrain_example_tiles/${level}/${column}/${row}.terrain`;
     return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`;
   },
   credit: `Mapcolonies`,
@@ -274,6 +275,10 @@ export const QuantizedMesh: Story = () => {
         terrainProvider={undefined}
         mapProjection={new WebMercatorProjection()} // Ellipsoid.WGS84
       >
+        <Cesium3DTileset
+          isZoomTo={true}
+          url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json"
+        />
         <TerrainProviderSelector terrainProviderList={terrainProviderList} />
       </CesiumMap>
     </div>
