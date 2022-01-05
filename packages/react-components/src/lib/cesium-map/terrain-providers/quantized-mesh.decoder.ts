@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-const TWO = 2;
-const EIGHT = 8;
-const ELEMENTS_PER_VERTEX = 3;
 const MAX_VERTEX_COUNT = 65536;
 const LITTLE_ENDIAN = true;
 
@@ -75,7 +72,7 @@ const decodeIndex = (
 ): Uint16Array | Uint32Array => {
   let indices;
 
-  if (bytesPerIndex === TWO) {
+  if (bytesPerIndex === 2) {
     indices = new Uint16Array(buffer, position, indicesCount);
   } else {
     indices = new Uint32Array(buffer, position, indicesCount);
@@ -100,7 +97,9 @@ const decodeIndex = (
   return indices;
 };
 
-const convertFromTypedArrayToNumbersArray = (array: Uint16Array | Uint32Array): number[] => {
+const convertFromTypedArrayToNumbersArray = (
+  array: Uint16Array | Uint32Array
+): number[] => {
   const numbersArray: number[] = [];
   for (let i = 0; i < array.length; ++i) {
     numbersArray.push(array[i]);
@@ -121,7 +120,7 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
       // @ts-ignore
       // eslint-disable-next-line
       header[key] =
-        bytesCount === EIGHT
+        bytesCount === 8
           ? view.getFloat64(position, LITTLE_ENDIAN)
           : view.getFloat32(position, LITTLE_ENDIAN);
       position += bytesCount;
@@ -140,7 +139,7 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   let vertexCount = view.getUint32(position, LITTLE_ENDIAN);
 
-  const vertexData = new Uint16Array(vertexCount * ELEMENTS_PER_VERTEX);
+  const vertexData = new Uint16Array(vertexCount * 3);
 
   position += Uint32Array.BYTES_PER_ELEMENT;
 
@@ -176,10 +175,10 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
     vertexData[i] = u;
     vertexData[i + vertexCount] = v;
-    vertexData[i + vertexCount * TWO] = height;
+    vertexData[i + vertexCount * 2] = height;
   }
 
-  position += elementArrayLength * ELEMENTS_PER_VERTEX;
+  position += elementArrayLength * 3;
 
   const vertexDataEndPosition = position;
 
@@ -191,7 +190,7 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   position = vertexDataEndPosition;
 
-  vertexCount = vertexData.length / ELEMENTS_PER_VERTEX;
+  vertexCount = vertexData.length / 3;
 
   const bytesPerIndex =
     vertexCount > MAX_VERTEX_COUNT
@@ -205,7 +204,7 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
   const triangleCount = view.getUint32(position, LITTLE_ENDIAN);
   position += Uint32Array.BYTES_PER_ELEMENT;
 
-  const triangleIndicesCount = triangleCount * ELEMENTS_PER_VERTEX;
+  const triangleIndicesCount = triangleCount * 3;
   const triangleIndices = decodeIndex(
     view.buffer,
     position,
@@ -225,7 +224,7 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   position = triangleIndicesEndPosition;
 
-  vertexCount = vertexData.length / ELEMENTS_PER_VERTEX;
+  vertexCount = vertexData.length / 3;
 
   // bytesPerIndex = vertexCount > MAX_VERTEX_COUNT
   //   ? Uint32Array.BYTES_PER_ELEMENT
@@ -234,49 +233,33 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
   const westVertexCount = view.getUint32(position, LITTLE_ENDIAN);
   position += Uint32Array.BYTES_PER_ELEMENT;
 
-  const westIndices = convertFromTypedArrayToNumbersArray(decodeIndex(
-    view.buffer,
-    position,
-    westVertexCount,
-    bytesPerIndex,
-    false
-  ));
+  const westIndices = convertFromTypedArrayToNumbersArray(
+    decodeIndex(view.buffer, position, westVertexCount, bytesPerIndex, false)
+  );
   position += westVertexCount * bytesPerIndex;
 
   const southVertexCount = view.getUint32(position, LITTLE_ENDIAN);
   position += Uint32Array.BYTES_PER_ELEMENT;
 
-  const southIndices = convertFromTypedArrayToNumbersArray(decodeIndex(
-    view.buffer,
-    position,
-    southVertexCount,
-    bytesPerIndex,
-    false
-  ));
+  const southIndices = convertFromTypedArrayToNumbersArray(
+    decodeIndex(view.buffer, position, southVertexCount, bytesPerIndex, false)
+  );
   position += southVertexCount * bytesPerIndex;
 
   const eastVertexCount = view.getUint32(position, LITTLE_ENDIAN);
   position += Uint32Array.BYTES_PER_ELEMENT;
 
-  const eastIndices = convertFromTypedArrayToNumbersArray(decodeIndex(
-    view.buffer,
-    position,
-    eastVertexCount,
-    bytesPerIndex,
-    false
-  ));
+  const eastIndices = convertFromTypedArrayToNumbersArray(
+    decodeIndex(view.buffer, position, eastVertexCount, bytesPerIndex, false)
+  );
   position += eastVertexCount * bytesPerIndex;
 
   const northVertexCount = view.getUint32(position, LITTLE_ENDIAN);
   position += Uint32Array.BYTES_PER_ELEMENT;
 
-  const northIndices = convertFromTypedArrayToNumbersArray(decodeIndex(
-    view.buffer,
-    position,
-    northVertexCount,
-    bytesPerIndex,
-    false
-  ));
+  const northIndices = convertFromTypedArrayToNumbersArray(
+    decodeIndex(view.buffer, position, northVertexCount, bytesPerIndex, false)
+  );
   position += northVertexCount * bytesPerIndex;
 
   const edgeIndicesEndPosition = position;
