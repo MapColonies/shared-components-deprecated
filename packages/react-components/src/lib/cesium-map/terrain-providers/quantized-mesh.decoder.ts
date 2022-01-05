@@ -100,9 +100,9 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   const headerEndPosition = position;
 
-  if (maxDecodingStep < DECODING_STEPS.vertices) {
-    return { header };
-  }
+  // if (maxDecodingStep < DECODING_STEPS.vertices) {
+  //   return { header };
+  // }
 
   // Decode Vertex Data
 
@@ -153,9 +153,9 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   const vertexDataEndPosition = position;
 
-  if (maxDecodingStep < DECODING_STEPS.triangleIndices) {
-    return { header, vertexData };
-  }
+  // if (maxDecodingStep < DECODING_STEPS.triangleIndices) {
+  //   return { header, vertexData };
+  // }
 
   // Decode Triangle Indices
 
@@ -187,9 +187,9 @@ export const decode = (data: ArrayBufferLike): IDecodedTile => {
 
   const triangleIndicesEndPosition = position;
 
-  if (maxDecodingStep < DECODING_STEPS.edgeIndices) {
-    return { header, vertexData, triangleIndices };
-  }
+  // if (maxDecodingStep < DECODING_STEPS.edgeIndices) {
+  //   return { header, vertexData, triangleIndices };
+  // }
 
   // Decode Edge Indices
 
