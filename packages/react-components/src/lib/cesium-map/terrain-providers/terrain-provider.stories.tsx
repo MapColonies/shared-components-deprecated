@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
-  Ellipsoid,
   EllipsoidTerrainProvider,
   TerrainProvider,
   VRTheWorldTerrainProvider,
   WebMercatorProjection,
-  // WebMercatorTilingScheme,
-  GeographicTilingScheme,
   CesiumTerrainProvider,
   Resource,
+  WebMercatorTilingScheme,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { Cesium3DTileset } from '../layers';
-import QuantizedMeshTerrainProvider from './quantized-mesh.terrain-provider';
+import QuantizedMeshTerrainProvider from './custom/quantized-mesh-terrain-provider';
 
 export default {
   title: 'Cesium Map',
@@ -33,65 +31,13 @@ const mapDivStyle = {
 
 const BASE_MAPS = {
   maps: [
-    // {
-    //   id: '1st',
-    //   title: '1st Map Title',
-    //   thumbnail:
-    //     'https://nsw.digitaltwin.terria.io/build/3456d1802ab2ef330ae2732387726771.png',
-    //   baseRasteLayers: [
-    //     {
-    //       id: 'GOOGLE_TERRAIN',
-    //       type: 'XYZ_LAYER',
-    //       opacity: 1,
-    //       zIndex: 0,
-    //       options: {
-    //         url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-    //         layers: '',
-    //         credit: 'GOOGLE',
-    //       },
-    //     },
-    //     {
-    //       id: 'INFRARED_RASTER',
-    //       type: 'WMS_LAYER',
-    //       opacity: 0.6,
-    //       zIndex: 1,
-    //       options: {
-    //         url:
-    //           'https://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_ir.cgi?',
-    //         layers: 'goes_conus_ir',
-    //         credit: 'Infrared data courtesy Iowa Environmental Mesonet',
-    //         parameters: {
-    //           transparent: 'true',
-    //           format: 'image/png',
-    //         },
-    //       },
-    //     },
-    //   ],
-    //   baseVectorLayers: [],
-    // },
     {
-      id: '2nd',
-      title: '2nd Map Title',
+      id: '1st',
+      title: '1st Map Title',
       isCurrent: true,
       thumbnail:
         'https://nsw.digitaltwin.terria.io/build/efa2f6c408eb790753a9b5fb2f3dc678.png',
       baseRasteLayers: [
-        // {
-        //   id: 'RADAR_RASTER',
-        //   type: 'WMS_LAYER',
-        //   opacity: 0.6,
-        //   zIndex: 1,
-        //   options: {
-        //     url:
-        //       'https://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?',
-        //     layers: 'nexrad-n0r',
-        //     credit: 'Radar data courtesy Iowa Environmental Mesonet',
-        //     parameters: {
-        //       transparent: 'true',
-        //       format: 'image/png',
-        //     },
-        //   },
-        // },
         {
           id: 'GOOGLE_TERRAIN',
           type: 'XYZ_LAYER',
@@ -103,68 +49,10 @@ const BASE_MAPS = {
             credit: 'GOOGLE',
           },
         },
-        // {
-        //   id: 'VECTOR_TILES_GPS',
-        //   type: 'XYZ_LAYER',
-        //   opacity: 1,
-        //   zIndex: 2,
-        //   options: {
-        //     url: 'https://gps.tile.openstreetmap.org/lines/{z}/{x}/{y}.png',
-        //     layers: '',
-        //     credit: 'openstreetmap',
-        //   },
-        // },
       ],
       baseVectorLayers: [],
     },
-    // {
-    //   id: '3rd',
-    //   title: '3rd Map Title',
-    //   thumbnail:
-    //     'https://nsw.digitaltwin.terria.io/build/d8b97d3e38a0d43e5a06dea9aae17a3e.png',
-    //   baseRasteLayers: [
-    //     {
-    //       id: 'VECTOR_TILES',
-    //       type: 'XYZ_LAYER',
-    //       opacity: 1,
-    //       zIndex: 0,
-    //       options: {
-    //         url:
-    //           'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=6170aad10dfd42a38d4d8c709a536f38',
-    //         layers: '',
-    //         credit: 'thunderforest',
-    //       },
-    //     },
-    //     {
-    //       id: 'VECTOR_TILES_GPS',
-    //       type: 'XYZ_LAYER',
-    //       opacity: 1,
-    //       zIndex: 1,
-    //       options: {
-    //         url: 'https://gps.tile.openstreetmap.org/lines/{z}/{x}/{y}.png',
-    //         layers: '',
-    //         credit: 'openstreetmap',
-    //       },
-    //     },
-    //     {
-    //       id: 'WMTS_POPULATION_TILES',
-    //       type: 'WMTS_LAYER',
-    //       opacity: 0.4,
-    //       zIndex: 2,
-    //       options: {
-    //         url:
-    //           'https://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Population_Density/MapServer/WMTS/',
-    //         layer: 'USGSShadedReliefOnly',
-    //         style: 'default',
-    //         format: 'image/jpeg',
-    //         tileMatrixSetID: 'default028mm',
-    //         maximumLevel: 19,
-    //         credit: 'U. S. Geological Survey',
-    //       },
-    //     },
-    //   ],
-    //   baseVectorLayers: [],
-    // },
+    
   ],
 };
 
@@ -172,10 +60,10 @@ const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
 const CesiumProvider = new CesiumTerrainProvider({
   url: new Resource({
-    url: 'https://assets.cesium.com/1',
+    url: 'https://my-assets.cesium.com/1',
     headers: {
       authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjNmExMzdjMC1iYzYwLTQ3Y2EtYjc2Yy05Y2FkZjFiNzBhYjEiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTM2NTkwNywiZXhwIjoxNjQxMzY5NTA3fQ.u5Tcvmy31j78oSYgKh7h3Tw_Bf1vm2e-06o8dClMigA',
+        'Bearer <my-access-token>',
     },
   }),
 });
@@ -191,17 +79,16 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
 
 const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
   getUrl: (x: number, y: number, level: number): string => {
-    // const tilingScheme = new WebMercatorTilingScheme(); // {ellipsoid: Ellipsoid.WGS84}
-    const tilingScheme = new GeographicTilingScheme({
-      numberOfLevelZeroTilesX: 2,
-      numberOfLevelZeroTilesY: 1,
-      ellipsoid: Ellipsoid.WGS84,
-    });
+    const tilingScheme = new WebMercatorTilingScheme();
+    // const tilingScheme = new GeographicTilingScheme({
+    //   numberOfLevelZeroTilesX: 2,
+    //   numberOfLevelZeroTilesY: 1,
+    //   ellipsoid: Ellipsoid.WGS84,
+    // });
     const column = x;
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
     return `/mock/terrain_example_tiles/${level}/${column}/${row}.terrain`;
-    // return `https://assets.cesium.com/1/${level}/${column}/${row}.terrain?extensions=octvertexnormals-watermask-metadata&v=1.2.0`;
   },
   credit: `Mapcolonies`,
 });
@@ -243,6 +130,63 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 }) => {
   const mapViewer = useCesiumMap();
 
+  mapViewer.scene.globe.depthTestAgainstTerrain = true;
+
+  const updateTile = (tile) => {
+    const boundingVolume = tile.boundingVolume;
+    if (Cesium.defined(tile.contentBoundingVolume)) {
+      boundingVolume = tile.contentBoundingVolume;
+    }
+    const content = tile.content;
+    const model = content._model;
+    const height = boundingVolume.minimumHeight;
+    const center = model._rtcCenter;
+    const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(center, new Cartesian3());
+    const offset = Cartesian3.multiplyByScalar(normal, height, new Cartesian3());
+    const carto = Cesium.Cartographic.fromCartesian(center);
+    const promise = Cesium.when.defer();
+    if (scene.terrainProvider === ellipsoidTerrainProvider) {
+      var result = carto;
+      result.height = 0;
+      promise.resolve(result);
+    } else {
+      promise = Cesium.sampleTerrainMostDetailed(scene.terrainProvider, [carto]).then(function(results) {
+        const result = results[0];
+        if (!Cesium.defined(result)) {
+          return carto;
+        }
+        return result;
+      });
+    }
+
+    promise.then(function(result) {
+      result = Cesium.Cartographic.toCartesian(result);
+      var position = Cartesian3.subtract(result, offset, new Cartesian3());
+      model._rtcCenter = Cartesian3.clone(position, model._rtcCenter);
+    });
+  }
+
+  const updateTileset = (root) => {
+    if (root.contentReady) {
+      updateTile(root);
+    } else {
+      const listener = tileset.tileLoad.addEventListener((tile) => {
+        if (tile === root) {
+          updateTile(tile);
+          listener();
+        }
+      });
+    }
+
+    const children = root.children;
+    const length = children.length;
+    for (let i = 0; i < length; ++i) {
+      updateTileset(children[i]);
+    }
+  }
+
+  updateTileset(tileset.root);
+
   return (
     <select
       defaultValue={terrainProviderList[0].id}
@@ -283,4 +227,3 @@ export const QuantizedMesh: Story = () => {
     </div>
   );
 };
-// QuantizedMesh.storyName = 'Quantized Map';

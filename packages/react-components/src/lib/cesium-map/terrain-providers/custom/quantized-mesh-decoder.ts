@@ -3,7 +3,7 @@ import {
   IDecodedTile,
   IDecodedTileHeader,
   IExtensions,
-} from './quantized-mesh.terrain-provider';
+} from './quantized-mesh-terrain-provider';
 
 const LITTLE_ENDIAN = true;
 const MAX_VERTEX_COUNT = 65536;

@@ -19,7 +19,7 @@ import {
   WebMercatorTilingScheme,
 } from 'cesium';
 import decode from '@here/quantized-mesh-decoder';
-import dummyTileBuffer from './dummy-tile';
+import dummyTileBuffer from './dummy-quantized-mesh-tile';
 
 const TILE_IMAGE_WIDTH = 65;
 
@@ -95,13 +95,7 @@ export default class QuantizedMeshTerrainProvider /*extends TerrainProvider*/ {
     const url = this.getUrl(x, y, level);
 
     return window
-      .fetch(url, {
-        method: 'GET',
-        headers: {
-          authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjNmExMzdjMC1iYzYwLTQ3Y2EtYjc2Yy05Y2FkZjFiNzBhYjEiLCJpZCI6MjU5LCJhc3NldHMiOnsiMSI6eyJ0eXBlIjoiVEVSUkFJTiIsImV4dGVuc2lvbnMiOlt0cnVlLHRydWUsdHJ1ZV0sInB1bGxBcGFydFRlcnJhaW4iOmZhbHNlfX0sInNyYyI6Ijc4NmQwNDM5LTdkYmMtNDNlZS1iOWZjLThmYzljZTA3M2EyZiIsImlhdCI6MTY0MTM2NTkwNywiZXhwIjoxNjQxMzY5NTA3fQ.u5Tcvmy31j78oSYgKh7h3Tw_Bf1vm2e-06o8dClMigA',
-        },
-      })
+      .fetch(url)
       .then((res: Response) => {
         if (res.status !== 200) {
           return this.generateDummyTile(x, y, level);
