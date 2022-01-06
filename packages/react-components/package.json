@@ -64,6 +64,7 @@
     "copyassets:cesium": "copyfiles -u 5 \"../../node_modules/cesium/Build/Cesium/**/*\" \"storybook-static\"",
     "copyassets:components": "copyfiles -u 1 \"./public/assets/**/*\" \"dist\"",
     "storybook": "yarn run copyassets:all && start-storybook -p 9010 -s public,\"storybook-static\"",
+    "storybook-https": "yarn run copyassets:all && start-storybook --ssl-cert ~/example.crt --ssl-key ~/example.key --https -p 9010 -s public,\"storybook-static\"",
     "build-storybook": "build-storybook -s public",
     "eslint-check": "npx eslint . --ext .ts,.tsx"
   },
