@@ -23,5 +23,5 @@ yarn-error.log*
 
 # storybook
 /storybook-static/[cC]esium
-/storybook-static/mock/Rehovot_solar_tileset
+/storybook-static/mock/tileset_2
 /storybook-static/mock/terrain*
