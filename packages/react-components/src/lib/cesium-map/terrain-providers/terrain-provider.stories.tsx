@@ -52,7 +52,6 @@ const BASE_MAPS = {
       ],
       baseVectorLayers: [],
     },
-    
   ],
 };
 
@@ -132,7 +131,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 
   mapViewer.scene.globe.depthTestAgainstTerrain = true;
 
-  const updateTile = (tile) => {
+  /*const updateTile = (tile: Cesium3DTileset) => {
     const boundingVolume = tile.boundingVolume;
     if (Cesium.defined(tile.contentBoundingVolume)) {
       boundingVolume = tile.contentBoundingVolume;
@@ -177,7 +176,6 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         }
       });
     }
-
     const children = root.children;
     const length = children.length;
     for (let i = 0; i < length; ++i) {
@@ -185,23 +183,27 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     }
   }
 
-  updateTileset(tileset.root);
+  updateTileset(tileset.root);*/
 
   return (
-    <select
-      defaultValue={terrainProviderList[0].id}
-      onChange={(evt): void => {
-        const selected = terrainProviderList.find(
-          (item) => item.id === evt.target.value
-        );
-        mapViewer.terrainProvider = (selected as ITerrainProviderItem)
-          .value as TerrainProvider;
-      }}
-    >
-      {terrainProviderList.map((provider) => {
-        return <option key={provider.id}>{provider.id}</option>;
-      })}
-    </select>
+    <>
+      <select
+        defaultValue={terrainProviderList[0].id}
+        onChange={(evt): void => {
+          const selected = terrainProviderList.find(
+            (item) => item.id === evt.target.value
+          );
+          mapViewer.terrainProvider = (selected as ITerrainProviderItem)
+            .value as TerrainProvider;
+        }}
+      >
+        {terrainProviderList.map((provider) => {
+          return <option key={provider.id}>{provider.id}</option>;
+        })}
+      </select>
+      <input type="checkbox" id="input" />
+      <label htmlFor="input">with update()</label>
+    </>
   );
 };
 
@@ -220,7 +222,7 @@ export const QuantizedMesh: Story = () => {
       >
         <Cesium3DTileset
           isZoomTo={true}
-          url="/mock/Rehovot_solar_tileset/L16_31023/L16_31023.json"
+          url="/mock/tileset_2/L16_31023/L16_31023.json"
         />
         <TerrainProviderSelector terrainProviderList={terrainProviderList} />
       </CesiumMap>
