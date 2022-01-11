@@ -141,7 +141,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 
   const tileset = scene.primitives.add(
     new Cesium3DTileset({
-      url: '/mock/tileset_2/L16_31023/L16_31023.json'
+      url: '/mock/tileset_2/L16_31023/L16_31023.json',
     })
   );
 
@@ -187,12 +187,14 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     if (root.contentReady) {
       updateTile(root);
     } else {
-      const listener = (tileset as Cesium3DTileset).tileLoad.addEventListener((tile: Cesium3DTile) => {
-        if (tile === root) {
-          updateTile(tile);
-          listener();
+      const listener = (tileset as Cesium3DTileset).tileLoad.addEventListener(
+        (tile: Cesium3DTile) => {
+          if (tile === root) {
+            updateTile(tile);
+            listener();
+          }
         }
-      });
+      );
     }
     const children = root.children;
     const length = children.length;
@@ -200,7 +202,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
       updateTileset(children[i]);
     }
   };
-  
+
   const handleTilesetUpdate = (e: ChangeEvent<HTMLInputElement>): void => {
     setTilesetUpdate(e.target.checked);
     updateTileset((tileset as Cesium3DTileset).root);
@@ -222,11 +224,21 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
           return <option key={provider.id}>{provider.id}</option>;
         })}
       </select>
-      <br/>
-      <input type="checkbox" id="input" checked={depthTest} onChange={handleDepthTestChange} />
+      <br />
+      <input
+        type="checkbox"
+        id="input"
+        checked={depthTest}
+        onChange={handleDepthTestChange}
+      />
       <label htmlFor="input">depthTestAgainstTerrain</label>
-      <br/>
-      <input type="checkbox" id="input" checked={tilesetUpdate} onChange={handleTilesetUpdate} />
+      <br />
+      <input
+        type="checkbox"
+        id="input"
+        checked={tilesetUpdate}
+        onChange={handleTilesetUpdate}
+      />
       <label htmlFor="input">updateTileset</label>
     </>
   );
