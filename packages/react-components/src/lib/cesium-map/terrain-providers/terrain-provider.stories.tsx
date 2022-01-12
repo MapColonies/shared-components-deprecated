@@ -9,12 +9,12 @@ import {
   CesiumTerrainProvider,
   Resource,
   WebMercatorTilingScheme,
-  Cesium3DTileset,
+  // Cesium3DTileset,
   // Cesium3DTile,
-  Cartographic,
-  Cartesian3,
-  defined,
-  sampleTerrainMostDetailed,
+  // Cartographic,
+  // Cartesian3,
+  // defined,
+  // sampleTerrainMostDetailed,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
@@ -68,8 +68,7 @@ const CesiumProvider = new CesiumTerrainProvider({
   url: new Resource({
     url: 'https://my-assets.cesium.com/1',
     headers: {
-      authorization:
-        'Bearer <my-access-token>',
+      authorization: 'Bearer <my-access-token>',
     },
   }),
 });
@@ -136,15 +135,15 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 }) => {
   const mapViewer = useCesiumMap();
   const [depthTest, setDepthTest] = useState<boolean>(false);
-  const [tilesetUpdate, setTilesetUpdate] = useState<boolean>(false);
+  // const [tilesetUpdate, setTilesetUpdate] = useState<boolean>(false);
 
   const scene = mapViewer.scene;
 
-  const tileset = scene.primitives.add(
+  /*const tileset = scene.primitives.add(
     new Cesium3DTileset({
       url: '/mock/tileset_2/L16_31023/L16_31023.json',
     })
-  );
+  );*/
 
   const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setDepthTest(e.target.checked);
@@ -202,12 +201,12 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     for (let i = 0; i < length; ++i) {
       updateTileset(children[i]);
     }
-  };*/
+  };
 
   const handleTilesetUpdate = (e: ChangeEvent<HTMLInputElement>): void => {
     setTilesetUpdate(e.target.checked);
-    // updateTileset((tileset as Cesium3DTileset).root);
-  };
+    updateTileset((tileset as Cesium3DTileset).root);
+  };*/
 
   return (
     <>
