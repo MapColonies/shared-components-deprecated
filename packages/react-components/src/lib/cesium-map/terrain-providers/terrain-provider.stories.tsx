@@ -10,7 +10,7 @@ import {
   Resource,
   WebMercatorTilingScheme,
   Cesium3DTileset,
-  Cesium3DTile,
+  // Cesium3DTile,
   Cartographic,
   Cartesian3,
   defined,
@@ -19,6 +19,7 @@ import {
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
+import { Cesium3DTileset } from '../layers';
 import QuantizedMeshTerrainProvider from './custom/quantized-mesh-terrain-provider';
 
 export default {
@@ -134,7 +135,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
   const mapViewer = useCesiumMap();
-  const [depthTest, setDepthTest] = useState<boolean>(true);
+  const [depthTest, setDepthTest] = useState<boolean>(false);
   const [tilesetUpdate, setTilesetUpdate] = useState<boolean>(false);
 
   const scene = mapViewer.scene;
@@ -150,8 +151,8 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     scene.globe.depthTestAgainstTerrain = !depthTest;
   };
 
-  const updateTile = (tile: Cesium3DTile): void => {
-    /*const boundingVolume = tile.boundingVolume;
+  /*const updateTile = (tile: Cesium3DTile): void => {
+    const boundingVolume = tile.boundingVolume;
     if (defined(tile.contentBoundingVolume)) {
       boundingVolume = tile.contentBoundingVolume;
     }
@@ -180,7 +181,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
       result = Cartographic.toCartesian(result);
       const position = Cartesian3.subtract(result, offset, new Cartesian3());
       model._rtcCenter = Cartesian3.clone(position, model._rtcCenter);
-    });*/
+    });
   };
 
   const updateTileset = (root: Cesium3DTile): void => {
@@ -201,11 +202,11 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     for (let i = 0; i < length; ++i) {
       updateTileset(children[i]);
     }
-  };
+  };*/
 
   const handleTilesetUpdate = (e: ChangeEvent<HTMLInputElement>): void => {
     setTilesetUpdate(e.target.checked);
-    updateTileset((tileset as Cesium3DTileset).root);
+    // updateTileset((tileset as Cesium3DTileset).root);
   };
 
   return (
@@ -232,14 +233,14 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         onChange={handleDepthTestChange}
       />
       <label htmlFor="input">depthTestAgainstTerrain</label>
-      <br />
+      {/* <br />
       <input
         type="checkbox"
         id="input"
         checked={tilesetUpdate}
         onChange={handleTilesetUpdate}
       />
-      <label htmlFor="input">updateTileset</label>
+      <label htmlFor="input">updateTileset</label> */}
     </>
   );
 };
