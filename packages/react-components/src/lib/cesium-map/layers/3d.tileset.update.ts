@@ -69,4 +69,4 @@ export const update = (tileset: Cesium3DTileset): void => {
   updateTileset(tileset.root);
 };
 */
-export {}
+export {};
