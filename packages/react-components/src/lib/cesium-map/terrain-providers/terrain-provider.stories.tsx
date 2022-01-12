@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { ChangeEvent, useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
@@ -9,12 +8,6 @@ import {
   CesiumTerrainProvider,
   Resource,
   WebMercatorTilingScheme,
-  // Cesium3DTileset,
-  // Cesium3DTile,
-  // Cartographic,
-  // Cartesian3,
-  // defined,
-  // sampleTerrainMostDetailed,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
@@ -85,11 +78,6 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
 const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
   getUrl: (x: number, y: number, level: number): string => {
     const tilingScheme = new WebMercatorTilingScheme();
-    // const tilingScheme = new GeographicTilingScheme({
-    //   numberOfLevelZeroTilesX: 2,
-    //   numberOfLevelZeroTilesY: 1,
-    //   ellipsoid: Ellipsoid.WGS84,
-    // });
     const column = x;
     const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
 
@@ -108,7 +96,7 @@ const terrainProviderList = [
     value: CesiumProvider,
   },
   {
-    id: 'V R The World Terrain Provider',
+    id: 'V R The World Terrain Provider (Hight Map)',
     value: VRTheWorldProvider,
   },
   {
@@ -135,78 +123,13 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 }) => {
   const mapViewer = useCesiumMap();
   const [depthTest, setDepthTest] = useState<boolean>(false);
-  // const [tilesetUpdate, setTilesetUpdate] = useState<boolean>(false);
 
   const scene = mapViewer.scene;
-
-  /*const tileset = scene.primitives.add(
-    new Cesium3DTileset({
-      url: '/mock/tileset_2/L16_31023/L16_31023.json',
-    })
-  );*/
 
   const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setDepthTest(e.target.checked);
     scene.globe.depthTestAgainstTerrain = !depthTest;
   };
-
-  /*const updateTile = (tile: Cesium3DTile): void => {
-    const boundingVolume = tile.boundingVolume;
-    if (defined(tile.contentBoundingVolume)) {
-      boundingVolume = tile.contentBoundingVolume;
-    }
-    const content = tile.content;
-    const model = content._model;
-    const height = boundingVolume.minimumHeight;
-    const center = model._rtcCenter;
-    const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(center, new Cartesian3());
-    const offset = Cartesian3.multiplyByScalar(normal, height, new Cartesian3());
-    const carto = Cartographic.fromCartesian(center);
-    const promise = when.defer();
-    if (scene.terrainProvider === ellipsoidTerrainProvider) {
-      const result = carto;
-      result.height = 0;
-      promise.resolve(result);
-    } else {
-      promise = sampleTerrainMostDetailed(scene.terrainProvider, [carto]).then((results) => {
-        const result = results[0];
-        if (!defined(result)) {
-          return carto;
-        }
-        return result;
-      });
-    }
-    promise.then((result) => {
-      result = Cartographic.toCartesian(result);
-      const position = Cartesian3.subtract(result, offset, new Cartesian3());
-      model._rtcCenter = Cartesian3.clone(position, model._rtcCenter);
-    });
-  };
-
-  const updateTileset = (root: Cesium3DTile): void => {
-    if (root.contentReady) {
-      updateTile(root);
-    } else {
-      const listener = (tileset as Cesium3DTileset).tileLoad.addEventListener(
-        (tile: Cesium3DTile) => {
-          if (tile === root) {
-            updateTile(tile);
-            listener();
-          }
-        }
-      );
-    }
-    const children = root.children;
-    const length = children.length;
-    for (let i = 0; i < length; ++i) {
-      updateTileset(children[i]);
-    }
-  };
-
-  const handleTilesetUpdate = (e: ChangeEvent<HTMLInputElement>): void => {
-    setTilesetUpdate(e.target.checked);
-    updateTileset((tileset as Cesium3DTileset).root);
-  };*/
 
   return (
     <>
@@ -232,14 +155,6 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         onChange={handleDepthTestChange}
       />
       <label htmlFor="input">depthTestAgainstTerrain</label>
-      {/* <br />
-      <input
-        type="checkbox"
-        id="input"
-        checked={tilesetUpdate}
-        onChange={handleTilesetUpdate}
-      />
-      <label htmlFor="input">updateTileset</label> */}
     </>
   );
 };
@@ -255,7 +170,7 @@ export const QuantizedMesh: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
-        mapProjection={new WebMercatorProjection()} // Ellipsoid.WGS84
+        mapProjection={new WebMercatorProjection()}
       >
         <Cesium3DTileset
           isZoomTo={true}
