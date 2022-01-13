@@ -24,13 +24,13 @@ export const BaseMap: Story = (args: CesiumMapProps) => (
   </div>
 );
 
-export const ZommedMap: Story = (args: CesiumMapProps) => (
+export const ZoomedMap: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>
     <CesiumMap {...args}></CesiumMap>
   </div>
 );
 
-ZommedMap.argTypes = {
+ZoomedMap.argTypes = {
   center: {
     defaultValue: [34.9578094, 32.8178637],
   },
@@ -100,7 +100,7 @@ Map2DWithProjection.argTypes = {
     },
   },
 };
-Map2DWithProjection.storyName = '2D Map with projection';
+Map2DWithProjection.storyName = '2D Map With Projection';
 
 export const LocalizedMap: Story = (args: CesiumMapProps) => (
   <div style={mapDivStyle}>

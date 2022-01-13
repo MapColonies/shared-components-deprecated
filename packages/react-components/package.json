@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
+    "@here/quantized-mesh-decoder": "^1.2.8",
     "@map-colonies/react-core": "^3.3.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -36,7 +37,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/textarea-caret": "^3.0.1",
-    "cesium": "^1.82.0",
+    "cesium": "1.84.0",
     "copy-webpack-plugin": "^6.3.1",
     "copyfiles": "2.3.0",
     "cross-env": "7.0.2",
@@ -63,6 +64,7 @@
     "copyassets:cesium": "copyfiles -u 5 \"../../node_modules/cesium/Build/Cesium/**/*\" \"storybook-static\"",
     "copyassets:components": "copyfiles -u 1 \"./public/assets/**/*\" \"dist\"",
     "storybook": "yarn run copyassets:all && start-storybook -p 9010 -s public,\"storybook-static\"",
+    "storybook-https": "yarn run copyassets:all && start-storybook --ssl-cert ~/example.crt --ssl-key ~/example.key --https -p 9010 -s public,\"storybook-static\"",
     "build-storybook": "build-storybook -s public",
     "eslint-check": "npx eslint . --ext .ts,.tsx"
   },

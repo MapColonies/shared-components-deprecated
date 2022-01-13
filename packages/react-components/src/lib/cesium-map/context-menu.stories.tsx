@@ -7,7 +7,7 @@ import { CesiumSceneMode } from './map.types';
 import { IRasterLayer } from './layers-manager';
 
 export default {
-  title: 'Cesium Map/Context Menu',
+  title: 'Cesium Map',
   component: CesiumMap,
   parameters: {
     layout: 'fullscreen',
@@ -442,4 +442,3 @@ export const MapWithContextMenu: Story = () => {
     </div>
   );
 };
-MapWithContextMenu.storyName = 'Map Context Menu';

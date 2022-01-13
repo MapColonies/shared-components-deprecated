@@ -5,7 +5,7 @@ import { CesiumSceneMode } from './map.types';
 import { IRasterLayer } from './layers-manager';
 
 export default {
-  title: 'Cesium Map/Layers Manager',
+  title: 'Cesium Map',
   component: CesiumMap,
   parameters: {
     layout: 'fullscreen',
@@ -191,7 +191,7 @@ const layers = [
   },
 ];
 
-export const MapWithSettings: Story = () => {
+export const LayersManager: Story = () => {
   const [center] = useState<[number, number]>([34.811, 31.908]);
   return (
     <div style={mapDivStyle}>
@@ -207,7 +207,6 @@ export const MapWithSettings: Story = () => {
     </div>
   );
 };
-MapWithSettings.storyName = 'Map Layer Manager';
 
 interface ILayersMozaikProps {
   layers: IRasterLayer[];

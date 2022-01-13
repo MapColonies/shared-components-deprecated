@@ -17,6 +17,7 @@ import {
   PerspectiveOffCenterFrustum,
   OrthographicFrustum,
   ScreenSpaceEventType,
+  TerrainProvider,
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
 import { getAltitude, toDegrees } from '../utils/map';
@@ -87,6 +88,7 @@ export interface CesiumMapProps extends ViewerProps {
   locale?: { [key: string]: string };
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
+  terrainProvider?: TerrainProvider;
   imageryContextMenu?: React.ReactElement<IContextMenuData>;
   imageryContextMenuSize?: {
     height: number;
