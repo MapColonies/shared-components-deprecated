@@ -1,13 +1,13 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Story } from '@storybook/react/types-6-0';
-import { CSFStory } from '../../utils/story';
-import { SupportedLocales } from '../../models/enums';
-import { DateTimeRangePicker } from '../date-range-picker';
-import { DateTimeRangePickerFormControl } from '../date-range-picker.form-control';
+import { CSFStory } from '../utils/story';
+import { SupportedLocales } from '../models/enums';
+import { DateTimeRangePicker } from './date-range-picker';
+import { DateTimeRangePickerFormControl } from './date-range-picker.form-control';
 
 export default {
-  title: 'Picker',
+  title: 'Date Range Picker',
   component: DateTimeRangePicker,
 };
 
