@@ -13,7 +13,5 @@ export default {
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 export const DarkMode: Story = () => {
-  return (
-    <FilePicker darkMode={true} instanceId={'DarkMode'} />
-  );
+  return <FilePicker darkMode={true} instanceId={'DarkMode'} />;
 };

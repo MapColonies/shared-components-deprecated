@@ -58,7 +58,7 @@ const useCustomFileMap = () => {
 
       files.forEach((file) => {
         delete newFileMap[file.id];
-        
+
         if (file.parentId) {
           const parent = newFileMap[file.parentId];
           const newChildrenIds = parent.childrenIds?.filter(
@@ -98,7 +98,7 @@ const useCustomFileMap = () => {
 
         // Add the files to their destination folder.
         const newDestinationChildrenIds = [
-          ...destination.childrenIds as string[],
+          ...(destination.childrenIds as string[]),
           ...files.map((f) => f.id),
         ];
         newFileMap[destination.id] = {
@@ -144,7 +144,7 @@ const useCustomFileMap = () => {
       const parent = newFileMap[currentFolderIdRef.current];
       newFileMap[currentFolderIdRef.current] = {
         ...parent,
-        childrenIds: [...parent.childrenIds as string[], newFolderId],
+        childrenIds: [...(parent.childrenIds as string[]), newFolderId],
       };
 
       return newFileMap;
