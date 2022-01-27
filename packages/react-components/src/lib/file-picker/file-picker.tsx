@@ -168,8 +168,9 @@ export const useFiles = (
 ): FileArray => {
   return useMemo(() => {
     const currentFolder = fileMap[currentFolderId];
-    const childrenIds = currentFolder.childrenIds as string[];
-    const files = childrenIds.map((fileId: string) => fileMap[fileId]);
+    const files = currentFolder.childrenIds
+      ? currentFolder.childrenIds.map((fileId: string) => fileMap[fileId] ?? null)
+      : [];
     return files;
   }, [currentFolderId, fileMap]);
 };
@@ -279,6 +280,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo((props) => {
           fileActions={fileActions}
           onFileAction={handleFileAction}
           thumbnailGenerator={thumbnailGenerator}
+          defaultFileViewActionId={ChonkyActions.EnableListView.id}
           {...props}
         />
       </div>
