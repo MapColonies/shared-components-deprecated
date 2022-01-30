@@ -1,20 +1,18 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
   TerrainProvider,
-  VRTheWorldTerrainProvider,
   WebMercatorProjection,
   CesiumTerrainProvider,
   Resource,
-  WebMercatorTilingScheme,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { Cesium3DTileset } from '../layers';
+import { TerrainianHeightTool } from '../tools/terranian-height.tool';
 import { LayerType } from '../layers-manager';
-import QuantizedMeshTerrainProvider from './custom/quantized-mesh-terrain-provider';
 
 export default {
   title: 'Cesium Map/QuantizedMesh',
@@ -58,17 +56,18 @@ const BASE_MAPS = {
 
 const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
-const CesiumProvider = new CesiumTerrainProvider({
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const MCCesiumProviderMercator = new CesiumTerrainProvider({
   url: new Resource({
-    url: 'https://my-assets.cesium.com/1',
-    headers: {
-      authorization: 'Bearer <my-access-token>',
-    },
+    url: 'http://localhost:3000/terrain_mercator_crop',
   }),
 });
 
-const VRTheWorldProvider = new VRTheWorldTerrainProvider({
-  url: 'http://www.vr-theworld.com/vr-theworld/tiles1.0.0/73/',
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const MCCesiumProviderW84 = new CesiumTerrainProvider({
+  url: new Resource({
+    url: 'http://localhost:3000/terrain_w84_geo_crop',
+  }),
 });
 
 const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
@@ -76,37 +75,22 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
     'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer',
 });
 
-const QuantizedMeshProvider = new QuantizedMeshTerrainProvider({
-  getUrl: (x: number, y: number, level: number): string => {
-    const tilingScheme = new WebMercatorTilingScheme();
-    const column = x;
-    const row = tilingScheme.getNumberOfYTilesAtLevel(level) - y - 1;
-
-    return `/mock/terrain_example_tiles/${level}/${column}/${row}.terrain`;
-  },
-  credit: `Mapcolonies`,
-});
-
-const terrainProviderList = [
+const terrainProviderListQmesh = [
   {
     id: 'NONE',
     value: EllipsoidProvider,
   },
   {
-    id: 'Cesium Terrain Provider',
-    value: CesiumProvider,
+    id: 'MC Mercator - Cesium Terrain Provider',
+    value: MCCesiumProviderMercator,
   },
   {
-    id: 'V R The World Terrain Provider (Hight Map)',
-    value: VRTheWorldProvider,
+    id: 'MC W84 - Cesium Terrain Provider',
+    value: MCCesiumProviderW84,
   },
   {
     id: 'Arc Gis Terrain Provider',
     value: ArcGisProvider,
-  },
-  {
-    id: 'Custom Terrain Provider',
-    value: QuantizedMeshProvider,
   },
 ];
 
@@ -123,14 +107,6 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
   const mapViewer = useCesiumMap();
-  const [depthTest, setDepthTest] = useState<boolean>(false);
-
-  const scene = mapViewer.scene;
-
-  const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setDepthTest(e.target.checked);
-    scene.globe.depthTestAgainstTerrain = !depthTest;
-  };
 
   return (
     <>
@@ -148,20 +124,11 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
           return <option key={provider.id}>{provider.id}</option>;
         })}
       </select>
-      <br />
-      <input
-        type="checkbox"
-        id="input"
-        checked={depthTest}
-        onChange={handleDepthTestChange}
-      />
-      <label htmlFor="input">depthTestAgainstTerrain</label>
     </>
   );
 };
 
-export const QuantizedMeshProviders: Story = () => {
-  // const [center] = useState<[number, number]>([24, -200]);
+export const QuantizedMeshHeightsTool: Story = () => {
   const [center] = useState<[number, number]>([-122, 43]);
   return (
     <div style={mapDivStyle}>
@@ -175,11 +142,14 @@ export const QuantizedMeshProviders: Story = () => {
       >
         <Cesium3DTileset
           isZoomTo={true}
-          url="/mock/tileset_2/L16_31023/L16_31023.json"
+          url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json"
         />
-        <TerrainProviderSelector terrainProviderList={terrainProviderList} />
+        <TerrainProviderSelector
+          terrainProviderList={terrainProviderListQmesh}
+        />
+        <TerrainianHeightTool />
       </CesiumMap>
     </div>
   );
 };
-QuantizedMeshProviders.storyName = 'Providers';
+QuantizedMeshHeightsTool.storyName = 'Heights Tool';
