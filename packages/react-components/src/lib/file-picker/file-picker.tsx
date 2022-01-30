@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-boolean-literal-compare */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -12,13 +13,17 @@ import React, {
 import {
   ChonkyActions,
   ChonkyFileActionData,
+  FileAction,
   FileArray,
   FileBrowserProps,
   FileData,
   FileHelper,
   FullFileBrowser,
+  I18nConfig,
 } from 'chonky';
 import Button from '@material-ui/core/Button';
+import { Box } from '../box';
+import localization from './localization';
 import FsMap from './fs-map.json';
 
 interface CustomFileData extends FileData {
@@ -232,9 +237,13 @@ export const useFileActionHandler = (
   );
 };
 
-export type FilePickerProps = Partial<FileBrowserProps>;
+interface FilePickerProps extends Partial<FileBrowserProps> {
+  readOnlyMode?: boolean;
+  isDarkTheme?: boolean;
+  locale?: string;
+}
 
-export const FilePicker: React.FC<FilePickerProps> = React.memo((props) => {
+export const FilePicker: React.FC<FilePickerProps> = React.memo(({ readOnlyMode = false, isDarkTheme, locale, ...props }) => {
   const {
     fileMap,
     currentFolderId,
@@ -252,15 +261,25 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo((props) => {
     moveFiles,
     createFolder
   );
-  const fileActions = useMemo(
-    () => [ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles],
-    []
-  );
   const thumbnailGenerator = useCallback(
     (file: FileData) =>
       file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
     []
   );
+  const [ fileActions, setFileActions ] = useState<FileAction[]>();
+  const [ darkMode, setDarkMode ] =  useState<boolean>(false);
+  const [ i18n, setI18n ] =  useState<I18nConfig>();
+  useMemo(() => {
+    if (readOnlyMode === false) {
+      setFileActions([ ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles ]);
+    }
+    if (isDarkTheme) {
+      setDarkMode(isDarkTheme);
+    }
+    if (locale) {
+      setI18n(localization[locale]);
+    }
+  }, [readOnlyMode, isDarkTheme, locale]);
 
   return (
     <>
@@ -273,17 +292,19 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo((props) => {
       >
         Reset file map
       </Button>
-      <div style={{ height: 400 }}>
+      <Box style={{ height: 400 }}>
         <FullFileBrowser
           files={files}
           folderChain={folderChain}
-          fileActions={fileActions}
           onFileAction={handleFileAction}
           thumbnailGenerator={thumbnailGenerator}
           defaultFileViewActionId={ChonkyActions.EnableListView.id}
+          fileActions={fileActions}
+          i18n={i18n}
+          darkMode={darkMode}
           {...props}
         />
-      </div>
+      </Box>
     </>
   );
 });
