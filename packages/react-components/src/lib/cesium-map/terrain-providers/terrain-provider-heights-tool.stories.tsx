@@ -144,8 +144,10 @@ export const QuantizedMeshHeightsTool: Story = () => {
           isZoomTo={true}
           url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json"
         />
-        <TerrainProviderSelector terrainProviderList={terrainProviderListQmesh} />
-        <TerrainianHeightTool/>
+        <TerrainProviderSelector
+          terrainProviderList={terrainProviderListQmesh}
+        />
+        <TerrainianHeightTool />
       </CesiumMap>
     </div>
   );
