@@ -21,7 +21,6 @@ import {
   FullFileBrowser,
   I18nConfig,
 } from 'chonky';
-import Button from '@material-ui/core/Button';
 import { Box } from '../box';
 import localization from './localization';
 import FsMap from './fs-map.json';
@@ -174,7 +173,9 @@ export const useFiles = (
   return useMemo(() => {
     const currentFolder = fileMap[currentFolderId];
     const files = currentFolder.childrenIds
-      ? currentFolder.childrenIds.map((fileId: string) => fileMap[fileId] ?? null)
+      ? currentFolder.childrenIds.map(
+          (fileId: string) => fileMap[fileId] ?? null
+        )
       : [];
     return files;
   }, [currentFolderId, fileMap]);
@@ -243,55 +244,46 @@ interface FilePickerProps extends Partial<FileBrowserProps> {
   locale?: string;
 }
 
-export const FilePicker: React.FC<FilePickerProps> = React.memo(({ readOnlyMode = false, isDarkTheme, locale, ...props }) => {
-  const {
-    fileMap,
-    currentFolderId,
-    setCurrentFolderId,
-    resetFileMap,
-    deleteFiles,
-    moveFiles,
-    createFolder,
-  } = useCustomFileMap();
-  const files = useFiles(fileMap, currentFolderId);
-  const folderChain = useFolderChain(fileMap, currentFolderId);
-  const handleFileAction = useFileActionHandler(
-    setCurrentFolderId,
-    deleteFiles,
-    moveFiles,
-    createFolder
-  );
-  const thumbnailGenerator = useCallback(
-    (file: FileData) =>
-      file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
-    []
-  );
-  const [ fileActions, setFileActions ] = useState<FileAction[]>();
-  const [ darkMode, setDarkMode ] =  useState<boolean>(false);
-  const [ i18n, setI18n ] =  useState<I18nConfig>();
-  useMemo(() => {
-    if (readOnlyMode === false) {
-      setFileActions([ ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles ]);
-    }
-    if (isDarkTheme) {
-      setDarkMode(isDarkTheme);
-    }
-    if (locale) {
-      setI18n(localization[locale]);
-    }
-  }, [readOnlyMode, isDarkTheme, locale]);
+export const FilePicker: React.FC<FilePickerProps> = React.memo(
+  ({ readOnlyMode = false, isDarkTheme, locale, ...props }) => {
+    const {
+      fileMap,
+      currentFolderId,
+      setCurrentFolderId,
+      // resetFileMap,
+      deleteFiles,
+      moveFiles,
+      createFolder,
+    } = useCustomFileMap();
+    const files = useFiles(fileMap, currentFolderId);
+    const folderChain = useFolderChain(fileMap, currentFolderId);
+    const handleFileAction = useFileActionHandler(
+      setCurrentFolderId,
+      deleteFiles,
+      moveFiles,
+      createFolder
+    );
+    const thumbnailGenerator = useCallback(
+      (file: FileData) =>
+        file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
+      []
+    );
+    const [fileActions, setFileActions] = useState<FileAction[]>();
+    const [darkMode, setDarkMode] = useState<boolean>(false);
+    const [i18n, setI18n] = useState<I18nConfig>();
+    useMemo(() => {
+      if (readOnlyMode === false) {
+        setFileActions([ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles]);
+      }
+      if (isDarkTheme) {
+        setDarkMode(isDarkTheme);
+      }
+      if (locale) {
+        setI18n(localization[locale]);
+      }
+    }, [readOnlyMode, isDarkTheme, locale]);
 
-  return (
-    <>
-      <Button
-        size="small"
-        color="primary"
-        variant="contained"
-        onClick={resetFileMap}
-        style={{ marginBottom: 15 }}
-      >
-        Reset file map
-      </Button>
+    return (
       <Box style={{ height: 400 }}>
         <FullFileBrowser
           files={files}
@@ -305,6 +297,6 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(({ readOnlyMode 
           {...props}
         />
       </Box>
-    </>
-  );
-});
+    );
+  }
+);

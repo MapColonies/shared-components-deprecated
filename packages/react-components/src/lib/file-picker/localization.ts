@@ -8,7 +8,10 @@ interface ILocalization {
 const russianI18n: I18nConfig = {
   locale: 'ru',
   formatters: {
-    formatFileModDate: (intl: IntlShape, file: FileData | null): string | null => {
+    formatFileModDate: (
+      intl: IntlShape,
+      file: FileData | null
+    ): string | null => {
       const safeModDate = FileHelper.getModDate(file);
       if (safeModDate) {
         return `${intl.formatDate(safeModDate)}, ${intl.formatTime(
@@ -18,7 +21,7 @@ const russianI18n: I18nConfig = {
         return null;
       }
     },
-    formatFileSize: (intl: IntlShape, file: FileData | null): string | null  => {
+    formatFileSize: (intl: IntlShape, file: FileData | null): string | null => {
       if (!file || typeof file.size !== 'number') return null;
       return `Размер: ${file.size}`;
     },
@@ -28,7 +31,7 @@ const russianI18n: I18nConfig = {
     'chonky.toolbar.visibleFileCount': `{fileCount, plural,
       one {# файл}
       few {# файла}
-      many {# файлов}
+      other {# файлов}
     }`,
     'chonky.toolbar.selectedFileCount': `{fileCount, plural,
       =0 {}
@@ -66,7 +69,10 @@ const russianI18n: I18nConfig = {
 const hebrewI18n: I18nConfig = {
   locale: 'he',
   formatters: {
-    formatFileModDate: (intl: IntlShape, file: FileData | null): string | null => {
+    formatFileModDate: (
+      intl: IntlShape,
+      file: FileData | null
+    ): string | null => {
       const safeModDate = FileHelper.getModDate(file);
       if (safeModDate) {
         return `${intl.formatDate(safeModDate)}, ${intl.formatTime(
@@ -84,9 +90,8 @@ const hebrewI18n: I18nConfig = {
   messages: {
     'chonky.toolbar.searchPlaceholder': 'חיפוש',
     'chonky.toolbar.visibleFileCount': `{fileCount, plural,
-      one {# קובץ}
-      few {# קבצים}
-      many {# קבצים}
+      one {# פריט}
+      other {פריטים #}
     }`,
     'chonky.toolbar.selectedFileCount': `{fileCount, plural,
       =0 {}
@@ -122,8 +127,8 @@ const hebrewI18n: I18nConfig = {
 };
 
 const localization: ILocalization = {
-  'ru': russianI18n,
-  'he': hebrewI18n
+  ru: russianI18n,
+  he: hebrewI18n,
 };
 
 export default localization;

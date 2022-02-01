@@ -1,8 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useCallback, useState } from 'react';
 import { setChonkyDefaults } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import { Story } from '@storybook/react/types-6-0';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@material-ui/core';
 import { FilePicker } from './file-picker';
 
 export default {
@@ -10,23 +17,15 @@ export default {
   component: FilePicker,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
-export const ReadOnlyMode: Story = () => (
-  <FilePicker readOnlyMode={true} />
-);
+export const ReadOnlyMode: Story = () => <FilePicker readOnlyMode={true} />;
 
-export const DarkTheme: Story = () => (
-  <FilePicker isDarkTheme={true} />
-);
+export const DarkTheme: Story = () => <FilePicker isDarkTheme={true} />;
 
 export const Localized: Story = () => {
   const [locale, setLocale] = useState<string>('he');
-  const handleLocaleChange = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    (event) => setLocale(event.target.value)
-  , []);
+  const handleLocaleChange = useCallback((event) => setLocale(event.target.value), []);
   return (
     <>
       <FormControl component="fieldset" style={{ marginBottom: 15 }}>
@@ -42,7 +41,7 @@ export const Localized: Story = () => {
           <FormControlLabel value="en" control={<Radio />} label="English" />
         </RadioGroup>
       </FormControl>
-      <br/>
+      <br />
       <FilePicker locale={locale} />
     </>
   );
