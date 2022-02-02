@@ -90,8 +90,8 @@ const hebrewI18n: I18nConfig = {
   messages: {
     'chonky.toolbar.searchPlaceholder': 'חיפוש',
     'chonky.toolbar.visibleFileCount': `{fileCount, plural,
-      one {# פריט}
-      other {פריטים #}
+      one {פריט #}
+      other {# פריטים}
     }`,
     'chonky.toolbar.selectedFileCount': `{fileCount, plural,
       =0 {}
