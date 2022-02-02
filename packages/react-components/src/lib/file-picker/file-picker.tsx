@@ -284,7 +284,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
     }, [readOnlyMode, isDarkTheme, locale]);
 
     return (
-      <Box style={{ height: 400 }}>
+      <Box style={{ height: 400, width: 600 }}>
         <FullFileBrowser
           files={files}
           folderChain={folderChain}
