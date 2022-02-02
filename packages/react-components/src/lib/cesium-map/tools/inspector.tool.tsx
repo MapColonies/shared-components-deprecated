@@ -10,7 +10,7 @@ export const InspectorTool: React.FC<InspectorProps> = (
   const mapViewer: CesiumViewer = useCesiumMap();
 
   useEffect(() => {
-    mapViewer?.extend(viewerCesiumInspectorMixin);
+    mapViewer.extend(viewerCesiumInspectorMixin);
   }, [mapViewer]);
 
   return (<></>);
