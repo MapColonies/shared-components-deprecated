@@ -25,6 +25,8 @@ import { Box } from '../box';
 import localization from './localization';
 import FsMap from './fs-map.json';
 
+import './file-picker.css';
+
 interface CustomFileData extends FileData {
   parentId?: string;
   childrenIds?: string[];
@@ -240,12 +242,20 @@ export const useFileActionHandler = (
 
 interface FilePickerProps extends Partial<FileBrowserProps> {
   readOnlyMode?: boolean;
+  defaultView?: FilePickerView;
   isDarkTheme?: boolean;
   locale?: string;
 }
 
+export type FilePickerView = typeof FilePickerView[keyof typeof FilePickerView];
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const FilePickerView = {
+  listView: ChonkyActions.EnableListView.id,
+  gridView: ChonkyActions.EnableGridView.id,
+} as const;
+
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
-  ({ readOnlyMode = false, isDarkTheme, locale, ...props }) => {
+  ({ readOnlyMode = false, defaultView = FilePickerView.listView, isDarkTheme, locale, ...props }) => {
     const {
       fileMap,
       currentFolderId,
@@ -268,12 +278,20 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
         file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
       []
     );
+    const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(false);
     const [fileActions, setFileActions] = useState<FileAction[]>();
+    const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<FilePickerView>();
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const [i18n, setI18n] = useState<I18nConfig>();
     useMemo(() => {
+      if (readOnlyMode === true) {
+        setDisableDragAndDrop(true);
+      }
       if (readOnlyMode === false) {
         setFileActions([ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles]);
+      }
+      if (defaultView) {
+        setDefaultFileViewActionId(defaultView);
       }
       if (isDarkTheme) {
         setDarkMode(isDarkTheme);
@@ -281,16 +299,17 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       if (locale) {
         setI18n(localization[locale]);
       }
-    }, [readOnlyMode, isDarkTheme, locale]);
+    }, [readOnlyMode, defaultView, isDarkTheme, locale]);
 
     return (
-      <Box style={{ height: 400, width: 600 }}>
+      <Box style={{ height: 400, minWidth: 600 }}>
         <FullFileBrowser
           files={files}
           folderChain={folderChain}
           onFileAction={handleFileAction}
           thumbnailGenerator={thumbnailGenerator}
-          defaultFileViewActionId={ChonkyActions.EnableListView.id}
+          defaultFileViewActionId={defaultFileViewActionId}
+          disableDragAndDrop={disableDragAndDrop}
           fileActions={fileActions}
           i18n={i18n}
           darkMode={darkMode}

@@ -1,0 +1,16 @@
+body[dir='rtl'] .chonky-fileListWrapper [class^='listContainer-'] {
+  direction: rtl !important;
+}
+
+body[dir='rtl'] .chonky-chonkyRoot {
+  text-align: right;
+}
+
+body[dir='rtl'] .chonky-infoText {
+  margin-left: unset;
+  margin-right: 12px;
+}
+
+body[dir='rtl'] .chonky-chonkyRoot .MuiListItemText-root {
+  text-align: right;
+}

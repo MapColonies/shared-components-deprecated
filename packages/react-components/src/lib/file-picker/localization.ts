@@ -75,7 +75,7 @@ const hebrewI18n: I18nConfig = {
     ): string | null => {
       const safeModDate = FileHelper.getModDate(file);
       if (safeModDate) {
-        return `${intl.formatDate(safeModDate)}, ${intl.formatTime(
+        return `${intl.formatTime(safeModDate)} ,${intl.formatDate(
           safeModDate
         )}`;
       } else {
