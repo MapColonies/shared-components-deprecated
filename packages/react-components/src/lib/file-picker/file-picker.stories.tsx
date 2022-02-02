@@ -25,7 +25,10 @@ export const DarkTheme: Story = () => <FilePicker isDarkTheme={true} />;
 
 export const Localized: Story = () => {
   const [locale, setLocale] = useState<string>('he');
-  const handleLocaleChange = useCallback((event) => setLocale(event.target.value), []);
+  const handleLocaleChange = useCallback(
+    (event) => setLocale(event.target.value),
+    []
+  );
   return (
     <>
       <FormControl component="fieldset" style={{ marginBottom: 15 }}>
