@@ -250,15 +250,15 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         const pickPositionCartographic = mapViewRef.scene.globe.ellipsoid.cartesianToCartographic(
           pickPosition as Cartesian3
         );
-        
+
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        return pickPositionCartographic !== undefined ? 
-          {
-            longitude: toDegrees(pickPositionCartographic.longitude),
-            latitude: toDegrees(pickPositionCartographic.latitude),
-            height: mapViewRef.scene.camera.positionCartographic.height,
-          } :
-          getCameraPositionCartographic();
+        return pickPositionCartographic !== undefined
+          ? {
+              longitude: toDegrees(pickPositionCartographic.longitude),
+              latitude: toDegrees(pickPositionCartographic.latitude),
+              height: mapViewRef.scene.camera.positionCartographic.height,
+            }
+          : getCameraPositionCartographic();
       } else {
         return getCameraPositionCartographic();
       }
