@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useCallback, useState } from 'react';
-import { setChonkyDefaults } from 'chonky';
-import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import { Story } from '@storybook/react/types-6-0';
 import {
   FormControl,
@@ -16,8 +14,6 @@ export default {
   title: 'File Picker',
   component: FilePicker,
 };
-
-setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 export const ReadOnlyMode: Story = () => <FilePicker readOnlyMode={true} />;
 

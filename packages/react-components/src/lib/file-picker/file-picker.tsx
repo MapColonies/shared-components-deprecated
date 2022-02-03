@@ -20,12 +20,18 @@ import {
   FileHelper,
   FullFileBrowser,
   I18nConfig,
+  setChonkyDefaults,
 } from 'chonky';
+import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import { Box } from '../box';
 import localization from './localization';
 import FsMap from './fs-map.json';
 
 import './file-picker.css';
+
+// IMPLEMENTATION NOTES: Currently FilePicker component works with his own icon set.
+// In future might be tweaked.
+setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
 interface CustomFileData extends FileData {
   parentId?: string;
@@ -273,9 +279,13 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       moveFiles,
       createFolder
     );
+    
+    // IMPLEMENTATION NOTES: Currently FilePicker component discards the ability to show file thumbnail.
+    // In future might be tweaked.
     const thumbnailGenerator = useCallback(
-      (file: FileData) =>
-        file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
+      (file: FileData) => 
+        null,
+        //file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
       []
     );
     const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(false);
