@@ -261,7 +261,13 @@ export const FilePickerView = {
 } as const;
 
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
-  ({ readOnlyMode = false, defaultView = FilePickerView.listView, isDarkTheme, locale, ...props }) => {
+  ({
+    readOnlyMode = false,
+    defaultView = FilePickerView.listView,
+    isDarkTheme,
+    locale,
+    ...props
+  }) => {
     const {
       fileMap,
       currentFolderId,
@@ -279,18 +285,21 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       moveFiles,
       createFolder
     );
-    
+
     // IMPLEMENTATION NOTES: Currently FilePicker component discards the ability to show file thumbnail.
     // In future might be tweaked.
     const thumbnailGenerator = useCallback(
-      (file: FileData) => 
-        null,
-        //file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
+      (file: FileData) => null,
+      // file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
       []
     );
-    const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(false);
+    const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(
+      false
+    );
     const [fileActions, setFileActions] = useState<FileAction[]>();
-    const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<FilePickerView>();
+    const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
+      FilePickerView
+    >();
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const [i18n, setI18n] = useState<I18nConfig>();
     useMemo(() => {
