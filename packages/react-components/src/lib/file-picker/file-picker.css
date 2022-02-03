@@ -14,3 +14,11 @@ body[dir='rtl'] .chonky-infoText {
 body[dir='rtl'] .chonky-chonkyRoot .MuiListItemText-root {
   text-align: right;
 }
+
+.chonky-chonkyRoot div[class^='listFileEntryIcon-'] {
+  color: lightgray;
+}
+
+.chonky-chonkyRoot div[class^='previewFile-d'] {
+  background-color: lightgray;
+}
