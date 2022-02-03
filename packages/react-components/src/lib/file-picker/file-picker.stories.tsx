@@ -8,6 +8,7 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
+import { SupportedLocales } from '../models';
 import { FilePicker } from './file-picker';
 
 export default {
@@ -20,7 +21,7 @@ export const ReadOnlyMode: Story = () => <FilePicker readOnlyMode={true} />;
 export const DarkTheme: Story = () => <FilePicker isDarkTheme={true} />;
 
 export const Localized: Story = () => {
-  const [locale, setLocale] = useState<string>('he');
+  const [locale, setLocale] = useState<SupportedLocales>(SupportedLocales.HE);
   const handleLocaleChange = useCallback(
     (event) => setLocale(event.target.value),
     []
@@ -35,9 +36,9 @@ export const Localized: Story = () => {
           value={locale}
           onChange={handleLocaleChange}
         >
-          <FormControlLabel value="he" control={<Radio />} label="עברית" />
-          <FormControlLabel value="ru" control={<Radio />} label="Русский" />
-          <FormControlLabel value="en" control={<Radio />} label="English" />
+          <FormControlLabel value={SupportedLocales.HE} control={<Radio />} label="עברית" />
+          <FormControlLabel value={SupportedLocales.RU} control={<Radio />} label="Русский" />
+          <FormControlLabel value={SupportedLocales.EN} control={<Radio />} label="English" />
         </RadioGroup>
       </FormControl>
       <br />

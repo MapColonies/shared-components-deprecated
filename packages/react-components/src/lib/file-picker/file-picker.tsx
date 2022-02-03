@@ -24,6 +24,7 @@ import {
 } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import { Box } from '../box';
+import { SupportedLocales } from '../models';
 import localization from './localization';
 import FsMap from './fs-map.json';
 
@@ -247,10 +248,10 @@ export const useFileActionHandler = (
 };
 
 interface FilePickerProps extends Partial<FileBrowserProps> {
-  readOnlyMode?: boolean;
   defaultView?: FilePickerView;
+  readOnlyMode?: boolean;
   isDarkTheme?: boolean;
-  locale?: string;
+  locale?: SupportedLocales;
 }
 
 export type FilePickerView = typeof FilePickerView[keyof typeof FilePickerView];
@@ -262,8 +263,8 @@ export const FilePickerView = {
 
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
   ({
-    readOnlyMode = false,
     defaultView = FilePickerView.listView,
+    readOnlyMode = false,
     isDarkTheme,
     locale,
     ...props
@@ -293,24 +294,25 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       // file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
       []
     );
+
+    const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
+      FilePickerView
+    >();
     const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(
       false
     );
     const [fileActions, setFileActions] = useState<FileAction[]>();
-    const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
-      FilePickerView
-    >();
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const [i18n, setI18n] = useState<I18nConfig>();
     useMemo(() => {
+      if (defaultView) {
+        setDefaultFileViewActionId(defaultView);
+      }
       if (readOnlyMode === true) {
         setDisableDragAndDrop(true);
       }
       if (readOnlyMode === false) {
         setFileActions([ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles]);
-      }
-      if (defaultView) {
-        setDefaultFileViewActionId(defaultView);
       }
       if (isDarkTheme) {
         setDarkMode(isDarkTheme);
@@ -318,7 +320,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       if (locale) {
         setI18n(localization[locale]);
       }
-    }, [readOnlyMode, defaultView, isDarkTheme, locale]);
+    }, [defaultView, readOnlyMode, isDarkTheme, locale]);
 
     return (
       <Box style={{ height: 400, minWidth: 600 }}>
@@ -330,8 +332,8 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
           defaultFileViewActionId={defaultFileViewActionId}
           disableDragAndDrop={disableDragAndDrop}
           fileActions={fileActions}
-          i18n={i18n}
           darkMode={darkMode}
+          i18n={i18n}
           {...props}
         />
       </Box>

@@ -1,12 +1,13 @@
 import { ChonkyActions, FileData, FileHelper, I18nConfig } from 'chonky';
 import { IntlShape } from 'react-intl';
+import { SupportedLocales } from '../models';
 
 interface ILocalization {
   [key: string]: I18nConfig;
 }
 
 const russianI18n: I18nConfig = {
-  locale: 'ru',
+  locale: SupportedLocales.RU,
   formatters: {
     formatFileModDate: (
       intl: IntlShape,
@@ -67,7 +68,7 @@ const russianI18n: I18nConfig = {
 };
 
 const hebrewI18n: I18nConfig = {
-  locale: 'he',
+  locale: SupportedLocales.HE,
   formatters: {
     formatFileModDate: (
       intl: IntlShape,
@@ -127,8 +128,8 @@ const hebrewI18n: I18nConfig = {
 };
 
 const localization: ILocalization = {
-  ru: russianI18n,
-  he: hebrewI18n,
+  [SupportedLocales.RU]: russianI18n,
+  [SupportedLocales.HE]: hebrewI18n,
 };
 
 export default localization;
