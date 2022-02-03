@@ -3,7 +3,6 @@ import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
   TerrainProvider,
-  WebMercatorProjection,
   CesiumTerrainProvider,
   Resource,
 } from 'cesium';
@@ -12,6 +11,7 @@ import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { Cesium3DTileset } from '../layers';
 import { TerrainianHeightTool } from '../tools/terranian-height.tool';
+import { InspectorTool } from '../tools/inspector.tool';
 import { LayerType } from '../layers-manager';
 
 export default {
@@ -138,7 +138,6 @@ export const QuantizedMeshHeightsTool: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
-        mapProjection={new WebMercatorProjection()}
       >
         <Cesium3DTileset
           isZoomTo={true}
@@ -148,6 +147,7 @@ export const QuantizedMeshHeightsTool: Story = () => {
           terrainProviderList={terrainProviderListQmesh}
         />
         <TerrainianHeightTool />
+        <InspectorTool />
       </CesiumMap>
     </div>
   );

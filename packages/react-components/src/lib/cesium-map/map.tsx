@@ -224,6 +224,16 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           height: 0,
         };
       }
+
+      const getCameraPositionCartographic = (): ICameraPosition => {
+        const camPos = mapViewRef.camera.positionCartographic;
+        return {
+          longitude: toDegrees(camPos.longitude),
+          latitude: toDegrees(camPos.latitude),
+          height: camPos.height,
+        };
+      };
+
       // https://stackoverflow.com/questions/33348761/get-center-in-cesium-map
       if (mapViewRef.scene.mode === SceneMode.SCENE3D) {
         const windowPosition = new Cartesian2(
@@ -240,18 +250,17 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         const pickPositionCartographic = mapViewRef.scene.globe.ellipsoid.cartesianToCartographic(
           pickPosition as Cartesian3
         );
-        return {
-          longitude: toDegrees(pickPositionCartographic.longitude),
-          latitude: toDegrees(pickPositionCartographic.latitude),
-          height: mapViewRef.scene.camera.positionCartographic.height,
-        };
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        return pickPositionCartographic !== undefined
+          ? {
+              longitude: toDegrees(pickPositionCartographic.longitude),
+              latitude: toDegrees(pickPositionCartographic.latitude),
+              height: mapViewRef.scene.camera.positionCartographic.height,
+            }
+          : getCameraPositionCartographic();
       } else {
-        const camPos = mapViewRef.camera.positionCartographic;
-        return {
-          longitude: toDegrees(camPos.longitude),
-          latitude: toDegrees(camPos.latitude),
-          height: camPos.height,
-        };
+        return getCameraPositionCartographic();
       }
     };
 
