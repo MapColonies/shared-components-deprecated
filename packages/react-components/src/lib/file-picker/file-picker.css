@@ -22,3 +22,7 @@ body[dir='rtl'] .chonky-chonkyRoot .MuiListItemText-root {
 .chonky-chonkyRoot div[class*='previewFile-d'] {
   background-color: lightgray;
 }
+
+.chonky-chonkyRoot div[class^='selectionIndicator-'] {
+  background: lightblue;
+}
