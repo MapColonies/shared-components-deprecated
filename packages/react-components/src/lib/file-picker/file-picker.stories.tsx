@@ -36,9 +36,21 @@ export const Localized: Story = () => {
           value={locale}
           onChange={handleLocaleChange}
         >
-          <FormControlLabel value={SupportedLocales.HE} control={<Radio />} label="עברית" />
-          <FormControlLabel value={SupportedLocales.RU} control={<Radio />} label="Русский" />
-          <FormControlLabel value={SupportedLocales.EN} control={<Radio />} label="English" />
+          <FormControlLabel
+            value={SupportedLocales.HE}
+            control={<Radio />}
+            label="עברית"
+          />
+          <FormControlLabel
+            value={SupportedLocales.RU}
+            control={<Radio />}
+            label="Русский"
+          />
+          <FormControlLabel
+            value={SupportedLocales.EN}
+            control={<Radio />}
+            label="English"
+          />
         </RadioGroup>
       </FormControl>
       <br />
