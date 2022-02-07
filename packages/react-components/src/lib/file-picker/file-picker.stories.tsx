@@ -18,7 +18,19 @@ export default {
 
 export const ReadOnlyMode: Story = () => <FilePicker readOnlyMode={true} />;
 
-export const DarkTheme: Story = () => <FilePicker isDarkTheme={true} />;
+export const DarkTheme: Story = () => {
+  return (
+    <FilePicker
+      theme={{
+        primary: 'blue',
+        background: 'black',
+        textOnBackground: 'white',
+        selectionBackground: '#455570',
+      }}
+      isDarkTheme={true}
+    />
+  );
+};
 
 export const Localized: Story = () => {
   const [locale, setLocale] = useState<SupportedLocales>(SupportedLocales.HE);

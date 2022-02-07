@@ -248,6 +248,7 @@ export const useFileActionHandler = (
 };
 
 interface FilePickerProps extends Partial<FileBrowserProps> {
+  theme?: Record<string, string>;
   defaultView?: FilePickerView;
   readOnlyMode?: boolean;
   isDarkTheme?: boolean;
@@ -295,6 +296,26 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       []
     );
 
+    const toDashCase = (str: string) => {
+      return str.replace(/([A-Z])/g, ($1) => '-' + $1.toLowerCase());
+    };
+
+    const themeObject = useMemo((): Record<string, string> => {
+      if (props.theme !== undefined) {
+        const processedColors = Object.keys(props.theme).reduce(
+          (acc: Record<string, string>, key) => {
+            const val = (props.theme as Record<string, string>)[key];
+            key = key.startsWith('--') ? key : `--fp-theme-${toDashCase(key)}`;
+            acc[key] = val;
+            return acc;
+          },
+          {}
+        );
+        return processedColors;
+      }
+      return {};
+    }, [props.theme]);
+
     const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
       FilePickerView
     >();
@@ -304,7 +325,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
     const [fileActions, setFileActions] = useState<FileAction[]>();
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const [i18n, setI18n] = useState<I18nConfig>();
-    useMemo(() => {
+    useEffect(() => {
       if (defaultView) {
         setDefaultFileViewActionId(defaultView);
       }
@@ -323,7 +344,13 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
     }, [defaultView, readOnlyMode, isDarkTheme, locale]);
 
     return (
-      <Box style={{ height: 400, minWidth: 600 }}>
+      <Box
+        style={{
+          height: 400,
+          minWidth: 600,
+          ...themeObject,
+        }}
+      >
         <FullFileBrowser
           files={files}
           folderChain={folderChain}
