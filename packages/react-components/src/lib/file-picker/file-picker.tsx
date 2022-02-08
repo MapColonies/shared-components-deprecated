@@ -251,7 +251,6 @@ interface FilePickerProps extends Partial<FileBrowserProps> {
   theme?: Record<string, string>;
   defaultView?: FilePickerView;
   readOnlyMode?: boolean;
-  isDarkTheme?: boolean;
   locale?: SupportedLocales;
 }
 
@@ -264,9 +263,9 @@ export const FilePickerView = {
 
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
   ({
+    theme,
     defaultView = FilePickerView.listView,
     readOnlyMode = false,
-    isDarkTheme,
     locale,
     ...props
   }) => {
@@ -301,10 +300,10 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
     };
 
     const themeObject = useMemo((): Record<string, string> => {
-      if (props.theme !== undefined) {
-        const processedColors = Object.keys(props.theme).reduce(
+      if (theme !== undefined) {
+        const processedColors = Object.keys(theme).reduce(
           (acc: Record<string, string>, key) => {
-            const val = (props.theme as Record<string, string>)[key];
+            const val = theme[key];
             key = key.startsWith('--') ? key : `--fp-theme-${toDashCase(key)}`;
             acc[key] = val;
             return acc;
@@ -314,8 +313,9 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
         return processedColors;
       }
       return {};
-    }, [props.theme]);
+    }, [theme]);
 
+    const [darkMode, setDarkMode] = useState<boolean>(false);
     const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
       FilePickerView
     >();
@@ -323,9 +323,11 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       false
     );
     const [fileActions, setFileActions] = useState<FileAction[]>();
-    const [darkMode, setDarkMode] = useState<boolean>(false);
     const [i18n, setI18n] = useState<I18nConfig>();
     useEffect(() => {
+      if (theme) {
+        setDarkMode(true);
+      }
       if (defaultView) {
         setDefaultFileViewActionId(defaultView);
       }
@@ -335,13 +337,10 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       if (readOnlyMode === false) {
         setFileActions([ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles]);
       }
-      if (isDarkTheme) {
-        setDarkMode(isDarkTheme);
-      }
       if (locale) {
         setI18n(localization[locale]);
       }
-    }, [defaultView, readOnlyMode, isDarkTheme, locale]);
+    }, [theme, defaultView, readOnlyMode, locale]);
 
     return (
       <Box

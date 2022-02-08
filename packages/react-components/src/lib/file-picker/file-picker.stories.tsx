@@ -27,7 +27,6 @@ export const DarkTheme: Story = () => {
         textOnBackground: 'white',
         selectionBackground: '#455570',
       }}
-      isDarkTheme={true}
     />
   );
 };
