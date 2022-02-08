@@ -249,6 +249,7 @@ export const useFileActionHandler = (
 
 interface FilePickerProps extends Partial<FileBrowserProps> {
   theme?: Record<string, string>;
+  styles?: Record<string, string>;
   defaultView?: FilePickerView;
   readOnlyMode?: boolean;
   locale?: SupportedLocales;
@@ -264,6 +265,7 @@ export const FilePickerView = {
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
   ({
     theme,
+    styles = { height: 400, minWidth: 600 },
     defaultView = FilePickerView.listView,
     readOnlyMode = false,
     locale,
@@ -345,8 +347,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
     return (
       <Box
         style={{
-          height: 400,
-          minWidth: 600,
+          ...styles,
           ...themeObject,
         }}
       >
