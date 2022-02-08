@@ -24,6 +24,7 @@ export const DarkTheme: Story = () => {
       theme={{
         primary: 'blue',
         background: 'black',
+        surface: 'gray',
         textOnBackground: 'white',
         selectionBackground: '#455570',
       }}

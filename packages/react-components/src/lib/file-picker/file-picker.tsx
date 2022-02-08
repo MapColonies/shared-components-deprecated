@@ -23,6 +23,7 @@ import {
   setChonkyDefaults,
 } from 'chonky';
 import { ChonkyIconFA } from 'chonky-icon-fontawesome';
+import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '../box';
 import { SupportedLocales } from '../models';
 import localization from './localization';
@@ -288,6 +289,17 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       moveFiles,
       createFolder
     );
+
+    makeStyles({
+      '@global': {
+        '.chonky-dropdownList': {
+          backgroundColor: `${theme?.surface as string} !important`,
+        },
+        '.chonky-activeButton': {
+          color: `${theme?.primary as string} !important`,
+        },
+      },
+    })();
 
     // IMPLEMENTATION NOTES: Currently FilePicker component discards the ability to show file thumbnail.
     // In future might be tweaked.
