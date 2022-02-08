@@ -30,7 +30,10 @@ div[class^='folderBackSide'] {
 .chonky-chonkyRoot,
 .chonky-contextMenuList,
 .chonky-dropdownList {
-  background-color: var(--fp-theme-background, rgba(255,255,255,.87)) !important;
+  background-color: var(
+    --fp-theme-background,
+    rgba(255, 255, 255, 0.87)
+  ) !important;
   color: var(--fp-theme-text-on-background, rgba(0, 0, 0, 0.87)) !important;
 }
 
