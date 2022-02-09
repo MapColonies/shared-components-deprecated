@@ -74,15 +74,7 @@ export const Localized: Story = () => {
 export const CustomFileActionHandler: Story = () => {
   const handleFileAction = useCallback(
     (data: FileActionData) => {
-      console.log('ChonkyFileActionData=>', data);
-      // if (data.id === ChonkyActions.OpenFiles.id) {
-      //     if (data.payload.files && data.payload.files.length !== 1) return;
-      //     if (!data.payload.targetFile || !data.payload.targetFile.isDir) return;
-
-      //     const newPrefix = `${data.payload.targetFile.id.replace(/\/*$/, '')}/`;
-      //     console.log(`Key prefix: ${newPrefix}`);
-      //     setKeyPrefix(newPrefix);
-      // }
+      console.log('FileActionData=>', data);
     },
     []
   );
