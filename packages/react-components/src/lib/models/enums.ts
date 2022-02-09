@@ -7,6 +7,7 @@ export enum DrawType {
 export enum SupportedLocales {
   HE = 'he',
   EN = 'en',
+  RU = 'ru',
 }
 
 export enum BboxCorner {

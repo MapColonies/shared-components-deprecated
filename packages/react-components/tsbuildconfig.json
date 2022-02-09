@@ -18,9 +18,9 @@
     "isolatedModules": true,
     "jsx": "react",
     "outDir": "dist",
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "rootDir": "src/lib"
   },
   "include": [

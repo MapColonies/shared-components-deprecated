@@ -1,0 +1,56 @@
+body[dir='rtl'] .chonky-fileListWrapper [class^='listContainer-'] {
+  direction: rtl !important;
+}
+
+body[dir='rtl'] .chonky-chonkyRoot {
+  text-align: right;
+}
+
+body[dir='rtl'] .chonky-infoText {
+  margin-left: unset;
+  margin-right: 12px;
+}
+
+body[dir='rtl'] .chonky-contextMenuList .MuiListItemText-root,
+body[dir='rtl'] .chonky-dropdownList .MuiListItemText-root {
+  text-align: right;
+}
+
+body[dir='rtl'] .chonky-icon {
+  margin-right: unset;
+  margin-left: 8px;
+}
+
+.chonky-chonkyRoot div[class^='folderBackSide'] {
+  box-shadow: unset;
+}
+
+.chonky-chonkyRoot div[class^='folderBackSide']::after {
+  border-color: var(--fp-theme-background, #fff)
+    var(--fp-theme-background, #fff) transparent transparent;
+}
+
+.chonky-chonkyRoot div[class^='listFileEntryIcon-'] {
+  color: #d5d5d5;
+}
+
+.chonky-chonkyRoot div[class*='previewFile-d'] {
+  background-color: #d5d5d5;
+}
+
+.chonky-chonkyRoot div[class^='selectionIndicator-'] {
+  background: var(--fp-theme-selection-background, #455570);
+}
+
+.chonky-chonkyRoot {
+  background-color: var(--fp-theme-background, #fff) !important;
+}
+
+.chonky-contextMenuList {
+  background-color: var(--fp-theme-surface, #fff) !important;
+}
+
+button[class*='chonky-activeButton'],
+.chonky-selectionSizeText {
+  color: var(--fp-theme-primary, #24aee9) !important;
+}
