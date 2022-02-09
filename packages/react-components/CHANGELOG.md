@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.8.0...@map-colonies/react-components@3.10.0) (2022-02-09)
+
+
+### Bug Fixes
+
+* height tool_ pin points from csv ([#114](https://github.com/MapColonies/shared-components/issues/114)) ([3af82b8](https://github.com/MapColonies/shared-components/commit/3af82b88226ea3bd19646e87b9d1add0b13e81e6))
+
+
+### Features
+
+* file picker ([#113](https://github.com/MapColonies/shared-components/issues/113)) ([829d275](https://github.com/MapColonies/shared-components/commit/829d275e01a3417912fe82036cabae3a5247cc24))
+
+
+
+## 3.8.1 (2022-01-13)
+
+
+### Features
+
+* dem quantized mesh ([#112](https://github.com/MapColonies/shared-components/issues/112)) ([3cd2010](https://github.com/MapColonies/shared-components/commit/3cd20105a63f2335a5dd3b178eb9d38f9690022c))
+
+
+
+
+
 # [3.8.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.7.4...@map-colonies/react-components@3.8.0) (2021-11-01)
 
 
