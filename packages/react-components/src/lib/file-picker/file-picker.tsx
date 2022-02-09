@@ -373,7 +373,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
             handleFileAction(data);
             if (typeof onPropsFileAction === 'function') {
               void onPropsFileAction(data);
-            } 
+            }
           }}
           thumbnailGenerator={thumbnailGenerator}
           defaultFileViewActionId={defaultFileViewActionId}

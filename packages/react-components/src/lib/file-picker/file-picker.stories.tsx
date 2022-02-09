@@ -72,15 +72,8 @@ export const Localized: Story = () => {
 };
 
 export const CustomFileActionHandler: Story = () => {
-  const handleFileAction = useCallback(
-    (data: FileActionData) => {
-      console.log('FileActionData=>', data);
-    },
-    []
-  );
-  return (
-    <FilePicker
-      onFileAction={handleFileAction}
-    />
-  );
+  const handleFileAction = useCallback((data: FileActionData) => {
+    console.log('FileActionData=>', data);
+  }, []);
+  return <FilePicker onFileAction={handleFileAction} />;
 };
