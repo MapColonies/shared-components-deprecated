@@ -263,6 +263,8 @@ export const FilePickerView = {
   gridView: ChonkyActions.EnableGridView.id,
 } as const;
 
+export type FileActionData = ChonkyFileActionData;
+
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
   ({
     theme,
@@ -270,6 +272,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
     defaultView = FilePickerView.listView,
     readOnlyMode = false,
     locale,
+    onFileAction: onPropsFileAction,
     ...props
   }) => {
     const {
@@ -290,17 +293,6 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       createFolder
     );
 
-    makeStyles({
-      '@global': {
-        '.chonky-dropdownList': {
-          backgroundColor: `${theme?.surface as string} !important`,
-        },
-        '.chonky-activeButton': {
-          color: `${theme?.primary as string} !important`,
-        },
-      },
-    })();
-
     // IMPLEMENTATION NOTES: Currently FilePicker component discards the ability to show file thumbnail.
     // In future might be tweaked.
     const thumbnailGenerator = useCallback(
@@ -308,6 +300,17 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       // file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
       []
     );
+
+    makeStyles({
+      '@global': {
+        '.chonky-dropdownList': {
+          backgroundColor: `${theme?.surface as string} !important`,
+        },
+        'li[class*="chonky-activeButton"]': {
+          color: `${theme?.primary as string} !important`,
+        },
+      },
+    })();
 
     const toDashCase = (str: string) => {
       return str.replace(/([A-Z])/g, ($1) => '-' + $1.toLowerCase());
@@ -366,7 +369,12 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
         <FullFileBrowser
           files={files}
           folderChain={folderChain}
-          onFileAction={handleFileAction}
+          onFileAction={(data: ChonkyFileActionData) => {
+            handleFileAction(data);
+            if (typeof onPropsFileAction === 'function') {
+              void onPropsFileAction(data);
+            } 
+          }}
           thumbnailGenerator={thumbnailGenerator}
           defaultFileViewActionId={defaultFileViewActionId}
           disableDragAndDrop={disableDragAndDrop}

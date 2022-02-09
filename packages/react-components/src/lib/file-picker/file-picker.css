@@ -51,7 +51,6 @@ body[dir='rtl'] .chonky-icon {
 }
 
 button[class*='chonky-activeButton'],
-li[class*='chonky-activeButton'],
 .chonky-selectionSizeText {
   color: var(--fp-theme-primary, #24aee9) !important;
 }

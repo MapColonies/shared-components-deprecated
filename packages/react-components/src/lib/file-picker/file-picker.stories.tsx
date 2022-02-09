@@ -9,7 +9,7 @@ import {
   RadioGroup,
 } from '@material-ui/core';
 import { SupportedLocales } from '../models';
-import { FilePicker } from './file-picker';
+import { FileActionData, FilePicker } from './file-picker';
 
 export default {
   title: 'File Picker',
@@ -68,5 +68,27 @@ export const Localized: Story = () => {
       <br />
       <FilePicker locale={locale} />
     </>
+  );
+};
+
+export const CustomFileActionHandler: Story = () => {
+  const handleFileAction = useCallback(
+    (data: FileActionData) => {
+      console.log('ChonkyFileActionData=>', data);
+      // if (data.id === ChonkyActions.OpenFiles.id) {
+      //     if (data.payload.files && data.payload.files.length !== 1) return;
+      //     if (!data.payload.targetFile || !data.payload.targetFile.isDir) return;
+
+      //     const newPrefix = `${data.payload.targetFile.id.replace(/\/*$/, '')}/`;
+      //     console.log(`Key prefix: ${newPrefix}`);
+      //     setKeyPrefix(newPrefix);
+      // }
+    },
+    []
+  );
+  return (
+    <FilePicker
+      onFileAction={handleFileAction}
+    />
   );
 };
