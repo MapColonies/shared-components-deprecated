@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ChonkyActions,
   ChonkyFileActionData,
@@ -30,7 +25,7 @@ export type FileArray = ChonkyFileArray;
 
 export type FileData = ChonkyFileData;
 
-export class FileHelper extends ChonkyFileHelper {};
+export class FileHelper extends ChonkyFileHelper {}
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const FilePickerActions = ChonkyActions;
@@ -100,7 +95,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       if (theme !== undefined) {
         const processedColors = Object.keys(theme).reduce(
           (acc: Record<string, string>, key) => {
-            const val = (theme as unknown as Record<string, string>)[key];
+            const val = ((theme as unknown) as Record<string, string>)[key];
             key = key.startsWith('--') ? key : `--fp-theme-${toDashCase(key)}`;
             acc[key] = val;
             return acc;
@@ -127,7 +122,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       }
 
       setDefaultFileViewActionId(defaultView);
-      
+
       if (readOnlyMode) {
         setDisableDragAndDrop(true);
       } else {

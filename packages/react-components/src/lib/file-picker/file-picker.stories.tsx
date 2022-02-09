@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import React, { useCallback, useState, useMemo, useRef, useEffect } from 'react';
+import React, {
+  useCallback,
+  useState,
+  useMemo,
+  useRef,
+  useEffect,
+} from 'react';
 import { Story } from '@storybook/react/types-6-0';
 import {
   FormControl,
@@ -10,13 +16,13 @@ import {
 } from '@material-ui/core';
 import { Box } from '../box';
 import { SupportedLocales } from '../models';
-import { 
+import {
   FileActionData,
   FilePicker,
   FileArray,
   FileData,
   FileHelper,
-  FilePickerActions
+  FilePickerActions,
 } from './file-picker';
 import FsMap from './fs-map.json';
 
@@ -33,7 +39,7 @@ interface CustomFileMap {
   [fileId: string]: CustomFileData;
 }
 
-const prepareCustomFileMap = (): Record<string,unknown> => {
+const prepareCustomFileMap = (): Record<string, unknown> => {
   const baseFileMap = (FsMap.fileMap as unknown) as CustomFileMap;
   const rootFolderId = FsMap.rootFolderId;
   return { baseFileMap, rootFolderId };
@@ -44,7 +50,9 @@ const prepareCustomFileMap = (): Record<string,unknown> => {
 const useCustomFileMap = () => {
   const { baseFileMap, rootFolderId } = useMemo(prepareCustomFileMap, []);
 
-  const [fileMap, setFileMap] = useState<CustomFileMap>(baseFileMap as CustomFileMap);
+  const [fileMap, setFileMap] = useState<CustomFileMap>(
+    baseFileMap as CustomFileMap
+  );
   const [currentFolderId, setCurrentFolderId] = useState(rootFolderId);
 
   const resetFileMap = useCallback(() => {
@@ -134,6 +142,7 @@ const useCustomFileMap = () => {
     setFileMap((currentFileMap) => {
       const newFileMap = { ...currentFileMap };
 
+      const parentId = currentFolderIdRef.current as string;
       // Create the new folder.
       const newFolderId = `new-folder-${idCounter.current++}`;
       newFileMap[newFolderId] = {
@@ -141,14 +150,14 @@ const useCustomFileMap = () => {
         name: folderName,
         isDir: true,
         modDate: new Date(),
-        parentId: currentFolderIdRef.current,
+        parentId: parentId,
         childrenIds: [],
         childrenCount: 0,
       };
 
       // Update parent folder to reference the new folder.
-      const parent = newFileMap[currentFolderIdRef.current];
-      newFileMap[currentFolderIdRef.current] = {
+      const parent = newFileMap[parentId];
+      newFileMap[parentId] = {
         ...parent,
         childrenIds: [...(parent.childrenIds as string[]), newFolderId],
       };
@@ -175,9 +184,7 @@ const useFiles = (
   return useMemo(() => {
     const currentFolder = fileMap[currentFolderId];
     const files = currentFolder.childrenIds
-      ? currentFolder.childrenIds.map(
-          (fileId: string) => fileMap[fileId]
-        )
+      ? currentFolder.childrenIds.map((fileId: string) => fileMap[fileId])
       : [];
     return files;
   }, [currentFolderId, fileMap]);
@@ -194,7 +201,7 @@ const useFolderChain = (
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     while (parentId) {
       const parentFile = fileMap[parentId];
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
       if (parentFile) {
         folderChain.unshift(parentFile);
         parentId = parentFile.parentId;
@@ -215,7 +222,7 @@ const useFileActionHandler = (
     destination: FileData
   ) => void,
   createFolder: (folderName: string) => void
-): (data: FileActionData) => void => {
+): ((data: FileActionData) => void) => {
   return useCallback(
     (data: FileActionData) => {
       if (data.id === FilePickerActions.OpenFiles.id) {
@@ -263,12 +270,12 @@ export const ReadOnlyMode: Story = () => {
     createFolder
   );
   return (
-    <Box style={{height: '600px'}}>
-      <FilePicker 
-        readOnlyMode={true} 
+    <Box style={{ height: '600px' }}>
+      <FilePicker
         files={files}
         folderChain={folderChain}
         onFileAction={handleFileAction}
+        readOnlyMode={true}
       />
     </Box>
   );
@@ -285,7 +292,7 @@ export const DarkTheme: Story = () => {
     createFolder,
   } = useCustomFileMap();
   const files = useFiles(fileMap, currentFolderId as string);
-  const folderChain = useFolderChain(fileMap, currentFolderId  as string);
+  const folderChain = useFolderChain(fileMap, currentFolderId as string);
   const handleFileAction = useFileActionHandler(
     setCurrentFolderId,
     deleteFiles,
@@ -293,8 +300,11 @@ export const DarkTheme: Story = () => {
     createFolder
   );
   return (
-    <Box style={{height: '600px'}}>
+    <Box style={{ height: '600px' }}>
       <FilePicker
+        files={files}
+        folderChain={folderChain}
+        onFileAction={handleFileAction}
         theme={{
           primary: 'blue',
           background: 'black',
@@ -302,9 +312,6 @@ export const DarkTheme: Story = () => {
           textOnBackground: 'white',
           selectionBackground: '#455570',
         }}
-        files={files}
-        folderChain={folderChain}
-        onFileAction={handleFileAction}
       />
     </Box>
   );
@@ -321,7 +328,7 @@ export const Localized: Story = () => {
     createFolder,
   } = useCustomFileMap();
   const files = useFiles(fileMap, currentFolderId as string);
-  const folderChain = useFolderChain(fileMap, currentFolderId  as string);
+  const folderChain = useFolderChain(fileMap, currentFolderId as string);
   const handleFileAction = useFileActionHandler(
     setCurrentFolderId,
     deleteFiles,
@@ -361,12 +368,12 @@ export const Localized: Story = () => {
         </RadioGroup>
       </FormControl>
       <br />
-      <Box style={{height: '600px'}}>
-        <FilePicker 
-          locale={locale} 
+      <Box style={{ height: '600px' }}>
+        <FilePicker
           files={files}
           folderChain={folderChain}
           onFileAction={handleFileAction}
+          locale={locale}
         />
       </Box>
     </>
