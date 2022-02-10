@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.0...@map-colonies/react-components@3.10.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* file picker ref formatters ([#116](https://github.com/MapColonies/shared-components/issues/116)) ([1432b6a](https://github.com/MapColonies/shared-components/commit/1432b6a65290d0e170d9e956eddabbe1d909e744))
+
+
+
+
+
 # [3.10.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.8.0...@map-colonies/react-components@3.10.0) (2022-02-09)
 
 
