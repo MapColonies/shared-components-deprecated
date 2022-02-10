@@ -23,6 +23,7 @@ import {
   FileData,
   FileHelper,
   FilePickerActions,
+  FilePickerHandle,
 } from './file-picker';
 import FsMap from './fs-map.json';
 
@@ -377,5 +378,67 @@ export const Localized: Story = () => {
         />
       </Box>
     </>
+  );
+};
+
+export const FilesSelection: Story = () => {
+  const {
+    fileMap,
+    currentFolderId,
+    setCurrentFolderId,
+    // resetFileMap,
+    deleteFiles,
+    moveFiles,
+    createFolder,
+  } = useCustomFileMap();
+  const files = useFiles(fileMap, currentFolderId as string);
+  const folderChain = useFolderChain(fileMap, currentFolderId as string);
+  const handleFileAction = useFileActionHandler(
+    setCurrentFolderId,
+    deleteFiles,
+    moveFiles,
+    createFolder
+  );
+  const fileBrowserRef = useRef<FilePickerHandle>(null);
+
+  const getSelection = React.useCallback(
+    (event: React.MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!fileBrowserRef.current) return;
+      console.log(fileBrowserRef.current.getFileSelection());
+    },
+    [files, fileBrowserRef]
+  );
+
+  const randomizeSelection = React.useCallback(
+    (event: React.MouseEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!fileBrowserRef.current) return;
+      const randomFileIds = new Set<string>();
+      for (const file of files) {
+        if (file && Math.random() > 0.5) randomFileIds.add(file.id);
+      }
+      fileBrowserRef.current.setFileSelection(randomFileIds);
+    },
+    [files, fileBrowserRef]
+  );
+
+  return (
+    <Box style={{ height: '600px' }}>
+      <button type="button" onClick={randomizeSelection}>
+        Select files
+      </button>
+      <button type="button" onClick={getSelection}>
+        Get selected files
+      </button>
+      <FilePicker
+        ref={fileBrowserRef}
+        files={files}
+        folderChain={folderChain}
+        onFileAction={handleFileAction}
+      />
+    </Box>
   );
 };

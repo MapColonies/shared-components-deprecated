@@ -4,6 +4,7 @@ import {
   ChonkyFileActionData,
   FileAction,
   FileArray as ChonkyFileArray,
+  FileBrowserHandle,
   FileBrowserProps,
   FileData as ChonkyFileData,
   FileHelper as ChonkyFileHelper,
@@ -18,6 +19,8 @@ import { SupportedLocales } from '../models';
 import localization from './localization';
 
 import './file-picker.css';
+
+export type FilePickerHandle = FileBrowserHandle;
 
 export type FileActionData = ChonkyFileActionData;
 
@@ -48,7 +51,7 @@ export interface FilePickerTheme {
 // IMPLEMENTATION NOTES: Currently FilePicker component works with his own icon set.
 // In future might be tweaked.
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
-interface FilePickerProps extends Partial<FileBrowserProps> {
+export interface FilePickerProps extends Partial<FileBrowserProps> {
   theme?: FilePickerTheme;
   styles?: Record<string, string>;
   defaultView?: FilePickerView;
@@ -57,107 +60,118 @@ interface FilePickerProps extends Partial<FileBrowserProps> {
 }
 
 export const FilePicker: React.FC<FilePickerProps> = React.memo(
-  ({
-    theme,
-    styles = { height: '100%', minWidth: '600px' },
-    defaultView = FilePickerView.listView,
-    readOnlyMode = false,
-    locale,
-    files,
-    folderChain,
-    onFileAction,
-    ...props
-  }) => {
-    // IMPLEMENTATION NOTES: Currently FilePicker component discards the ability to show file thumbnail.
-    // In future might be tweaked.
-    const thumbnailGenerator = useCallback(
-      (file: FileData) => null,
-      // file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
-      []
-    );
-
-    makeStyles({
-      '@global': {
-        '.chonky-dropdownList': {
-          backgroundColor: `${theme?.surface as string} !important`,
-        },
-        'li[class*="chonky-activeButton"]': {
-          color: `${theme?.primary as string} !important`,
-        },
+  React.forwardRef<FileBrowserHandle, FilePickerProps>(
+    (
+      {
+        theme,
+        styles = { height: '100%', minWidth: '600px' },
+        defaultView = FilePickerView.listView,
+        readOnlyMode = false,
+        locale,
+        files,
+        folderChain,
+        onFileAction,
+        ...props
       },
-    })();
+      ref
+    ) => {
+      // IMPLEMENTATION NOTES: Currently FilePicker component discards the ability to show file thumbnail.
+      // In future might be tweaked.
+      const thumbnailGenerator = useCallback(
+        (file: FileData) => null,
+        // file.thumbnailUrl ? `https://chonky.io${file.thumbnailUrl}` : null,
+        []
+      );
 
-    const toDashCase = (str: string): string => {
-      return str.replace(/([A-Z])/g, ($1) => '-' + $1.toLowerCase());
-    };
-
-    const themeObject = useMemo((): Record<string, string> => {
-      if (theme !== undefined) {
-        const processedColors = Object.keys(theme).reduce(
-          (acc: Record<string, string>, key) => {
-            const val = ((theme as unknown) as Record<string, string>)[key];
-            key = key.startsWith('--') ? key : `--fp-theme-${toDashCase(key)}`;
-            acc[key] = val;
-            return acc;
+      makeStyles({
+        '@global': {
+          '.chonky-dropdownList': {
+            backgroundColor: `${theme?.surface as string} !important`,
           },
-          {}
-        );
-        return processedColors;
-      }
-      return {};
-    }, [theme]);
+          'li[class*="chonky-activeButton"]': {
+            color: `${theme?.primary as string} !important`,
+          },
+        },
+      })();
 
-    const [darkMode, setDarkMode] = useState<boolean>(false);
-    const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
-      FilePickerView
-    >();
-    const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(
-      false
-    );
-    const [fileActions, setFileActions] = useState<FileAction[]>();
-    const [i18n, setI18n] = useState<I18nConfig>();
-    useEffect(() => {
-      if (theme) {
-        setDarkMode(true);
-      }
+      const toDashCase = (str: string): string => {
+        return str.replace(/([A-Z])/g, ($1) => '-' + $1.toLowerCase());
+      };
 
-      setDefaultFileViewActionId(defaultView);
+      const themeObject = useMemo((): Record<string, string> => {
+        if (theme !== undefined) {
+          const processedColors = Object.keys(theme).reduce(
+            (acc: Record<string, string>, key) => {
+              const val = ((theme as unknown) as Record<string, string>)[key];
+              key = key.startsWith('--')
+                ? key
+                : `--fp-theme-${toDashCase(key)}`;
+              acc[key] = val;
+              return acc;
+            },
+            {}
+          );
+          return processedColors;
+        }
+        return {};
+      }, [theme]);
 
-      if (readOnlyMode) {
-        setDisableDragAndDrop(true);
-      } else {
-        setFileActions([ChonkyActions.CreateFolder, ChonkyActions.DeleteFiles]);
-      }
+      const [darkMode, setDarkMode] = useState<boolean>(false);
+      const [defaultFileViewActionId, setDefaultFileViewActionId] = useState<
+        FilePickerView
+      >();
+      const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(
+        false
+      );
+      const [fileActions, setFileActions] = useState<FileAction[]>();
+      const [i18n, setI18n] = useState<I18nConfig>();
+      useEffect(() => {
+        if (theme) {
+          setDarkMode(true);
+        }
 
-      if (locale !== undefined) {
-        setI18n(localization[locale]);
-      }
-    }, [theme, defaultView, readOnlyMode, locale]);
+        setDefaultFileViewActionId(defaultView);
 
-    return (
-      <Box
-        style={{
-          ...styles,
-          ...themeObject,
-        }}
-      >
-        <FullFileBrowser
-          files={files ?? []}
-          folderChain={folderChain}
-          onFileAction={(data: ChonkyFileActionData): void => {
-            if (typeof onFileAction === 'function') {
-              void onFileAction(data);
-            }
+        if (readOnlyMode) {
+          setDisableDragAndDrop(true);
+        } else {
+          setFileActions([
+            ChonkyActions.CreateFolder,
+            ChonkyActions.DeleteFiles,
+          ]);
+        }
+
+        if (locale !== undefined) {
+          setI18n(localization[locale]);
+        }
+      }, [theme, defaultView, readOnlyMode, locale]);
+
+      return (
+        <Box
+          style={{
+            ...styles,
+            ...themeObject,
           }}
-          thumbnailGenerator={thumbnailGenerator}
-          defaultFileViewActionId={defaultFileViewActionId}
-          disableDragAndDrop={disableDragAndDrop}
-          fileActions={fileActions}
-          darkMode={darkMode}
-          i18n={i18n}
-          {...props}
-        />
-      </Box>
-    );
-  }
+        >
+          <FullFileBrowser
+            ref={ref}
+            files={files ?? []}
+            folderChain={folderChain}
+            onFileAction={(data: ChonkyFileActionData): void => {
+              if (typeof onFileAction === 'function') {
+                void onFileAction(data);
+              }
+            }}
+            thumbnailGenerator={thumbnailGenerator}
+            defaultFileViewActionId={defaultFileViewActionId}
+            disableDragAndDrop={disableDragAndDrop}
+            fileActions={fileActions}
+            darkMode={darkMode}
+            i18n={i18n}
+            {...props}
+          />
+        </Box>
+      );
+    }
+  )
 );
