@@ -10,8 +10,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { Cesium3DTileset } from '../layers';
-import { TerrainianHeightTool } from '../tools/terranian-height.tool';
 import { InspectorTool } from '../tools/inspector.tool';
+import { TerrainianHeightTool } from '../tools/terranian-height.tool';
 import { LayerType } from '../layers-manager';
 
 export default {
