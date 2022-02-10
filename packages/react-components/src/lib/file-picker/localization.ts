@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ChonkyActions, FileData, FileHelper, I18nConfig } from 'chonky';
 import { IntlShape } from 'react-intl';
 import filesize from 'filesize';
@@ -133,3 +134,4 @@ const localization: ILocalization = {
 };
 
 export default localization;
+/* eslint-enable */
