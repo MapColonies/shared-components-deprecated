@@ -5,9 +5,9 @@ module.exports = {
     '@storybook/addon-storysource',
     '@storybook/addon-actions',
     '@storybook/addon-knobs',
+    '@storybook/addon-docs',
     '@storybook/addon-controls',
     '@storybook/addon-links',
-    '@storybook/addon-docs',
     'storybook-dark-mode',
   ],
 };
