@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, {
   useCallback,
@@ -401,17 +404,17 @@ export const FilesSelection: Story = () => {
   );
   const fileBrowserRef = useRef<FilePickerHandle>(null);
 
-  const getSelection = React.useCallback(
+  const logSelection = useCallback(
     (event: React.MouseEvent) => {
       event.preventDefault();
       event.stopPropagation();
       if (!fileBrowserRef.current) return;
       console.log(fileBrowserRef.current.getFileSelection());
     },
-    [files, fileBrowserRef]
+    [fileBrowserRef]
   );
 
-  const randomizeSelection = React.useCallback(
+  const randomizeSelection = useCallback(
     (event: React.MouseEvent) => {
       event.preventDefault();
       event.stopPropagation();
@@ -430,8 +433,8 @@ export const FilesSelection: Story = () => {
       <button type="button" onClick={randomizeSelection}>
         Select files
       </button>
-      <button type="button" onClick={getSelection}>
-        Get selected files
+      <button type="button" onClick={logSelection}>
+        Log selection
       </button>
       <FilePicker
         ref={fileBrowserRef}

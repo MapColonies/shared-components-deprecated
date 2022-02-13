@@ -51,6 +51,7 @@ export interface FilePickerTheme {
 // IMPLEMENTATION NOTES: Currently FilePicker component works with his own icon set.
 // In future might be tweaked.
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
+
 export interface FilePickerProps extends Partial<FileBrowserProps> {
   theme?: FilePickerTheme;
   styles?: Record<string, string>;
