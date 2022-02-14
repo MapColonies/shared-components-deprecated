@@ -22,7 +22,7 @@ import {
 import { isNumber, isArray } from 'lodash';
 import { getAltitude, toDegrees } from '../utils/map';
 import { Box } from '../box';
-import { Proj } from "../utils/projections";
+import { Proj } from '../utils/projections';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
