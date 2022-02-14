@@ -15,7 +15,7 @@ jest_html_reporters.html
 
 # misc
 .DS_Store
-.env*
+# .env*
 !.env.example
 
 npm-debug.log*

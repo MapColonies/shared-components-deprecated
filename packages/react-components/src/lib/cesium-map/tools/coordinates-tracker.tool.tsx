@@ -7,7 +7,7 @@ import {
   Proj,
   COORDINATES_WGS_FRACTION_DIGITS,
   COORDINATES_MERCATOR_FRACTION_DIGITS,
-} from '..';
+} from '../../utils/projections';
 
 export interface RCoordinatesTrackerToolProps {
   projection?: Proj;
