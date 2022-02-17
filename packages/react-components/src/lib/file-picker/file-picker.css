@@ -2,7 +2,9 @@ body[dir='rtl'] .chonky-fileListWrapper [class^='listContainer-'] {
   direction: rtl !important;
 }
 
-body[dir='rtl'] .chonky-fileEntryClickableWrapper [class^='listFileEntryProperty-'] {
+body[dir='rtl']
+  .chonky-fileEntryClickableWrapper
+  [class^='listFileEntryProperty-'] {
   direction: ltr !important;
 }
 

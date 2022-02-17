@@ -74,11 +74,16 @@ export const defaultFormatters = {
       return null;
     }
   },
-  formatFileSize: (/*_intl: IntlShape, */file: FileData | null): string | null => {
+  formatFileSize: (
+    /*_intl: IntlShape, */ file: FileData | null
+  ): string | null => {
     if (!file || typeof file.size !== 'number') return null;
 
     const size = file.size;
-    const sizeData = filesize(size, { bits: false, output: 'object' }) as unknown as IFileSize;
+    const sizeData = (filesize(size, {
+      bits: false,
+      output: 'object',
+    }) as unknown) as IFileSize;
     if (sizeData.symbol === 'B') {
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       return `${Math.round(sizeData.value / 10) / 100.0} KB`;
