@@ -1,41 +1,10 @@
 /* eslint-disable */
-import { ChonkyActions, FileData, FileHelper, I18nConfig } from 'chonky';
-import { IntlShape } from 'react-intl';
-import filesize from 'filesize';
+import { ChonkyActions, defaultFormatters, I18nConfig } from 'chonky';
 import { SupportedLocales } from '../models';
 
 interface ILocalization {
   [key: string]: I18nConfig;
 }
-
-const defaultFormatters = {
-  formatFileModDate: (
-    intl: IntlShape,
-    file: FileData | null
-  ): string | null => {
-    const safeModDate = FileHelper.getModDate(file);
-    if (safeModDate) {
-      return intl.formatDate(safeModDate, {
-        dateStyle: 'short',
-        timeStyle: 'short',
-      });
-    } else {
-      return null;
-    }
-  },
-  formatFileSize: (intl: IntlShape, file: FileData | null): string | null => {
-    if (!file || typeof file.size !== 'number') return null;
-
-    const size = file.size;
-    const sizeData = filesize(size, { bits: false, output: 'object' }) as any;
-    if (sizeData.symbol === 'B') {
-      return `${Math.round(sizeData.value / 10) / 100.0} KB`;
-    } else if (sizeData.symbol === 'KB') {
-      return `${Math.round(sizeData.value)} ${sizeData.symbol}`;
-    }
-    return `${sizeData.value} ${sizeData.symbol}`;
-  },
-};
 
 const englishI18n: I18nConfig = {
   locale: SupportedLocales.EN,
