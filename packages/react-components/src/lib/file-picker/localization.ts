@@ -1,11 +1,20 @@
 /* eslint-disable */
-import { ChonkyActions, ChonkyFormatters, FileData, FileHelper, I18nConfig } from 'chonky';
+import {
+  ChonkyActions,
+  ChonkyFormatters,
+  FileData,
+  FileHelper,
+  I18nConfig,
+} from 'chonky';
 import { IntlShape } from 'react-intl';
 import filesize from 'filesize';
 import { SupportedLocales } from '../models';
 
 export interface FilePickerFormatters extends ChonkyFormatters {
-  formatFileSize: (intl: IntlShape | null, file: FileData | null) => string | null;
+  formatFileSize: (
+    intl: IntlShape | null,
+    file: FileData | null
+  ) => string | null;
 }
 
 interface IFileSize {
@@ -31,11 +40,11 @@ export const defaultFormatters: FilePickerFormatters = {
     }
   },
   formatFileSize: (
-    _intl: IntlShape |null,
+    _intl: IntlShape | null,
     file: FileData | null
   ): string | null => {
     if (!file || typeof file.size !== 'number') return null;
-  
+
     const size = file.size;
     const sizeData = (filesize(size, {
       bits: false,
