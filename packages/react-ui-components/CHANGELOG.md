@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.3.1...@map-colonies/react-core@3.3.2) (2022-02-20)
+
+
+### Bug Fixes
+
+* stories hot reload and circular deps ([#117](https://github.com/MapColonies/shared-components/issues/117)) ([284abff](https://github.com/MapColonies/shared-components/commit/284abff1ed4a192e5a7f66d7a0f6e9dd5e2e028b))
+
+
+
+
+
 ## [3.3.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.2.0...@map-colonies/react-core@3.3.1) (2021-08-02)
 
 

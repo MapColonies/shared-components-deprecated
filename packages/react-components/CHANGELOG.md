@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.1...@map-colonies/react-components@3.10.2) (2022-02-20)
+
+
+### Bug Fixes
+
+* action data and rtl ([1903ebf](https://github.com/MapColonies/shared-components/commit/1903ebfa600fc5d024bb2df107f5891d5c2160f3))
+* default formatters ([ae7913b](https://github.com/MapColonies/shared-components/commit/ae7913b73af0a5357aa2ef6194724dc93f2b238f))
+* fix ([c1379ad](https://github.com/MapColonies/shared-components/commit/c1379ad0513bb64f67745087719c38ccc8e9bd7a))
+* intl shape ([55b2624](https://github.com/MapColonies/shared-components/commit/55b2624393b28f1b74c24fc2064a0fb14e2b447d))
+* prettier ([2ca12de](https://github.com/MapColonies/shared-components/commit/2ca12deece268225c1cf851a791dc3e7ec7411ef))
+* prettier ([0a22d00](https://github.com/MapColonies/shared-components/commit/0a22d00df8da286792cc86a24519bce59388dfdd))
+* stories hot reload and circular deps ([#117](https://github.com/MapColonies/shared-components/issues/117)) ([284abff](https://github.com/MapColonies/shared-components/commit/284abff1ed4a192e5a7f66d7a0f6e9dd5e2e028b))
+* use native formatters ([ad577cf](https://github.com/MapColonies/shared-components/commit/ad577cf8f890b965ebac3785281f285e99e1c2df))
+
+
+
+
+
 ## [3.10.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.0...@map-colonies/react-components@3.10.1) (2022-02-10)
 
 
