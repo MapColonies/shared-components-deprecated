@@ -28,6 +28,8 @@ export type FileArray = ChonkyFileArray;
 
 export type FileData = ChonkyFileData;
 
+export type FilePickerAction = FileAction;
+
 export class FileHelper extends ChonkyFileHelper {}
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -124,7 +126,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
       const [disableDragAndDrop, setDisableDragAndDrop] = useState<boolean>(
         false
       );
-      const [fileActions, setFileActions] = useState<FileAction[]>();
+      const [fileActions, setFileActions] = useState<FilePickerAction[]>();
       const [i18n, setI18n] = useState<I18nConfig>();
       useEffect(() => {
         if (theme) {
@@ -158,7 +160,7 @@ export const FilePicker: React.FC<FilePickerProps> = React.memo(
             ref={ref}
             files={files ?? []}
             folderChain={folderChain}
-            onFileAction={(data: ChonkyFileActionData): void => {
+            onFileAction={(data: FileActionData): void => {
               if (typeof onFileAction === 'function') {
                 void onFileAction(data);
               }
