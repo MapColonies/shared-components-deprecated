@@ -1,6 +1,55 @@
 /* eslint-disable */
-import { ChonkyActions, defaultFormatters, I18nConfig } from 'chonky';
+import { ChonkyActions, ChonkyFormatters, FileData, FileHelper, I18nConfig } from 'chonky';
+import { IntlShape } from 'react-intl';
+import filesize from 'filesize';
 import { SupportedLocales } from '../models';
+
+export interface FilePickerFormatters extends ChonkyFormatters {
+  formatFileSize: (intl: IntlShape | null, file: FileData | null) => string | null;
+}
+
+interface IFileSize {
+  value: number;
+  symbol: string;
+  exponent: number;
+  unit: string;
+}
+
+export const defaultFormatters: FilePickerFormatters = {
+  formatFileModDate: (
+    intl: IntlShape,
+    file: FileData | null
+  ): string | null => {
+    const safeModDate = FileHelper.getModDate(file);
+    if (safeModDate) {
+      return intl.formatDate(safeModDate, {
+        dateStyle: 'short',
+        timeStyle: 'short',
+      });
+    } else {
+      return null;
+    }
+  },
+  formatFileSize: (
+    _intl: IntlShape |null,
+    file: FileData | null
+  ): string | null => {
+    if (!file || typeof file.size !== 'number') return null;
+  
+    const size = file.size;
+    const sizeData = (filesize(size, {
+      bits: false,
+      output: 'object',
+    }) as unknown) as IFileSize;
+    if (sizeData.symbol === 'B') {
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      return `${Math.round(sizeData.value / 10) / 100.0} KB`;
+    } else if (sizeData.symbol === 'KB') {
+      return `${Math.round(sizeData.value)} ${sizeData.symbol}`;
+    }
+    return `${sizeData.value} ${sizeData.symbol.toUpperCase()}`;
+  },
+};
 
 interface ILocalization {
   [key: string]: I18nConfig;
