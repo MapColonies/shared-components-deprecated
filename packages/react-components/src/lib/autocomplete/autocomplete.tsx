@@ -24,10 +24,10 @@ const OPTION_LIST_MIN_WIDTH = 100;
 export interface IAutocompleteProps {
   Component: React.ReactElement;
   ComponentProps: Record<string, unknown>;
-  defaultValue: string;
+  defaultValue: string | undefined;
   disabled: boolean;
   maxOptions: number;
-  onBlur: () => void;
+  onBlur: (evt: any) => void;
   onChange: (val: string) => void;
   onKeyDown: (evt: any) => void;
   onRequestOptions: (val: string) => void;
@@ -50,7 +50,7 @@ export interface IAutocompleteProps {
 }
 
 const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
-  const [recentValue, setRecentValue] = useState(props.defaultValue);
+  const [recentValue, setRecentValue] = useState(props.defaultValue ?? '');
   const [enableSpaceRemovers, setEnableSpaceRemovers] = useState(false);
 
   const [state, setState] = useState({
@@ -79,6 +79,17 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
       }
     };
   }, []);
+
+  useEffect(()=>{
+    if(typeof props.value !== 'undefined'){
+      setRecentValue(props.value);
+    }
+
+    if(typeof props.defaultValue !== 'undefined'){
+      setRecentValue(props.defaultValue);
+    }
+
+  }, [props.value, props.defaultValue])
 
   useEffect(() => {
     const { options } = props;
@@ -599,22 +610,10 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
     ...rest
   } = props;
 
-  const stateValue = recentValue; //state.value;
-
   const propagated: any = Object.assign({}, rest);
   Object.keys(props).forEach((k) => {
     delete (propagated as Record<string, unknown>)[k];
   });
-
-  let val = '';
-
-  if (stateValue) {
-    val = stateValue;
-  } else if (defaultValue) {
-    val = defaultValue;
-  } else if (value !== undefined) {
-    val = value;
-  }
 
   return (
     <>
@@ -624,7 +623,7 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
         onChange: handleChange,
         onKeyDown: handleKeyDown,
         ref: refInput,
-        value: val,
+        value: recentValue,
         ...propagated,
         ...ComponentProps,
       })}
@@ -636,10 +635,10 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
 const defaultProps: IAutocompleteProps = {
   Component: <textarea />,
   ComponentProps: {},
-  defaultValue: '',
+  defaultValue: undefined,
   disabled: false,
   maxOptions: 6,
-  onBlur: () => {},
+  onBlur: (evt: any) => {},
   onChange: (val: string) => {},
   onKeyDown: (evt: any) => {},
   onRequestOptions: (val: string) => {},
