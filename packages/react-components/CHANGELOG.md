@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.3](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.2...@map-colonies/react-components@3.10.3) (2022-02-22)
+
+
+### Bug Fixes
+
+* auto complete input bug ([cdb9220](https://github.com/MapColonies/shared-components/commit/cdb9220177e81087b90eacdf05a5f80b04e2ed67))
+* autocomplete prettier ([eff39e8](https://github.com/MapColonies/shared-components/commit/eff39e8e469d6d9ca831be3718204ad58e77d850))
+
+
+
+
+
 ## [3.10.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.1...@map-colonies/react-components@3.10.2) (2022-02-20)
 
 
