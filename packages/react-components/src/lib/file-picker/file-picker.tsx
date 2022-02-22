@@ -62,7 +62,7 @@ export interface FilePickerProps extends Partial<FileBrowserProps> {
   locale?: SupportedLocales;
 }
 
-export const FilePicker: React.FC<FilePickerProps> = React.memo(
+export const FilePicker = React.memo(
   React.forwardRef<FileBrowserHandle, FilePickerProps>(
     (
       {
