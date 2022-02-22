@@ -80,16 +80,15 @@ const Autocomplete: React.FC<IAutocompleteProps> = (props) => {
     };
   }, []);
 
-  useEffect(()=>{
-    if(typeof props.value !== 'undefined'){
+  useEffect(() => {
+    if (typeof props.value !== 'undefined') {
       setRecentValue(props.value);
     }
 
-    if(typeof props.defaultValue !== 'undefined'){
+    if (typeof props.defaultValue !== 'undefined') {
       setRecentValue(props.defaultValue);
     }
-
-  }, [props.value, props.defaultValue])
+  }, [props.value, props.defaultValue]);
 
   useEffect(() => {
     const { options } = props;
