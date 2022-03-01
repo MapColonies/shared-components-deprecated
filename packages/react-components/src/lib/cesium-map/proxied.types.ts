@@ -37,3 +37,6 @@ export const CesiumVerticalOrigin = VerticalOrigin;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const CesiumLabelStyle = LabelStyle;
+
+// PROXIED FUNCTIONS
+export { sampleTerrainMostDetailed as cesiumSampleTerrainMostDetailed } from 'cesium';
