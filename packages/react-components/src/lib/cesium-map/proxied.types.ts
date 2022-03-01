@@ -9,6 +9,7 @@ import {
   Ellipsoid,
   ConstantPositionProperty,
   GeographicTilingScheme,
+  Cartographic,
 } from 'cesium';
 
 // PROXIED CLASSES
@@ -21,6 +22,8 @@ export class CesiumConstantPositionProperty extends ConstantPositionProperty {}
 export class CesiumCartesian2 extends Cartesian2 {}
 
 export class CesiumCartesian3 extends Cartesian3 {}
+
+export class CesiumCartographic extends Cartographic {}
 
 export class CesiumBoundingSphere extends BoundingSphere {}
 
