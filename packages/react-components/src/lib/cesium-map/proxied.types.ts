@@ -9,6 +9,7 @@ import {
   Ellipsoid,
   ConstantPositionProperty,
   GeographicTilingScheme,
+  Cartographic,
 } from 'cesium';
 
 // PROXIED CLASSES
@@ -22,6 +23,8 @@ export class CesiumCartesian2 extends Cartesian2 {}
 
 export class CesiumCartesian3 extends Cartesian3 {}
 
+export class CesiumCartographic extends Cartographic {}
+
 export class CesiumBoundingSphere extends BoundingSphere {}
 
 export class CesiumEllipsoid extends Ellipsoid {}
@@ -34,3 +37,6 @@ export const CesiumVerticalOrigin = VerticalOrigin;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const CesiumLabelStyle = LabelStyle;
+
+// PROXIED FUNCTIONS
+export { sampleTerrainMostDetailed as cesiumSampleTerrainMostDetailed } from 'cesium';
