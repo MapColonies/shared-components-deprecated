@@ -14,6 +14,7 @@ import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { Cesium3DTileset } from '../layers';
 import { LayerType } from '../layers-manager';
+import { InspectorTool } from '../tools/inspector.tool';
 import QuantizedMeshTerrainProvider from './custom/quantized-mesh-terrain-provider';
 
 export default {
@@ -122,8 +123,8 @@ interface ITerrainProviderSelectorProps {
 const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
-  const mapViewer = useCesiumMap();
   const [depthTest, setDepthTest] = useState<boolean>(false);
+  const mapViewer = useCesiumMap();
 
   const scene = mapViewer.scene;
 
@@ -178,6 +179,7 @@ export const QuantizedMeshProviders: Story = () => {
           url="/mock/tileset_2/L16_31023/L16_31023.json"
         />
         <TerrainProviderSelector terrainProviderList={terrainProviderList} />
+        <InspectorTool />
       </CesiumMap>
     </div>
   );

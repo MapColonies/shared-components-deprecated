@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
-  TerrainProvider,
+  Cesium3DTileset,
   CesiumTerrainProvider,
   Resource,
+  TerrainProvider,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { CesiumMap, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
-import { Cesium3DTileset } from '../layers';
 import { InspectorTool } from '../tools/inspector.tool';
 import { TerrainianHeightTool } from '../tools/terranian-height.tool';
 import { LayerType } from '../layers-manager';
+import { update } from '../layers/3d.tileset.update';
 
 export default {
   title: 'Cesium Map/QuantizedMesh',
@@ -59,14 +60,14 @@ const EllipsoidProvider = new EllipsoidTerrainProvider({});
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MCCesiumProviderMercator = new CesiumTerrainProvider({
   url: new Resource({
-    url: 'http://localhost:3000/terrain_mercator_crop',
+    url: 'http://localhost:8002/WorldTerrain',
   }),
 });
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MCCesiumProviderW84 = new CesiumTerrainProvider({
   url: new Resource({
-    url: 'http://localhost:3000/terrain_w84_geo_crop',
+    url: 'http://localhost:3000',
   }),
 });
 
@@ -81,11 +82,11 @@ const terrainProviderListQmesh = [
     value: EllipsoidProvider,
   },
   {
-    id: 'MC Mercator - Cesium Terrain Provider',
+    id: 'Terrain-Tiler',
     value: MCCesiumProviderMercator,
   },
   {
-    id: 'MC W84 - Cesium Terrain Provider',
+    id: 'CTBD',
     value: MCCesiumProviderW84,
   },
   {
@@ -106,7 +107,38 @@ interface ITerrainProviderSelectorProps {
 const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
+  const [depthTest, setDepthTest] = useState<boolean>(false);
+  const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(false);
   const mapViewer = useCesiumMap();
+
+  const scene = mapViewer.scene;
+
+  const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setDepthTest(e.target.checked);
+    scene.globe.depthTestAgainstTerrain = !depthTest;
+  };
+
+  // eslint-disable-next-line
+  let tileset = scene.primitives.add(
+    new Cesium3DTileset({
+      url: 'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json'
+    })
+  );
+  
+  const handleUpdateTilesetChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setHandleUpdateTileset(e.target.checked);
+    if (!handleUpdateTileset) {
+      update(tileset);
+    } else {
+      scene.primitives.removeAll();
+      // eslint-disable-next-line
+      tileset = scene.primitives.add(
+        new Cesium3DTileset({
+          url: 'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json'
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -124,12 +156,29 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
           return <option key={provider.id}>{provider.id}</option>;
         })}
       </select>
+      <input
+        type="checkbox"
+        id="input"
+        checked={depthTest}
+        onChange={handleDepthTestChange}
+        style={{marginLeft: '20px', marginRight: '5px'}}
+      />
+      <label htmlFor="input" style={{color: 'white'}}>depthTestAgainstTerrain</label>
+      <input
+        type="checkbox"
+        id="input"
+        checked={handleUpdateTileset}
+        onChange={handleUpdateTilesetChange}
+        style={{marginLeft: '20px', marginRight: '5px'}}
+      />
+      <label htmlFor="input" style={{color: 'white'}}>updateTileset</label>
+      <br />
     </>
   );
 };
 
 export const QuantizedMeshHeightsTool: Story = () => {
-  const [center] = useState<[number, number]>([-122, 43]);
+  const [center] = useState<[number, number]>([34.817, 31.911]);
   return (
     <div style={mapDivStyle}>
       <CesiumMap
@@ -139,10 +188,6 @@ export const QuantizedMeshHeightsTool: Story = () => {
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
       >
-        <Cesium3DTileset
-          isZoomTo={true}
-          url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json"
-        />
         <TerrainProviderSelector
           terrainProviderList={terrainProviderListQmesh}
         />

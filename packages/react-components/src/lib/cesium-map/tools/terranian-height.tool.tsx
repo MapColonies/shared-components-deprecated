@@ -69,8 +69,7 @@ export const TerrainianHeightTool: React.FC<TerrainianHeightProps> = (
       ).then(
         (updatedPositions) => {
           console.log(updatedPositions);
-
-          mapViewer.scene.globe.depthTestAgainstTerrain = true;
+          
           mapViewer.entities.suspendEvents();
           mapViewer.entities.removeAll();
 
