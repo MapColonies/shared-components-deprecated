@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
@@ -109,34 +109,32 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 }) => {
   const [depthTest, setDepthTest] = useState<boolean>(false);
   const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(false);
+  const [jerusalem] = useState<Cesium3DTileset>(new Cesium3DTileset({
+    url: 'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json'
+  }));
   const mapViewer = useCesiumMap();
-
   const scene = mapViewer.scene;
+  let tileset: Cesium3DTileset;
+
+  useEffect(() => {
+    // eslint-disable-next-line
+    tileset = scene.primitives.add(jerusalem);
+    void mapViewer.zoomTo(tileset);
+  }, []);
 
   const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setDepthTest(e.target.checked);
     scene.globe.depthTestAgainstTerrain = !depthTest;
   };
-
-  // eslint-disable-next-line
-  let tileset = scene.primitives.add(
-    new Cesium3DTileset({
-      url: 'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json'
-    })
-  );
   
   const handleUpdateTilesetChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setHandleUpdateTileset(e.target.checked);
     if (!handleUpdateTileset) {
-      update(tileset);
+      // update(tileset);
     } else {
-      scene.primitives.removeAll();
+      // scene.primitives.remove(jerusalem);
       // eslint-disable-next-line
-      tileset = scene.primitives.add(
-        new Cesium3DTileset({
-          url: 'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json'
-        })
-      );
+      tileset = scene.primitives.add(jerusalem);
     }
   };
 
@@ -163,7 +161,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         onChange={handleDepthTestChange}
         style={{marginLeft: '20px', marginRight: '5px'}}
       />
-      <label htmlFor="input" style={{color: 'white'}}>depthTestAgainstTerrain</label>
+      <label htmlFor="input">depthTestAgainstTerrain</label>
       <input
         type="checkbox"
         id="input"
@@ -171,7 +169,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         onChange={handleUpdateTilesetChange}
         style={{marginLeft: '20px', marginRight: '5px'}}
       />
-      <label htmlFor="input" style={{color: 'white'}}>updateTileset</label>
+      <label htmlFor="input">updateTileset</label>
       <br />
     </>
   );
