@@ -108,10 +108,15 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
   const [depthTest, setDepthTest] = useState<boolean>(false);
-  const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(false);
-  const [jerusalem] = useState<Cesium3DTileset>(new Cesium3DTileset({
-    url: 'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json'
-  }));
+  const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(
+    false
+  );
+  const [jerusalem] = useState<Cesium3DTileset>(
+    new Cesium3DTileset({
+      url:
+        'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json',
+    })
+  );
   const mapViewer = useCesiumMap();
   const scene = mapViewer.scene;
   let tileset: Cesium3DTileset;
@@ -126,8 +131,10 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     setDepthTest(e.target.checked);
     scene.globe.depthTestAgainstTerrain = !depthTest;
   };
-  
-  const handleUpdateTilesetChange = (e: ChangeEvent<HTMLInputElement>): void => {
+
+  const handleUpdateTilesetChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
     setHandleUpdateTileset(e.target.checked);
     if (!handleUpdateTileset) {
       // update(tileset);
@@ -159,7 +166,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         id="input"
         checked={depthTest}
         onChange={handleDepthTestChange}
-        style={{marginLeft: '20px', marginRight: '5px'}}
+        style={{ marginLeft: '20px', marginRight: '5px' }}
       />
       <label htmlFor="input">depthTestAgainstTerrain</label>
       <input
@@ -167,7 +174,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         id="input"
         checked={handleUpdateTileset}
         onChange={handleUpdateTilesetChange}
-        style={{marginLeft: '20px', marginRight: '5px'}}
+        style={{ marginLeft: '20px', marginRight: '5px' }}
       />
       <label htmlFor="input">updateTileset</label>
       <br />
