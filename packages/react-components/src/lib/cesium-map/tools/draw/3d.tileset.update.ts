@@ -18,7 +18,7 @@ const updateTile = (tile: Cesium3DTileContent): void => {
   //   boundingVolume = tile.contentBoundingVolume;
   // }
   // eslint-disable-next-line
-  // const content = tile.innerContents[0];
+  const content = tile.innerContents[0];
   // const model = content._model;
   // const height = boundingVolume.minimumHeight;
   // const center = model._rtcCenter;

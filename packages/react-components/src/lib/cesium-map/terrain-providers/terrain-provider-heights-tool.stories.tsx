@@ -13,7 +13,7 @@ import { CesiumSceneMode } from '../map.types';
 import { InspectorTool } from '../tools/inspector.tool';
 import { TerrainianHeightTool } from '../tools/terranian-height.tool';
 import { LayerType } from '../layers-manager';
-import { update } from '../layers/3d.tileset.update';
+import { update } from '../tools/draw/3d.tileset.update';
 
 export default {
   title: 'Cesium Map/QuantizedMesh',
@@ -107,6 +107,8 @@ interface ITerrainProviderSelectorProps {
 const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
+  const mapViewer = useCesiumMap();
+  const scene = mapViewer.scene;
   const [depthTest, setDepthTest] = useState<boolean>(false);
   const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(
     false
@@ -117,15 +119,12 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
         'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json',
     })
   );
-  const mapViewer = useCesiumMap();
-  const scene = mapViewer.scene;
-  let tileset: Cesium3DTileset;
+  const [tileset, setTileset] = useState<Cesium3DTileset>(scene.primitives.add(jerusalem));
 
   useEffect(() => {
-    // eslint-disable-next-line
-    tileset = scene.primitives.add(jerusalem);
     void mapViewer.zoomTo(tileset);
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tileset]);
 
   const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setDepthTest(e.target.checked);
@@ -139,9 +138,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
     if (!handleUpdateTileset) {
       // update(tileset);
     } else {
-      // scene.primitives.remove(jerusalem);
-      // eslint-disable-next-line
-      tileset = scene.primitives.add(jerusalem);
+      setTileset(scene.primitives.add(jerusalem));
     }
   };
 
