@@ -1,19 +1,18 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
-  Cesium3DTileset,
   CesiumTerrainProvider,
   Resource,
   TerrainProvider,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { CesiumMap, useCesiumMap } from '../map';
+import { CesiumMap, CesiumViewer, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { InspectorTool } from '../tools/inspector.tool';
 import { TerrainianHeightTool } from '../tools/terranian-height.tool';
 import { LayerType } from '../layers-manager';
-import { update } from '../tools/draw/3d.tileset.update';
+import { Cesium3DTilesetWithUpdate } from '../layers/3d.tileset.with.update';
 
 export default {
   title: 'Cesium Map/QuantizedMesh',
@@ -107,40 +106,7 @@ interface ITerrainProviderSelectorProps {
 const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
-  const mapViewer = useCesiumMap();
-  const scene = mapViewer.scene;
-  const [depthTest, setDepthTest] = useState<boolean>(false);
-  const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(
-    false
-  );
-  const [jerusalem] = useState<Cesium3DTileset>(
-    new Cesium3DTileset({
-      url:
-        'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json',
-    })
-  );
-  const [tileset, setTileset] = useState<Cesium3DTileset>(scene.primitives.add(jerusalem));
-
-  useEffect(() => {
-    void mapViewer.zoomTo(tileset);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tileset]);
-
-  const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setDepthTest(e.target.checked);
-    scene.globe.depthTestAgainstTerrain = !depthTest;
-  };
-
-  const handleUpdateTilesetChange = (
-    e: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setHandleUpdateTileset(e.target.checked);
-    if (!handleUpdateTileset) {
-      // update(tileset);
-    } else {
-      setTileset(scene.primitives.add(jerusalem));
-    }
-  };
+  const mapViewer: CesiumViewer = useCesiumMap();
 
   return (
     <>
@@ -158,23 +124,6 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
           return <option key={provider.id}>{provider.id}</option>;
         })}
       </select>
-      <input
-        type="checkbox"
-        id="input"
-        checked={depthTest}
-        onChange={handleDepthTestChange}
-        style={{ marginLeft: '20px', marginRight: '5px' }}
-      />
-      <label htmlFor="input">depthTestAgainstTerrain</label>
-      <input
-        type="checkbox"
-        id="input"
-        checked={handleUpdateTileset}
-        onChange={handleUpdateTilesetChange}
-        style={{ marginLeft: '20px', marginRight: '5px' }}
-      />
-      <label htmlFor="input">updateTileset</label>
-      <br />
     </>
   );
 };
@@ -193,6 +142,7 @@ export const QuantizedMeshHeightsTool: Story = () => {
         <TerrainProviderSelector
           terrainProviderList={terrainProviderListQmesh}
         />
+        <Cesium3DTilesetWithUpdate />
         <TerrainianHeightTool />
         <InspectorTool />
       </CesiumMap>
