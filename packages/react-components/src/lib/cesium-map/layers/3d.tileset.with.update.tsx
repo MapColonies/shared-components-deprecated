@@ -39,7 +39,7 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
 
   useEffect(() => {
     void mapViewer.zoomTo(tileset);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tileset]);
 
   const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -58,8 +58,8 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     }
   };
 
+  /* eslint-disable */
   const updateContent = (model: Cesium3DTileContent): void => {
-    console.log(model);
     const boundingVolume = model._boundingSphere;
     const height = boundingVolume.minimumHeight;
     const center = model._rtcCenter;
@@ -86,6 +86,7 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
       model._rtcCenter = Cartesian3.clone(position, model._rtcCenter);
     });
   };
+  /* eslint-enable */
   
   const updateTile = (tile: Cesium3DTile, counter: number): void => {
     void tile.content?.readyPromise.then((content): void => {
