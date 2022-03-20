@@ -142,7 +142,7 @@ export const QuantizedMeshHeightsTool: Story = () => {
         <TerrainProviderSelector
           terrainProviderList={terrainProviderListQmesh}
         />
-        <Cesium3DTilesetWithUpdate />
+        <Cesium3DTilesetWithUpdate url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json" />
         <TerrainianHeightTool />
         <InspectorTool />
       </CesiumMap>

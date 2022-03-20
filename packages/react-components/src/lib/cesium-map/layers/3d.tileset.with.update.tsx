@@ -17,25 +17,26 @@ import {
 } from 'cesium';
 import { CesiumViewer, useCesiumMap } from '../map';
 
-export interface Cesium3DTilesetWithUpdateProps {}
+export interface Cesium3DTilesetWithUpdateProps {
+  url: string;
+}
 
-export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps> = (
-  props
-) => {
+export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps> = ({
+  url,
+}) => {
   const mapViewer: CesiumViewer = useCesiumMap();
   const scene = mapViewer.scene;
   const [depthTest, setDepthTest] = useState<boolean>(false);
   const [handleUpdateTileset, setHandleUpdateTileset] = useState<boolean>(
     false
   );
-  const [jerusalem] = useState<Cesium3DTileset>(
+  const [cesium3DTileset] = useState<Cesium3DTileset>(
     new Cesium3DTileset({
-      url:
-        'https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json',
+      url: url,
     })
   );
   const [tileset, setTileset] = useState<Cesium3DTileset>(
-    scene.primitives.add(jerusalem)
+    scene.primitives.add(cesium3DTileset)
   );
 
   useEffect(() => {
@@ -55,14 +56,17 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     if (!handleUpdateTileset) {
       updateTileset(tileset);
     } else {
-      setTileset(scene.primitives.add(jerusalem));
+      setTileset(scene.primitives.add(cesium3DTileset));
     }
   };
 
-  const updateContent = (model: Cesium3DTileContent): void => {
-    // @ts-ignore
-    const boundingVolume = model._boundingSphere;
-    const height = boundingVolume.minimumHeight;
+  const updateContent = (
+    model: Cesium3DTileContent,
+    boundingVolume: any
+  ): void => {
+    const height = boundingVolume.minimumHeight
+      ? boundingVolume.minimumHeight
+      : boundingVolume.center.z - boundingVolume.radius;
     // @ts-ignore
     const center = model._rtcCenter;
     const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(
@@ -104,16 +108,16 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     });
   };
 
-  const updateTile = (tile: Cesium3DTile, counter: number): void => {
+  const updateTile = (tile: Cesium3DTile): void => {
     void tile.content?.readyPromise.then((content): void => {
-      console.log(counter++);
-      updateContent(content);
+      // @ts-ignore
+      updateContent(content, tile.boundingVolume.boundingVolume);
     });
-    tile.children.forEach((child) => updateTile(child, counter));
+    tile.children.forEach((child) => updateTile(child));
   };
 
   const updateTileset = (tileset: Cesium3DTileset): void => {
-    updateTile(tileset.root, 1);
+    updateTile(tileset.root);
   };
 
   return (
