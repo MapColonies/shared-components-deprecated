@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /*
@@ -58,15 +59,17 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     }
   };
 
-  /* eslint-disable */
   const updateContent = (model: Cesium3DTileContent): void => {
+    // @ts-ignore
     const boundingVolume = model._boundingSphere;
     const height = boundingVolume.minimumHeight;
+    // @ts-ignore
     const center = model._rtcCenter;
     const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(center, new Cartesian3());
     const offset = Cartesian3.multiplyByScalar(normal, height, new Cartesian3());
     const carto = Cartographic.fromCartesian(center);
     void new Promise((resolve, reject) => {
+      // @ts-ignore
       if (scene.terrainProvider._ready !== true) {
         const result = {...carto};
         result.height = 0;
@@ -83,10 +86,10 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     }).then((result) => {
       const resultCartesian = Cartographic.toCartesian(result as Cartographic);
       const position = Cartesian3.subtract(resultCartesian, offset, new Cartesian3());
+      // @ts-ignore
       model._rtcCenter = Cartesian3.clone(position, model._rtcCenter);
     });
   };
-  /* eslint-enable */
   
   const updateTile = (tile: Cesium3DTile, counter: number): void => {
     void tile.content?.readyPromise.then((content): void => {
