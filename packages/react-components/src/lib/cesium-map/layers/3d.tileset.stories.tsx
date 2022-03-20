@@ -53,11 +53,7 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
 
 export const Cesium3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap
-      baseMaps={BASE_MAPS}
-      terrainProvider={ArcGisProvider}
-      {...args}
-    >
+    <CesiumMap baseMaps={BASE_MAPS} {...args}>
       <Cesium3DTileset
         isZoomTo={true}
         url="/mock/tileset_1/tileset.json"
@@ -88,14 +84,10 @@ Cesium3DTilesetLayer.argTypes = {
 
 export const Cesium3DTilesetOnHeightLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap
-      baseMaps={BASE_MAPS}
-      terrainProvider={ArcGisProvider}
-      {...args}
-    >
+    <CesiumMap baseMaps={BASE_MAPS} {...args}>
       <Cesium3DTileset
         isZoomTo={false}
-        heightFromGround={-170}
+        heightFromGround={-10}
         url="/mock/tileset_1/tileset.json"
         onAllTilesLoad={action('onAllTilesLoad')}
         onInitialTilesLoad={action('onInitialTilesLoad')}
@@ -127,11 +119,7 @@ Cesium3DTilesetOnHeightLayer.argTypes = {
 
 export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap
-      baseMaps={BASE_MAPS}
-      terrainProvider={ArcGisProvider}
-      {...args}
-    >
+    <CesiumMap baseMaps={BASE_MAPS} terrainProvider={ArcGisProvider} {...args}>
       <Cesium3DTileset
         isZoomTo={true}
         url="/mock/tileset_2/L16_31023/L16_31023.json"
