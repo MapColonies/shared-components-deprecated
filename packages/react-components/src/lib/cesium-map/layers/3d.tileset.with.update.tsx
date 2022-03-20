@@ -40,7 +40,7 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
 
   useEffect(() => {
     void mapViewer.zoomTo(tileset);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tileset]);
 
   const handleDepthTestChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -65,40 +65,53 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     const height = boundingVolume.minimumHeight;
     // @ts-ignore
     const center = model._rtcCenter;
-    const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(center, new Cartesian3());
-    const offset = Cartesian3.multiplyByScalar(normal, height, new Cartesian3());
+    const normal = scene.globe.ellipsoid.geodeticSurfaceNormal(
+      center,
+      new Cartesian3()
+    );
+    const offset = Cartesian3.multiplyByScalar(
+      normal,
+      height,
+      new Cartesian3()
+    );
     const carto = Cartographic.fromCartesian(center);
     void new Promise((resolve, reject) => {
       // @ts-ignore
       if (scene.terrainProvider._ready !== true) {
-        const result = {...carto};
+        const result = { ...carto };
         result.height = 0;
         resolve(result);
       } else {
-        void sampleTerrainMostDetailed(scene.terrainProvider, [carto]).then((results) => {
-          const result = results[0];
-          if (!defined(result)) {
-            resolve(carto);
+        void sampleTerrainMostDetailed(scene.terrainProvider, [carto]).then(
+          (results) => {
+            const result = results[0];
+            if (!defined(result)) {
+              resolve(carto);
+            }
+            resolve(result);
           }
-          resolve(result);
-        });
+        );
       }
     }).then((result) => {
       const resultCartesian = Cartographic.toCartesian(result as Cartographic);
-      const position = Cartesian3.subtract(resultCartesian, offset, new Cartesian3());
+      const position = Cartesian3.subtract(
+        resultCartesian,
+        offset,
+        new Cartesian3()
+      );
       // @ts-ignore
       model._rtcCenter = Cartesian3.clone(position, model._rtcCenter);
     });
   };
-  
+
   const updateTile = (tile: Cesium3DTile, counter: number): void => {
     void tile.content?.readyPromise.then((content): void => {
       console.log(counter++);
       updateContent(content);
     });
-    tile.children.forEach(child => updateTile(child, counter));
+    tile.children.forEach((child) => updateTile(child, counter));
   };
-  
+
   const updateTileset = (tileset: Cesium3DTileset): void => {
     updateTile(tileset.root, 1);
   };
