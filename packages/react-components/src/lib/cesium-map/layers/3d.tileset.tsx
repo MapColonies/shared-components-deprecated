@@ -34,22 +34,24 @@ export const Cesium3DTileset: React.FC<RCesium3DTilesetProps> = (props) => {
         //     const terrain = results[0];
         //   });
         // }
-        const surface = Cartesian3.fromRadians(
-          cartographic.longitude,
-          cartographic.latitude,
-          cartographic.height
-        );
-        const offset = Cartesian3.fromRadians(
-          cartographic.longitude,
-          cartographic.latitude,
-          cartographic.height + heightFromGround
-        );
-        const translation = Cartesian3.subtract(
-          offset,
-          surface,
-          new Cartesian3()
-        );
-        tileset.modelMatrix = Matrix4.fromTranslation(translation);
+        if (heightFromGround) {
+          const surface = Cartesian3.fromRadians(
+            cartographic.longitude,
+            cartographic.latitude,
+            cartographic.height
+          );
+          const offset = Cartesian3.fromRadians(
+            cartographic.longitude,
+            cartographic.latitude,
+            cartographic.height + heightFromGround
+          );
+          const translation = Cartesian3.subtract(
+            offset,
+            surface,
+            new Cartesian3()
+          );
+          tileset.modelMatrix = Matrix4.fromTranslation(translation);
+        }
       }}
     />
   );

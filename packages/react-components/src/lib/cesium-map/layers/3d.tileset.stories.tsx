@@ -53,7 +53,7 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
 
 export const Cesium3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap baseMaps={BASE_MAPS} {...args}>
+    <CesiumMap {...args}>
       <Cesium3DTileset
         isZoomTo={true}
         url="/mock/tileset_1/tileset.json"
@@ -72,6 +72,9 @@ export const Cesium3DTilesetLayer: Story = (args: unknown) => (
 );
 
 Cesium3DTilesetLayer.argTypes = {
+  baseMaps: {
+    defaultValue: BASE_MAPS,
+  },
   zoom: {
     defaultValue: 3,
     control: {
@@ -82,9 +85,11 @@ Cesium3DTilesetLayer.argTypes = {
   },
 };
 
-export const Cesium3DTilesetOnHeightLayer: Story = (args: unknown) => (
+Cesium3DTilesetLayer.storyName = '3D Layer';
+
+export const Cesium3DTilesetWithHeightCorrectionLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap baseMaps={BASE_MAPS} {...args}>
+    <CesiumMap {...args}>
       <Cesium3DTileset
         isZoomTo={false}
         heightFromGround={-10}
@@ -103,9 +108,12 @@ export const Cesium3DTilesetOnHeightLayer: Story = (args: unknown) => (
   </div>
 );
 
-Cesium3DTilesetOnHeightLayer.argTypes = {
+Cesium3DTilesetWithHeightCorrectionLayer.argTypes = {
+  baseMaps: {
+    defaultValue: BASE_MAPS,
+  },
   zoom: {
-    defaultValue: 18,
+    defaultValue: 17,
     control: {
       type: 'range',
       min: 0,
@@ -117,9 +125,11 @@ Cesium3DTilesetOnHeightLayer.argTypes = {
   },
 };
 
+Cesium3DTilesetWithHeightCorrectionLayer.storyName = '3D with Height Correction Layer';
+
 export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap baseMaps={BASE_MAPS} terrainProvider={ArcGisProvider} {...args}>
+    <CesiumMap {...args}>
       <Cesium3DTileset
         isZoomTo={true}
         url="/mock/tileset_2/L16_31023/L16_31023.json"
@@ -129,6 +139,12 @@ export const CesiumSolar3DTilesetLayer: Story = (args: unknown) => (
 );
 
 CesiumSolar3DTilesetLayer.argTypes = {
+  baseMaps: {
+    defaultValue: BASE_MAPS,
+  },
+  terrainProvider: {
+    defaultValue: ArcGisProvider,
+  },
   center: {
     defaultValue: [34.811, 31.908],
   },
@@ -141,3 +157,5 @@ CesiumSolar3DTilesetLayer.argTypes = {
     },
   },
 };
+
+CesiumSolar3DTilesetLayer.storyName = 'Solar 3D Layer with Terrain Provider';
