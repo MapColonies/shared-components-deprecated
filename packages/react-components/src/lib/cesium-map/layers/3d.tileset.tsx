@@ -27,13 +27,6 @@ export const Cesium3DTileset: React.FC<RCesium3DTilesetProps> = (props) => {
           tileset.boundingSphere.center
         );
         const heightFromGround = props.heightFromGround ?? GROUND_LEVEL;
-        // if (scene.terrainProvider._ready) {
-        //   void sampleTerrainMostDetailed(scene.terrainProvider, [
-        //     cartographic.clone(),
-        //   ]).then((results) => {
-        //     const terrain = results[0];
-        //   });
-        // }
         if (heightFromGround) {
           const surface = Cartesian3.fromRadians(
             cartographic.longitude,
