@@ -116,7 +116,5 @@ export const Cesium3DTilesetWithUpdate: React.FC<Cesium3DTilesetWithUpdateProps>
     });
   };
 
-  return (
-    <></>
-  );
+  return <></>;
 };
