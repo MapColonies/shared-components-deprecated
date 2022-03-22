@@ -11,8 +11,8 @@ import { CesiumMap, CesiumViewer, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
 import { InspectorTool } from '../tools/inspector.tool';
 import { TerrainianHeightTool } from '../tools/terranian-height.tool';
+import { Cesium3DTileset } from '../layers';
 import { LayerType } from '../layers-manager';
-import { Cesium3DTilesetWithUpdate } from '../layers/3d.tileset.with.update';
 
 export default {
   title: 'Cesium Map/QuantizedMesh',
@@ -139,10 +139,13 @@ export const QuantizedMeshHeightsTool: Story = () => {
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
       >
+        <Cesium3DTileset
+          url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json"
+          isZoomTo={true}
+        />
         <TerrainProviderSelector
           terrainProviderList={terrainProviderListQmesh}
         />
-        <Cesium3DTilesetWithUpdate url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json" />
         <TerrainianHeightTool />
         <InspectorTool />
       </CesiumMap>
