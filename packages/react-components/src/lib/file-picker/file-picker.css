@@ -4,7 +4,8 @@ body[dir='rtl'] .chonky-fileListWrapper [class^='listContainer-'] {
 
 body[dir='rtl']
   .chonky-fileEntryClickableWrapper
-  [class^='listFileEntryProperty-'] {
+  [class^='listFileEntryProperty-'],
+body[dir='rtl'] .chonky-navbarContainer {
   direction: ltr !important;
 }
 

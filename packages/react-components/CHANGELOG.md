@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.5](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.4...@map-colonies/react-components@3.10.5) (2022-03-29)
+
+
+### Bug Fixes
+
+* folderchain alignment ([#125](https://github.com/MapColonies/shared-components/issues/125)) ([01c3670](https://github.com/MapColonies/shared-components/commit/01c3670567b67b81ad98a10705eb1a8a0bc74206))
+
+
+
+
+
 ## [3.10.4](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.3...@map-colonies/react-components@3.10.4) (2022-03-02)
 
 
