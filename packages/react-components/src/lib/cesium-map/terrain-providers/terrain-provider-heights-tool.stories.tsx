@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
@@ -56,19 +57,41 @@ const BASE_MAPS = {
 
 const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const MCCesiumProviderMercator = new CesiumTerrainProvider({
-  url: new Resource({
-    url: 'http://localhost:8002/WorldTerrain',
-  }),
-});
+//#region TILER MATERIALS
+// const TTCesiumProviderSrtm30 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:8002/srtm30',
+//   }),
+// });
+// const TTCesiumProviderSrtm100 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:8002/srtm100',
+//   }),
+// });
+// const TTCesiumProviderMergedDescending = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:8002/mergedDescending',
+//   }),
+// });
+//#endregion
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const MCCesiumProviderW84 = new CesiumTerrainProvider({
-  url: new Resource({
-    url: 'http://localhost:3000',
-  }),
-});
+//#region CTBD MATERIALS
+// const CTBDCesiumProviderSrtm30 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:3000/srtm30',
+//   }),
+// });
+// const CTBDCesiumProviderSrtm100 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:3000/srtm100',
+//   }),
+// });
+// const CTBDCesiumProviderMergedAscending = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:3000/mergedAscending',
+//   }),
+// });
+//#endregion
 
 const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
   url:
@@ -79,14 +102,6 @@ const terrainProviderListQmesh = [
   {
     id: 'NONE',
     value: EllipsoidProvider,
-  },
-  {
-    id: 'Terrain-Tiler',
-    value: MCCesiumProviderMercator,
-  },
-  {
-    id: 'CTBD',
-    value: MCCesiumProviderW84,
   },
   {
     id: 'Arc Gis Terrain Provider',
