@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.5...@map-colonies/react-components@3.11.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* 3d story ([ee59db0](https://github.com/MapColonies/shared-components/commit/ee59db00f627b709368f830a3c7cf30dc2cf0525))
+* 3d with update ([86fd98b](https://github.com/MapColonies/shared-components/commit/86fd98b59d137f3bfddc351a98cefcef7b6fc19a))
+* 3d with update ([c554c57](https://github.com/MapColonies/shared-components/commit/c554c57ba85c68e3a5e53c128714d86733db10d0))
+* bounding volume minimum height ([87e0e81](https://github.com/MapColonies/shared-components/commit/87e0e8114f088a4997723f91760f80250e67f629))
+* build errors ([57bc0fa](https://github.com/MapColonies/shared-components/commit/57bc0fac22aebf865112d3c26d1bf46ee57d4dad))
+* fix ([6999626](https://github.com/MapColonies/shared-components/commit/69996260b96379813b051104204568b190d46eaa))
+* fix ([d958564](https://github.com/MapColonies/shared-components/commit/d958564cf178e7258fcdf2c21a1915b0e442c52c))
+* fix ([db76412](https://github.com/MapColonies/shared-components/commit/db7641201cde062e360131a73081867b4db854ba))
+* fix ([16c4499](https://github.com/MapColonies/shared-components/commit/16c4499a33c1c5d0bd34cd33958d5381e05ac3b6))
+* linting ([ca5f578](https://github.com/MapColonies/shared-components/commit/ca5f578f0e2f3422213e4f7e4cfa1abdd05576b8))
+* prettier ([f516da2](https://github.com/MapColonies/shared-components/commit/f516da2ce8f1b59d18ace5cafe6e12642046e19a))
+* prettier ([226ca71](https://github.com/MapColonies/shared-components/commit/226ca71c110abf50c89a36125c33f3e66cf195dc))
+* prettier ([6b1c751](https://github.com/MapColonies/shared-components/commit/6b1c7511355e35b199a5b127668df93e9c393c3b))
+* prettier ([c4e6c13](https://github.com/MapColonies/shared-components/commit/c4e6c13ebc77774b8764f582f710777e316b586b))
+* prettier ([a6613d7](https://github.com/MapColonies/shared-components/commit/a6613d7292aa8eb0b00f83d0885e61dfa4860ca0))
+* revert ([44c6a9b](https://github.com/MapColonies/shared-components/commit/44c6a9b6a34f2f8a6281f26c90ddfe3583832100))
+* story ([c348df4](https://github.com/MapColonies/shared-components/commit/c348df4cdf771483e5e5ade78bac3e734dd4965d))
+* unused ([bf696fe](https://github.com/MapColonies/shared-components/commit/bf696fe20b7e20223ef9f05962d9eecbb2760d06))
+* zoom to ([e78def4](https://github.com/MapColonies/shared-components/commit/e78def47940ab569691677ee71f6ac41a4c3f1bd))
+
+
+### Features
+
+* update tileset ([17ed73c](https://github.com/MapColonies/shared-components/commit/17ed73c43ba41ad54e70e6c17d152eeb38887009))
+
+
+
+
+
 ## [3.10.5](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.4...@map-colonies/react-components@3.10.5) (2022-03-29)
 
 
