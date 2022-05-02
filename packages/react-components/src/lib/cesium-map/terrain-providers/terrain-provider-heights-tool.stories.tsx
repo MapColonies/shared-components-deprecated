@@ -98,12 +98,6 @@ const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
     'https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer',
 });
 
-const CTBDProvider = new CesiumTerrainProvider({
-  url: new Resource({
-    url: 'http://localhost:3000',
-  }),
-});
-
 const terrainProviderListQmesh = [
   {
     id: 'NONE',
@@ -112,10 +106,6 @@ const terrainProviderListQmesh = [
   {
     id: 'Arc Gis Terrain Provider',
     value: ArcGisProvider,
-  },
-  {
-    id: 'CTBD Terrain Provider',
-    value: CTBDProvider,
   },
 ];
 
