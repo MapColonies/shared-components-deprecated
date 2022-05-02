@@ -69,7 +69,10 @@ export const TerrainianHeightTool: React.FC<TerrainianHeightProps> = (
       ).then(
         (updatedPositions) => {
           console.log(updatedPositions);
-          updatedPositions = updatedPositions.slice(0, updatedPositions.length - 1); // UNIX brake line
+          updatedPositions = updatedPositions.slice(
+            0,
+            updatedPositions.length - 1
+          ); // UNIX brake line
 
           mapViewer.scene.globe.depthTestAgainstTerrain = true;
           mapViewer.entities.suspendEvents();
