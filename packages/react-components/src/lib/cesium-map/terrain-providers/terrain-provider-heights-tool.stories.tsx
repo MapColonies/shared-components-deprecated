@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
-  TerrainProvider,
   CesiumTerrainProvider,
   Resource,
+  TerrainProvider,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { CesiumMap, useCesiumMap } from '../map';
+import { CesiumMap, CesiumViewer, useCesiumMap } from '../map';
 import { CesiumSceneMode } from '../map.types';
-import { Cesium3DTileset } from '../layers';
 import { InspectorTool } from '../tools/inspector.tool';
 import { TerrainianHeightTool } from '../tools/terranian-height.tool';
+import { Cesium3DTileset } from '../layers';
 import { LayerType } from '../layers-manager';
 
 export default {
@@ -56,19 +57,41 @@ const BASE_MAPS = {
 
 const EllipsoidProvider = new EllipsoidTerrainProvider({});
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const MCCesiumProviderMercator = new CesiumTerrainProvider({
-  url: new Resource({
-    url: 'http://localhost:3000/terrain_mercator_crop',
-  }),
-});
+//#region TILER MATERIALS
+// const TTCesiumProviderSrtm30 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:8002/srtm30',
+//   }),
+// });
+// const TTCesiumProviderSrtm100 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:8002/srtm100',
+//   }),
+// });
+// const TTCesiumProviderMergedDescending = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:8002/mergedDescending',
+//   }),
+// });
+//#endregion
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const MCCesiumProviderW84 = new CesiumTerrainProvider({
-  url: new Resource({
-    url: 'http://localhost:3000/terrain_w84_geo_crop',
-  }),
-});
+//#region CTBD MATERIALS
+// const CTBDCesiumProviderSrtm30 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:3000/srtm30',
+//   }),
+// });
+// const CTBDCesiumProviderSrtm100 = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:3000/srtm100',
+//   }),
+// });
+// const CTBDCesiumProviderMergedAscending = new CesiumTerrainProvider({
+//   url: new Resource({
+//     url: 'http://localhost:3000/mergedAscending',
+//   }),
+// });
+//#endregion
 
 const ArcGisProvider = new ArcGISTiledElevationTerrainProvider({
   url:
@@ -79,14 +102,6 @@ const terrainProviderListQmesh = [
   {
     id: 'NONE',
     value: EllipsoidProvider,
-  },
-  {
-    id: 'MC Mercator - Cesium Terrain Provider',
-    value: MCCesiumProviderMercator,
-  },
-  {
-    id: 'MC W84 - Cesium Terrain Provider',
-    value: MCCesiumProviderW84,
   },
   {
     id: 'Arc Gis Terrain Provider',
@@ -106,7 +121,7 @@ interface ITerrainProviderSelectorProps {
 const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
   terrainProviderList,
 }) => {
-  const mapViewer = useCesiumMap();
+  const mapViewer: CesiumViewer = useCesiumMap();
 
   return (
     <>
@@ -129,7 +144,7 @@ const TerrainProviderSelector: React.FC<ITerrainProviderSelectorProps> = ({
 };
 
 export const QuantizedMeshHeightsTool: Story = () => {
-  const [center] = useState<[number, number]>([-122, 43]);
+  const [center] = useState<[number, number]>([34.817, 31.911]);
   return (
     <div style={mapDivStyle}>
       <CesiumMap
@@ -140,8 +155,8 @@ export const QuantizedMeshHeightsTool: Story = () => {
         baseMaps={BASE_MAPS}
       >
         <Cesium3DTileset
-          isZoomTo={true}
           url="https://3d.ofek-air.com/3d/Jeru_Old_City_Cesium/ACT/Jeru_Old_City_Cesium_ACT.json"
+          isZoomTo={true}
         />
         <TerrainProviderSelector
           terrainProviderList={terrainProviderListQmesh}
