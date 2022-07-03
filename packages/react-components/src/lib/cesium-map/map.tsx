@@ -4,7 +4,9 @@ import React, {
   useEffect,
   useState,
   useRef,
+  useCallback,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { Viewer, CesiumComponentRef } from 'resium';
 import { ViewerProps } from 'resium/dist/types/src/Viewer/Viewer';
 import {
@@ -26,6 +28,7 @@ import { Proj } from '../utils/projections';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
+import { MapLegendSidebar, MapLegendToggle } from './map-legend';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum } from './map.types';
 
@@ -124,6 +127,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [imageryMenuPosition, setImageryMenuPosition] = useState<
     Record<string, unknown> | undefined
   >(undefined);
+  const [isLegendsSidebarOpen, setIsLegendsSidebarOpen] = useState<boolean>(false);
 
   const viewerProps = {
     fullscreenButton: true,
@@ -134,6 +138,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     navigationHelpButton: false,
     homeButton: false,
     sceneModePicker: false,
+    style: { display: 'flex' },
     ...(props as ViewerProps),
   };
 
@@ -326,27 +331,46 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     }
   }, [props.zoom, props.center, mapViewRef]);
 
+  const bindCustomToolsToViewer = useCallback(
+    (): JSX.Element | undefined => {
+      return mapViewRef &&
+      createPortal(
+        <>
+          <Box className="sideToolsContainer">
+            <CesiumSettings
+              sceneModes={sceneModes as CesiumSceneModeEnum[]}
+              baseMaps={baseMaps}
+              locale={locale}
+            />
+            <MapLegendToggle onClick={() => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)}/>
+          </Box>
+          <Box className="toolsContainer">
+            {showMousePosition === true ? (
+              <CoordinatesTrackerTool
+                projection={projection}
+              ></CoordinatesTrackerTool>
+            ) : (
+              <></>
+            )}
+            {showScale === true ? (
+              <ScaleTrackerTool locale={locale} />
+            ) : (
+              <></>
+            )}
+          </Box>
+        </>,
+        document.querySelector('.cesium-viewer') as Element
+      )
+    },
+    [baseMaps, locale, mapViewRef, projection, sceneModes, showMousePosition, showScale, isLegendsSidebarOpen],
+  )
+
   return (
-    <Viewer full ref={ref} {...viewerProps}>
-      <MapViewProvider value={mapViewRef as CesiumViewer}>
+    <MapViewProvider value={mapViewRef as CesiumViewer}>
+      <Viewer className="viewer" full ref={ref} {...viewerProps}>
+        <MapLegendSidebar isOpen={isLegendsSidebarOpen} toggleSidebar={(): void => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)} />
         {props.children}
-        <Box className="sideToolsContainer">
-          <CesiumSettings
-            sceneModes={sceneModes as CesiumSceneModeEnum[]}
-            baseMaps={baseMaps}
-            locale={locale}
-          />
-        </Box>
-        <Box className="toolsContainer">
-          {showMousePosition === true ? (
-            <CoordinatesTrackerTool
-              projection={projection}
-            ></CoordinatesTrackerTool>
-          ) : (
-            <></>
-          )}
-          {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
-        </Box>
+        {bindCustomToolsToViewer()}
         {props.imageryContextMenu &&
           showImageryMenu &&
           imageryMenuPosition &&
@@ -375,7 +399,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               setShowImageryMenu(!showImageryMenu);
             },
           })}
-      </MapViewProvider>
-    </Viewer>
+      </Viewer>
+    </MapViewProvider>
   );
 };

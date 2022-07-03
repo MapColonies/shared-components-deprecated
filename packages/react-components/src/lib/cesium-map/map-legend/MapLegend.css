@@ -1,0 +1,6 @@
+.mapLegendSidebarContainer {
+    width: 340px;
+    height: 100%;
+    background: red;
+    position: relative;
+}
