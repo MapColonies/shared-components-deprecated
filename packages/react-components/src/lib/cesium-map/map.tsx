@@ -28,7 +28,7 @@ import { Proj } from '../utils/projections';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
-import { MapLegendSidebar, MapLegendToggle } from './map-legend';
+import { IMapLegend, MapLegendSidebar, MapLegendToggle } from './map-legend';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum } from './map.types';
 
@@ -99,6 +99,9 @@ export interface CesiumMapProps extends ViewerProps {
     width: number;
     dynamicHeightIncrement?: number;
   };
+  legendSidebarTitle: string;
+  noLegendsText: string;
+  legends: IMapLegend[];
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -111,7 +114,12 @@ export const useCesiumMap = (): CesiumViewer => {
   return mapViewer;
 };
 
-export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
+export const CesiumMap: React.FC<CesiumMapProps> = ({
+  noLegendsText = 'No legends to display...',
+  legendSidebarTitle = 'Map Legends',
+  legends = [],
+  ...props
+}) => {
   const ref = useRef<CesiumComponentRef<CesiumViewer>>(null);
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
   const [projection, setProjection] = useState<Proj>();
@@ -127,7 +135,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [imageryMenuPosition, setImageryMenuPosition] = useState<
     Record<string, unknown> | undefined
   >(undefined);
-  const [isLegendsSidebarOpen, setIsLegendsSidebarOpen] = useState<boolean>(false);
+  const [isLegendsSidebarOpen, setIsLegendsSidebarOpen] = useState<boolean>(
+    false
+  );
 
   const viewerProps = {
     fullscreenButton: true,
@@ -138,7 +148,6 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     navigationHelpButton: false,
     homeButton: false,
     sceneModePicker: false,
-    style: { display: 'flex' },
     ...(props as ViewerProps),
   };
 
@@ -331,9 +340,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     }
   }, [props.zoom, props.center, mapViewRef]);
 
-  const bindCustomToolsToViewer = useCallback(
-    (): JSX.Element | undefined => {
-      return mapViewRef &&
+  const bindCustomToolsToViewer = useCallback((): JSX.Element | undefined => {
+    return (
+      mapViewRef &&
       createPortal(
         <>
           <Box className="sideToolsContainer">
@@ -342,7 +351,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               baseMaps={baseMaps}
               locale={locale}
             />
-            <MapLegendToggle onClick={() => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)}/>
+            <MapLegendToggle
+              onClick={() => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)}
+            />
           </Box>
           <Box className="toolsContainer">
             {showMousePosition === true ? (
@@ -352,23 +363,35 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             ) : (
               <></>
             )}
-            {showScale === true ? (
-              <ScaleTrackerTool locale={locale} />
-            ) : (
-              <></>
-            )}
+            {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
           </Box>
         </>,
         document.querySelector('.cesium-viewer') as Element
       )
-    },
-    [baseMaps, locale, mapViewRef, projection, sceneModes, showMousePosition, showScale, isLegendsSidebarOpen],
-  )
+    );
+  }, [
+    baseMaps,
+    locale,
+    mapViewRef,
+    projection,
+    sceneModes,
+    showMousePosition,
+    showScale,
+    isLegendsSidebarOpen,
+  ]);
 
   return (
-    <MapViewProvider value={mapViewRef as CesiumViewer}>
-      <Viewer className="viewer" full ref={ref} {...viewerProps}>
-        <MapLegendSidebar isOpen={isLegendsSidebarOpen} toggleSidebar={(): void => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)} />
+    <Viewer className="viewer" full ref={ref} {...viewerProps}>
+      <MapViewProvider value={mapViewRef as CesiumViewer}>
+        <MapLegendSidebar
+          title={legendSidebarTitle}
+          isOpen={isLegendsSidebarOpen}
+          toggleSidebar={(): void =>
+            setIsLegendsSidebarOpen(!isLegendsSidebarOpen)
+          }
+          noLegendsText={noLegendsText}
+          legends={legends}
+        />
         {props.children}
         {bindCustomToolsToViewer()}
         {props.imageryContextMenu &&
@@ -399,7 +422,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               setShowImageryMenu(!showImageryMenu);
             },
           })}
-      </Viewer>
-    </MapViewProvider>
+      </MapViewProvider>
+    </Viewer>
   );
 };

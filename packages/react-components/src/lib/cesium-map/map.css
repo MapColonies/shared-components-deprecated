@@ -52,3 +52,12 @@ body[dir='rtl'] .sideToolsContainer {
     left: 40px;
     right: unset;
 }
+
+.viewer {
+    display: flex;
+    flex-direction: row;
+}
+
+body[dir='rtl'] .viewer {
+    flex-direction: row-reverse;
+}
