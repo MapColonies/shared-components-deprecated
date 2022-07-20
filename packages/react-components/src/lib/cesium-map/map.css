@@ -40,7 +40,7 @@ body[dir='rtl'] .toolsContainer {
 
 .sideToolsContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   z-index: 2000;
   position: absolute;
@@ -51,4 +51,13 @@ body[dir='rtl'] .toolsContainer {
 body[dir='rtl'] .sideToolsContainer {
   left: 40px;
   right: unset;
+}
+
+.viewer {
+  display: flex;
+  flex-direction: row;
+}
+
+body[dir='rtl'] .viewer {
+  flex-direction: row-reverse;
 }
