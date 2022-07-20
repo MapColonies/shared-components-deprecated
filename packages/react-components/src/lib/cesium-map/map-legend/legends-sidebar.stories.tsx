@@ -173,9 +173,8 @@ export const MapWithLegends: Story = () => {
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
-        legendSidebarTitle='Map Legends'
-        noLegendsText='No legends for this basemap'
-        legends={[
+        legends={{
+          legendsList: [
             {
               layer: 'bluemarble',
               legendImg:
@@ -188,7 +187,10 @@ export const MapWithLegends: Story = () => {
                 'https://i.pinimg.com/564x/55/cf/a1/55cfa147dfef99d231ec95ab8cd3652d--outdoor-code-cub-scouts-brownie-hiking-badge.jpg',
               legendDoc: 'http://www.africau.edu/images/default/sample.pdf',
             },
-          ]}
+          ],
+          title: 'Map Legends',
+          emptyText: 'No legends for this basemap',
+        }}
       >
         <CesiumXYZLayer options={optionsXYZSanDiego} />
       </CesiumMap>
