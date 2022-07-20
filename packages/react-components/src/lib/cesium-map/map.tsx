@@ -4,7 +4,9 @@ import React, {
   useEffect,
   useState,
   useRef,
+  useCallback,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { Viewer, CesiumComponentRef } from 'resium';
 import { ViewerProps } from 'resium/dist/types/src/Viewer/Viewer';
 import {
@@ -26,6 +28,7 @@ import { Proj } from '../utils/projections';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
+import { IMapLegend, MapLegendSidebar, MapLegendToggle } from './map-legend';
 import LayerManager from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum } from './map.types';
 
@@ -80,6 +83,12 @@ export interface IContextMenuData {
   handleClose: () => void;
 }
 
+interface ILegends {
+  legendsList: IMapLegend[];
+  emptyText: string;
+  title: string;
+}
+
 export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
   showScale?: boolean;
@@ -96,6 +105,9 @@ export interface CesiumMapProps extends ViewerProps {
     width: number;
     dynamicHeightIncrement?: number;
   };
+  legendSidebarTitle?: string;
+  noLegendsText?: string;
+  legends?: ILegends;
 }
 
 export const useCesiumMap = (): CesiumViewer => {
@@ -108,7 +120,14 @@ export const useCesiumMap = (): CesiumViewer => {
   return mapViewer;
 };
 
-export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
+export const CesiumMap: React.FC<CesiumMapProps> = ({
+  legends = {
+    emptyText: 'No legends to display...',
+    legendsList: [],
+    title: 'Map Legends',
+  },
+  ...props
+}) => {
   const ref = useRef<CesiumComponentRef<CesiumViewer>>(null);
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
   const [projection, setProjection] = useState<Proj>();
@@ -124,6 +143,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [imageryMenuPosition, setImageryMenuPosition] = useState<
     Record<string, unknown> | undefined
   >(undefined);
+  const [isLegendsSidebarOpen, setIsLegendsSidebarOpen] = useState<boolean>(
+    false
+  );
 
   const viewerProps = {
     fullscreenButton: true,
@@ -326,27 +348,60 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     }
   }, [props.zoom, props.center, mapViewRef]);
 
+  const bindCustomToolsToViewer = useCallback((): JSX.Element | undefined => {
+    return (
+      mapViewRef &&
+      createPortal(
+        <>
+          <Box className="sideToolsContainer">
+            <CesiumSettings
+              sceneModes={sceneModes as CesiumSceneModeEnum[]}
+              baseMaps={baseMaps}
+              locale={locale}
+            />
+            <MapLegendToggle
+              onClick={() => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)}
+            />
+          </Box>
+          <Box className="toolsContainer">
+            {showMousePosition === true ? (
+              <CoordinatesTrackerTool
+                projection={projection}
+              ></CoordinatesTrackerTool>
+            ) : (
+              <></>
+            )}
+            {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
+          </Box>
+        </>,
+        document.querySelector('.cesium-viewer') as Element
+      )
+    );
+  }, [
+    baseMaps,
+    locale,
+    mapViewRef,
+    projection,
+    sceneModes,
+    showMousePosition,
+    showScale,
+    isLegendsSidebarOpen,
+  ]);
+
   return (
-    <Viewer full ref={ref} {...viewerProps}>
+    <Viewer className="viewer" full ref={ref} {...viewerProps}>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
+        <MapLegendSidebar
+          title={legends.title}
+          isOpen={isLegendsSidebarOpen}
+          toggleSidebar={(): void =>
+            setIsLegendsSidebarOpen(!isLegendsSidebarOpen)
+          }
+          noLegendsText={legends.emptyText}
+          legends={legends.legendsList}
+        />
         {props.children}
-        <Box className="sideToolsContainer">
-          <CesiumSettings
-            sceneModes={sceneModes as CesiumSceneModeEnum[]}
-            baseMaps={baseMaps}
-            locale={locale}
-          />
-        </Box>
-        <Box className="toolsContainer">
-          {showMousePosition === true ? (
-            <CoordinatesTrackerTool
-              projection={projection}
-            ></CoordinatesTrackerTool>
-          ) : (
-            <></>
-          )}
-          {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
-        </Box>
+        {bindCustomToolsToViewer()}
         {props.imageryContextMenu &&
           showImageryMenu &&
           imageryMenuPosition &&
