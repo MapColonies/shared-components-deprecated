@@ -17,26 +17,23 @@ export const MapLegendList: React.FC<MapLegendListProps> = ({
   actionsTexts: { docText, imgText },
   noLegendsText,
 }) => {
-
   const handleNoLegends = useCallback(() => {
-    return <Box className="noLegendsContainer">
-      <h2 className="noLegendsMsg">{noLegendsText}</h2>
-    </Box>
-  }, [])
+    return (
+      <Box className="noLegendsContainer">
+        <h2 className="noLegendsMsg">{noLegendsText}</h2>
+      </Box>
+    );
+  }, []);
 
   const renderList = useCallback(() => {
-    if(!legends.length){
+    if (!legends.length) {
       return handleNoLegends();
     }
 
     return legends.map((legend) => {
       return <MapLegend legend={legend} docText={docText} imgText={imgText} />;
-    })
-  }, [legends])
+    });
+  }, [legends]);
 
-  return (
-    <Box className='mapLegendsList'>
-      {renderList()}
-    </Box>
-  );
+  return <Box className="mapLegendsList">{renderList()}</Box>;
 };

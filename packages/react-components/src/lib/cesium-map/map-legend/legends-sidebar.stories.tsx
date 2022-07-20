@@ -172,6 +172,7 @@ export const MapWithLegends: Story = () => {
         zoom={14}
         imageryProvider={false}
         sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
+        // @ts-ignore
         baseMaps={BASE_MAPS}
         legends={{
           legendsList: [
