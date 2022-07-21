@@ -1,83 +1,89 @@
 {
-  "name": "shared-components",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/MapColonies/shared-components.git",
-  "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>, alex.lebinson <alexl@rnd-hub.com>",
-  "private": true,
-  "workspaces": [
-    "packages/react-components",
-    "packages/react-ui-components"
-  ],
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "@map-colonies/eslint-config/react",
-      "@map-colonies/eslint-config/jest",
-      "@map-colonies/eslint-config/ts-base"
+    "name": "shared-components",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/MapColonies/shared-components.git",
+    "author": "ofer.adel <cl_ofer.adel@rnd-hub.com>, alex.lebinson <alexl@rnd-hub.com>",
+    "private": true,
+    "workspaces": [
+        "packages/react-components",
+        "packages/react-ui-components"
     ],
-    "parserOptions": {
-      "project": "./tsconfig.json"
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "eslintConfig": {
+        "extends": [
+            "@map-colonies/eslint-config/react",
+            "@map-colonies/eslint-config/jest",
+            "@map-colonies/eslint-config/ts-base"
+        ],
+        "parserOptions": {
+            "project": "./tsconfig.json"
+        }
+    },
+    "eslintIgnore": [
+        "**/node_modules/**",
+        "packages/react-ui-components/**",
+        "**/dist/**",
+        "packages/react-components/storybook-static/**"
+    ],
+    "scripts": {
+        "del-dist": "npx lerna exec --parallel -- del-cli dist",
+        "prebuild": "yarn del-dist",
+        "prepublish": "npx lerna run build",
+        "test": "npx lerna bootstrap && npx lerna run test:nowatch",
+        "publish": "npx lerna publish --no-private --conventional-commits -m \"chore(release): publish\"",
+        "publish:current": "npx lerna exec -- npm publish",
+        "clean": "npx lerna clean",
+        "clean:update": "npx lerna clean && npx lerna bootstrap",
+        "storybook:all": "npx lerna run storybook --parallel",
+        "storybook-composition": "npx start-storybook -p 9009 -s public",
+        "build-storybook": "npx lerna run build-storybook && npx build-storybook -s public",
+        "prettier:fix": "prettier --write .",
+        "prettier:check": "prettier --check .",
+        "eslint:fix": "npx eslint --fix",
+        "eslint:check": "npx eslint . --ext .ts,.tsx"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^9.1.1",
+        "@commitlint/config-conventional": "^9.1.1",
+        "@map-colonies/eslint-config": "^1.1.0",
+        "@storybook/addon-actions": "^6.0.21",
+        "@storybook/addon-controls": "^6.0.21",
+        "@storybook/addon-docs": "^6.0.21",
+        "@storybook/addon-knobs": "^6.0.21",
+        "@storybook/addon-links": "^6.0.21",
+        "@storybook/addon-storysource": "^6.0.21",
+        "@storybook/addons": "^6.0.21",
+        "@storybook/preset-create-react-app": "^3.1.4",
+        "@storybook/react": "^6.0.21",
+        "@storybook/theming": "^6.0.21",
+        "commitlint": "^9.1.0",
+        "cz-conventional-changelog": "^3.2.0",
+        "del-cli": "^3.0.1",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-config-react-app": "5.2.1",
+        "eslint-plugin-flowtype": "4.6.0",
+        "eslint-plugin-import": "2.22.1",
+        "eslint-plugin-jsx-a11y": "6.3.1",
+        "eslint-plugin-prettier": "^3.1.3",
+        "eslint-plugin-react": "7.21.5",
+        "eslint-plugin-react-hooks": "4.2.0",
+        "husky": "^4.2.5",
+        "jest-html-reporters": "^2.0.2",
+        "lerna": "^3.22.1",
+        "lint-staged": "^10.2.11",
+        "prettier": "^2.1.0",
+        "standard-version": "^8.0.2",
+        "storybook-dark-mode": "^1.0.0"
     }
-  },
-  "eslintIgnore": [
-    "**/node_modules/**",
-    "packages/react-ui-components/**",
-    "**/dist/**"
-  ],
-  "scripts": {
-    "del-dist": "npx lerna exec --parallel -- del-cli dist",
-    "prebuild": "yarn del-dist",
-    "prepublish": "npx lerna run build",
-    "test": "npx lerna bootstrap && npx lerna run test:nowatch",
-    "publish": "npx lerna publish --no-private --conventional-commits -m \"chore(release): publish\"",
-    "publish:current": "npx lerna exec -- npm publish",
-    "clean": "npx lerna clean",
-    "clean:update": "npx lerna clean && npx lerna bootstrap",
-    "storybook:all": "npx lerna run storybook --parallel",
-    "storybook-composition": "npx start-storybook -p 9009 -s public",
-    "build-storybook": "npx lerna run build-storybook && npx build-storybook -s public",
-    "prettier:fix": "prettier --write .",
-    "prettier:check": "prettier --check .",
-    "eslint:fix": "npx eslint --fix",
-    "eslint:check": "npx eslint . --ext .ts,.tsx"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@map-colonies/eslint-config": "^1.1.0",
-    "@storybook/addon-actions": "^6.0.21",
-    "@storybook/addon-docs": "^6.0.21",
-    "@storybook/addon-knobs": "^6.0.21",
-    "@storybook/addon-links": "^6.0.21",
-    "@storybook/addon-storysource": "^6.0.21",
-    "@storybook/addons": "^6.0.21",
-    "@storybook/preset-create-react-app": "^3.1.4",
-    "@storybook/react": "^6.0.21",
-    "@storybook/theming": "^6.0.21",
-    "@storybook/addon-controls": "^6.0.21",
-    "commitlint": "^9.1.0",
-    "cz-conventional-changelog": "^3.2.0",
-    "del-cli": "^3.0.1",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "husky": "^4.2.5",
-    "jest-html-reporters": "^2.0.2",
-    "lerna": "^3.22.1",
-    "lint-staged": "^10.2.11",
-    "prettier": "^2.1.0",
-    "standard-version": "^8.0.2",
-    "storybook-dark-mode": "^1.0.0"
-  }
 }
