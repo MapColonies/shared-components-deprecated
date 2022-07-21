@@ -91,7 +91,7 @@ describe('SnackbarQueue', () => {
     el.unmount();
   });
 
-  it('notifies', async (done) => {
+  it('notifies', async () => {
     const queue = createSnackbarQueue();
     const el = mount(<SnackbarQueue messages={queue.messages} />);
     // check multiple notifications
@@ -131,7 +131,6 @@ describe('SnackbarQueue', () => {
     setTimeout(() => {
       expect(el.html().includes('myNotificationTitle2')).toBe(true);
       expect(el.html().includes('myNotificationBody2')).toBe(true);
-      done();
     }, 800);
   });
 });

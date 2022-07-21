@@ -45,7 +45,7 @@
         "start": "react-scripts start",
         "build": "rimraf dist && tsc --project tsbuildconfig.json",
         "test": "react-scripts test",
-        "test:nowatch": "echo 'react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters''",
+        "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
         "eject": "react-scripts eject",
         "postbuild": "copyfiles -u 2 -e \"**/*.ts\" -e \"**/*.tsx\" \"src/lib/**/*\" dist",
         "copyassets:all": "yarn run copyassets:md-fonst",
