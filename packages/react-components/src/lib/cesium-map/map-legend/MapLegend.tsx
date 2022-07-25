@@ -8,23 +8,23 @@ export interface IMapLegend {
   legendImg?: string;
   legend?: string;
 }
-interface MaplegendProps {
+interface MapLegendProps {
   legend: IMapLegend;
   docText?: string;
   imgText?: string;
 }
 
-export const MapLegend: React.FC<MaplegendProps> = ({
+export const MapLegend: React.FC<MapLegendProps> = ({
   legend: { legendImg, legendDoc, layer },
   docText,
   imgText,
 }) => {
-  const handlelegendImgOpen = useCallback(() => {
+  const handleLegendImgOpen = useCallback(() => {
     // Open image in a new tab.
     window.open(legendImg, '_blank');
   }, [legendImg]);
 
-  const handlelegendDocOpen = useCallback(() => {
+  const handleLegendDocOpen = useCallback(() => {
     // Open doc in a new tab.
     window.open(legendDoc, '_blank');
   }, [legendDoc]);
@@ -35,16 +35,16 @@ export const MapLegend: React.FC<MaplegendProps> = ({
         <h3 className="layerName">{layer}</h3>
       </Box>
       <img
-        alt="legend Image"
+        alt="Map Legend"
         className="legendImg"
         src={legendImg}
-        onClick={handlelegendImgOpen}
+        onClick={handleLegendImgOpen}
       />
       <Box className="legendActionsContainer">
-        <p className="legendAction" onClick={handlelegendImgOpen}>
+        <p className="legendAction" onClick={handleLegendImgOpen}>
           {imgText}
         </p>
-        <p className="legendAction" onClick={handlelegendDocOpen}>
+        <p className="legendAction" onClick={handleLegendDocOpen}>
           {docText}
         </p>
       </Box>

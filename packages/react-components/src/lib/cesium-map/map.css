@@ -1,63 +1,59 @@
 .cesium-widget-credits {
-  display: none !important;
+    display: none !important;
 }
 
 .cesium-viewer-fullscreenContainer {
-  bottom: 8px;
-  right: 8px;
-  left: unset;
+    bottom: 8px;
+    right: 8px;
+    left: unset;
 }
 
 body[dir='rtl'] .cesium-viewer-fullscreenContainer {
-  left: 8px;
-  right: unset;
+    left: 8px;
+    right: unset;
 }
 
 body[dir='rtl'] .cesium-viewer-toolbar {
-  left: 5px;
-  right: unset;
+    left: 5px;
+    right: unset;
 }
 
 .cesium-button.cesium-fullscreenButton {
-  border-radius: 14%;
+    border-radius: 14%;
 }
 
 .toolsContainer {
-  color: var(--mdc-theme-on-surface);
-  display: flex;
-  gap: 8px;
-  z-index: 2000;
-  position: absolute;
-  bottom: 12px;
-  right: 40px;
-  opacity: 0.7;
+    color: var(--mdc-theme-on-surface);
+    display: flex;
+    gap: 8px;
+    z-index: 2000;
+    position: absolute;
+    bottom: 12px;
+    right: 40px;
+    opacity: 0.7;
 }
 
 body[dir='rtl'] .toolsContainer {
-  left: 40px;
-  right: unset;
+    left: 40px;
+    right: unset;
 }
 
 .sideToolsContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  z-index: 2000;
-  position: absolute;
-  top: 12px;
-  right: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    z-index: 2000;
+    position: absolute;
+    top: 12px;
+    right: 40px;
 }
 
 body[dir='rtl'] .sideToolsContainer {
-  left: 40px;
-  right: unset;
+    left: 40px;
+    right: unset;
 }
 
 .viewer {
-  display: flex;
-  flex-direction: row;
-}
-
-body[dir='rtl'] .viewer {
-  flex-direction: row-reverse;
+    display: flex;
+    flex-direction: row;
 }

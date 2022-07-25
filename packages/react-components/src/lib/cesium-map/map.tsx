@@ -84,9 +84,10 @@ export interface IContextMenuData {
 }
 
 interface ILegends {
-  legendsList: IMapLegend[];
-  emptyText: string;
-  title: string;
+  legendsList?: IMapLegend[];
+  emptyText?: string;
+  title?: string;
+  actionsTexts?: { docText: string, imgText: string };
 }
 
 export interface CesiumMapProps extends ViewerProps {
@@ -120,14 +121,7 @@ export const useCesiumMap = (): CesiumViewer => {
   return mapViewer;
 };
 
-export const CesiumMap: React.FC<CesiumMapProps> = ({
-  legends = {
-    emptyText: 'No legends to display...',
-    legendsList: [],
-    title: 'Map Legends',
-  },
-  ...props
-}) => {
+export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const ref = useRef<CesiumComponentRef<CesiumViewer>>(null);
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
   const [projection, setProjection] = useState<Proj>();
@@ -392,13 +386,14 @@ export const CesiumMap: React.FC<CesiumMapProps> = ({
     <Viewer className="viewer" full ref={ref} {...viewerProps}>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
         <MapLegendSidebar
-          title={legends.title}
+          title={props.legends?.title}
           isOpen={isLegendsSidebarOpen}
           toggleSidebar={(): void =>
             setIsLegendsSidebarOpen(!isLegendsSidebarOpen)
           }
-          noLegendsText={legends.emptyText}
-          legends={legends.legendsList}
+          noLegendsText={props.legends?.emptyText}
+          legends={props.legends?.legendsList}
+          actionsTexts={props.legends?.actionsTexts}
         />
         {props.children}
         {bindCustomToolsToViewer()}
