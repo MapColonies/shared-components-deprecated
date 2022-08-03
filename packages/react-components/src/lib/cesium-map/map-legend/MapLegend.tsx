@@ -1,3 +1,4 @@
+import { Tooltip } from '@map-colonies/react-core';
 import React, { useCallback } from 'react';
 import { Box } from '../../box';
 import './MapLegend.css';
@@ -29,11 +30,30 @@ export const MapLegend: React.FC<MapLegendProps> = ({
     window.open(legendDoc, '_blank');
   }, [legendDoc]);
 
+  const renderLayerName = useCallback(() => {
+    const MAX_LAYER_NAME_LENGTH = 15;
+
+    const layerNameContainer = (
+      <Box className="layerNameContainer">
+        <h3
+          style={{ maxWidth: `${MAX_LAYER_NAME_LENGTH}ch` }}
+          className="layerName"
+        >
+          {layer}
+        </h3>
+      </Box>
+    );
+
+    if ((layer ?? '').length > MAX_LAYER_NAME_LENGTH) {
+      return <Tooltip content={layer}>{layerNameContainer}</Tooltip>;
+    }
+
+    return layerNameContainer;
+  }, [layer]);
+
   return (
     <Box className="mapLegend">
-      <Box className="layerNameContainer">
-        <h3 className="layerName">{layer}</h3>
-      </Box>
+      {renderLayerName()}
       <img
         alt="Map Legend"
         className="legendImg"
@@ -41,12 +61,17 @@ export const MapLegend: React.FC<MapLegendProps> = ({
         onClick={handleLegendImgOpen}
       />
       <Box className="legendActionsContainer">
-        <p className="legendAction" onClick={handleLegendImgOpen}>
-          {imgText}
-        </p>
-        <p className="legendAction" onClick={handleLegendDocOpen}>
-          {docText}
-        </p>
+        {typeof legendImg === 'string' && (
+          <p className="legendAction" onClick={handleLegendImgOpen}>
+            {imgText}
+          </p>
+        )}
+
+        {typeof legendDoc === 'string' && (
+          <p className="legendAction" onClick={handleLegendDocOpen}>
+            {docText}
+          </p>
+        )}
       </Box>
     </Box>
   );
