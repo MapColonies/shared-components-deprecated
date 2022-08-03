@@ -6,7 +6,7 @@ export interface IMapLegend {
   layer?: string;
   legendDoc?: string;
   legendImg?: string;
-  legend?: string;
+  legend?: Record<string, unknown>[];
 }
 interface MapLegendProps {
   legend: IMapLegend;

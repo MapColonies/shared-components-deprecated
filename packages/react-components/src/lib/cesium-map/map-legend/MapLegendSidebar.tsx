@@ -17,7 +17,7 @@ interface MapLegendSidebarProps {
   title?: string;
   noLegendsText?: string;
   legends?: IMapLegend[];
-  actionsTexts?: { docText: string, imgText: string };
+  actionsTexts?: { docText: string; imgText: string };
 }
 
 export const MapLegendSidebar: React.FC<MapLegendSidebarProps> = ({

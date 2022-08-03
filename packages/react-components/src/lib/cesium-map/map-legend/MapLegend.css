@@ -68,6 +68,16 @@ body[dir='rtl'] .mapLegendCloseBtn {
     gap: 4px;
 }
 
+.layerNameContainer {
+    width: 90%;
+}
+
+.layerName {
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .legendImg {
     width: 90%;
     height: 150px;

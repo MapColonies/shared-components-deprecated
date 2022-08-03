@@ -29,7 +29,7 @@ import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
 import { IMapLegend, MapLegendSidebar, MapLegendToggle } from './map-legend';
-import LayerManager from './layers-manager';
+import LayerManager, { LegendExtractor } from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum } from './map.types';
 
 import './map.css';
@@ -88,6 +88,7 @@ interface ILegends {
   emptyText?: string;
   title?: string;
   actionsTexts?: { docText: string, imgText: string };
+  mapLegendsExtractor?: LegendExtractor
 }
 
 export interface CesiumMapProps extends ViewerProps {
@@ -132,6 +133,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [sceneModes, setSceneModes] = useState<
     CesiumSceneModeEnum[] | undefined
   >();
+  const [legendsList, setLegendsList] = useState<IMapLegend[]>([]);
   const [baseMaps, setBaseMaps] = useState<IBaseMaps | undefined>();
   const [showImageryMenu, setShowImageryMenu] = useState<boolean>(false);
   const [imageryMenuPosition, setImageryMenuPosition] = useState<
@@ -179,7 +181,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   useEffect(() => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
-      viewer.layersManager = new LayerManager(viewer);
+
+
       if (props.imageryContextMenu) {
         viewer.screenSpaceEventHandler.setInputAction(
           (evt: Record<string, unknown>) => {
@@ -194,6 +197,14 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     }
     setMapViewRef(ref.current?.cesiumElement);
   }, [ref, props.imageryContextMenu]);
+
+  useEffect(() => {
+    if(mapViewRef){
+      mapViewRef.layersManager = new LayerManager(mapViewRef, props.legends?.mapLegendsExtractor, () => {
+        setLegendsList(mapViewRef?.layersManager?.legendsList as IMapLegend[]);
+      });
+    }
+  }, [mapViewRef]);
 
   useEffect(() => {
     setSceneModes(
@@ -392,7 +403,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
             setIsLegendsSidebarOpen(!isLegendsSidebarOpen)
           }
           noLegendsText={props.legends?.emptyText}
-          legends={props.legends?.legendsList}
+          legends={props.legends?.legendsList ?? legendsList}
           actionsTexts={props.legends?.actionsTexts}
         />
         {props.children}
