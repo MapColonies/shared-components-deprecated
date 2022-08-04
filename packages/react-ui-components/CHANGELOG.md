@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.3.2...@map-colonies/react-core@3.3.3) (2022-08-04)
+
+
+### Bug Fixes
+
+* disable test ([7a779f4](https://github.com/MapColonies/shared-components/commit/7a779f4d38f19052bef150016be40c8d6c68e726))
+* react ui comp not running - react-script and ts versions mismatch ([87d6505](https://github.com/MapColonies/shared-components/commit/87d65050dd2f01d40308de7121ca07cfbc0380b4))
+* react-ui-components unit tests ([d062a1d](https://github.com/MapColonies/shared-components/commit/d062a1dd29a5443388bf3d31a345025f1011c22a))
+
+
+
+
+
 ## [3.3.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.3.1...@map-colonies/react-core@3.3.2) (2022-02-20)
 
 

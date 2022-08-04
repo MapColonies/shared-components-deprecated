@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.11.0...@map-colonies/react-components@3.12.0) (2022-08-04)
+
+
+### Bug Fixes
+
+* legend sidebar ([cdca0cc](https://github.com/MapColonies/shared-components/commit/cdca0ccd1f8ee21a575557cc6c13903beaed8ca2))
+* legends style tweaks ([eec1f08](https://github.com/MapColonies/shared-components/commit/eec1f083fa22c818cb55ab3e4d947b61e428f215))
+* lint and prettier ([68bf8f6](https://github.com/MapColonies/shared-components/commit/68bf8f64321043ee1d00d46c08f834698bf18276))
+* map legends final tweaks ([9b00733](https://github.com/MapColonies/shared-components/commit/9b00733594716a0d19eff17249cd2280ca8704a3))
+* map legends fine tuning ([de59b02](https://github.com/MapColonies/shared-components/commit/de59b02a657000e24f962dfc0c405a73f8d4ba11))
+* map legends props to single prop ([5fafca0](https://github.com/MapColonies/shared-components/commit/5fafca0705d1bbee29e80121c09c19fd9c2a959f))
+* map legends styles ([1355962](https://github.com/MapColonies/shared-components/commit/135596209224f52c11d28a2b85f2b470c1980936))
+* pr rejects and prettier ([2fbeb20](https://github.com/MapColonies/shared-components/commit/2fbeb206e2f86589128d21e2ac14e5a57090d7f2))
+* prettier ([f12096a](https://github.com/MapColonies/shared-components/commit/f12096a9839beddad1553ade17c338a07414d882))
+* X btn wrong place ([9ff0ca0](https://github.com/MapColonies/shared-components/commit/9ff0ca0ef928db12d47b1bd428967feadb411d10))
+
+
+### Features
+
+* add sidebar for the cesium viewer ([81dfe0b](https://github.com/MapColonies/shared-components/commit/81dfe0bdd38d7dcaa131e7b5e24000767b794d81))
+* implement legends sidebar and create story ([60e9b58](https://github.com/MapColonies/shared-components/commit/60e9b587aadb866a9ce14d6508c39239fdfd03fb))
+
+
+
+
+
 # [3.11.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.10.5...@map-colonies/react-components@3.11.0) (2022-05-02)
 
 
