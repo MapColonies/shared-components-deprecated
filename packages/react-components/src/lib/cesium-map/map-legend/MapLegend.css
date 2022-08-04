@@ -113,6 +113,11 @@ body[dir='rtl'] .mapLegendCloseBtn {
     text-decoration: underline;
     cursor: pointer;
     font-size: 1.1rem;
+    transition: all 0.1s ease-in-out;
+}
+
+.legendAction:hover {
+    filter: brightness(1.2);
 }
 
 .noLegendsContainer {
