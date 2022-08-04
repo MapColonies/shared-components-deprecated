@@ -65,6 +65,7 @@ body[dir='rtl'] .mapLegendCloseBtn {
   align-items: center;
   justify-content: center;
   gap: 4px;
+  padding: 10px 14px;
 }
 
 .layerNameContainer {
@@ -113,6 +114,7 @@ body[dir='rtl'] .mapLegendCloseBtn {
   cursor: pointer;
   font-size: 1.1rem;
   transition: all 0.1s ease-in-out;
+  width: max-content;
 }
 
 .legendAction:hover {
