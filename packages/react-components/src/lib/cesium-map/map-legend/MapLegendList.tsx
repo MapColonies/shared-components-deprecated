@@ -31,7 +31,14 @@ export const MapLegendList: React.FC<MapLegendListProps> = ({
     }
 
     return legends.map((legend, i) => {
-      return <MapLegend key={`${legend.layer as string}_${i}`} legend={legend} docText={docText} imgText={imgText} />;
+      return (
+        <MapLegend
+          key={`${legend.layer as string}_${i}`}
+          legend={legend}
+          docText={docText}
+          imgText={imgText}
+        />
+      );
     });
   }, [legends]);
 

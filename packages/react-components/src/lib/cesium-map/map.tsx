@@ -87,8 +87,8 @@ interface ILegends {
   legendsList?: IMapLegend[];
   emptyText?: string;
   title?: string;
-  actionsTexts?: { docText: string, imgText: string };
-  mapLegendsExtractor?: LegendExtractor
+  actionsTexts?: { docText: string; imgText: string };
+  mapLegendsExtractor?: LegendExtractor;
 }
 
 export interface CesiumMapProps extends ViewerProps {
@@ -182,7 +182,6 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     if (ref.current) {
       const viewer = ref.current.cesiumElement as CesiumViewer;
 
-
       if (props.imageryContextMenu) {
         viewer.screenSpaceEventHandler.setInputAction(
           (evt: Record<string, unknown>) => {
@@ -199,10 +198,16 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [ref, props.imageryContextMenu]);
 
   useEffect(() => {
-    if(mapViewRef){
-      mapViewRef.layersManager = new LayerManager(mapViewRef, props.legends?.mapLegendsExtractor, () => {
-        setLegendsList(mapViewRef?.layersManager?.legendsList as IMapLegend[]);
-      });
+    if (mapViewRef) {
+      mapViewRef.layersManager = new LayerManager(
+        mapViewRef,
+        props.legends?.mapLegendsExtractor,
+        () => {
+          setLegendsList(
+            mapViewRef?.layersManager?.legendsList as IMapLegend[]
+          );
+        }
+      );
     }
   }, [mapViewRef]);
 

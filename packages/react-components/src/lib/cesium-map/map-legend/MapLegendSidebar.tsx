@@ -42,7 +42,7 @@ export const MapLegendSidebar: React.FC<MapLegendSidebarProps> = ({
         <Icon
           onClick={toggleSidebar}
           className="mapLegendCloseBtn"
-          icon={{icon: 'close', size: 'small'}}
+          icon={{ icon: 'close', size: 'small' }}
         />
         <MapLegendList
           noLegendsText={noLegendsText}

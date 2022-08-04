@@ -1,134 +1,133 @@
 .mapLegendSidebarContainer {
-    width: 340px;
-    height: 100%;
-    position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
-    font-size: 16px;
+  width: 340px;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 16px;
 }
-
 
 /* Disable drawer animation */
 
 .mapLegendSidebarContainer.mdc-drawer--animate {
-    transform: translateX(0) !important;
-    transition: none !important;
+  transform: translateX(0) !important;
+  transition: none !important;
 }
 
 .mapLegendSidebarContainer.mdc-drawer--dismissible {
-    position: relative;
+  position: relative;
 }
 
 div.MuiPaper-root {
-    transition: none !important;
+  transition: none !important;
 }
 
 .mapLegendCloseBtn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    padding: 20px;
-    font-size: 24px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  padding: 20px;
+  font-size: 24px;
 }
 
 body[dir='rtl'] .mapLegendCloseBtn {
-    right: unset;
-    left: 0;
+  right: unset;
+  left: 0;
 }
 
 .mapLegendToggleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mapLegendIcon {
-    width: 2.5rem;
-    height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .sidebarHeaderContainer {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .sidebarTitle {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .mapLegend {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .layerNameContainer {
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .layerName {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .legendImg {
-    width: 90%;
-    height: 150px;
-    border: 1px solid black;
-    border-radius: 5px;
-    object-fit: cover;
-    cursor: pointer;
+  width: 90%;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 5px;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 .legendActionsContainer {
-    display: flex;
-    flex-direction: row;
-    align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
 }
 
 .legendAction:not(:last-child)::after {
-    content: '|';
-    margin: 0px 4px;
+  content: '|';
+  margin: 0px 4px;
 }
 
 .mapLegendsList {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0px;
-    width: 100%;
-    height: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0px;
+  width: 100%;
+  height: 90%;
 }
 
 .legendAction {
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.1s ease-in-out;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.1s ease-in-out;
 }
 
 .legendAction:hover {
-    filter: brightness(1.2);
+  filter: brightness(1.2);
 }
 
 .noLegendsContainer {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .noLegendsMsg {
-    text-align: center;
+  text-align: center;
 }

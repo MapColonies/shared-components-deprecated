@@ -52,21 +52,29 @@ export const MapLegend: React.FC<MapLegendProps> = ({
   }, [layer]);
 
   const renderLinks = useCallback(() => {
-    return (
-      [
-        typeof legendImg === 'string' && (
-          <a className="legendAction" href={legendImg} target='_blank' referrerPolicy='noreferrer'>
-            {imgText}
-          </a>
-        ),
-        typeof legendDoc === 'string' && (
-          <a className="legendAction" href={legendDoc} target='_blank' referrerPolicy='noreferrer'>
-            {docText}
-          </a>
-        )
-      ]
-    )
-  }, [legendImg, imgText, legendDoc, docText])
+    return [
+      typeof legendImg === 'string' && (
+        <a
+          className="legendAction"
+          href={legendImg}
+          target="_blank"
+          referrerPolicy="noreferrer"
+        >
+          {imgText}
+        </a>
+      ),
+      typeof legendDoc === 'string' && (
+        <a
+          className="legendAction"
+          href={legendDoc}
+          target="_blank"
+          referrerPolicy="noreferrer"
+        >
+          {docText}
+        </a>
+      ),
+    ];
+  }, [legendImg, imgText, legendDoc, docText]);
 
   return (
     <Box className="mapLegend">
@@ -77,9 +85,7 @@ export const MapLegend: React.FC<MapLegendProps> = ({
         src={legendImg}
         onClick={handleLegendImgOpen}
       />
-      <Box className="legendActionsContainer">
-        {renderLinks()}
-      </Box>
+      <Box className="legendActionsContainer">{renderLinks()}</Box>
     </Box>
   );
 };

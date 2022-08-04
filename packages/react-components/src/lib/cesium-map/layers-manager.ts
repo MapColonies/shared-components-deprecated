@@ -63,21 +63,25 @@ class LayerManager {
   public layerUpdated: Event;
   private readonly legendsExtractor?: LegendExtractor;
 
-  public constructor(mapViewer: CesiumViewer, legendsExtractor? : LegendExtractor, onLayersUpdate?: () => void) {
+  public constructor(
+    mapViewer: CesiumViewer,
+    legendsExtractor?: LegendExtractor,
+    onLayersUpdate?: () => void
+  ) {
     this.mapViewer = mapViewer;
     // eslint-disable-next-line
     this.layers = (this.mapViewer.imageryLayers as any)._layers;
     this.legendsList = [];
     this.legendsExtractor = legendsExtractor;
     this.layerUpdated = new Event();
-    if(onLayersUpdate) {
+    if (onLayersUpdate) {
       this.layerUpdated.addEventListener(onLayersUpdate, this);
     }
 
     this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
       this.setLegends();
       this.layerUpdated.raiseEvent();
-    })
+    });
   }
 
   /* eslint-disable */
@@ -311,7 +315,7 @@ class LayerManager {
   }
 
   private setLegends(): void {
-    if(typeof this.legendsExtractor !== 'undefined') {
+    if (typeof this.legendsExtractor !== 'undefined') {
       this.legendsList = this.legendsExtractor(this.layers);
     }
   }
