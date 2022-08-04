@@ -1,3 +1,4 @@
+import { Tooltip } from '@map-colonies/react-core';
 import React, { useCallback } from 'react';
 import { Box } from '../../box';
 import './MapLegend.css';
@@ -6,48 +7,85 @@ export interface IMapLegend {
   layer?: string;
   legendDoc?: string;
   legendImg?: string;
-  legend?: string;
+  legend?: Record<string, unknown>[];
 }
-interface MaplegendProps {
+interface MapLegendProps {
   legend: IMapLegend;
   docText?: string;
   imgText?: string;
 }
 
-export const MapLegend: React.FC<MaplegendProps> = ({
+export const MapLegend: React.FC<MapLegendProps> = ({
   legend: { legendImg, legendDoc, layer },
   docText,
   imgText,
 }) => {
-  const handlelegendImgOpen = useCallback(() => {
+  const handleLegendImgOpen = useCallback(() => {
     // Open image in a new tab.
     window.open(legendImg, '_blank');
   }, [legendImg]);
 
-  const handlelegendDocOpen = useCallback(() => {
+  const handleLegendDocOpen = useCallback(() => {
     // Open doc in a new tab.
     window.open(legendDoc, '_blank');
   }, [legendDoc]);
 
+  const renderLayerName = useCallback(() => {
+    const MAX_LAYER_NAME_LENGTH = 15;
+
+    const layerNameContainer = (
+      <Box className="layerNameContainer">
+        <h3
+          style={{ maxWidth: `${MAX_LAYER_NAME_LENGTH}ch` }}
+          className="layerName"
+        >
+          {layer}
+        </h3>
+      </Box>
+    );
+
+    if ((layer ?? '').length > MAX_LAYER_NAME_LENGTH) {
+      return <Tooltip content={layer}>{layerNameContainer}</Tooltip>;
+    }
+
+    return layerNameContainer;
+  }, [layer]);
+
+  const renderLinks = useCallback(() => {
+    return [
+      typeof legendImg === 'string' && (
+        <a
+          className="legendAction"
+          href={legendImg}
+          target="_blank"
+          referrerPolicy="noreferrer"
+        >
+          {imgText}
+        </a>
+      ),
+      typeof legendDoc === 'string' && (
+        <a
+          className="legendAction"
+          href={legendDoc}
+          target="_blank"
+          referrerPolicy="noreferrer"
+        >
+          {docText}
+        </a>
+      ),
+    ];
+  }, [legendImg, imgText, legendDoc, docText]);
+
   return (
     <Box className="mapLegend">
-      <Box className="layerNameContainer">
-        <h3 className="layerName">{layer}</h3>
-      </Box>
+      {renderLayerName()}
       <img
-        alt="legend Image"
+        alt="Map Legend"
         className="legendImg"
         src={legendImg}
-        onClick={handlelegendImgOpen}
+        onClick={handleLegendImgOpen}
       />
-      <Box className="legendActionsContainer">
-        <p className="legendAction" onClick={handlelegendImgOpen}>
-          {imgText}
-        </p>
-        <p className="legendAction" onClick={handlelegendDocOpen}>
-          {docText}
-        </p>
-      </Box>
+      <Box className="legendActionsContainer">{renderLinks()}</Box>
     </Box>
   );
 };

@@ -4,12 +4,18 @@
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  font-size: 16px;
 }
 
 /* Disable drawer animation */
 
 .mapLegendSidebarContainer.mdc-drawer--animate {
-  transform: unset;
+  transform: translateX(0) !important;
+  transition: none !important;
+}
+
+.mapLegendSidebarContainer.mdc-drawer--dismissible {
+  position: relative;
 }
 
 div.MuiPaper-root {
@@ -19,16 +25,17 @@ div.MuiPaper-root {
 .mapLegendCloseBtn {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 50px;
+  height: 50px;
   padding: 20px;
+  font-size: 24px;
 }
 
 body[dir='rtl'] .mapLegendCloseBtn {
-  right: 0;
-  left: unset;
+  right: unset;
+  left: 0;
 }
 
 .mapLegendToggleContainer {
@@ -58,6 +65,20 @@ body[dir='rtl'] .mapLegendCloseBtn {
   align-items: center;
   justify-content: center;
   gap: 4px;
+  padding: 10px 14px;
+}
+
+.layerNameContainer {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.layerName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .legendImg {
@@ -92,6 +113,12 @@ body[dir='rtl'] .mapLegendCloseBtn {
   text-decoration: underline;
   cursor: pointer;
   font-size: 1.1rem;
+  transition: all 0.1s ease-in-out;
+  width: max-content;
+}
+
+.legendAction:hover {
+  filter: brightness(1.2);
 }
 
 .noLegendsContainer {

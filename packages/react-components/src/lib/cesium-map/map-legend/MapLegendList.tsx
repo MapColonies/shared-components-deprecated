@@ -23,15 +23,22 @@ export const MapLegendList: React.FC<MapLegendListProps> = ({
         <h2 className="noLegendsMsg">{noLegendsText}</h2>
       </Box>
     );
-  }, []);
+  }, [noLegendsText]);
 
   const renderList = useCallback(() => {
     if (!legends.length) {
       return handleNoLegends();
     }
 
-    return legends.map((legend) => {
-      return <MapLegend legend={legend} docText={docText} imgText={imgText} />;
+    return legends.map((legend, i) => {
+      return (
+        <MapLegend
+          key={`${legend.layer as string}_${i}`}
+          legend={legend}
+          docText={docText}
+          imgText={imgText}
+        />
+      );
     });
   }, [legends]);
 

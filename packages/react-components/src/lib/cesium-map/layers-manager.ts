@@ -4,6 +4,7 @@ import {
   UrlTemplateImageryProvider,
   WebMapServiceImageryProvider,
   WebMapTileServiceImageryProvider,
+  Event,
 } from 'cesium';
 import { get } from 'lodash';
 import { Feature, Point, Polygon } from 'geojson';
@@ -17,6 +18,7 @@ import {
 import { CesiumViewer } from './map';
 import { IBaseMap } from './settings/settings';
 import { pointToGeoJSON } from './tools/geojson/point.geojson';
+import { IMapLegend } from './map-legend';
 
 const INC = 1;
 const DEC = -1;
@@ -48,15 +50,38 @@ export interface IVectorLayer {
   url: string;
 }
 
+export type LegendExtractor = (
+  layers: (any & {
+    meta: any;
+  })[]
+) => IMapLegend[];
 class LayerManager {
   public mapViewer: CesiumViewer;
 
   private readonly layers: ICesiumImageryLayer[];
+  public legendsList: IMapLegend[];
+  public layerUpdated: Event;
+  private readonly legendsExtractor?: LegendExtractor;
 
-  public constructor(mapViewer: CesiumViewer) {
+  public constructor(
+    mapViewer: CesiumViewer,
+    legendsExtractor?: LegendExtractor,
+    onLayersUpdate?: () => void
+  ) {
     this.mapViewer = mapViewer;
     // eslint-disable-next-line
     this.layers = (this.mapViewer.imageryLayers as any)._layers;
+    this.legendsList = [];
+    this.legendsExtractor = legendsExtractor;
+    this.layerUpdated = new Event();
+    if (onLayersUpdate) {
+      this.layerUpdated.addEventListener(onLayersUpdate, this);
+    }
+
+    this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
+      this.setLegends();
+      this.layerUpdated.raiseEvent();
+    });
   }
 
   /* eslint-disable */
@@ -67,6 +92,8 @@ class LayerManager {
     const layer = this.layers.find(layerPredicate);
     if (layer) {
       layer.meta = meta;
+      this.setLegends();
+      this.layerUpdated.raiseEvent();
     }
   }
   /* eslint-enable */
@@ -285,6 +312,12 @@ class LayerManager {
       // @ts-ignore
       return layer2.meta?.zIndex - layer1.meta?.zIndex;
     });
+  }
+
+  private setLegends(): void {
+    if (typeof this.legendsExtractor !== 'undefined') {
+      this.legendsList = this.legendsExtractor(this.layers);
+    }
   }
 
   private getBaseLayersCount(): number {
