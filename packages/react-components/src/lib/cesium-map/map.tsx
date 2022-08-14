@@ -57,6 +57,7 @@ interface ICameraState {
 }
 export class CesiumViewer extends CesiumViewerCls {
   public layersManager?: LayerManager;
+  
   public constructor(
     container: string | Element,
     options?: CesiumViewerCls.ConstructorOptions
@@ -107,8 +108,6 @@ export interface CesiumMapProps extends ViewerProps {
     width: number;
     dynamicHeightIncrement?: number;
   };
-  legendSidebarTitle?: string;
-  noLegendsText?: string;
   legends?: ILegends;
 }
 
@@ -336,9 +335,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     }
     return (): void => {
       if (mapViewRef) {
-        mapViewRef.scene.morphComplete.removeEventListener(
-          morphCompleteHandler
-        );
+        mapViewRef.scene.morphComplete.removeEventListener(morphCompleteHandler);
       }
     };
   }, [mapViewRef, cameraState]);
@@ -369,18 +366,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               baseMaps={baseMaps}
               locale={locale}
             />
-            <MapLegendToggle
-              onClick={() => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)}
-            />
+            <MapLegendToggle onClick={(): void => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)} />
           </Box>
           <Box className="toolsContainer">
-            {showMousePosition === true ? (
-              <CoordinatesTrackerTool
-                projection={projection}
-              ></CoordinatesTrackerTool>
-            ) : (
-              <></>
-            )}
+            {showMousePosition === true ? <CoordinatesTrackerTool projection={projection} /> : <></>}
             {showScale === true ? <ScaleTrackerTool locale={locale} /> : <></>}
           </Box>
         </>,
@@ -413,7 +402,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         />
         {props.children}
         {bindCustomToolsToViewer()}
-        {props.imageryContextMenu &&
+        {
+          props.imageryContextMenu &&
           showImageryMenu &&
           imageryMenuPosition &&
           React.cloneElement(props.imageryContextMenu, {

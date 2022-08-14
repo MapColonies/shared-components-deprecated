@@ -1,15 +1,19 @@
 import {
-  PolylineDashMaterialProperty,
-  ConstantProperty,
-  VerticalOrigin,
-  LabelStyle,
+  BoundingSphere,
   Cartesian2,
   Cartesian3,
-  BoundingSphere,
-  Ellipsoid,
-  ConstantPositionProperty,
-  GeographicTilingScheme,
   Cartographic,
+  CesiumTerrainProvider,
+  ConstantPositionProperty,
+  ConstantProperty,
+  Ellipsoid,
+  EllipsoidTerrainProvider,
+  GeographicTilingScheme,
+  LabelStyle,
+  PolylineDashMaterialProperty,
+  Rectangle,
+  Resource,
+  VerticalOrigin,
 } from 'cesium';
 
 // PROXIED CLASSES
@@ -30,6 +34,14 @@ export class CesiumBoundingSphere extends BoundingSphere {}
 export class CesiumEllipsoid extends Ellipsoid {}
 
 export class CesiumGeographicTilingScheme extends GeographicTilingScheme {}
+
+export class CesiumRectangle extends Rectangle {}
+
+export class CesiumResource extends Resource {}
+
+export class CesiumEllipsoidTerrainProvider extends EllipsoidTerrainProvider {}
+
+export class CesiumCesiumTerrainProvider extends CesiumTerrainProvider {}
 
 // PROXIED ENUMS
 // eslint-disable-next-line @typescript-eslint/naming-convention

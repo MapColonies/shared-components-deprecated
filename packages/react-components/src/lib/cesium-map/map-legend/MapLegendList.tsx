@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box } from '../../box';
 import { IMapLegend, MapLegend } from './MapLegend';
+
 import './MapLegend.css';
 
 interface MapLegendListProps {

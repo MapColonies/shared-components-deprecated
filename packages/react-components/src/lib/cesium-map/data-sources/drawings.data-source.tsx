@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Cartesian3, Color, Rectangle, PolygonHierarchy } from 'cesium';
 import { FeatureCollection, GeoJSON } from 'geojson';
 import { CustomDataSourceProps } from 'resium/dist/types/src/CustomDataSource/CustomDataSource';
-
 import { DrawType } from '../../models';
 import { CesiumEntity } from '../entities/entity';
 import { CesiumEntityStaticDescription } from '../entities/entity.description';

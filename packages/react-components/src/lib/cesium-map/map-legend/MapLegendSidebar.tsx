@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Icon,
   Drawer,
@@ -5,19 +6,18 @@ import {
   DrawerTitle,
   DrawerContent,
 } from '@map-colonies/react-core';
-import React from 'react';
-import { Box } from '../../box';
 import { IMapLegend } from './MapLegend';
-import './MapLegend.css';
 import { MapLegendList } from './MapLegendList';
+
+import './MapLegend.css';
 
 interface MapLegendSidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
   title?: string;
   noLegendsText?: string;
-  legends?: IMapLegend[];
   actionsTexts?: { docText: string; imgText: string };
+  legends?: IMapLegend[];
 }
 
 export const MapLegendSidebar: React.FC<MapLegendSidebarProps> = ({
@@ -25,8 +25,8 @@ export const MapLegendSidebar: React.FC<MapLegendSidebarProps> = ({
   toggleSidebar,
   title = 'Map Legends',
   noLegendsText = 'No legends to display...',
-  legends = [],
   actionsTexts = { docText: 'Docs', imgText: 'View Image' },
+  legends = [],
 }) => {
   return isOpen ? (
     <Drawer
