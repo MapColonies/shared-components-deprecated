@@ -1,6 +1,7 @@
-import { Tooltip } from '@map-colonies/react-core';
 import React, { useCallback } from 'react';
+import { Tooltip } from '@map-colonies/react-core';
 import { Box } from '../../box';
+
 import './MapLegend.css';
 
 export interface IMapLegend {
@@ -58,7 +59,7 @@ export const MapLegend: React.FC<MapLegendProps> = ({
           className="legendAction"
           href={legendImg}
           target="_blank"
-          referrerPolicy="noreferrer"
+          rel="noreferrer"
         >
           {imgText}
         </a>
@@ -68,7 +69,7 @@ export const MapLegend: React.FC<MapLegendProps> = ({
           className="legendAction"
           href={legendDoc}
           target="_blank"
-          referrerPolicy="noreferrer"
+          rel="noreferrer"
         >
           {docText}
         </a>
