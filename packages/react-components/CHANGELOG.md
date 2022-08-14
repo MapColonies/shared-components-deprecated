@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.12.0...@map-colonies/react-components@3.12.1) (2022-08-14)
+
+
+### Bug Fixes
+
+* cesium abstraction ([0c24ed0](https://github.com/MapColonies/shared-components/commit/0c24ed044ce21a323789d90124efc59112d2e3a2))
+* fix ([27b85b2](https://github.com/MapColonies/shared-components/commit/27b85b249e50d443f4808c8c21f1805f18d48518))
+* prettier ([5c0ceb7](https://github.com/MapColonies/shared-components/commit/5c0ceb71a096bd78d7cd99a8efb8e3efa1da745c))
+
+
+
+
+
 # [3.12.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.11.0...@map-colonies/react-components@3.12.0) (2022-08-04)
 
 
