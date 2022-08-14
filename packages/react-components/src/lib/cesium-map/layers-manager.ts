@@ -50,7 +50,7 @@ export interface IVectorLayer {
   url: string;
 }
 
-export type LegendExtractor = (layers: (any & {meta: any;})[]) => IMapLegend[];
+export type LegendExtractor = (layers: (any & { meta: any })[]) => IMapLegend[];
 
 class LayerManager {
   public mapViewer: CesiumViewer;
