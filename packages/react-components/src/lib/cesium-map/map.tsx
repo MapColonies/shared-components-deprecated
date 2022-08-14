@@ -57,6 +57,7 @@ interface ICameraState {
 }
 export class CesiumViewer extends CesiumViewerCls {
   public layersManager?: LayerManager;
+
   public constructor(
     container: string | Element,
     options?: CesiumViewerCls.ConstructorOptions
@@ -107,8 +108,6 @@ export interface CesiumMapProps extends ViewerProps {
     width: number;
     dynamicHeightIncrement?: number;
   };
-  legendSidebarTitle?: string;
-  noLegendsText?: string;
   legends?: ILegends;
 }
 
@@ -370,14 +369,14 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               locale={locale}
             />
             <MapLegendToggle
-              onClick={() => setIsLegendsSidebarOpen(!isLegendsSidebarOpen)}
+              onClick={(): void =>
+                setIsLegendsSidebarOpen(!isLegendsSidebarOpen)
+              }
             />
           </Box>
           <Box className="toolsContainer">
             {showMousePosition === true ? (
-              <CoordinatesTrackerTool
-                projection={projection}
-              ></CoordinatesTrackerTool>
+              <CoordinatesTrackerTool projection={projection} />
             ) : (
               <></>
             )}

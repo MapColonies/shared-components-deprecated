@@ -50,17 +50,14 @@ export interface IVectorLayer {
   url: string;
 }
 
-export type LegendExtractor = (
-  layers: (any & {
-    meta: any;
-  })[]
-) => IMapLegend[];
+export type LegendExtractor = (layers: (any & { meta: any })[]) => IMapLegend[];
+
 class LayerManager {
   public mapViewer: CesiumViewer;
 
-  private readonly layers: ICesiumImageryLayer[];
   public legendsList: IMapLegend[];
   public layerUpdated: Event;
+  private readonly layers: ICesiumImageryLayer[];
   private readonly legendsExtractor?: LegendExtractor;
 
   public constructor(
@@ -77,7 +74,6 @@ class LayerManager {
     if (onLayersUpdate) {
       this.layerUpdated.addEventListener(onLayersUpdate, this);
     }
-
     this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
       this.setLegends();
       this.layerUpdated.raiseEvent();

@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import {
   ArcGISTiledElevationTerrainProvider,
   EllipsoidTerrainProvider,
-  CesiumTerrainProvider,
-  Resource,
+  // CesiumTerrainProvider,
+  // Resource,
   TerrainProvider,
 } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
