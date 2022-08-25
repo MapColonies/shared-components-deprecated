@@ -27,7 +27,6 @@
         "@types/react": "^16.9.0",
         "@types/react-dom": "^16.9.0",
         "@types/react-router-dom": "^5.1.5",
-        "babel-loader": "8.0.4",
         "classnames": "^2.2.6",
         "copyfiles": "2.3.0",
         "cross-env": "7.0.2",
@@ -37,13 +36,13 @@
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "^4.0.1",
+        "react-scripts": "3.4.1",
         "rimraf": "3.0.2",
-        "typescript": "4.2.2"
+        "typescript": "3.7.2"
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "rimraf dist && tsc --project tsbuildconfig.json",
+        "build": "rimraf dist && tsc -v && tsc --project tsbuildconfig.json ",
         "test": "react-scripts test",
         "test:nowatch": "react-scripts test --coverage --watchAll=false --reporters='default' --reporters='jest-html-reporters'",
         "eject": "react-scripts eject",
