@@ -31,8 +31,8 @@ export const useNotchedOutlineFoundation = (
   }, [props.notch, foundation]);
 
   useEffect(() => {
-    labelRef.current =
-      rootEl.ref?.querySelector('.mdc-floating-label') || undefined;
+    labelRef.current = (rootEl.ref?.querySelector('.mdc-floating-label') ||
+      undefined) as HTMLLabelElement | undefined;
     const label = labelRef.current;
 
     if (label) {
