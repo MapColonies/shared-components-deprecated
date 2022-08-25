@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.3](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.12.2...@map-colonies/react-components@3.12.3) (2022-08-25)
+
+**Note:** Version bump only for package @map-colonies/react-components
+
+
+
+
+
+
 ## [3.12.2](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.12.1...@map-colonies/react-components@3.12.2) (2022-08-14)
 
 **Note:** Version bump only for package @map-colonies/react-components

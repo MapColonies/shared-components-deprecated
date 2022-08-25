@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.4](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.3.3...@map-colonies/react-core@3.3.4) (2022-08-25)
+
+
+### Bug Fixes
+
+* back to original tsc version ([eb185fe](https://github.com/MapColonies/shared-components/commit/eb185fee4d677030b31030c7178710b8b248df1d))
+* prettier ([aabbf46](https://github.com/MapColonies/shared-components/commit/aabbf4665ed8a2138b3db6add81f67a484e96d94))
+
+
+
+
+
+
 ## [3.3.3](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-core@3.3.2...@map-colonies/react-core@3.3.3) (2022-08-04)
 
 
