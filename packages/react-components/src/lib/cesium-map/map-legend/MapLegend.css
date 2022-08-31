@@ -45,8 +45,9 @@ body[dir='rtl'] .mapLegendCloseBtn {
 }
 
 .mapLegendIcon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
+  transform: translate(20%, 20%);
 }
 
 .sidebarHeaderContainer {
