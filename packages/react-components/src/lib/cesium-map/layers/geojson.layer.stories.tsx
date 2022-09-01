@@ -1,8 +1,9 @@
 import React from 'react';
+import { Color } from 'cesium';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { action } from '@storybook/addon-actions';
-import { Color } from 'cesium';
 import { CesiumMap } from '../map';
+import { LayerType } from '../layers-manager';
 import { CesiumGeojsonLayer } from './geojson.layer';
 
 export default {
@@ -17,6 +18,32 @@ const mapDivStyle = {
   height: '100%',
   width: '100%',
   position: 'absolute' as const,
+};
+
+const BASE_MAPS = {
+  maps: [
+    {
+      id: '1st',
+      title: '1st Map Title',
+      isCurrent: true,
+      thumbnail:
+        'https://nsw.digitaltwin.terria.io/build/efa2f6c408eb790753a9b5fb2f3dc678.png',
+      baseRasteLayers: [
+        {
+          id: 'GOOGLE_TERRAIN',
+          type: 'XYZ_LAYER' as LayerType,
+          opacity: 1,
+          zIndex: 0,
+          options: {
+            url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+            layers: '',
+            credit: 'GOOGLE',
+          },
+        },
+      ],
+      baseVectorLayers: [],
+    },
+  ],
 };
 
 const data = {
@@ -82,14 +109,33 @@ const data = {
         ],
       },
     },
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: [
+          [
+            [
+              [34.846843864982802, 32.068999681029801],
+              [34.863785627992797, 32.059005944018601],
+              [34.8773961450173, 32.068047896040397],
+              [34.880441855011703, 32.052819346068603],
+              [34.878633463995797, 32.0466327470143],
+              [34.8605495609931, 32.048821851014601],
+              [34.846843864982802, 32.068999681029801],
+            ],
+          ],
+        ],
+      },
+    },
   ],
 };
 
 const onLoadAction = action('onLoad');
 
-export const MapWithGeojsonLayer: Story = () => (
+export const MapWithGeojsonLayer: Story = (args: unknown) => (
   <div style={mapDivStyle}>
-    <CesiumMap>
+    <CesiumMap {...args}>
       <CesiumGeojsonLayer
         data={data}
         markerColor={Color.RED}
@@ -116,4 +162,19 @@ export const MapWithGeojsonLayer: Story = () => (
     </CesiumMap>
   </div>
 );
+
+MapWithGeojsonLayer.argTypes = {
+  baseMaps: {
+    defaultValue: BASE_MAPS,
+  },
+  zoom: {
+    defaultValue: 17,
+    control: {
+      type: 'range',
+      min: 0,
+      max: 20,
+    },
+  },
+};
+
 MapWithGeojsonLayer.storyName = 'GeoJson layer';
