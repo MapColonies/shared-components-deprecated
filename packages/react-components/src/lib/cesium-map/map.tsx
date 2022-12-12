@@ -33,6 +33,7 @@ import LayerManager, { LegendExtractor } from './layers-manager';
 import { CesiumSceneMode, CesiumSceneModeEnum } from './map.types';
 
 import './map.css';
+import { pointToLonLat } from './tools/geojson/point.geojson';
 
 const DEFAULT_HEIGHT = 212;
 const DEFAULT_WIDTH = 260;
@@ -76,6 +77,7 @@ export interface IContextMenuData {
     x: number;
     y: number;
   };
+  coordinates: { latitude: number, longitude: number };
   style?: Record<string, string>;
   size?: {
     height: number;
@@ -424,6 +426,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               x: imageryMenuPosition.x as number,
               y: imageryMenuPosition.y as number,
             },
+            coordinates: pointToLonLat(mapViewRef as CesiumViewer, imageryMenuPosition.x as number, imageryMenuPosition.y as number),
             style: getImageryMenuStyle(
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number,
