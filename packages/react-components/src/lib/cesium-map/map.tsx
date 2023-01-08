@@ -399,6 +399,17 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     isLegendsSidebarOpen,
   ]);
 
+  let pointLonLat = null;
+  if(props.imageryContextMenu &&  showImageryMenu &&  imageryMenuPosition) {
+    try{
+      pointLonLat = pointToLonLat(mapViewRef as CesiumViewer, imageryMenuPosition.x as number, imageryMenuPosition.y as number);
+    }
+    catch(e){
+      console.log('SKY is clicked');
+    }
+  }
+    
+
   return (
     <Viewer className="viewer" full ref={ref} {...viewerProps}>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
@@ -416,7 +427,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         {bindCustomToolsToViewer()}
         {props.imageryContextMenu &&
           showImageryMenu &&
-          imageryMenuPosition &&
+          pointLonLat &&
+          imageryMenuPosition && 
           React.cloneElement(props.imageryContextMenu, {
             data: (mapViewRef?.layersManager?.findLayerByPOI(
               imageryMenuPosition.x as number,
@@ -426,7 +438,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               x: imageryMenuPosition.x as number,
               y: imageryMenuPosition.y as number,
             },
-            coordinates: pointToLonLat(mapViewRef as CesiumViewer, imageryMenuPosition.x as number, imageryMenuPosition.y as number),
+            coordinates: pointLonLat,
             style: getImageryMenuStyle(
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number,

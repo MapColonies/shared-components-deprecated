@@ -1,4 +1,5 @@
 import { Math as CesiumMath, Cartesian3, Cartographic } from 'cesium';
+import Cartesian2 from 'cesium/Source/Core/Cartesian2';
 import { GeoJSON } from 'geojson';
 import { CesiumViewer } from '../../map';
 
@@ -7,14 +8,9 @@ const pointToCartographic = (
   x: number,
   y: number
 ): Cartographic => {
-  const ellipsoid = mapViewer.scene.globe.ellipsoid;
-  const cartesian = mapViewer.camera.pickEllipsoid(
-    new Cartesian3(x, y),
-    ellipsoid
-  );
-  const cartographic = ellipsoid.cartesianToCartographic(
-    cartesian as Cartesian3
-  );
+  // TODO: Handle 2D Mode, works only for 3D
+  const cartesian = mapViewer.scene.pickPosition(new Cartesian2(x, y));
+  const cartographic = Cartographic.fromCartesian(cartesian);
 
   return cartographic;
 };

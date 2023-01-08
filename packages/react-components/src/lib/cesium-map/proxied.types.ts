@@ -14,6 +14,7 @@ import {
   Rectangle,
   Resource,
   VerticalOrigin,
+  Math
 } from 'cesium';
 
 // PROXIED CLASSES
@@ -51,4 +52,4 @@ export const CesiumVerticalOrigin = VerticalOrigin;
 export const CesiumLabelStyle = LabelStyle;
 
 // PROXIED FUNCTIONS
-export { sampleTerrainMostDetailed as cesiumSampleTerrainMostDetailed } from 'cesium';
+export { sampleTerrainMostDetailed as cesiumSampleTerrainMostDetailed, Math as CesiumMath } from 'cesium';
