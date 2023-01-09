@@ -143,6 +143,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [isLegendsSidebarOpen, setIsLegendsSidebarOpen] = useState<boolean>(
     false
   );
+  const [rightClickCoordinates, setRightClickCoordinates] = useState<{longitude: number, latitude: number}>();
 
   const viewerProps = {
     fullscreenButton: true,
@@ -187,8 +188,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         viewer.screenSpaceEventHandler.setInputAction(
           (evt: Record<string, unknown>) => {
             // console.log('RIGHT click', evt.position);
+            const pos = evt.position as Record<string, unknown>;
+            
             setShowImageryMenu(false);
-            setImageryMenuPosition(evt.position as Record<string, unknown>);
+            setImageryMenuPosition(pos);
+            setRightClickCoordinates(pointToLonLat(viewer, pos.x as number, pos.y as number));
             setShowImageryMenu(true);
           },
           ScreenSpaceEventType.RIGHT_CLICK
@@ -399,16 +403,6 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     isLegendsSidebarOpen,
   ]);
 
-  let pointLonLat = null;
-  if(props.imageryContextMenu &&  showImageryMenu &&  imageryMenuPosition) {
-    try{
-      pointLonLat = pointToLonLat(mapViewRef as CesiumViewer, imageryMenuPosition.x as number, imageryMenuPosition.y as number);
-    }
-    catch(e){
-      console.log('SKY is clicked');
-    }
-  }
-    
 
   return (
     <Viewer className="viewer" full ref={ref} {...viewerProps}>
@@ -427,8 +421,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         {bindCustomToolsToViewer()}
         {props.imageryContextMenu &&
           showImageryMenu &&
-          pointLonLat &&
           imageryMenuPosition && 
+          rightClickCoordinates &&
           React.cloneElement(props.imageryContextMenu, {
             data: (mapViewRef?.layersManager?.findLayerByPOI(
               imageryMenuPosition.x as number,
@@ -438,7 +432,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               x: imageryMenuPosition.x as number,
               y: imageryMenuPosition.y as number,
             },
-            coordinates: pointLonLat,
+            coordinates: rightClickCoordinates,
             style: getImageryMenuStyle(
               imageryMenuPosition.x as number,
               imageryMenuPosition.y as number,

@@ -1,4 +1,4 @@
-import { Math as CesiumMath, Cartesian3, Cartographic } from 'cesium';
+import { Math as CesiumMath, Cartesian3, Cartographic, SceneMode } from 'cesium';
 import Cartesian2 from 'cesium/Source/Core/Cartesian2';
 import { GeoJSON } from 'geojson';
 import { CesiumViewer } from '../../map';
@@ -8,11 +8,19 @@ const pointToCartographic = (
   x: number,
   y: number
 ): Cartographic => {
-  // TODO: Handle 2D Mode, works only for 3D
-  const cartesian = mapViewer.scene.pickPosition(new Cartesian2(x, y));
-  const cartographic = Cartographic.fromCartesian(cartesian);
+  let cartesian;
 
-  return cartographic;
+  if(mapViewer.scene.mode !== SceneMode.SCENE2D) {
+     cartesian = mapViewer.scene.pickPosition(new Cartesian2(x, y));
+  } else {
+    const ellipsoid = mapViewer.scene.globe.ellipsoid;
+    cartesian = mapViewer.camera.pickEllipsoid(
+      new Cartesian2(x, y),
+      ellipsoid
+    );
+  }
+
+  return Cartographic.fromCartesian(cartesian as Cartesian3);
 };
 
 export const pointToGeoJSON = (
@@ -39,8 +47,12 @@ export const pointToLonLat = (
   mapViewer: CesiumViewer,
   x: number,
   y: number
-): { longitude: number, latitude: number } => {
-  const cartographic = pointToCartographic(mapViewer, x, y);
-
-  return { longitude: CesiumMath.toDegrees(cartographic.longitude), latitude: CesiumMath.toDegrees(cartographic.latitude) };
+): { longitude: number, latitude: number } | undefined => {
+  try {
+    const cartographic = pointToCartographic(mapViewer, x, y);
+  
+    return { longitude: CesiumMath.toDegrees(cartographic.longitude), latitude: CesiumMath.toDegrees(cartographic.latitude) };
+  } catch(e) {
+    return undefined;
+  }
 };
