@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Cartesian3, Math as CesiumMath, WebMercatorProjection } from 'cesium';
+import ScreenSpaceEventType from 'cesium/Source/Core/ScreenSpaceEventType';
 import { CesiumViewer, useCesiumMap } from '../map';
 
 import './coordinates-tracker.tool.css';
@@ -21,17 +22,17 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const setFromEvent = (e: MouseEvent): void =>
-      setPosition({ x: e.clientX, y: e.clientY });
-    mapViewer.scene.canvas.addEventListener('mousemove', setFromEvent);
-
-    return (): void => {
-      try {
-        mapViewer.scene.canvas.removeEventListener('mousemove', setFromEvent);
-      } catch (e) {
-        console.log('CESIUM canvas "mousemove" remove listener failed', e);
-      }
-    };
+    mapViewer.screenSpaceEventHandler.setInputAction(
+      (evt?: Record<string, unknown>) => {
+        if (evt?.endPosition) {
+          setPosition({ ...(evt.endPosition as { x: number; y: number }) } as {
+            x: number;
+            y: number;
+          });
+        }
+      },
+      ScreenSpaceEventType.MOUSE_MOVE
+    );
   }, [ref, mapViewer]);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
       new Cartesian3(position.x, position.y),
       ellipsoid
     );
+
     if (cartesian) {
       const cartographic = ellipsoid.cartesianToCartographic(cartesian);
       if (ref.current) {

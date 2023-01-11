@@ -76,6 +76,9 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
       if (drawState.drawing) {
         switch (drawState.type) {
           case DrawType.POLYGON:
+            // Disable terrain accounting before drawing.
+            mapViewer.scene.globe.depthTestAgainstTerrain = false;
+
             // eslint-disable-next-line
             drawHelperInstance.startDrawingPolygon({
               callback: (positions: PrimitiveCoordinates) => {
@@ -100,6 +103,9 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
             });
             break;
           case DrawType.BOX:
+            // Disable terrain accounting before drawing.
+            mapViewer.scene.globe.depthTestAgainstTerrain = false;
+
             // eslint-disable-next-line
             drawHelperInstance.startDrawingExtent({
               callback: (positions: PrimitiveCoordinates) => {
@@ -131,6 +137,9 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
       } else {
         // eslint-disable-next-line
         drawHelperInstance.stopDrawing();
+
+        // Enable terrain accounting after drawing.
+        mapViewer.scene.globe.depthTestAgainstTerrain = true;
       }
     }
   }, [drawState, drawHelper]);
