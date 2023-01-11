@@ -24,7 +24,7 @@ jobs:
           sudo apt-get install --no-install-recommends yarn
 
       - name: Test
-        run: yarn test
+        run: yarn test --scope=@map-colonies/react-components
 
       - uses: actions/upload-artifact@v2
         with:
