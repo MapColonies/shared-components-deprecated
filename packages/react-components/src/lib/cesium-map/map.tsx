@@ -77,7 +77,7 @@ export interface IContextMenuData {
     x: number;
     y: number;
   };
-  coordinates: { latitude: number, longitude: number };
+  coordinates: { latitude: number; longitude: number };
   style?: Record<string, string>;
   size?: {
     height: number;
@@ -143,7 +143,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [isLegendsSidebarOpen, setIsLegendsSidebarOpen] = useState<boolean>(
     false
   );
-  const [rightClickCoordinates, setRightClickCoordinates] = useState<{longitude: number, latitude: number}>();
+  const [rightClickCoordinates, setRightClickCoordinates] = useState<{
+    longitude: number;
+    latitude: number;
+  }>();
 
   const viewerProps = {
     fullscreenButton: true,
@@ -189,10 +192,12 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           (evt: Record<string, unknown>) => {
             // console.log('RIGHT click', evt.position);
             const pos = evt.position as Record<string, unknown>;
-            
+
             setShowImageryMenu(false);
             setImageryMenuPosition(pos);
-            setRightClickCoordinates(pointToLonLat(viewer, pos.x as number, pos.y as number));
+            setRightClickCoordinates(
+              pointToLonLat(viewer, pos.x as number, pos.y as number)
+            );
             setShowImageryMenu(true);
           },
           ScreenSpaceEventType.RIGHT_CLICK
@@ -403,7 +408,6 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
     isLegendsSidebarOpen,
   ]);
 
-
   return (
     <Viewer className="viewer" full ref={ref} {...viewerProps}>
       <MapViewProvider value={mapViewRef as CesiumViewer}>
@@ -421,7 +425,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         {bindCustomToolsToViewer()}
         {props.imageryContextMenu &&
           showImageryMenu &&
-          imageryMenuPosition && 
+          imageryMenuPosition &&
           rightClickCoordinates &&
           React.cloneElement(props.imageryContextMenu, {
             data: (mapViewRef?.layersManager?.findLayerByPOI(

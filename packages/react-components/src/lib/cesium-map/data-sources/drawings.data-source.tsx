@@ -105,7 +105,7 @@ export const CesiumDrawingsDataSource: React.FC<RCesiumDrawingDataSourceProps> =
           case DrawType.BOX:
             // Disable terrain accounting before drawing.
             mapViewer.scene.globe.depthTestAgainstTerrain = false;
-            
+
             // eslint-disable-next-line
             drawHelperInstance.startDrawingExtent({
               callback: (positions: PrimitiveCoordinates) => {

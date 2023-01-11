@@ -22,12 +22,17 @@ export const CoordinatesTrackerTool: React.FC<RCoordinatesTrackerToolProps> = (
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-
-    mapViewer.screenSpaceEventHandler.setInputAction((evt?: Record<string, unknown>) => {
-      if(evt?.endPosition) {
-        setPosition({...evt.endPosition as {x: number, y: number}} as {x: number, y: number});
-      }
-    }, ScreenSpaceEventType.MOUSE_MOVE)
+    mapViewer.screenSpaceEventHandler.setInputAction(
+      (evt?: Record<string, unknown>) => {
+        if (evt?.endPosition) {
+          setPosition({ ...(evt.endPosition as { x: number; y: number }) } as {
+            x: number;
+            y: number;
+          });
+        }
+      },
+      ScreenSpaceEventType.MOUSE_MOVE
+    );
   }, [ref, mapViewer]);
 
   useEffect(() => {
