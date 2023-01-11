@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
 
       - name: Install yarn
         run: |
@@ -22,10 +22,12 @@ jobs:
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
           sudo apt-get update
           sudo apt-get install --no-install-recommends yarn
-          npm i -g lerna --cache-min 999999999
+
+      - name: Install lerna
+        run: npm i -g lerna --cache-min 999999999
 
       # ESLint and Prettier must be in `package.json`
-      - name: Install Node.js dependencies
+      - name: Bootstrap lerna
         run: lerna bootstrap --concurrency=1 --mutex network 
 
       - name: Run linters
