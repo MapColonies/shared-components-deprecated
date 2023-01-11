@@ -25,7 +25,7 @@ jobs:
 
       # ESLint and Prettier must be in `package.json`
       - name: Install Node.js dependencies
-        run: npx lerna bootstrap
+        run: npx lerna bootstrap --ignore-prepublish
 
       - name: Run linters
         uses: samuelmeuli/lint-action@v1
