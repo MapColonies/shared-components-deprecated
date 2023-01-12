@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.13.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.13.0...@map-colonies/react-components@3.13.1) (2023-01-12)
+
+
+### Bug Fixes
+
+* imports from cesium ([#136](https://github.com/MapColonies/shared-components/issues/136)) ([0b12f11](https://github.com/MapColonies/shared-components/commit/0b12f119275285682e13b2a83b75f34151b9553f))
+
+
+
+
+
 # [3.13.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.12.3...@map-colonies/react-components@3.13.0) (2023-01-11)
 
 
