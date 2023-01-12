@@ -3,8 +3,8 @@ import {
   Cartesian3,
   Cartographic,
   SceneMode,
+  Cartesian2,
 } from 'cesium';
-import Cartesian2 from 'cesium/Source/Core/Cartesian2';
 import { GeoJSON } from 'geojson';
 import { CesiumViewer } from '../../map';
 
