@@ -20,6 +20,7 @@ import {
   OrthographicFrustum,
   ScreenSpaceEventType,
   TerrainProvider,
+  Label
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
 import { getAltitude, toDegrees } from '../utils/map';
@@ -209,6 +210,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
 
   useEffect(() => {
     if (mapViewRef) {
+      Label.enableRightToLeftDetection = true;
       mapViewRef.layersManager = new LayerManager(
         mapViewRef,
         props.legends?.mapLegendsExtractor,
