@@ -19,6 +19,7 @@ import { CesiumViewer } from './map';
 import { IBaseMap } from './settings/settings';
 import { pointToGeoJSON } from './tools/geojson/point.geojson';
 import { IMapLegend } from './map-legend';
+import { CustomUrlTemplateImageryProvider, CustomWebMapServiceImageryProvider, CustomWebMapTileServiceImageryProvider } from './helpers/customImageryProviders';
 
 const INC = 1;
 const DEC = -1;
@@ -87,7 +88,7 @@ class LayerManager {
   ): void {
     const layer = this.layers.find(layerPredicate);
     if (layer) {
-      layer.meta = meta;
+      layer.meta = {...(layer.meta ?? {}), ...meta};
       this.setLegends();
       this.layerUpdated.raiseEvent();
     }
@@ -112,24 +113,30 @@ class LayerManager {
     switch (layer.type) {
       case 'XYZ_LAYER':
         cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
-          new UrlTemplateImageryProvider(
-            layer.options as UrlTemplateImageryProvider.ConstructorOptions
+          new CustomUrlTemplateImageryProvider(
+            layer.options as UrlTemplateImageryProvider.ConstructorOptions,
+            this.layers,
+            this.mapViewer
           ),
           index
         );
         break;
       case 'WMS_LAYER':
         cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
-          new WebMapServiceImageryProvider(
-            layer.options as WebMapServiceImageryProvider.ConstructorOptions
+          new CustomWebMapServiceImageryProvider(
+            layer.options as WebMapServiceImageryProvider.ConstructorOptions,
+            this.layers,
+            this.mapViewer
           ),
           index
         );
         break;
       case 'WMTS_LAYER':
         cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
-          new WebMapTileServiceImageryProvider(
-            layer.options as WebMapTileServiceImageryProvider.ConstructorOptions
+          new CustomWebMapTileServiceImageryProvider(
+            layer.options as WebMapTileServiceImageryProvider.ConstructorOptions,
+            this.layers,
+            this.mapViewer
           ),
           index
         );
