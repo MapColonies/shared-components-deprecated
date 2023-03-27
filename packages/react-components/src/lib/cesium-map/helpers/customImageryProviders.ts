@@ -6,6 +6,7 @@ import {
     WebMapTileServiceImageryProvider,
     ImageryLayer
 } from "cesium";
+import { get, isEmpty } from "lodash";
 import { ICesiumImageryLayer } from "../layers-manager";
 import { CesiumViewer } from "../map";
 import { imageHasTransparency } from "./utils";
@@ -16,9 +17,11 @@ interface CustomImageryProvider extends ImageryProvider {
     mapViewer: CesiumViewer;
 }
 
+const NUMBER_OF_TILES_TO_CHECK = 3;
+
 function customCommonRequestImage(
     this: CustomImageryProvider,
-    requestImageFn: ImageryProvider['requestImage'],
+    requestImageFn: ImageryProvider["requestImage"],
     x: number,
     y: number,
     level: number,
@@ -26,14 +29,31 @@ function customCommonRequestImage(
 ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
     // custom Logic
     setTimeout(() => {
-        console.log("customProvider called!", request, this, this.layerListInstance, x, y, level);
-        if (this.tileTransparencyCheckedCounter < 3) {
-            imageHasTransparency(request?.url as string).then((hasTransparency) => {
+        // console.log("customProvider called!", this, x, y, level);
+
+        const requestedLayerMeta = this.layerListInstance.find(
+            /* eslint-disable */
+            (layer: ImageryLayer): boolean => {
+                return (
+                    (layer as any)._imageryProvider._resource._url === (this as any)._resource._url
+                );
+            }
+            /* eslint-enable */
+        )?.meta;
+
+        const layerHasTransparency = !isEmpty(get(requestedLayerMeta, "hasTransparency"));
+        if (
+            this.tileTransparencyCheckedCounter < NUMBER_OF_TILES_TO_CHECK &&
+            !layerHasTransparency
+        ) {
+            // console.log("requestedLayerMeta", requestedLayerMeta);
+
+            void imageHasTransparency(request?.url as string).then((hasTransparency) => {
                 if (hasTransparency) {
                     this.mapViewer.layersManager?.addMetaToLayer(
                         { hasTransparency },
                         /* eslint-disable */
-                        (layer: ImageryLayer, idx: number): boolean => {
+                        (layer: ImageryLayer): boolean => {
                             return (
                                 (layer as any)._imageryProvider._resource._url ===
                                 (this as any)._resource._url
@@ -41,7 +61,7 @@ function customCommonRequestImage(
                         }
                         /* eslint-enable */
                     );
-                    this.tileTransparencyCheckedCounter = 3;
+                    this.tileTransparencyCheckedCounter = NUMBER_OF_TILES_TO_CHECK;
                 } else {
                     this.tileTransparencyCheckedCounter++;
                 }
@@ -49,14 +69,14 @@ function customCommonRequestImage(
         }
     }, 0);
 
-    return requestImageFn.call(this, x, y, level, request);
+    return requestImageFn(x, y, level, request);
 }
 
 export class CustomUrlTemplateImageryProvider extends UrlTemplateImageryProvider {
     public readonly layerListInstance: ICesiumImageryLayer[];
     public readonly mapViewer: CesiumViewer;
 
-    public tileTransparencyCheckedCounter: number = 0;
+    public tileTransparencyCheckedCounter = 0;
 
     public constructor(
         opts: UrlTemplateImageryProvider.ConstructorOptions,
@@ -68,14 +88,20 @@ export class CustomUrlTemplateImageryProvider extends UrlTemplateImageryProvider
         this.mapViewer = mapViewer;
     }
 
-    requestImage(
+    public requestImage(
         x: number,
         y: number,
         level: number,
         request?: Request | undefined
-    ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {   
-        console.log(request)     
-        return customCommonRequestImage.call(this, super.requestImage, x, y, level, request);
+    ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
+        return customCommonRequestImage.call(
+            this,
+            super.requestImage.bind(this),
+            x,
+            y,
+            level,
+            request
+        );
     }
 }
 
@@ -83,7 +109,7 @@ export class CustomWebMapServiceImageryProvider extends WebMapServiceImageryProv
     public readonly layerListInstance: ICesiumImageryLayer[];
     public readonly mapViewer: CesiumViewer;
 
-    public tileTransparencyCheckedCounter: number = 0;
+    public tileTransparencyCheckedCounter = 0;
 
     public constructor(
         opts: WebMapServiceImageryProvider.ConstructorOptions,
@@ -95,13 +121,20 @@ export class CustomWebMapServiceImageryProvider extends WebMapServiceImageryProv
         this.mapViewer = mapViewer;
     }
 
-    requestImage(
+    public requestImage(
         x: number,
         y: number,
         level: number,
         request?: Request | undefined
     ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
-        return customCommonRequestImage.call(this, super.requestImage.bind(this), x, y, level, request);
+        return customCommonRequestImage.call(
+            this,
+            super.requestImage.bind(this),
+            x,
+            y,
+            level,
+            request
+        );
     }
 }
 
@@ -109,7 +142,7 @@ export class CustomWebMapTileServiceImageryProvider extends WebMapTileServiceIma
     public readonly layerListInstance: ICesiumImageryLayer[];
     public readonly mapViewer: CesiumViewer;
 
-    public tileTransparencyCheckedCounter: number = 0;
+    public tileTransparencyCheckedCounter = 0;
 
     public constructor(
         opts: WebMapTileServiceImageryProvider.ConstructorOptions,
@@ -121,13 +154,20 @@ export class CustomWebMapTileServiceImageryProvider extends WebMapTileServiceIma
         this.mapViewer = mapViewer;
     }
 
-    requestImage(
+    public requestImage(
         x: number,
         y: number,
         level: number,
         request?: Request | undefined
     ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
-        console.log(request)
-        return customCommonRequestImage.call(this, super.requestImage.bind(this), x, y, level, request);
+        console.log(request);
+        return customCommonRequestImage.call(
+            this,
+            super.requestImage.bind(this),
+            x,
+            y,
+            level,
+            request
+        );
     }
 }

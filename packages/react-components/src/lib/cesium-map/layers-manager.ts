@@ -20,6 +20,7 @@ import { IBaseMap } from './settings/settings';
 import { pointToGeoJSON } from './tools/geojson/point.geojson';
 import { IMapLegend } from './map-legend';
 import { CustomUrlTemplateImageryProvider, CustomWebMapServiceImageryProvider, CustomWebMapTileServiceImageryProvider } from './helpers/customImageryProviders';
+import { updateLayersRelevancy } from './helpers/utils';
 
 const INC = 1;
 const DEC = -1;
@@ -78,6 +79,16 @@ class LayerManager {
     this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
       this.setLegends();
       this.layerUpdated.raiseEvent();
+    });
+
+    this.mapViewer.camera.moveEnd.addEventListener(() => {
+      // if(this,mapViewer.scene.globe.tilesLoaded){
+        console.log('CAMERA MOVE END! UPDATE RELEVANCY');
+        updateLayersRelevancy(this, this.layers, this.mapViewer);
+        console.log("updated layers", this.layers);
+        this.layerUpdated.raiseEvent();
+      // }
+
     });
   }
 
