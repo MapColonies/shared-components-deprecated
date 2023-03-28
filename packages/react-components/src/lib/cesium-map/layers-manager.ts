@@ -5,8 +5,9 @@ import {
   WebMapServiceImageryProvider,
   WebMapTileServiceImageryProvider,
   Event,
+  Rectangle,
 } from 'cesium';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import { Feature, Point, Polygon } from 'geojson';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import {
@@ -19,8 +20,8 @@ import { CesiumViewer } from './map';
 import { IBaseMap } from './settings/settings';
 import { pointToGeoJSON } from './tools/geojson/point.geojson';
 import { IMapLegend } from './map-legend';
-import { CustomUrlTemplateImageryProvider, CustomWebMapServiceImageryProvider, CustomWebMapTileServiceImageryProvider } from './helpers/customImageryProviders';
-import { updateLayersRelevancy } from './helpers/utils';
+import { CustomUrlTemplateImageryProvider, CustomWebMapServiceImageryProvider, CustomWebMapTileServiceImageryProvider, HAS_TRANSPARENCY_META_PROP } from './helpers/customImageryProviders';
+import { cesiumRectangleContained } from './helpers/utils';
 
 const INC = 1;
 const DEC = -1;
@@ -76,19 +77,47 @@ class LayerManager {
     if (onLayersUpdate) {
       this.layerUpdated.addEventListener(onLayersUpdate, this);
     }
+
+    this.layerUpdated.addEventListener((meta: Record<string, unknown>) => {
+      console.log(meta, 'Layer Meta updated!');
+      const newMetaKeys = Object.keys(meta);
+      const shouldTriggerRelevancyCheck = newMetaKeys.length === 1 && newMetaKeys[0] === HAS_TRANSPARENCY_META_PROP
+      if(shouldTriggerRelevancyCheck) {
+        this.markRelevantLayersForExtent();
+        console.log("updated layers", [...this.layers]);
+        console.log("updated layers relevancy", this.layers.map(layer => layer.meta?.relevantToExtent));
+      }
+
+    });
+
     this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
       this.setLegends();
-      this.layerUpdated.raiseEvent();
+      console.log('imageryLayers.layerRemoved! UPDATE RELEVANCY');
+      this.markRelevantLayersForExtent();
+      console.log("updated layers", [...this.layers]);
+      console.log("updated layers relevancy", this.layers.map(layer => layer.meta?.relevantToExtent));
+
+    });
+
+    this.mapViewer.imageryLayers.layerMoved.addEventListener(() => {
+        console.log('imageryLayers.layerMoved! UPDATE RELEVANCY');
+        this.markRelevantLayersForExtent();
+        console.log("updated layers", [...this.layers]);
+        console.log("updated layers relevancy", this.layers.map(layer => layer.meta?.relevantToExtent));
+    });
+
+    this.mapViewer.imageryLayers.layerAdded.addEventListener(() => {
+        console.log('imageryLayers.layerAdded! UPDATE RELEVANCY');
+        this.markRelevantLayersForExtent();
+        console.log("updated layers", [...this.layers]);
+        console.log("updated layers relevancy", this.layers.map(layer => layer.meta?.relevantToExtent));
     });
 
     this.mapViewer.camera.moveEnd.addEventListener(() => {
-      // if(this,mapViewer.scene.globe.tilesLoaded){
         console.log('CAMERA MOVE END! UPDATE RELEVANCY');
-        updateLayersRelevancy(this, this.layers, this.mapViewer);
-        console.log("updated layers", this.layers);
-        this.layerUpdated.raiseEvent();
-      // }
-
+        this.markRelevantLayersForExtent();
+        console.log("updated layers", [...this.layers]);
+        console.log("updated layers relevancy", this.layers.map(layer => layer.meta?.relevantToExtent));
     });
   }
 
@@ -101,7 +130,7 @@ class LayerManager {
     if (layer) {
       layer.meta = {...(layer.meta ?? {}), ...meta};
       this.setLegends();
-      this.layerUpdated.raiseEvent();
+      this.layerUpdated.raiseEvent(meta);
     }
   }
   /* eslint-enable */
@@ -126,7 +155,6 @@ class LayerManager {
         cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
           new CustomUrlTemplateImageryProvider(
             layer.options as UrlTemplateImageryProvider.ConstructorOptions,
-            this.layers,
             this.mapViewer
           ),
           index
@@ -136,7 +164,6 @@ class LayerManager {
         cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
           new CustomWebMapServiceImageryProvider(
             layer.options as WebMapServiceImageryProvider.ConstructorOptions,
-            this.layers,
             this.mapViewer
           ),
           index
@@ -146,7 +173,6 @@ class LayerManager {
         cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
           new CustomWebMapTileServiceImageryProvider(
             layer.options as WebMapTileServiceImageryProvider.ConstructorOptions,
-            this.layers,
             this.mapViewer
           ),
           index
@@ -366,6 +392,95 @@ class LayerManager {
             : layerOrder;
       }
     });
+  }
+
+  private markRelevantLayersForExtent(): void {
+    const extent = this.mapViewer.camera.computeViewRectangle() as Rectangle;
+
+    let topOpaqueLayer: ICesiumImageryLayer | null = null;
+    
+    for (let i = this.layers.length - 1; i >= 0; i--) {
+        const layer = this.layers[i];
+        let relevantToExtent = false;
+  
+        // Check if the layer intersects with the extent
+        const intersectsExtent = typeof Rectangle.intersection(extent, layer.rectangle) !== 'undefined';
+        
+        // Check if the layer has some transparency
+        const hasTransparency = layer.meta?.[HAS_TRANSPARENCY_META_PROP] === true;
+      
+        if(!topOpaqueLayer && !hasTransparency) {
+            topOpaqueLayer = layer;
+        }
+
+        const isTopOpaqueLayer = typeof topOpaqueLayer !== 'undefined' && layer === topOpaqueLayer;
+
+  
+        if (intersectsExtent) {
+          if (isTopOpaqueLayer) {
+            relevantToExtent = true;
+
+            // If it is the top opaque layer and contains the extent 
+            if (cesiumRectangleContained(extent, layer.rectangle)) {
+              this.layers.forEach((layerToMatch, j) => {
+                // If is the top most opaque layer or is transparent and has higher z-index.
+                const isRelevant = layerToMatch === layer ? true : j >= i;
+                layerToMatch.meta = {...layerToMatch.meta, relevantToExtent: isRelevant};
+              });
+
+              return;
+            }
+
+          } else {
+              // Not the top opaque layer
+
+              /**
+               *   If there is top opaque layer and not covered by it,
+               *   OR
+               *   There is no top opaque layer but layer has transparency,
+               * 
+               *   it is relevant.
+               *  
+               **/ 
+              if (!topOpaqueLayer && hasTransparency) {
+                  relevantToExtent = true;
+              } else if(topOpaqueLayer && !cesiumRectangleContained(layer.rectangle, topOpaqueLayer.rectangle)) {
+                  relevantToExtent = true;
+              } else {
+                // If we get here, there could be a top opaque layer, the layer could be opaque too,
+                // the top layer is not covering it.
+                /**
+                 * Should check if the layer contains the extent, if so then all layers behind it is not relevant.
+                 */
+
+                if(topOpaqueLayer && !hasTransparency) {
+                  this.layers.forEach((layerToMatch, j) => {
+                    const isRelevant = layerToMatch === layer || j > i;
+                    layerToMatch.meta = {...layerToMatch.meta, relevantToExtent: isRelevant};
+                  });
+    
+                  return;
+                
+                }
+
+                relevantToExtent = false;
+              }
+          }
+          
+          
+        } else {
+          // If the layer does not intersect with the extent, mark it as not relevant
+          relevantToExtent = false;
+        }
+
+        // this.addMetaToLayer({relevantToExtent}, (layerToMatch) => layerToMatch === layer);
+
+        layer.meta = { ...(layer.meta ?? {}), relevantToExtent };
+    }
+  }
+
+  public get layerList(): ICesiumImageryLayer[] {
+    return this.layers;
   }
 }
 

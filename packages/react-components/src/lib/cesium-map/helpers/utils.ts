@@ -1,11 +1,13 @@
-import { ImageryLayer, Rectangle } from "cesium";
-import { get } from "lodash";
-import LayerManager, { ICesiumImageryLayer } from "../layers-manager";
-import { CesiumViewer } from "../map";
+import { Rectangle } from "cesium";
+import { CustomImageryProvider } from "./customImageryProviders";
 
-export const imageHasTransparency = async (image: string | HTMLImageElement): Promise<boolean> => {
+export const imageHasTransparency = async (image: string | HTMLImageElement, context?: CustomImageryProvider): Promise<boolean> => {
     const ALPHA_CHANNEL_OFFSET = 4; // [R,G,B,A, R,G,B,A] => FLAT ARRAY OF THIS SHAPE; (Uint8ClampedArray)
     const OPAQUE_PIXEL_ALPHA_VALUE = 255;
+
+    if(context) {
+        context.tileTransparencyCheckedCounter++
+    }
 
     return new Promise<boolean>((resolve, reject) => {
         try {
@@ -18,7 +20,7 @@ export const imageHasTransparency = async (image: string | HTMLImageElement): Pr
             if (image instanceof HTMLImageElement) {
                 imageElement = image;
             } else {
-                console.log("IMAGE URL! ",image);
+                // console.log("IMAGE URL! ",image);
                 imageElement = new Image();
                 imageElement.crossOrigin = "anonymous"; // Disable CORS errors on canvas image load.
                 imageElement.src = image;
@@ -44,6 +46,9 @@ export const imageHasTransparency = async (image: string | HTMLImageElement): Pr
                     if (imgData[i] < OPAQUE_PIXEL_ALPHA_VALUE) {
                         // Transparent pixel found.
                         resolve(true);
+                        if(context) {
+                            context.tileTransparencyCheckedCounter = context.maxTilesForTransparencyCheck;
+                        }
                     }
                 }
                 
@@ -56,54 +61,21 @@ export const imageHasTransparency = async (image: string | HTMLImageElement): Pr
     });
 };
 
-export const updateLayersRelevancy = (managerContext: LayerManager, layerList: ICesiumImageryLayer[], viewer: CesiumViewer): void => {
-    const extent = viewer.camera.computeViewRectangle() as Rectangle;
+/**
+ * Checks if `rect` inside `anotherRect`
+ * @param rect 
+ * @param anotherRect
+ */
+export const cesiumRectangleContained = (rect: Rectangle, anotherRect: Rectangle): boolean => {
+    const {west, east, north, south} = rect;
+    const {west: anotherWest, east: anotherEast, north: anotherNorth, south: anotherSouth} = anotherRect;
 
-    let topOpaqueLayer: ICesiumImageryLayer | null = null;
-  
-    for (let i = layerList.length - 1; i >= 0; i--) {
-        const layer = layerList[i];
-        let relevantToExtent = false;
-  
-        // Check if the layer intersects with the extent
-        const intersectsExtent = typeof Rectangle.intersection(extent, layer.rectangle) !== 'undefined';
-        
-        // Check if the layer has some transparency
-        const hasTransparency = layer.meta?.hasTransparency === true;
-      
-        if(!topOpaqueLayer && !hasTransparency) {
-            topOpaqueLayer = layer;
-        }
+    const isRectInsideAnother =
+        west >= anotherWest &&
+        east <= anotherEast &&
+        north <= anotherNorth &&
+        south >= anotherSouth;
 
-        const isTopOpaqueLayer = !hasTransparency && layer.meta?.id === topOpaqueLayer?.meta?.id;
-        
-  
-      if (intersectsExtent) {
+    return isRectInsideAnother;
 
-        if (isTopOpaqueLayer) {
-          // If the layer is the top opaque layer
-          relevantToExtent = true;
-
-          if (layer.rectangle.width > extent.width && layer.rectangle.height > extent.height) {
-            // If it is the top opaque layer, and bigger than extent then its the only relevant layer
-            layerList.forEach((layerToMatch) => layer.meta = {...layer.meta, relevantToExtent: layerToMatch === layer});
-            break;
-          }
-
-        } else {
-            // Not the top layer
-            // If not covered by the top layer it is relevant
-            if(topOpaqueLayer && layer.rectangle.width > topOpaqueLayer.rectangle.width && layer.rectangle.height > topOpaqueLayer.rectangle.height) {
-                relevantToExtent = true;
-            }
-        }
-        
-        
-      } else {
-        // If the layer does not intersect with the extent, mark it as not relevant
-        relevantToExtent = false;
-      }
-
-      managerContext.addMetaToLayer({relevantToExtent}, (layerToMatch) => layerToMatch === layer);
-    }
-  }
+}
