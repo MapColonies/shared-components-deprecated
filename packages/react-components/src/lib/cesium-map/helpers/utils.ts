@@ -1,24 +1,61 @@
 import { Rectangle } from "cesium";
 import { CustomImageryProvider } from "./customImageryProviders";
 
-export const imageHasTransparency = async (image: string | HTMLImageElement, context?: CustomImageryProvider): Promise<boolean> => {
+const canvasElem = document.createElement("canvas");
+const canvasCtx = canvasElem.getContext("2d");
+
+const imageDataHasTransparency = (image: ImageData | undefined): boolean => {
     const ALPHA_CHANNEL_OFFSET = 4; // [R,G,B,A, R,G,B,A] => FLAT ARRAY OF THIS SHAPE; (Uint8ClampedArray)
     const OPAQUE_PIXEL_ALPHA_VALUE = 255;
+    const imgData = image?.data ?? [];
 
-    if(context) {
-        context.tileTransparencyCheckedCounter++
+    // Iterate through alpha channels only.
+    for (let i = 3; i < imgData?.length; i += ALPHA_CHANNEL_OFFSET) {
+        if (imgData[i] < OPAQUE_PIXEL_ALPHA_VALUE) {
+            // Transparent pixel found.
+            return true;
+        }
+    }
+    return false;
+};
+
+export const imageHasTransparency = async (
+    image: string | HTMLImageElement | ImageBitmap,
+    context?: CustomImageryProvider
+): Promise<boolean> => {
+    if (context) {
+        context.tileTransparencyCheckedCounter++;
     }
 
     return new Promise<boolean>((resolve, reject) => {
         try {
-            const canvasElem = document.createElement("canvas");
-            const canvasCtx = canvasElem.getContext("2d");
-
+            canvasCtx?.clearRect(0, 0, canvasElem.width, canvasElem.height);
             let imageElement: HTMLImageElement;
 
             // Init Image instance.
             if (image instanceof HTMLImageElement) {
                 imageElement = image;
+            } else if (image instanceof ImageBitmap) {
+                canvasElem.width = image.width;
+                canvasElem.height = image.height;
+                canvasCtx?.drawImage(image, 0, 0);
+
+                const canvasImg = canvasCtx?.getImageData(
+                    0,
+                    0,
+                    canvasElem.width,
+                    canvasElem.height
+                );
+                const hasTransparency = imageDataHasTransparency(canvasImg);
+                if (hasTransparency) {
+                    if (context) {
+                        context.tileTransparencyCheckedCounter = context.maxTilesForTransparencyCheck;
+                    }
+
+                }
+                
+                resolve(hasTransparency);
+                return;
             } else {
                 // console.log("IMAGE URL! ",image);
                 imageElement = new Image();
@@ -39,20 +76,19 @@ export const imageHasTransparency = async (image: string | HTMLImageElement, con
                     canvasElem.width,
                     canvasElem.height
                 );
-                const imgData = canvasImg?.data ?? [];
 
-                // Iterate through alpha channels only.
-                for (let i = 3; i < imgData?.length; i += ALPHA_CHANNEL_OFFSET) {
-                    if (imgData[i] < OPAQUE_PIXEL_ALPHA_VALUE) {
-                        // Transparent pixel found.
-                        resolve(true);
-                        if(context) {
-                            context.tileTransparencyCheckedCounter = context.maxTilesForTransparencyCheck;
-                        }
+                const hasTransparency = imageDataHasTransparency(canvasImg);
+
+                if (hasTransparency) {
+                    if (context) {
+                        context.tileTransparencyCheckedCounter =
+                            context.maxTilesForTransparencyCheck;
                     }
+
+                    resolve(true);
+                } else {
+                    resolve(false);
                 }
-                
-                resolve(false);
             };
         } catch (e) {
             console.error("Could not determine image transparency. Error => ", e);
@@ -63,7 +99,7 @@ export const imageHasTransparency = async (image: string | HTMLImageElement, con
 
 /**
  * Checks if `rect` inside `anotherRect`
- * @param rect 
+ * @param rect
  * @param anotherRect
  */
 export const cesiumRectangleContained = (rect: Rectangle, anotherRect: Rectangle): boolean => {

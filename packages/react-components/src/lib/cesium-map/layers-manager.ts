@@ -400,12 +400,12 @@ class LayerManager {
     }
 
     private hideNonRelevantLayers(): void {
-      for(const layer of this.layers) {
-        // @ts-ignore
-        layer.show = layer.meta?.relevantToExtent;
-        // @ts-ignore
-        layer._show = layer.meta?.relevantToExtent;
-      }
+        for(const layer of this.layers) {
+            if(layer.meta?.relevantToExtent !== layer.show) {
+                //@ts-ignore
+                layer.show = layer.meta?.relevantToExtent;    
+            }
+        }
     }
 
     private markRelevantLayersForExtent(): void {
@@ -425,7 +425,7 @@ class LayerManager {
 
                 if (layer !== layerAbove) {
                     // Layer is relevant if in extent and there is no layer above it which is opaque and contains it.
-                    if (intersectsExtent) {
+                    if (intersectsExtent instanceof Rectangle) {
                         if (cesiumRectangleContained(extent, layer.rectangle)) {
                             // Layer contains the extent.
                             if (
@@ -469,7 +469,7 @@ class LayerManager {
                     if (i === this.layers.length - 1) {
                         layer.meta = {
                             ...(layer.meta ?? {}),
-                            relevantToExtent: !!intersectsExtent
+                            relevantToExtent: intersectsExtent instanceof Rectangle
                         };
                     }
                 }
