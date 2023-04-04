@@ -3,7 +3,6 @@ import React from 'react';
 import { UrlTemplateImageryProvider } from 'cesium';
 import { CustomUrlTemplateImageryProvider } from '../helpers/customImageryProviders';
 import { useCesiumMap } from '../map';
-import { ICesiumImageryLayer } from '../layers-manager';
 import { CesiumImageryLayer, RCesiumImageryLayerProps } from './imagery.layer';
 
 export interface RCesiumXYZLayerOptions
@@ -17,10 +16,12 @@ export interface RCesiumXYZLayerProps
 export const CesiumXYZLayer: React.FC<RCesiumXYZLayerProps> = (props) => {
   const { options, ...restProps } = props;
   const mapViewer = useCesiumMap();
+
+  const providerInstance = mapViewer.shouldOptimizedTileRequests
+    ? new CustomUrlTemplateImageryProvider(options, mapViewer)
+    : new UrlTemplateImageryProvider(options);
+
   return (
-    <CesiumImageryLayer
-      {...restProps}
-      imageryProvider={new CustomUrlTemplateImageryProvider(options, mapViewer)}
-    />
+    <CesiumImageryLayer {...restProps} imageryProvider={providerInstance} />
   );
 };

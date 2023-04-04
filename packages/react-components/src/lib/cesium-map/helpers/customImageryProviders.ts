@@ -31,8 +31,6 @@ function customCommonRequestImage(
 ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
     // custom Logic
     setTimeout(() => {
-        // console.log("customProvider called!", this, x, y, level);
-
         const requestedLayerMeta = this.layerListInstance.find(
             /* eslint-disable */
             (layer: ImageryLayer): boolean => {
@@ -46,9 +44,6 @@ function customCommonRequestImage(
         const layerHasTransparency = get(requestedLayerMeta, HAS_TRANSPARENCY_META_PROP) === true;
 
         if (this.tileTransparencyCheckedCounter < NUMBER_OF_TILES_TO_CHECK && !layerHasTransparency) {
-            console.log(get(requestedLayerMeta, "id") as string, " COUNTER: ", this.tileTransparencyCheckedCounter)
-            // console.log("requestedLayerMeta", requestedLayerMeta);
-
             void imageHasTransparency(request?.url as string, this).then((hasTransparency) => {
                 this.mapViewer.layersManager?.addMetaToLayer(
                     { [HAS_TRANSPARENCY_META_PROP]: hasTransparency },

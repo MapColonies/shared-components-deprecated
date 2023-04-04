@@ -18,10 +18,11 @@ export const CesiumWMSLayer: React.FC<RCesiumWMSLayerProps> = (props) => {
   const { options, ...restProps } = props;
   const mapViewer = useCesiumMap();
 
+  const providerInstance = mapViewer.shouldOptimizedTileRequests
+    ? new CustomWebMapServiceImageryProvider(options, mapViewer)
+    : new WebMapServiceImageryProvider(options);
+
   return (
-    <CesiumImageryLayer
-      {...restProps}
-      imageryProvider={new CustomWebMapServiceImageryProvider(options, mapViewer)}
-    />
+    <CesiumImageryLayer {...restProps} imageryProvider={providerInstance} />
   );
 };

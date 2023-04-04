@@ -6,6 +6,7 @@ import {
   WebMapTileServiceImageryProvider,
   Event,
   Rectangle,
+  SingleTileImageryProvider,
 } from 'cesium';
 import { get, isEmpty } from 'lodash';
 import { Feature, Point, Polygon } from 'geojson';
@@ -55,6 +56,8 @@ export interface IVectorLayer {
 
 export type LegendExtractor = (layers: (any & { meta: any })[]) => IMapLegend[];
 
+const TRANSPARENT_LAYER_ID = 'TRANSPARENT_BASE_LAYER';
+
 class LayerManager {
     public mapViewer: CesiumViewer;
 
@@ -78,67 +81,40 @@ class LayerManager {
             this.layerUpdated.addEventListener(onLayersUpdate, this);
         }
 
-        this.layerUpdated.addEventListener((meta: Record<string, unknown>) => {
-            console.log(meta, "Layer Meta updated!");
-            const newMetaKeys = Object.keys(meta);
-            const shouldTriggerRelevancyCheck =
-                newMetaKeys.length === 1 && newMetaKeys[0] === HAS_TRANSPARENCY_META_PROP;
-            if (shouldTriggerRelevancyCheck) {
+        // Binding layer's relevancy check to cesium lifecycle if optimized tile requests enabled. 
+        if(this.mapViewer.shouldOptimizedTileRequests) {
+            this.layerUpdated.addEventListener((meta: Record<string, unknown>) => {
+                const newMetaKeys = Object.keys(meta);
+                const shouldTriggerRelevancyCheck =
+                    newMetaKeys.length === 1 && newMetaKeys[0] === HAS_TRANSPARENCY_META_PROP;
+                if (shouldTriggerRelevancyCheck) {
+                    this.markRelevantLayersForExtent();
+                    this.hideNonRelevantLayers();
+                }
+            });
+    
+            this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
+                this.setLegends();
                 this.markRelevantLayersForExtent();
-                console.log("updated layers", [...this.layers]);
-                console.log(
-                    "updated layers relevancy",
-                    this.layers.map((layer) => layer.meta?.relevantToExtent)
-                );
-
                 this.hideNonRelevantLayers();
-            }
-        });
+            });
+    
+            this.mapViewer.imageryLayers.layerMoved.addEventListener(() => {
+                this.markRelevantLayersForExtent();
+                this.hideNonRelevantLayers();
+            });
+    
+            this.mapViewer.imageryLayers.layerAdded.addEventListener(() => {
+                this.markRelevantLayersForExtent();
+                this.hideNonRelevantLayers();
+            });
+    
+            this.mapViewer.camera.moveEnd.addEventListener(() => {
+                this.markRelevantLayersForExtent();
+                this.hideNonRelevantLayers();
+            });
+        }
 
-        this.mapViewer.imageryLayers.layerRemoved.addEventListener(() => {
-            this.setLegends();
-            console.log("imageryLayers.layerRemoved! UPDATE RELEVANCY");
-            this.markRelevantLayersForExtent();
-            console.log("updated layers", [...this.layers]);
-            console.log(
-                "updated layers relevancy",
-                this.layers.map((layer) => layer.meta?.relevantToExtent)
-            );
-            this.hideNonRelevantLayers();
-        });
-
-        this.mapViewer.imageryLayers.layerMoved.addEventListener(() => {
-            console.log("imageryLayers.layerMoved! UPDATE RELEVANCY");
-            this.markRelevantLayersForExtent();
-            console.log("updated layers", [...this.layers]);
-            console.log(
-                "updated layers relevancy",
-                this.layers.map((layer) => layer.meta?.relevantToExtent)
-            );
-            this.hideNonRelevantLayers();
-        });
-
-        this.mapViewer.imageryLayers.layerAdded.addEventListener(() => {
-            console.log("imageryLayers.layerAdded! UPDATE RELEVANCY");
-            this.markRelevantLayersForExtent();
-            console.log("updated layers", [...this.layers]);
-            console.log(
-                "updated layers relevancy",
-                this.layers.map((layer) => layer.meta?.relevantToExtent)
-            );
-            this.hideNonRelevantLayers();
-        });
-
-        this.mapViewer.camera.moveEnd.addEventListener(() => {
-            console.log("CAMERA MOVE END! UPDATE RELEVANCY");
-            this.markRelevantLayersForExtent();
-            console.log("updated layers", [...this.layers]);
-            console.log(
-                "updated layers relevancy",
-                this.layers.map((layer) => layer.meta?.relevantToExtent)
-            );
-            this.hideNonRelevantLayers();
-        });
     }
 
     /* eslint-disable */
@@ -162,38 +138,70 @@ class LayerManager {
         sortedBaseMapLayers.forEach((layer, idx) => {
             this.addRasterLayer(layer, idx, baseMap.id);
         });
+
+        /**
+         *  Set transparent layer as the first layer. if using optimized tile requests.
+         *  
+         *  Apparently, cesium layer's rectangle is not affective when:
+         *  - There is only one active layer && The layer's rectangle contains the extent rectangle.
+         *  
+         *  As a result, when using optimized tile requesting and we zoom in a discrete layer,
+         *  there are some visual artifacts due to tiles requesting outside of the layer's rectangle boundary.
+         *  
+         *  A simple workaround would be adding a transparent layer as the very first layer at all times,
+         *  so that we ensure the rectangle will always be affective.
+         */
+
+        if(this.mapViewer.shouldOptimizedTileRequests) {
+            this.removeLayer(TRANSPARENT_LAYER_ID);
+            this.addTransparentImageryProvider();
+        }
     }
 
     public addRasterLayer(layer: IRasterLayer, index: number, parentId: string): void {
         let cesiumLayer: ICesiumImageryLayer | undefined;
         switch (layer.type) {
-            case "XYZ_LAYER":
+            case "XYZ_LAYER": {
+                const options = layer.options as UrlTemplateImageryProvider.ConstructorOptions;
+
+                const providerInstance = this.mapViewer.shouldOptimizedTileRequests
+                    ? new CustomUrlTemplateImageryProvider(options, this.mapViewer)
+                    : new UrlTemplateImageryProvider(options);
+
                 cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
-                    new CustomUrlTemplateImageryProvider(
-                        layer.options as UrlTemplateImageryProvider.ConstructorOptions,
-                        this.mapViewer
-                    ),
+                    providerInstance,
+                    index
+                );
+
+                break;
+            }
+            case "WMS_LAYER": {
+                const options = layer.options as WebMapServiceImageryProvider.ConstructorOptions;
+
+                const providerInstance = this.mapViewer.shouldOptimizedTileRequests
+                    ? new CustomWebMapServiceImageryProvider(options, this.mapViewer)
+                    : new WebMapServiceImageryProvider(options);
+
+                cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
+                    providerInstance,
                     index
                 );
                 break;
-            case "WMS_LAYER":
+            }
+            case "WMTS_LAYER": {
+                const options = layer.options as WebMapTileServiceImageryProvider.ConstructorOptions;
+
+                const providerInstance = this.mapViewer.shouldOptimizedTileRequests
+                    ? new CustomWebMapTileServiceImageryProvider(options, this.mapViewer)
+                    : new WebMapTileServiceImageryProvider(options);
+
                 cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
-                    new CustomWebMapServiceImageryProvider(
-                        layer.options as WebMapServiceImageryProvider.ConstructorOptions,
-                        this.mapViewer
-                    ),
+                    providerInstance,
                     index
                 );
+
                 break;
-            case "WMTS_LAYER":
-                cesiumLayer = this.mapViewer.imageryLayers.addImageryProvider(
-                    new CustomWebMapTileServiceImageryProvider(
-                        layer.options as WebMapTileServiceImageryProvider.ConstructorOptions,
-                        this.mapViewer
-                    ),
-                    index
-                );
-                break;
+            }
             case "OSM_LAYER":
                 break;
         }
@@ -359,6 +367,20 @@ class LayerManager {
         });
     }
 
+    public addTransparentImageryProvider(): void {
+        // Worldwide transparent layer
+        const transparentLayer = this.mapViewer.imageryLayers.addImageryProvider(new SingleTileImageryProvider({
+            url: "./assets/img/transparent-tile.png",
+            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+            rectangle: new Rectangle(-3.141592653589793, -1.5707963267948966, 3.141592653589793, 1.5707963267948966)
+        }), 0);
+
+        (transparentLayer as ICesiumImageryLayer).meta = {
+            id: TRANSPARENT_LAYER_ID,
+            skipRelevancyCheck: true,
+        }
+    }
+
     private setLegends(): void {
         if (typeof this.legendsExtractor !== "undefined") {
             this.legendsList = this.legendsExtractor(this.layers);
@@ -401,9 +423,9 @@ class LayerManager {
 
     private hideNonRelevantLayers(): void {
         for(const layer of this.layers) {
-            if(layer.meta?.relevantToExtent !== layer.show) {
+            if(layer.meta?.relevantToExtent !== layer.show && layer.imageryProvider.ready) {
                 //@ts-ignore
-                layer.show = layer.meta?.relevantToExtent;    
+                layer.show = layer.meta?.relevantToExtent ?? true;    
             }
         }
     }
@@ -418,6 +440,12 @@ class LayerManager {
 
             // Iterating from top layer until the current. (inclusive)
             for (let j = this.layers.length - 1; j >= i; j--) {
+                            
+                if(layer.meta?.skipRelevancyCheck === true) {
+                    layer.meta = {...layer.meta, relevantToExtent: true};
+                    continue;
+                }
+
                 const layerAbove = this.layers[j];
                 const layerAboveHasTransparency =
                     layerAbove.meta?.[HAS_TRANSPARENCY_META_PROP] === true;
