@@ -431,77 +431,83 @@ class LayerManager {
     }
 
     private markRelevantLayersForExtent(): void {
-        const extent = this.mapViewer.camera.computeViewRectangle() as Rectangle;
+        try {
+            const extent = this.mapViewer.camera.computeViewRectangle() as Rectangle;
 
-        // Iterating in reverse order so that top layer is first.
-        for (let i = this.layers.length - 1; i >= 0; i--) {
-            const layer = this.layers[i];
-            const intersectsExtent = !isEmpty(extent) && !isEmpty(layer.rectangle) && Rectangle.intersection(extent, layer.rectangle);
+            // Iterating in reverse order so that top layer is first.
+            for (let i = this.layers.length - 1; i >= 0; i--) {
+                const layer = this.layers[i];
+                const intersectsExtent =
+                    !isEmpty(extent) &&
+                    !isEmpty(layer.rectangle) &&
+                    Rectangle.intersection(extent, layer.rectangle);
 
-            // Iterating from top layer until the current. (inclusive)
-            for (let j = this.layers.length - 1; j >= i; j--) {
-                            
-                if(layer.meta?.skipRelevancyCheck === true) {
-                    layer.meta = {...layer.meta, relevantToExtent: true};
-                    continue;
-                }
+                // Iterating from top layer until the current. (inclusive)
+                for (let j = this.layers.length - 1; j >= i; j--) {
+                    if (layer.meta?.skipRelevancyCheck === true) {
+                        layer.meta = { ...layer.meta, relevantToExtent: true };
+                        continue;
+                    }
 
-                const layerAbove = this.layers[j];
-                const layerAboveHasTransparency =
-                    layerAbove.meta?.[HAS_TRANSPARENCY_META_PROP] === true;
-                // const layerAboveIntersectsExtent = Rectangle.intersection(extent, layerAbove.rectangle);
+                    const layerAbove = this.layers[j];
+                    const layerAboveHasTransparency =
+                        layerAbove.meta?.[HAS_TRANSPARENCY_META_PROP] === true;
+                    // const layerAboveIntersectsExtent = Rectangle.intersection(extent, layerAbove.rectangle);
 
-                if (layer !== layerAbove) {
-                    // Layer is relevant if in extent and there is no layer above it which is opaque and contains it.
-                    if (intersectsExtent instanceof Rectangle) {
-                        if (cesiumRectangleContained(extent, layer.rectangle)) {
-                            // Layer contains the extent.
+                    if (layer !== layerAbove) {
+                        // Layer is relevant if in extent and there is no layer above it which is opaque and contains it.
+                        if (intersectsExtent instanceof Rectangle) {
+                            if (cesiumRectangleContained(extent, layer.rectangle)) {
+                                // Layer contains the extent.
+                                if (
+                                    cesiumRectangleContained(extent, layerAbove.rectangle) &&
+                                    !layerAboveHasTransparency
+                                ) {
+                                    layer.meta = { ...(layer.meta ?? {}), relevantToExtent: false };
+                                    break;
+                                } else {
+                                    layer.meta = { ...(layer.meta ?? {}), relevantToExtent: true };
+                                }
+                            }
+
                             if (
                                 cesiumRectangleContained(extent, layerAbove.rectangle) &&
                                 !layerAboveHasTransparency
                             ) {
                                 layer.meta = { ...(layer.meta ?? {}), relevantToExtent: false };
                                 break;
+                            }
+
+                            if (cesiumRectangleContained(layer.rectangle, layerAbove.rectangle)) {
+                                layer.meta = {
+                                    ...(layer.meta ?? {}),
+                                    relevantToExtent: layerAboveHasTransparency
+                                };
+
+                                // Once there is layer above that hides it, no need to continue to check.
+                                if (!layerAboveHasTransparency) {
+                                    break;
+                                }
                             } else {
+                                // Not contained by layer above it, and inside the extent.
                                 layer.meta = { ...(layer.meta ?? {}), relevantToExtent: true };
                             }
-                        }
-
-                        if (
-                            cesiumRectangleContained(extent, layerAbove.rectangle) &&
-                            !layerAboveHasTransparency
-                        ) {
-                            layer.meta = { ...(layer.meta ?? {}), relevantToExtent: false };
-                            break;
-                        }
-
-                        if (cesiumRectangleContained(layer.rectangle, layerAbove.rectangle)) {
-                            layer.meta = {
-                                ...(layer.meta ?? {}),
-                                relevantToExtent: layerAboveHasTransparency
-                            };
-
-                            // Once there is layer above that hides it, no need to continue to check.
-                            if (!layerAboveHasTransparency) {
-                                break;
-                            }
                         } else {
-                            // Not contained by layer above it, and inside the extent.
-                            layer.meta = { ...(layer.meta ?? {}), relevantToExtent: true };
+                            layer.meta = { ...(layer.meta ?? {}), relevantToExtent: false };
                         }
                     } else {
-                        layer.meta = { ...(layer.meta ?? {}), relevantToExtent: false };
-                    }
-                } else {
-                    // Handle top layer
-                    if (i === this.layers.length - 1) {
-                        layer.meta = {
-                            ...(layer.meta ?? {}),
-                            relevantToExtent: intersectsExtent instanceof Rectangle
-                        };
+                        // Handle top layer
+                        if (i === this.layers.length - 1) {
+                            layer.meta = {
+                                ...(layer.meta ?? {}),
+                                relevantToExtent: intersectsExtent instanceof Rectangle
+                            };
+                        }
                     }
                 }
             }
+        } catch (e) {
+            console.error(e);
         }
     }
 

@@ -218,9 +218,8 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [ref, props.imageryContextMenu]);
 
   useEffect(() => {
-    if (mapViewRef) {
-      mapViewRef.shouldOptimizedTileRequests =  props.useOptimizedTileRequests ?? false;
-      
+    if (mapViewRef) { 
+      mapViewRef.shouldOptimizedTileRequests = props.useOptimizedTileRequests ?? false     
       mapViewRef.layersManager = new LayerManager(
         mapViewRef,
         props.legends?.mapLegendsExtractor,
@@ -232,6 +231,12 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
       );
     }
   }, [mapViewRef]);
+
+  useEffect(() => {
+    if (mapViewRef) {
+      mapViewRef.shouldOptimizedTileRequests = props.useOptimizedTileRequests ?? false;
+    }
+  }, [props.useOptimizedTileRequests, mapViewRef])
 
   useEffect(() => {
     setSceneModes(

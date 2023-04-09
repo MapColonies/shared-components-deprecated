@@ -1,4 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import bbox from '@turf/bbox';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { Rectangle } from 'cesium';
@@ -8,12 +12,24 @@ import { IBaseMaps } from '../settings/settings';
 import { CesiumXYZLayer } from './xyz.layer';
 
 export default {
-  title: 'Cesium Map',
+  title: 'Cesium Map/Map Optimizations',
   component: CesiumMap,
   parameters: {
     layout: 'fullscreen',
   },
-  argTypes: {},
+  args: {
+    useOptimizedTileRequests: true,
+  },
+  argTypes: {
+    useOptimizedTileRequests: {
+      description:
+        'Should the viewer determine layer relevancy based on its visibility and presence in scene. (Improves bandwidth usage and overall performance)',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+      control: 'boolean',
+    },
+  },
 } as Meta;
 
 const BASE_MAPS = {
@@ -54,27 +70,6 @@ const BASE_MAPS = {
   ],
 };
 
-const optionsRectXYZ = {
-  url:
-    'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
-  footprint: {
-    type: 'Polygon',
-    coordinates: [
-      [
-        [34.8043847068541, 31.9023297972932],
-        [34.8142791322292, 31.9023297972932],
-        [34.8142791322292, 31.9108796531516],
-        [34.8043847068541, 31.9108796531516],
-        [34.8043847068541, 31.9023297972932],
-      ],
-    ],
-  },
-};
-
-// Use Turf.js/bbox to calculate the bounding box from the supplied footprint.
-
-const childLayerRect = Rectangle.fromDegrees(...bbox(optionsRectXYZ.footprint));
-
 const mapDivStyle = {
   height: '100%',
   width: '100%',
@@ -82,24 +77,29 @@ const mapDivStyle = {
 };
 
 const mapViewProps: CesiumMapProps = {
-  center: [34.811, 31.908],
+  center: [-117.30644008676421, 33.117098433617564],
   zoom: 14,
   imageryProvider: false,
   sceneModes: [CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW],
   baseMaps: BASE_MAPS as IBaseMaps,
-  useOptimizedTileRequests: true,
 };
+
+interface OptimizedTileRequestingMapStoryProps {
+  useOptimizedTileRequests: boolean;
+}
 
 interface LayerRelevancy {
   layerId?: string;
-  isRelevant: boolean;
+  isRelevant?: boolean;
 }
 
-const RelevancyPresentor: React.FC = () => {
+const RelevancyPresentor: React.FC<OptimizedTileRequestingMapStoryProps> = ({
+  useOptimizedTileRequests,
+}) => {
   const viewer = useCesiumMap();
   const [layersRelevancy, setLayersRelevancy] = useState<LayerRelevancy[]>([]);
 
-  const updateLayerRelevancy = useCallback(() => {
+  const updateLayerRelevancy = (): void => {
     if (viewer.layersManager?.layerList) {
       setLayersRelevancy(
         viewer.layersManager?.layerList
@@ -114,7 +114,7 @@ const RelevancyPresentor: React.FC = () => {
           )
       );
     }
-  }, [viewer.layersManager]);
+  };
 
   useEffect(() => {
     const removeTileLoad = viewer.scene.globe.tileLoadProgressEvent.addEventListener(
@@ -148,13 +148,18 @@ const RelevancyPresentor: React.FC = () => {
           background: 'white',
           padding: '20px',
           fontFamily: 'Helvetica',
+          minWidth: '200px',
+          minHeight: '200px',
         }}
       >
+        <h3>
+          Optimized Tile Requesting: {useOptimizedTileRequests ? 'enabled' : 'disabled'}
+        </h3>
         {layersRelevancy.map((layer) => {
           return (
             <div>
-              <p>Layer Id: {layer.layerId ?? 'Discrete Layer'}</p>
-              <p>Requesting tiles: {layer.isRelevant.toString()}</p>
+              <p>Layer Id: {layer.layerId}</p>
+              <p>Requesting tiles: {layer.isRelevant?.toString()}</p>
             </div>
           );
         })}
@@ -163,12 +168,144 @@ const RelevancyPresentor: React.FC = () => {
   );
 };
 
-export const OptimizedTileRequestingMap: Story<CesiumMapProps> = (args) => (
-  <div style={mapDivStyle}>
-    <CesiumMap {...mapViewProps} {...args}>
-      <CesiumXYZLayer rectangle={childLayerRect} options={optionsRectXYZ} />
-      <RelevancyPresentor />
-    </CesiumMap>
-  </div>
-);
+const LayersContainer: React.FC = () => {
+  const [layer, setLayer] = useState<ReactNode>(null);
+  const btnStyle = {
+    position: 'absolute',
+    top: 50,
+    left: '50%',
+    zIndex: 1000,
+    transform: 'translate(0, -50%)',
+  } as React.CSSProperties;
+
+  const optionsXYZTransparency = {
+    url:
+      'https://tiles.openaerialmap.org/5d73614588556200055f10d6/0/5d73614588556200055f10d7/{z}/{x}/{y}',
+    footprint:  {
+     coordinates: [
+        [
+          [
+            -117.30976118375267,
+            33.116454006568205
+          ],
+          [
+            -117.30976118375267,
+            33.11330462707964
+          ],
+          [
+            -117.30513526140776,
+            33.11330462707964
+          ],
+          [
+            -117.30513526140776,
+            33.116454006568205
+          ],
+          [
+            -117.30976118375267,
+            33.116454006568205
+          ]
+        ]
+      ],
+      type: "Polygon"
+    },
+  };
+
+  const optionsXYZOpaque = {
+    // url:
+    //   'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
+    url:
+      'http://stamen-tiles-b.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
+    footprint: {
+      coordinates: [
+        [
+          [
+            -117.31921599064628,
+            33.1210849388296
+          ],
+          [
+            -117.31921599064628,
+            33.1094152732627
+          ],
+          [
+            -117.29986251692546,
+            33.1094152732627
+          ],
+          [
+            -117.29986251692546,
+            33.1210849388296
+          ],
+          [
+            -117.31921599064628,
+            33.1210849388296
+          ]
+        ]
+      ],
+      type: "Polygon"
+    },
+  };
+
+  return (
+    <>
+      <div
+        className="buttonsContainer"
+        style={{ display: 'flex', gap: '10px', ...btnStyle }}
+      >
+        <button
+          onClick={(): void =>
+            setLayer(
+              <CesiumXYZLayer
+                key="Transparent"
+                meta={{ id: 'Transparent Layer', options: {...optionsXYZTransparency}}}
+                rectangle={Rectangle.fromDegrees(
+                  ...bbox(optionsXYZTransparency.footprint)
+                )}
+                options={optionsXYZTransparency}
+              />
+            )
+          }
+        >
+          Layer With Transparency
+        </button>
+
+        <button
+          onClick={(): void =>
+            setLayer(
+              <CesiumXYZLayer
+                key="Opaque"
+                meta={{ id: 'Opaque Layer', options: {...optionsXYZOpaque}}}
+                rectangle={Rectangle.fromDegrees(
+                  ...bbox(optionsXYZOpaque.footprint)
+                )}
+                options={optionsXYZOpaque}
+              />
+            )
+          }
+        >
+          Opaque layer
+        </button>
+      </div>
+      {layer}
+    </>
+  );
+};
+
+export const OptimizedTileRequestingMap: Story<OptimizedTileRequestingMapStoryProps> = (
+  args
+) => {
+  return (
+    <div style={mapDivStyle}>
+      <CesiumMap
+        {...mapViewProps}
+        useOptimizedTileRequests={args.useOptimizedTileRequests}
+        key={args.useOptimizedTileRequests ? 'OPTIMIZED_MAP': 'REGULAR_MAP'}
+      >
+        <LayersContainer />
+        <RelevancyPresentor
+          useOptimizedTileRequests={args.useOptimizedTileRequests}
+        />
+      </CesiumMap>
+    </div>
+  );
+};
+
 OptimizedTileRequestingMap.storyName = 'Optimized Tile Requesting';
