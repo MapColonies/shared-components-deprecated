@@ -218,8 +218,10 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   }, [ref, props.imageryContextMenu]);
 
   useEffect(() => {
-    if (mapViewRef) { 
-      mapViewRef.shouldOptimizedTileRequests = props.useOptimizedTileRequests ?? false     
+    if (mapViewRef) {
+      mapViewRef.shouldOptimizedTileRequests =
+        props.useOptimizedTileRequests ?? false;
+
       mapViewRef.layersManager = new LayerManager(
         mapViewRef,
         props.legends?.mapLegendsExtractor,
@@ -230,13 +232,15 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         }
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapViewRef]);
 
   useEffect(() => {
     if (mapViewRef) {
-      mapViewRef.shouldOptimizedTileRequests = props.useOptimizedTileRequests ?? false;
+      mapViewRef.shouldOptimizedTileRequests =
+        props.useOptimizedTileRequests ?? false;
     }
-  }, [props.useOptimizedTileRequests, mapViewRef])
+  }, [props.useOptimizedTileRequests, mapViewRef]);
 
   useEffect(() => {
     setSceneModes(

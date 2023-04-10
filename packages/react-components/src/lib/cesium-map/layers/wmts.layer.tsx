@@ -22,9 +22,6 @@ export const CesiumWMTSLayer: React.FC<RCesiumWMTSLayerProps> = (props) => {
     : new WebMapTileServiceImageryProvider(options);
 
   return (
-    <CesiumImageryLayer
-      {...restProps}
-      imageryProvider={providerInstance}
-    />
+    <CesiumImageryLayer {...restProps} imageryProvider={providerInstance} />
   );
 };

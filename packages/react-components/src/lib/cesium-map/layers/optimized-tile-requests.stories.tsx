@@ -1,8 +1,4 @@
-import React, {
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import bbox from '@turf/bbox';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { Rectangle } from 'cesium';
@@ -153,7 +149,9 @@ const RelevancyPresentor: React.FC<OptimizedTileRequestingMapStoryProps> = ({
         }}
       >
         <h3>
-          Optimized Tile Requesting: {useOptimizedTileRequests ? 'enabled' : 'disabled'}
+          {`Optimized Tile Requesting: ${
+            useOptimizedTileRequests ? 'enabled' : 'disabled'
+          }`}
         </h3>
         {layersRelevancy.map((layer) => {
           return (
@@ -181,66 +179,33 @@ const LayersContainer: React.FC = () => {
   const optionsXYZTransparency = {
     url:
       'https://tiles.openaerialmap.org/5d73614588556200055f10d6/0/5d73614588556200055f10d7/{z}/{x}/{y}',
-    footprint:  {
-     coordinates: [
+    footprint: {
+      coordinates: [
         [
-          [
-            -117.30976118375267,
-            33.116454006568205
-          ],
-          [
-            -117.30976118375267,
-            33.11330462707964
-          ],
-          [
-            -117.30513526140776,
-            33.11330462707964
-          ],
-          [
-            -117.30513526140776,
-            33.116454006568205
-          ],
-          [
-            -117.30976118375267,
-            33.116454006568205
-          ]
-        ]
+          [-117.30976118375267, 33.116454006568205],
+          [-117.30976118375267, 33.11330462707964],
+          [-117.30513526140776, 33.11330462707964],
+          [-117.30513526140776, 33.116454006568205],
+          [-117.30976118375267, 33.116454006568205],
+        ],
       ],
-      type: "Polygon"
+      type: 'Polygon',
     },
   };
 
   const optionsXYZOpaque = {
-    // url:
-    //   'https://tiles.openaerialmap.org/5a831b4a2553e6000ce5ac80/0/d02ddc76-9c2e-4994-97d4-a623eb371456/{z}/{x}/{y}.png',
-    url:
-      'http://stamen-tiles-b.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
+    url: 'http://stamen-tiles-b.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
     footprint: {
       coordinates: [
         [
-          [
-            -117.31921599064628,
-            33.1210849388296
-          ],
-          [
-            -117.31921599064628,
-            33.1094152732627
-          ],
-          [
-            -117.29986251692546,
-            33.1094152732627
-          ],
-          [
-            -117.29986251692546,
-            33.1210849388296
-          ],
-          [
-            -117.31921599064628,
-            33.1210849388296
-          ]
-        ]
+          [-117.31921599064628, 33.1210849388296],
+          [-117.31921599064628, 33.1094152732627],
+          [-117.29986251692546, 33.1094152732627],
+          [-117.29986251692546, 33.1210849388296],
+          [-117.31921599064628, 33.1210849388296],
+        ],
       ],
-      type: "Polygon"
+      type: 'Polygon',
     },
   };
 
@@ -255,7 +220,10 @@ const LayersContainer: React.FC = () => {
             setLayer(
               <CesiumXYZLayer
                 key="Transparent"
-                meta={{ id: 'Transparent Layer', options: {...optionsXYZTransparency}}}
+                meta={{
+                  id: 'Transparent Layer',
+                  options: { ...optionsXYZTransparency },
+                }}
                 rectangle={Rectangle.fromDegrees(
                   ...bbox(optionsXYZTransparency.footprint)
                 )}
@@ -272,7 +240,7 @@ const LayersContainer: React.FC = () => {
             setLayer(
               <CesiumXYZLayer
                 key="Opaque"
-                meta={{ id: 'Opaque Layer', options: {...optionsXYZOpaque}}}
+                meta={{ id: 'Opaque Layer', options: { ...optionsXYZOpaque } }}
                 rectangle={Rectangle.fromDegrees(
                   ...bbox(optionsXYZOpaque.footprint)
                 )}
@@ -297,7 +265,7 @@ export const OptimizedTileRequestingMap: Story<OptimizedTileRequestingMapStoryPr
       <CesiumMap
         {...mapViewProps}
         useOptimizedTileRequests={args.useOptimizedTileRequests}
-        key={args.useOptimizedTileRequests ? 'OPTIMIZED_MAP': 'REGULAR_MAP'}
+        key={args.useOptimizedTileRequests ? 'OPTIMIZED_MAP' : 'REGULAR_MAP'}
       >
         <LayersContainer />
         <RelevancyPresentor
