@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.13.1...@map-colonies/react-components@3.14.0) (2023-04-13)
+
+
+### Bug Fixes
+
+* optimized tile requesting story and fixes ([e1cd86c](https://github.com/MapColonies/shared-components/commit/e1cd86c6fde563281d10774dd88291d6aad869c1))
+* prettier ([51f1e50](https://github.com/MapColonies/shared-components/commit/51f1e503b9080d136e3b05776cd2a2d384091cac))
+
+
+### Features
+
+* attempting implementation for relevancy of layer to extent (not working) ([eae6e88](https://github.com/MapColonies/shared-components/commit/eae6e88085bc3b4a68bd898dab2b1226e233aad1))
+* implementing tile requesting optimization ([c6daec6](https://github.com/MapColonies/shared-components/commit/c6daec6f3844f10e3520da2ee976b832a4eb531f))
+* relevancy of layer to extent kind of works ([641930d](https://github.com/MapColonies/shared-components/commit/641930dd07ecb215370237bd7d4b7f6587885120))
+* relevancy of layer to extent mostly working, needs fixes ([367e738](https://github.com/MapColonies/shared-components/commit/367e738c3bdb1dc57db17e3eb14cdf83114863cd))
+* relevancy of layer to extent with hide logic ([4ed8a5f](https://github.com/MapColonies/shared-components/commit/4ed8a5f301081b59f49f39e30986f805d674b68b))
+* start implementing optimized tile requesting story ([b5ffd06](https://github.com/MapColonies/shared-components/commit/b5ffd0685c1d201e28d2e34536094883737605d1))
+* tile requesting optimizations works with config toggling ([2dddf48](https://github.com/MapColonies/shared-components/commit/2dddf481165e660a6b4d6934b1daa22eb25292d6))
+
+
+
+
+
+
 ## [3.13.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.13.0...@map-colonies/react-components@3.13.1) (2023-01-12)
 
 
