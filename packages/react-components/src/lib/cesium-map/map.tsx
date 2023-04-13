@@ -58,12 +58,21 @@ interface ICameraState {
 }
 export class CesiumViewer extends CesiumViewerCls {
   public layersManager?: LayerManager;
+  private useOptimizedTileRequests?: boolean;
 
   public constructor(
     container: string | Element,
     options?: CesiumViewerCls.ConstructorOptions
   ) {
     super(container, options);
+  }
+
+  public get shouldOptimizedTileRequests(): boolean {
+    return this.useOptimizedTileRequests ?? false;
+  }
+
+  public set shouldOptimizedTileRequests(useOptimizedTileRequests: boolean) {
+    this.useOptimizedTileRequests = useOptimizedTileRequests;
   }
 }
 
@@ -103,6 +112,7 @@ export interface CesiumMapProps extends ViewerProps {
   locale?: { [key: string]: string };
   sceneModes?: CesiumSceneModeEnum[];
   baseMaps?: IBaseMaps;
+  useOptimizedTileRequests?: boolean;
   terrainProvider?: TerrainProvider;
   imageryContextMenu?: React.ReactElement<IContextMenuData>;
   imageryContextMenuSize?: {
@@ -209,6 +219,9 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
 
   useEffect(() => {
     if (mapViewRef) {
+      mapViewRef.shouldOptimizedTileRequests =
+        props.useOptimizedTileRequests ?? false;
+
       mapViewRef.layersManager = new LayerManager(
         mapViewRef,
         props.legends?.mapLegendsExtractor,
@@ -219,7 +232,15 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         }
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapViewRef]);
+
+  useEffect(() => {
+    if (mapViewRef) {
+      mapViewRef.shouldOptimizedTileRequests =
+        props.useOptimizedTileRequests ?? false;
+    }
+  }, [props.useOptimizedTileRequests, mapViewRef]);
 
   useEffect(() => {
     setSceneModes(
