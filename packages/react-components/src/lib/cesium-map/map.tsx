@@ -27,6 +27,7 @@ import { Box } from '../box';
 import { Proj } from '../utils/projections';
 import { CoordinatesTrackerTool } from './tools/coordinates-tracker.tool';
 import { ScaleTrackerTool } from './tools/scale-tracker.tool';
+import { ZoomLevelTrackerTool } from './tools/zoom_level-tracker.tool';
 import { CesiumSettings, IBaseMap, IBaseMaps } from './settings/settings';
 import { IMapLegend, MapLegendSidebar, MapLegendToggle } from './map-legend';
 import LayerManager, { LegendExtractor } from './layers-manager';
@@ -105,6 +106,7 @@ interface ILegends {
 
 export interface CesiumMapProps extends ViewerProps {
   showMousePosition?: boolean;
+  showZoomLevel?: boolean;
   showScale?: boolean;
   projection?: Proj;
   center?: [number, number];
@@ -138,6 +140,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   const [mapViewRef, setMapViewRef] = useState<CesiumViewer>();
   const [projection, setProjection] = useState<Proj>();
   const [showMousePosition, setShowMousePosition] = useState<boolean>();
+  const [showZoomLevel, setShowZoomLevel] = useState<boolean>();
   const [showScale, setShowScale] = useState<boolean>();
   const [locale, setLocale] = useState<{ [key: string]: string }>();
   const [cameraState, setCameraState] = useState<ICameraState | undefined>();
@@ -274,7 +277,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   useEffect(() => {
     setShowMousePosition(props.showMousePosition ?? true);
   }, [props.showMousePosition]);
-
+  
+  useEffect(() => {
+    setShowZoomLevel(props.showZoomLevel ?? true);
+  }, [props.showZoomLevel]);
+  
   useEffect(() => {
     setShowScale(props.showScale ?? true);
   }, [props.showScale]);
@@ -409,6 +416,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
           <Box className="toolsContainer">
             {showMousePosition === true ? (
               <CoordinatesTrackerTool projection={projection} />
+            ) : (
+              <></>
+            )}
+            {showZoomLevel === true ? (
+              <ZoomLevelTrackerTool locale={locale}/>
             ) : (
               <></>
             )}

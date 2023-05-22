@@ -160,7 +160,10 @@ export const ScaleTrackerTool: React.FC<RScaleTrackerToolProps> = (props) => {
 
     return (): void => {
       try {
-        mapViewer.camera.moveEnd.removeEventListener(setFromEvent);
+        /* eslint-disable @typescript-eslint/no-unnecessary-condition*/
+        if(get(mapViewer,'_cesiumWidget') != undefined){
+          mapViewer.camera.moveEnd.removeEventListener(setFromEvent);
+        }
       } catch (e) {
         console.log('CESIUM camera "moveEnd" remove listener failed', e);
       }

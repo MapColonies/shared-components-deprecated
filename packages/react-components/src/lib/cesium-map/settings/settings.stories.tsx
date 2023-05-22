@@ -171,7 +171,7 @@ export const MapWithSettings: Story = () => {
         center={center}
         zoom={14}
         imageryProvider={false}
-        sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.COLUMBUS_VIEW]}
+        sceneModes={[CesiumSceneMode.SCENE3D, CesiumSceneMode.SCENE2D, CesiumSceneMode.COLUMBUS_VIEW]}
         baseMaps={BASE_MAPS}
       >
         <CesiumXYZLayer options={optionsXYZSanDiego} />
