@@ -11,6 +11,25 @@ export interface RZoomLevelTrackerToolProps {
 }
 
 /* eslint-disable @typescript-eslint/no-magic-numbers, @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment,  @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
+const detectZoomLevel = (distance: number, viewer: CesiumViewer) => {
+  const MAX_ZOOM_LEVEL = 19;
+  const tileProvider = get(viewer.scene.globe, '_surface.tileProvider') as any;
+  const quadtree = tileProvider._quadtree;
+  const drawingBufferHeight = viewer.canvas.height;
+  const sseDenominator = get(viewer.camera.frustum, 'sseDenominator');
+
+  for (let level = 0; level <= MAX_ZOOM_LEVEL; level++) {
+    const maxGeometricError = tileProvider.getLevelMaximumGeometricError(level);
+    const error =
+      (maxGeometricError * drawingBufferHeight) / (distance * sseDenominator);
+    if (error < quadtree.maximumScreenSpaceError) {
+      return level;
+    }
+  }
+
+  return null;
+};
+
 const getZoomLevelHeights = (precision: number, viewer: CesiumViewer) => {
   precision = precision || 10;
 
@@ -49,25 +68,6 @@ const getZoomLevelHeights = (precision: number, viewer: CesiumViewer) => {
   }
 
   return result;
-};
-
-const detectZoomLevel = (distance: number, viewer: CesiumViewer) => {
-  const MAX_ZOOM_LEVEL = 19;
-  const tileProvider = get(viewer.scene.globe, '_surface.tileProvider') as any;
-  const quadtree = tileProvider._quadtree;
-  const drawingBufferHeight = viewer.canvas.height;
-  const sseDenominator = get(viewer.camera.frustum, 'sseDenominator');
-
-  for (let level = 0; level <= MAX_ZOOM_LEVEL; level++) {
-    const maxGeometricError = tileProvider.getLevelMaximumGeometricError(level);
-    const error =
-      (maxGeometricError * drawingBufferHeight) / (distance * sseDenominator);
-    if (error < quadtree.maximumScreenSpaceError) {
-      return level;
-    }
-  }
-
-  return null;
 };
 /* eslint-enable @typescript-eslint/no-magic-numbers */
 
