@@ -277,11 +277,11 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
   useEffect(() => {
     setShowMousePosition(props.showMousePosition ?? true);
   }, [props.showMousePosition]);
-  
+
   useEffect(() => {
     setShowZoomLevel(props.showZoomLevel ?? true);
   }, [props.showZoomLevel]);
-  
+
   useEffect(() => {
     setShowScale(props.showScale ?? true);
   }, [props.showScale]);
@@ -420,7 +420,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
               <></>
             )}
             {showZoomLevel === true ? (
-              <ZoomLevelTrackerTool locale={locale}/>
+              <ZoomLevelTrackerTool locale={locale} />
             ) : (
               <></>
             )}
