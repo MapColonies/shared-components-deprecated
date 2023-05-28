@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.15.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.14.0...@map-colonies/react-components@3.15.0) (2023-05-28)
+
+
+### Features
+
+* zoom level tracker ([#138](https://github.com/MapColonies/shared-components/issues/138)) ([b3d04ef](https://github.com/MapColonies/shared-components/commit/b3d04efe107b7c79595bd5bdb3229bafe31891df))
+
+
+
+
+
 # [3.14.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.13.1...@map-colonies/react-components@3.14.0) (2023-04-13)
 
 
