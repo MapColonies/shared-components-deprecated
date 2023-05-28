@@ -16,7 +16,7 @@ const detectZoomLevel = (distance: number, viewer: CesiumViewer) => {
   const tileProvider = get(viewer.scene.globe, '_surface.tileProvider') as any;
   const quadtree = tileProvider._quadtree;
   const drawingBufferHeight = viewer.canvas.height;
-  const sseDenominator = get(viewer.camera.frustum, 'sseDenominator');
+  const sseDenominator = get(viewer.camera.frustum, 'sseDenominator') ?? 1;
 
   for (let level = 0; level <= MAX_ZOOM_LEVEL; level++) {
     const maxGeometricError = tileProvider.getLevelMaximumGeometricError(level);
@@ -104,14 +104,16 @@ export const ZoomLevelTrackerTool: React.FC<RZoomLevelTrackerToolProps> = (
           break;
       }
 
-      const closestZoom = zoomLevelHeights.reduce((a, b) => {
-        return Math.abs(b.height - cameraHeight) <
-          Math.abs(a.height - cameraHeight)
-          ? b
-          : a;
-      });
+      if (zoomLevelHeights.length > 0) {
+        const closestZoom = zoomLevelHeights.reduce((a, b) => {
+          return Math.abs(b.height - cameraHeight) <
+            Math.abs(a.height - cameraHeight)
+            ? b
+            : a;
+        });
 
-      setZoomLevel(closestZoom.level);
+        setZoomLevel(closestZoom.level);
+      }
     };
 
     mapViewer.camera.moveEnd.addEventListener(calculateZoomLevel);
@@ -129,7 +131,7 @@ export const ZoomLevelTrackerTool: React.FC<RZoomLevelTrackerToolProps> = (
         );
       }
     };
-  }, [mapViewer]);
+  }, [mapViewer, zoomLevelHeights.length]);
 
   return (
     <div className="zoomLevel">
