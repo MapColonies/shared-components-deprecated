@@ -1,0 +1,19 @@
+.zoomLevel {
+  z-index: 2000;
+  background-color: var(--mdc-theme-surface);
+  border-radius: 2px;
+  padding: 2px;
+  height: 24px;
+}
+
+.zoomLevelValue {
+  margin: 2px;
+  font-size: 14px;
+  line-height: 10px;
+  text-align: center;
+}
+
+.zoomLevelLabel {
+  font-size: 8px;
+  line-height: 8px;
+}
