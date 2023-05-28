@@ -111,7 +111,7 @@ export const ZoomLevelTrackerTool: React.FC<RZoomLevelTrackerToolProps> = (
             ? b
             : a;
         });
-  
+
         setZoomLevel(closestZoom.level);
       }
     };
