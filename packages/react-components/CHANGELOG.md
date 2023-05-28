@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.15.1](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.15.0...@map-colonies/react-components@3.15.1) (2023-05-28)
+
+
+### Bug Fixes
+
+* zoom level in 2d mode ([#139](https://github.com/MapColonies/shared-components/issues/139)) ([48f7a85](https://github.com/MapColonies/shared-components/commit/48f7a8543f695a82b9042f9d2704b653443cc2ff))
+
+
+
+
+
 # [3.15.0](https://github.com/MapColonies/shared-components/compare/@map-colonies/react-components@3.14.0...@map-colonies/react-components@3.15.0) (2023-05-28)
 
 
