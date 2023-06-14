@@ -1,10 +1,9 @@
-import React, { useLayoutEffect } from 'react';
+import React, { ComponentProps, useLayoutEffect } from 'react';
 import { ImageryLayer } from 'cesium';
 import { ImageryLayer as ResiumImageryLayer } from 'resium';
-import { ImageryLayerProps } from 'resium/dist/types/src/ImageryLayer/ImageryLayer';
 import { CesiumViewer, useCesiumMap } from '../map';
 
-export interface RCesiumImageryLayerProps extends ImageryLayerProps {
+export interface RCesiumImageryLayerProps extends ComponentProps<typeof ResiumImageryLayer> {
   meta?: any;
 }
 

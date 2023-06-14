@@ -5,10 +5,11 @@ import React, {
   useState,
   useRef,
   useCallback,
+  ComponentProps,
 } from 'react';
 import { createPortal } from 'react-dom';
 import { Viewer, CesiumComponentRef } from 'resium';
-import { ViewerProps } from 'resium/dist/types/src/Viewer/Viewer';
+
 import {
   Viewer as CesiumViewerCls,
   Cartesian3,
@@ -20,6 +21,7 @@ import {
   OrthographicFrustum,
   ScreenSpaceEventType,
   TerrainProvider,
+  Ray,
 } from 'cesium';
 import { isNumber, isArray } from 'lodash';
 import { getAltitude, toDegrees } from '../utils/map';
@@ -35,6 +37,8 @@ import { CesiumSceneMode, CesiumSceneModeEnum } from './map.types';
 
 import './map.css';
 import { pointToLonLat } from './tools/geojson/point.geojson';
+
+interface ViewerProps extends ComponentProps<typeof Viewer>{};
 
 const DEFAULT_HEIGHT = 212;
 const DEFAULT_WIDTH = 260;
@@ -315,7 +319,7 @@ export const CesiumMap: React.FC<CesiumMapProps> = (props) => {
         );
         const pickRay = mapViewRef.scene.camera.getPickRay(windowPosition);
         const pickPosition = mapViewRef.scene.globe.pick(
-          pickRay,
+          pickRay as Ray,
           mapViewRef.scene
         );
         const pickPositionCartographic = mapViewRef.scene.globe.ellipsoid.cartesianToCartographic(

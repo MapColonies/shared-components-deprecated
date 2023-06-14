@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-import {
-  EntityDescription as ResiumEntityDescription,
-  EntityStaticDescription as ResiumEntityStaticDescription,
-} from 'resium';
-import { EntityDescriptionProps } from 'resium/dist/types/src/EntityDescription/EntityDescription';
+import {EntityDescription as ResiumEntityDescription} from 'resium';
 
-export interface RCesiumEntityDescriptionProps extends EntityDescriptionProps {}
+export interface RCesiumEntityDescriptionProps extends PropsWithChildren<{
+  container?: Element;
+  resizeInfoBox?: boolean;
+}> {}
 
 export const CesiumEntityDescription: React.FC<RCesiumEntityDescriptionProps> = (
   props
@@ -15,5 +14,5 @@ export const CesiumEntityDescription: React.FC<RCesiumEntityDescriptionProps> = 
 };
 
 export const CesiumEntityStaticDescription: React.FC = (props) => {
-  return <ResiumEntityStaticDescription {...props} />;
+  return <ResiumEntityDescription {...props} />;
 };

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Cartesian3, Color, Rectangle, PolygonHierarchy } from 'cesium';
 import { FeatureCollection, GeoJSON } from 'geojson';
-import { CustomDataSourceProps } from 'resium/dist/types/src/CustomDataSource/CustomDataSource';
 import { DrawType } from '../../models';
 import { CesiumEntity } from '../entities/entity';
 import { CesiumEntityStaticDescription } from '../entities/entity.description';
@@ -13,7 +12,7 @@ import { DrawHelper } from '../tools/draw/drawHelper';
 import { geoJSONToPrimitive } from '../tools/geojson/geojson-to-primitive';
 import { rectangleToGeoJSON, polygonToGeoJSON } from '../tools/geojson';
 import { rectangleToPositions } from '../tools/cesium/primitives-conversions.cesium';
-import { CesiumCustomDataSource } from './custom.data-source';
+import { CesiumCustomDataSource, RCesiumCustomDataSourceProps } from './custom.data-source';
 
 export class CesiumColor extends Color {}
 
@@ -33,7 +32,7 @@ export interface IDrawingEvent {
   geojson: GeoJSON;
 }
 
-export interface RCesiumDrawingDataSourceProps extends CustomDataSourceProps {
+export interface RCesiumDrawingDataSourceProps extends RCesiumCustomDataSourceProps {
   drawings: IDrawing[];
   drawState: {
     drawing: boolean;

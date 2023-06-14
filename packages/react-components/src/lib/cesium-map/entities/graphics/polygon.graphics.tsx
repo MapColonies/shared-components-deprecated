@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
 import { PolygonGraphics as ResiumPolygonGraphics } from 'resium';
-import { PolygonGraphicsProps } from 'resium/dist/types/src/PolygonGraphics/PolygonGraphics';
 
-export interface RCesiumPolygonGraphicsProps extends PolygonGraphicsProps {}
+export interface RCesiumPolygonGraphicsProps extends ComponentProps<typeof ResiumPolygonGraphics> {}
 
 export const CesiumPolygonGraphics: React.FC<RCesiumPolygonGraphicsProps> = (
   props

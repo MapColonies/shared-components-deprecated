@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
 import { RectangleGraphics as ResiumRectangleGraphics } from 'resium';
-import { RectangleGraphicsProps } from 'resium/dist/types/src/RectangleGraphics/RectangleGraphics';
 
-export interface RCesiumRectangleGraphicsProps extends RectangleGraphicsProps {}
+export interface RCesiumRectangleGraphicsProps extends ComponentProps<typeof ResiumRectangleGraphics> {}
 
 export const CesiumRectangleGraphics: React.FC<RCesiumRectangleGraphicsProps> = (
   props

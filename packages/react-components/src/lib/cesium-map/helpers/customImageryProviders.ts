@@ -5,6 +5,7 @@ import {
   WebMapServiceImageryProvider,
   WebMapTileServiceImageryProvider,
   ImageryLayer,
+  ImageryTypes,
 } from 'cesium';
 import { get, isEmpty } from 'lodash';
 import { ICesiumImageryLayer } from '../layers-manager';
@@ -28,7 +29,7 @@ function customCommonRequestImage(
   y: number,
   level: number,
   request?: Request | undefined
-): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
+): Promise<ImageryTypes> | undefined {
   // custom Logic
   setTimeout(() => {
     const requestedLayerMeta = this.layerListInstance.find(
@@ -66,7 +67,7 @@ function customCommonRequestImage(
       );
     }
   }, 0);
-
+  
   return requestImageFn(x, y, level, request);
 }
 
@@ -92,7 +93,7 @@ export class CustomUrlTemplateImageryProvider extends UrlTemplateImageryProvider
     y: number,
     level: number,
     request?: Request | undefined
-  ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
+  ): Promise<ImageryTypes> | undefined {
     return customCommonRequestImage.call(
       this,
       super.requestImage.bind(this),
@@ -126,7 +127,7 @@ export class CustomWebMapServiceImageryProvider extends WebMapServiceImageryProv
     y: number,
     level: number,
     request?: Request | undefined
-  ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
+  ): Promise<ImageryTypes> | undefined {
     return customCommonRequestImage.call(
       this,
       super.requestImage.bind(this),
@@ -160,7 +161,7 @@ export class CustomWebMapTileServiceImageryProvider extends WebMapTileServiceIma
     y: number,
     level: number,
     request?: Request | undefined
-  ): Promise<HTMLImageElement | HTMLCanvasElement> | undefined {
+  ): Promise<ImageryTypes> | undefined {
     return customCommonRequestImage.call(
       this,
       super.requestImage.bind(this),

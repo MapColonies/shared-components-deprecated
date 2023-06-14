@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
 import { GeoJsonDataSource as ResiumGeoJsonDataSource } from 'resium';
-import { GeoJsonDataSourceProps } from 'resium/dist/types/src/GeoJsonDataSource/GeoJsonDataSource';
 
-export interface RCesiumGeojsonLayerProps extends GeoJsonDataSourceProps {}
+export interface RCesiumGeojsonLayerProps extends ComponentProps<typeof ResiumGeoJsonDataSource> {}
 
 export const CesiumGeojsonLayer: React.FC<RCesiumGeojsonLayerProps> = (
   props

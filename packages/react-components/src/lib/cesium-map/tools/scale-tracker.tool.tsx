@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cartesian2, EllipsoidGeodesic, EventHelper } from 'cesium';
+import { Cartesian2, EllipsoidGeodesic, EventHelper, Ray } from 'cesium';
 import { isNumber, get } from 'lodash';
 import { CesiumViewer, useCesiumMap } from '../map';
 
@@ -85,8 +85,8 @@ const updateDistanceLegendCesium = (
   );
 
   const globe = mapViewer.scene.globe;
-  const leftPosition = globe.pick(left, mapViewer.scene);
-  const rightPosition = globe.pick(right, mapViewer.scene);
+  const leftPosition = globe.pick(left as Ray, mapViewer.scene);
+  const rightPosition = globe.pick(right as Ray, mapViewer.scene);
 
   if (!leftPosition || !rightPosition) {
     return;
