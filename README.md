@@ -1,3 +1,10 @@
+> **WARNING** :warning: : **This package is now DEPRECATED!**
+>
+>  Use the new version of [shard components](https://github.com/MapColonies/shared-components) instead.
+
+# This package is now DEPRECATED!
+## Use the new version of [shard components](https://github.com/MapColonies/shared-components) instead.
+
 # React MonoRepo
 
 This repo contains react demo apps and component libraries to share between apps.
